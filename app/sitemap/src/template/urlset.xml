@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    {{#each rows}}
+        <url>
+            <loc>{{../root}}/{{#when post_type '==' 'poster'}}Company-Hiring{{else}}Seeking-Job{{/when}}/{{post_slug}}</loc>
+            <lastmod>{{date post_updated 'Y-m-d'}}</lastmod>
+            <changefreq>monthly</changefreq>
+
+            {{#when post_like_count '<' 5}}
+                <priority>0.5</priority>
+            {{else}}
+                {{#when post_like_count '<' 10}}
+                    <priority>0.6</priority>
+                {{else}}
+                    {{#when post_like_count '<' 50}}
+                        <priority>0.7</priority>
+                    {{else}}
+                        <priority>0.8</priority>
+                    {{/when}}
+                {{/when}}
+            {{/when}}
+        </url>
+    {{/each}}
+</urlset>

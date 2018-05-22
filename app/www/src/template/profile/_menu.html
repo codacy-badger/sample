@@ -1,0 +1,314 @@
+<ul>
+    {{#session 'me'}}
+        {{#if profile_company}}
+            <li class="company-name">
+                {{#if profile_image}}
+                    <div class="profile-banner">
+                        <img
+                            alt="{{_ 'Profile Image'}}"
+                            src="{{profile_image}}"
+                        />
+                    </div>
+                {{else}}
+                    <div class="profile-banner">
+                        <!-- START: Profile Default Banner -->
+                        <img
+                            alt="{{_ 'Profile Image'}}"
+                            src="{{default_avatar profile_id}}"
+                        />
+                        <!-- END: Profile Default Banner -->
+                    </div>
+                {{/if}}
+                <div class="company-detail">
+                    <div class="profile-company" title="{{profile_company}}">
+                        {{ellipsis profile_company 18}}
+                    </div>
+                    <div class="profile-rank-level">
+                        <i
+                            class="fa fa-star"
+                            aria-hidden="true"
+                        ></i>
+                        <span class="profile-lvl">
+                            LVL
+                            {{level profile_experience}}
+                        </span>
+                        <span class="flyout-profile-rank">
+                            <i>{{rank profile_experience profile_verified}}</i>
+                        </span>
+                    </div>
+                </div>
+            </li>
+            <li class="company-credits">
+                <span>{{number profile_credits}} credits</span>
+                <a
+                    class="pull-right"
+                    href="/profile/credit/checkout"
+                    id="add-more-credits-button"
+                >
+                    ADD MORE
+                </a>
+            </li>
+        {{else}}
+            <li class="company-name">
+                <div class="profile-banner profile-banner-seeker">
+                    {{#if profile_image}}
+                        <img alt="{{_ 'Profile Image'}}" src="{{profile_image}}"/>
+                    {{else}}
+                        <img alt="{{_ 'Profile Image'}}" src="{{default_avatar profile_id}}"/>
+                    {{/if}}
+                </div>
+                <div class="company-detail">
+                    <div class="menu-profile-name" title="{{profile_name}}">
+                        {{ellipsis profile_name 18}}
+                    </div>
+                    <div class="progress-wrapper">
+                        <ul class="progress-custom">
+                            <li data-step="1" class="
+                                {{~#unless profile_information~}}
+                                    is-active
+                                {{~else~}}
+                                    {{~#when profile_information.information_progress '==' '0'~}}
+                                        is-active
+                                    {{~/when~}}
+                                    {{~#when profile_information.information_progress '>' '0'~}}
+                                        is-complete
+                                    {{~/when~}}
+                                {{~/unless~}}
+                            ">
+                            </li>
+                            <li data-step="2" class="
+                                {{~#when profile_information.information_progress '==' '20'~}}
+                                    is-active
+                                {{~/when~}}
+                                {{~#when profile_information.information_progress '>' '20'~}}
+                                    is-complete
+                                {{~/when~}}
+                            ">
+                            </li>
+                            <li data-step="3" class="
+                                {{~#when profile_information.information_progress '==' '40'~}}
+                                    is-active
+                                {{~/when~}}
+                                {{~#when profile_information.information_progress '>' '40'~}}
+                                    is-complete
+                                {{~/when~}}
+                            ">
+                            </li>
+                            <li data-step="4" class="
+                                {{~#when profile_information.information_progress '==' '60'~}}
+                                    is-active
+                                {{~/when~}}
+                                {{~#when profile_information.information_progress '>' '60'~}}
+                                    is-complete
+                                {{~/when~}}
+                            ">
+                            </li>
+                            <li data-step="5" class="
+                                {{~#when profile_information.information_progress '==' '80'~}}
+                                    is-active
+                                {{~/when~}}
+                                {{~#when profile_information.information_progress '>' '80'~}}
+                                    is-complete
+                                {{~/when~}}
+                            ">
+                            </li>
+                            <li data-step="6" class="
+                                {{~#when profile_information.information_progress '==' '100'~}}
+                                    is-active
+                                {{~/when}}
+                                progress-last
+                            ">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="menu-percentage">
+                        <div class="menu-profile-completeness-label">
+                            {{_ 'Profile Completeness'}}
+                        </div>
+                        <div class="menu-percent pull-right">
+                            {{#if profile_information}}
+                                {{profile_information.information_progress}}%
+                            {{else}}
+                                0%
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </li>
+        {{/if}}
+        {{#if profile_company}}
+            <div class="menu-body menu-body-poster">
+                <div class="menu-body-wrapper">
+                    <div class="menu-dashboard">
+                        <h3>My Dashboard</h3>
+                        <div class="menu-content">
+                            <a
+
+                                class="my-jobs {{#when ../active '===' 'posts'}} active{{/when}}"
+                                href="/profile/post/search"
+                                id="poster-jobs-button"
+                            >
+                                My Jobs
+                            </a>
+                        </div>
+                        <div class="menu-content">
+                            <a
+                                class="job-seekers {{#when ../active '===' 'seekers'}} active{{/when}}"
+                                href="/profile/seeker/search"
+                                id="poster-seekers-button"
+                            >
+                                Job Seekers
+                            </a>
+                        </div>
+                    </div>
+                    <div class="menu-my-tools">
+                        <h3>My Tools</h3>
+                        <div class="menu-content">
+                            <a class="positions" href="#">Positions - <i>coming soon!</i></a>
+                        </div>
+                        <div class="menu-content">
+                            <a
+                                class="app-forms {{#when ../active '===' 'tracking'}} active {{/when}}"
+                                href="/profile/tracking/post/search"
+                                id="poster-forms-button"
+                            >
+                                Application Forms
+                            </a>
+                        </div>
+                        <div class="menu-content">
+                            <a
+                                class="interview-scheduler {{#when ../active '===' 'interview'}} active {{/when}}"
+                                href="/profile/interview/calendar"
+                                id="poster-interview-sched-button"
+                            >
+                                Interview Scheduler
+                            </a>
+                        </div>
+                        <div class="menu-content">
+                            <a
+                                class="career-widget {{#when ../active '===' 'widget'}} active
+                                {{/when}}"
+                                href="/profile/widget/settings"
+                                id="poster-career-widget-button"
+                            >
+                                Career Widget
+                            </a>
+                        </div>
+
+                        {{#in 'career-page' profile_package}}
+                            <div class="menu-content">
+                                <a
+                                    class="career-page {{#when ../active '===' 'page'}} active
+                                    {{/when}}"
+                                    href="/profile/widget/page/settings"
+                                >
+                                    Careers Page
+                                </a>
+                            </div>
+                        {{/in}}
+                    </div>
+                    <div class="menu-my-account">
+                        <h3>My Account</h3>
+                        <div class="menu-content">
+                            <a
+                                class="buy-credits buy-credits-button {{#when ../active '===' 'checkout'}} active{{/when}}"
+                                href="/profile/credit/checkout"
+                            >
+                                Buy Credits
+                            </a>
+                        </div>
+                        <div class="menu-content">
+                            <a
+                                class="account-information {{#when ../active '===' 'account'}} active{{/when}}"
+                                href="/profile/account"
+                            >
+                                Account Information
+                            </a>
+                        </div>
+                        <div class="menu-content">
+                            <a
+                                class="my-transactions {{#when ../active '===' 'billing'}} active{{/when}}"
+                                href="/profile/transaction/search"
+                            >
+                                My Transactions
+                            </a>
+                        </div>
+                        <div class="menu-content">
+                            <a class="public-view" href="/{{profile_slug}}/profile-post">Public View</a>
+                        </div>
+                    </div>
+                    <div class="menu-credits text-center">
+                        <a
+                            class="btn btn-default buy-credits-button"
+                            href="/profile/credit/checkout"
+                        >
+                           <i class="fa fa-shopping-cart"></i>Buy Credits
+                        </a>
+                        <div class="sign-out-wrapper">
+                            <a
+                                class="sign-out"
+                                href="/logout"
+                                title="{{_ 'Sign Out'}}"
+                            >
+                                <span>{{_ 'Sign Out'}}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{else}}
+            <div class="menu-body menu-body-seeker">
+                <div class="menu-body-wrapper">
+                    <div class="menu-dashboard">
+                        <h3>My Dashboard</h3>
+                        <div class="menu-content">
+                            <a
+
+                                class="my-jobs {{#when ../active '===' 'posts'}} active{{/when}}"
+                                href="/profile/post/search"
+                                id="seeker-jobs-button"
+                            >
+                                My Jobs
+                            </a>
+                        </div>
+                        <div class="menu-content">
+                            <a
+                                class="my-profile {{#when ../active '===' 'resume'}} active{{/when}}"
+                                href="/profile/resume/search"
+                                id="seeker-profile-button"
+                            >
+                                My Profile
+                            </a>
+                        </div>
+                        <div class="menu-content">
+                            <a
+                                class="my-application {{#when ../active '===' 'application'}} active{{/when}}"
+                                href="/profile/tracking/application/seeker/search"
+                                id="seeker-applications-button"
+                            >
+                                My Applications
+                            </a>
+                        </div>
+                    </div>
+                    <div class="menu-my-account">
+                        <h3>My Account</h3>
+                        <div class="menu-content">
+                            <a
+                                class="account-information {{#when ../active '===' 'account'}} active{{/when}}"
+                                href="/profile/account"
+                            >
+                                Account Information
+                            </a>
+                        </div>
+                        <div class="menu-content">
+                            <a class="public-view" href="/{{profile_slug}}/profile-post">Public View</a>
+                        </div>
+                        <div class="menu-content">
+                            <a class="sign-out" href="/logout" id="sign-out-button">{{_ 'Sign Out'}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/if}}
+    {{/session}}
+</ul>

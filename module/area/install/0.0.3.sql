@@ -1,0 +1,1 @@
+ALTER TABLE `area` MODIFY `area_name` CHAR(255) CHARACTER SET utf8mb4;

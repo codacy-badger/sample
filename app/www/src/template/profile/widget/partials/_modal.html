@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+
+<html 
+    id="JBWidgetFrame" 
+    data-key="{{item.widget_key}}"
+    data-type="{{item.widget_type}}"
+    data-root="{{item.widget_root}}"
+>
+    <head>
+        <link rel="stylesheet" type="text/css" href="//{{item.widget_root}}/bower_components/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="//{{item.widget_root}}/styles/plugins/career-widget.css" />
+
+        <script type="text/javascript" src="//{{item.widget_root}}/bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="//{{item.widget_root}}/scripts/doon.js"></script>
+        <script type="text/javascript" src="//{{item.widget_root}}/scripts/plugins/widget-main.js"></script>
+    </head>
+    <body>
+        <div id="JBJobDetailModal">
+            <div class="widget-header clearfix">
+                <div class="widget-title">
+                    {{#if item.profile_image}}
+                        <img src="{{item.profile_image}}" alt="{{item.profile_company}}" onerror="this.src='{{default_avatar profile_id}}'" />
+                    {{else}}
+                        <img 
+                            alt="Default Avatar" 
+                            src="{{default_avatar profile_id}}" 
+                        />
+                    {{/if}}
+
+                    <div class="profile-company">
+                        <div class="company">
+                            <h2>{{item.post_name}}</h2>
+                        </div>
+                        <div class="hiring">
+                            <p>
+                                Hiring {{item.post_position}}
+                            </p>
+                        </div>
+                        <div class="attributes">
+                            <span class="arrangement">
+                                <i class="fa fa-clock-o"></i>
+                                {{#if item.post_arrangement}}
+                                    {{toucfirst item.post_arrangement}}
+                                {{else}}
+                                    N/A
+                                {{/if}}
+                            </span>
+
+                            <span class="location">
+                                <i class=" fa fa-map-marker"></i>
+                                {{#if item.post_location}}                
+                                    {{item.post_location}}
+                                {{else}}
+                                    N/A
+                                {{/if}}
+                            </span>
+                            
+                            <span class="experience">
+                                <i class="fa fa-certificate"></i>
+                                {{#if item.post_experience}}
+                                    {{#_ '%s Experience'}}
+                                        {{item.post_experience}} {{append_s 'Year' item.post_experience~}}
+                                    {{/_~}}
+                                {{else}}
+                                    N/A
+                                {{/if}}
+                            </span>
+
+                            <span class="salary">
+                                {{#if item.post_salary_max}}
+                                    {{#if item.post_currency}}
+                                        {{item.post_currency}}
+                                    {{else}}
+                                        &#8369; 
+                                    {{/if}}
+                                    {{number item.post_salary_min}} - 
+                                    {{#if item.post_currency}}
+                                        {{item.post_currency}}
+                                    {{else}}
+                                        &#8369; 
+                                    {{/if}}
+                                    {{number item.post_salary_max}}
+                                {{else}}
+                                    {{#if item.post_salary_min}}
+                                        {{#if item.post_currency}}
+                                            {{item.post_currency}}
+                                        {{else}}
+                                            &#8369; 
+                                        {{/if}} 
+                                        {{number item.post_salary_min}}
+                                    {{/if}}
+                                {{/if}}
+                            </span>
+                        </div>
+                        <div class="tags">
+                            {{#each item.post_tags}}
+                                <span class="tag-label">{{this}}</span>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+
+                {{#if item.widget_branding}}
+                <div class="widget-branding">
+                    <div class="branding-image">
+                        <a href="https://jobayan.com" target="_blank">
+                            <img 
+                                alt="Branding" 
+                                src="{{config 'cdn'}}/images/powered_by_jobayan300.png" 
+                            />
+                        </a>
+                    </div>
+                </div>
+                {{/if}}
+            </div>
+            <div class="widget-detail">
+                {{#if item.post_detail}}
+                    {{{item.post_detail}}}
+                {{else}}
+                    <span>No description available.</span>
+                {{/if}}
+            </div>
+            <hr />
+            <div class="widget-apply-form">
+                <div class="form-header">
+                    <h4>Let us know if you are interested!</h4>
+                </div>
+                <div class="form-main">
+                    <form
+                        data-do="widget-apply-form"
+                        data-on="submit"
+                        method="post"
+                        enctype="multipart/form-data"
+                    >
+                        <div class="control {{#if errors.profile_name}}has-error{{/if}}">
+                            <label for="profile_name">
+                                {{#when item.post_type '==' 'poster'}}
+                                    Name <span class="required">*</span>
+                                {{/when}}
+                                {{#when item.post_type '==' 'seeker'}}
+                                    Company Name <span class="required">*</span>
+                                {{/when}}
+                            </label>
+                            <div>
+                                <input 
+                                    type="text" 
+                                    name="profile[profile_name]" 
+                                    value="{{profile.profile_name}}" 
+                                />
+                            </div>
+
+                            {{#if errors.profile_name}}
+                                <span class="error-text">{{errors.profile_name}}</span>
+                            {{/if}}
+                        </div>
+                        <div class="control {{#if errors.profile_email}}has-error{{/if}}">
+                            <label for="profile_email">
+                                Email <span class="required">*</span>
+                            </label>
+                            <div>
+                                <input 
+                                    type="text" 
+                                    name="profile[profile_email]" 
+                                    value="{{profile.profile_email}}" 
+                                />
+                            </div>
+
+                            {{#if errors.profile_email}}
+                                <span class="error-text">
+                                    {{errors.profile_email}}
+                                </span>
+                            {{/if}}
+                        </div>
+                        <div class="control {{#if errors.profile_phone}}has-error{{/if}}">
+                            <label for="profile_phone">Phone</label>
+                            <div>
+                                <input 
+                                    type="text" 
+                                    name="profile[profile_phone]" 
+                                    value="{{profile.profile_phone}}" 
+                                />
+                            </div>
+
+                            {{#if errors.profile_phone}}
+                                <span class="error-text">
+                                    {{errors.profile_phone}}
+                                </span>
+                            {{/if}}
+                        </div>
+                        {{#when post_type '==' 'poster'}}
+                            <div class="control {{#if errors.profile_resume}}has-error{{/if}}">
+                                <label for="profile_resume">
+                                    Resume <em>(Optional)</em>
+                                </label>
+                                <div>
+                                    <input 
+                                        type="file" 
+                                        name="profile_resume" 
+                                        accept="application/xml-dtd, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,text/plain,application/rtf" 
+                                        class="form-control" 
+                                    />
+                                </div>
+
+                                {{#if errors.profile_resume}}
+                                    <span class="error-text">
+                                        {{errors.profile_resume}}
+                                    </span>
+                                {{/if}}
+                            </div>
+                        {{/when}}
+                        <div class="control">
+                            <input 
+                                type="hidden" 
+                                name="post_id" 
+                                value="{{item.post_id}}"
+                            />
+                            <input 
+                                type="hidden" 
+                                name="csrf" 
+                                value="{{csrf}}" 
+                            />
+                            <button 
+                                class="widget-button" 
+                                type="submit">
+                                    Notify {{item.post_name}} 
+                                    <i class="fa fa-bell"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="widget-form-loader hide">
+                <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+
+        {{#if flash}}
+            <div 
+                class="{{flash.type}}"
+                data-do="widget-flash" 
+                id="JBFlash" 
+            >
+                <div class="flash-header clearfix">
+                    <div class="flash-title">
+                        {{#when flash.type '==' 'error'}}
+                            <p>Error</p>
+                        {{/when}}
+
+                        {{#when flash.type '==' 'success'}}
+                            <p>Success</p>
+                        {{/when}}
+                    </div>
+                    <div class="flash-close">
+                        <i 
+                            class="fa fa-times"
+                            data-do="widget-flash-close" 
+                            data-on="click" 
+                        >
+                        </i>
+                    </div>
+                </div>
+                <div class="flash-message">
+                    <p>{{flash.message}}</p>
+                </div>
+            </div>
+        {{/if}}
+    </body>
+</html>

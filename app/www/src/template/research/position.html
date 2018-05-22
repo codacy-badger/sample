@@ -1,0 +1,211 @@
+<div class="clearfix wrapper">
+    <div class="clearfix research-position-container">
+        <!-- START: Position Container -->
+        <div class="position-container">
+            <!-- START: Breadcrumbs -->
+            <a class="breadcrumbs" href="/research">< Back</a>
+            <!-- END: Breadcrumbs -->
+
+            <!-- START: Position Body -->
+            <div class="position-body">
+                <!-- START: Position Title -->
+                <h1 class="position-title">{{ucwords position}}</h1>
+                <!-- END: Position Title -->
+
+                <!-- START: Location -->
+                <h2 class="position-location">
+                    {{~#if location}}
+                    Philippines > {{ucwords location}}
+                    {{~else~}}
+                    Philippines
+                    {{/if~}}
+                </h2>
+                <!-- END: Location -->
+
+                <!-- START: Position Estimate -->
+                <p class="position-estimate">
+                    {{#_ 'Estimated salary from %s, users, and past, and
+                    present job advertisements on Jobayan in the past 12 months.
+                    Last Updated %s'}}
+                        {{average_employer}} employer{{#when average_employer '>' '1'}}s{{/when}}
+                        __
+                        {{date last_updated 'M d, Y'}}
+                    {{/_}}
+                   <!--  <i
+                        aria-hidden="true"
+                        class="fa fa-question-circle"
+                        data-do="tooltip"
+                        title="{{_ 'Tooltip'}}"
+                    >
+                    </i> -->
+                </p>
+                <!-- END: Position Estimate -->
+
+                <!-- START: Statistics Container -->
+                <div class="clearfix position-statistics-container">
+                    <!-- START: Average Salary -->
+                    <div class="average-salary-container">
+                        <span>{{_ 'Average Salary per Month'}}</span>
+                        <h3>PHP {{number average_salary}}</h3>
+                    </div>
+                    <!-- END: Average Salary -->
+
+                    <!-- START: Distribution Salary Container -->
+                    <div class="distribution-salary-container">
+                        <span class="section-title">Salary Distribution</span>
+
+                        <!-- START: Distribution Container -->
+                        <div class="distribution-container">
+                            <span class="top-reported">Top Reported</span>
+
+                            <!-- START: Salary Chart -->
+                            <div class="salary-chart">
+                                <div class="bar" style="height: 10%;"></div>
+                                <div class="bar" style="height: 40%;"></div>
+                                <div class="bar" style="height: 80%;"></div>
+                                <div class="bar top" style="height: 100%;"></div>
+                                <div class="bar" style="height: 60%;"></div>
+                                <div class="bar" style="height: 30%;"></div>
+                                <div class="bar" style="height: 20%;"></div>
+                            </div>
+                            <!-- END: Salary Chart -->
+
+                            <div class="clearfix">
+                                <span class="pull-left">P {{number salary_min}}</span>
+                                <span class="pull-right">P {{number salary_max}}</span>
+                            </div>
+
+
+                        </div>
+                        {{#if seeker_count}}
+                        <div class="seeker-count">
+                                Number of people who looked for this positions <i class="fa fa-user"></i> {{seeker_count}}
+                        </div>
+                        {{/if}}
+                        <!-- END: Distribution Container -->
+                    </div>
+                    <!-- END: Distribution Salary Container -->
+                </div>
+                <!-- END: Statistics Container -->
+
+                <!-- START: Common Container -->
+                <div class="position-common-container {{#unless description}}hide{{/unless}}">
+                    <!-- START: Tab Navigation -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active">
+                            <a
+                                href="#common-description"
+                                role="tab"
+                                data-toggle="tab"
+                            >
+                                Common Description
+                            </a>
+                        </li>
+                        {{#if qualification}}
+                        <li>
+                            <a
+                                href="#common-qualification"
+                                role="tab"
+                                data-toggle="tab"
+                            >
+                                Common Qualifications
+                            </a>
+                        </li>
+                        {{/if}}
+                    </ul>
+                    <!-- END: Tab Navigation -->
+
+                    <!-- START: Tab Panels -->
+                    <div class="tab-content">
+                        <!-- START: Common Description -->
+                        <div class="active common-description in fade tab-pane fade" id="common-description" data-do="find-description" data-position="{{position}}">
+                            <p id="job-description">{{{description}}}</p>
+                            <button
+                                class="btn btn-copy btn-default"
+                                data-do="copy-clipboard"
+                                data-on="click"
+                                data-target="job-description">Copy
+                            </button>
+                        </div>
+                        <!-- END: Common Description -->
+                        {{#if qualification}}
+                            <!-- START: Common Qualification -->
+                            <div class="common-qualification tab-pane fade" id="common-qualification">
+                                <p id="job-qualification">{{{qualification}}}</p>
+                                <button
+                                    class="btn btn-copy btn-default"
+                                    data-do="copy-clipboard"
+                                    data-on="click"
+                                    data-target="job-qualification">Copy
+                                </button>
+                            </div>
+                            <!-- END: Common Qualification -->
+                        {{/if}}
+                    </div>
+                    <!-- END: Tab Panels -->
+                </div>
+                <!-- END: Common Container -->
+                {{#unless location}}
+                    <!-- START: Top Locations -->
+                    <div
+                        class="top-locations"
+                        data-do="research-top-location"
+                        data-position="{{position}}"
+                        data-location="{{{location_description}}}">
+                    </div>
+                    <!-- END: Top Locations -->
+                {{/unless}}
+            </div>
+            <!-- END: Position Body -->
+        </div>
+        <!-- END: Position Container -->
+
+        <!-- START: AD Companies Container -->
+        <div class="ad-companies-container">
+            {{> research_companies}}
+            {{> research_jobs}}
+            {{> research_ads}}
+        </div>
+        <!-- END: AD Companies Container -->
+    </div>
+</div>
+
+<!-- START: Structured Data for Job Posting -->
+<script type="application/ld+json">
+    {
+    "@context": "http://schema.org",
+    "@type": "JobPosting",
+    "datePosted": "{{last_updated}}",
+    "description": "{{description}}",
+    "baseSalary" : {
+        "@type": "MonetaryAmount",
+        "currency": "PHP",
+        "value": {
+            "@type": "QuantitativeValue",
+            "minValue": "{{number salary_min}}",
+            "maxValue": "{{number salary_max}}",
+            "value": "{{number salary_max}}",
+            "unitText": "MONTH"
+        }
+    },
+    "hiringOrganization": {
+        "@type": "Organization",
+        "name":  "Jobayan",
+        "sameAs": "https://www.jobayan.com/"
+    },
+    "employmentType": "Full-time",
+    "jobLocation" : {
+        "@type": "Place",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Metro Manila",
+            "addressLocality": "Metro Manila",
+            "addressRegion": "NCR",
+            "addressCountry":  "Philippines"
+        }
+    },
+    "salaryCurrency": "PHP",
+    "title": "{{position}}"
+    }
+</script>
+<!-- END: Structured Data for Job Posting -->

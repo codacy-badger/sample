@@ -1,0 +1,1 @@
+ALTER TABLE `blog` CHANGE `blog_article`  `blog_article` text(1000) DEFAULT NULL;

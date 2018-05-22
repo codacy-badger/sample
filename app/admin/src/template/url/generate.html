@@ -1,0 +1,90 @@
+
+<br>
+<!-- START: BULK FORM -->
+<form class="form-inline bulk-form pad-vertical" method="get">
+    <div class="panel panel-default clear">
+        <div class="panel-heading brand">
+            <div class="panel-title">Generate URL</div>
+        </div>
+        <div class="panel-body text-center" >
+            <div class="form-group">
+                <label class="control-label">Location</label>
+                <div>
+                    <input
+                        class="form-control"
+                        name="location"
+                        placeholder="Manila"
+                        type="text"
+                        value="{{location}}"
+                    />
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group">
+                <label class="control-label">Position</label>
+                <div>
+                    <input
+                        class="form-control"
+                        name="position"
+                        placeholder="Programmer"
+                        type="text"
+                        value="{{position}}"
+                />
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <br>
+
+            <div class="col-sm-12">
+                <button
+                class="btn btn-info"
+                name="btn_generate"
+                type="submit"
+                value="facebook"
+                >
+                    <i class="fa fa-facebook-square" value="facebook"></i> Facebook
+                </button>
+
+                <button
+                    class="btn btn-info"
+                    name="btn_generate"
+                    type="submit"
+                    value="linkedin"
+                >
+                    <i class="fa fa-linkedin-square"></i> LinkedIn
+                </button>
+                <button
+                    class="btn btn-info"
+                    name="btn_generate"
+                    type="submit"
+                >
+                    <img alt="" src="/images/image-jobayan-preview.png" width="15"> Jobayan
+                </button>
+            </div>
+            <br><br>
+
+            <div class="form-group">
+                <label class="control-label">Generated URL</label>
+                <div>
+                    <textarea
+                        autofocus="true"
+                        class="col-sm-12"
+                        cols="80"
+                        name="generate_url"
+                        onfocus="this.select();"
+                        rows="2"
+                    >{{generated_url}}</textarea>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <ul class="pagination">
+        {{#pager total range}}
+        <li{{#if active}} class="active"{{/if}}><a href="?{{href}}">{{page}}</a></li>
+        {{/pager}}
+    </ul>
+</form>

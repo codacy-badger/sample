@@ -1,0 +1,158 @@
+<!-- START: Blog Search Body -->
+<div class="blog-search-body" >
+    <!-- START: Blog Wrapper -->
+    <div class="wrapper">
+        <!-- START: Blog Breacrumbs-->
+        <div class="container">
+            <div class="row-fluid header">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">Articles</li>
+                </ol>
+            </div>
+        </div>
+        <!-- END: Blog Breacrumbs-->
+        <!-- START: Blog Title-->
+        <div class="container">
+            <h1 class="title">{{_ 'Articles'}}</h1>
+        </div>
+        <!-- END: Blog Title-->
+        <!-- START: Container-->
+        <div class="container">
+            <!-- START: Row-->
+              <div class="row">
+                <!-- START: Sidebar-->
+                <aside class="col-md-3">
+                      <label>{{_ 'Search'}}</label>
+                    <!-- START: Search Form-->
+                    <form class="form-search">
+                          <div class="input-group">
+                            <input
+                                class="form-control"
+                                name="q"
+                                placeholder="Search"
+                                type="text"
+                                value="{{q}}"
+                            >
+                            <div class="input-group-btn">
+                                 <button class="btn btn-default" type="submit">
+                                     <i class="fa fa-search"></i>
+                                  </button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- END: Search Form-->
+                    <hr>
+                    <!-- START: Category-->
+                    <div class="blog-category">
+                        <div class="list-group list-group">
+                            <h4>{{_ 'Category'}}</h4>
+                            <a
+                                class="list-group-item"
+                                href="/Articles/Categories"
+                            >
+                                All
+                            </a>
+                            {{#each keywords}}
+                                <a
+                                    class="list-group-item"
+                                    href="/Article/{{blog_slug}}"
+                                >
+                                    {{blog_title}}
+                                </a>
+                            {{/each}}
+                        </div>
+                      </div>
+                    <!-- END: Category-->
+                </aside>
+                <!-- END: Sidebar-->
+                <!-- START: Content-->
+                <div class="col-md-9 content">
+                    {{#if blogs}}
+                        <!-- START: Each Blog-->
+                        {{#each blogs}}
+                            <div class="row">
+                                <!-- START: Blog Image-->
+                                <div class="col-sm-4">
+                                    <a href="/Article/{{blog_slug}}">
+                                        <img
+                                            alt="{{blog_title}} Image"
+                                            class="img-responsive"
+                                            src="{{blog_image}}"
+                                        />
+                                    </a>
+                                </div>
+                                <!-- END: Blog Image-->
+                                <!-- START: Blog Content-->
+                                <div class="col-sm-8 blog-content">
+                                    <!-- START: Blog Title-->
+                                    <h3 class="blog-title">
+                                        <a
+                                            href="/Article/{{blog_slug}}"
+                                            title="{{blog_title}}"
+                                        >
+                                            {{blog_title}}
+                                        </a>
+                                    </h3>
+                                    <!-- END: Blog Title-->
+                                    <div class="blog-created text-muted">
+                                        {{#_ 'Published %s'}}
+                                            <em>{{date blog_published 'M d, Y'}}</em>
+                                        {{/_}}
+                                    </div>
+                                    <!-- START: Blog Keywords-->
+                                    {{#when blog_keywords '>' 5}}
+                                        <div class="blog-keywords text-muted">
+                                            <span class="fa fa-tags"></span>
+                                            {{#each blog_keywords}}
+                                                {{#when @index '>' 4}}
+                                                    <a
+                                                        class="label label-warning"
+                                                        href="?{{toquery 'blog_keywords' this}}"
+                                                        title="Filter by {{this}}"
+                                                    >
+                                                        {{this}}
+                                                    </a>
+                                                {{/when}}
+                                            {{/each}}
+                                        </div>
+                                    {{/when}}
+                                    <!-- END: Blog Keywords-->
+                                    <!-- START: Blog Description-->
+                                    <p class="blog-description">
+                                        {{blog_description}}
+                                    </p>
+                                    <!-- END: Blog Description-->
+                                </div>
+                                <!-- END: Blog Content-->
+                              </div>
+                             <hr>
+                          {{/each}}
+                        <!-- END: Each Blog-->
+                    {{else}}
+                        <!-- START: NO RESULTS -->
+                        <div class="col-md-6 column-centered">
+                            <div class="featured-post-list">
+                                <!-- START: Post List No Results -->
+                                <div class="no-results-notice no-results">
+                                    <div class="search">
+                                        Sorry, there are no articles related to 
+                                        <br> <em>"{{blog_search}}"</em> <br>
+                                        to show at this time.
+                                    </div>
+                                </div>
+                                <!-- END: Post List No Results -->    
+                            </div>
+                        </div>
+                        <!-- END: NO RESULTS -->
+                    {{/if}}
+                </div>
+                <!-- END: Content-->
+             </div>
+            <!-- END: Row-->
+        </div>
+        <!-- END: Container-->
+    </div>
+    <!-- END: Wrapper -->
+</div>
+<!-- END: Blog Search Body -->

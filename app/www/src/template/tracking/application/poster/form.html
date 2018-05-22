@@ -1,0 +1,307 @@
+<div class="container">
+    {{> profile_alert}}
+    <!-- START: Profile Panel -->
+    <div class="row profile-panel">
+        <!-- START: Sidebar Left -->
+        <aside class="col-md-3 left">
+            {{> profile_menu active="tracking"}}
+        </aside>
+        <!-- END: Sidebar Left -->
+        <!-- START: Content Left -->
+        <div class="col-md-9 right">
+            <!-- START: Head -->
+            <div class="head">
+                <h1>{{_ 'Applicant Tracking System'}}</h1>
+            </div>
+            <!-- END: Head -->
+            <!-- START: Main Content -->
+            <div class="content">
+                <div class="top">
+                    <a
+                        href="/profile/tracking/post/search"
+                        title="{{_ 'Job Posts'}}"
+                    >
+                        {{_ 'Job Posts'}}
+                    </a>
+                    <a
+                        class="active"
+                        href="/profile/tracking/application/poster/search"
+                        title="{{_ 'Application Forms'}}"
+                    >
+                        {{_ 'Application Forms'}}
+                    </a>
+                </div>
+                <!-- START: Detail -->
+                <div class="detail clearfix">
+                    <div class="detail-wrapper">
+                        <!-- START: Breadcrumbs -->
+                        <div class="breadcrumbs">
+                            <ul>
+                                <li>
+                                    <a
+                                        href="/profile/tracking/application/poster/search"
+                                    >
+                                        {{_ 'Application Forms List'}}
+                                    </a>
+
+                                </li>
+                                <li>
+                                    > {{title}}
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- END: Breadcrumbs -->
+                        <!-- START: Detail Form -->
+                        <div class="detail-form">
+                            <div class="form-title">
+                                <!-- START : Form Group : Form Name / form_name -->
+                                <div class="clearfix form-group form-name-input">
+                                    <input
+                                        class="form-control"
+                                        name="form_name"
+                                        type="text"
+                                        value="{{item.form_name}}"
+                                    />
+
+                                    <a
+                                        class="btn btn-default"
+                                        data-do="form-title-edit-update"
+                                        data-id="{{item.form_id}}"
+                                        data-on="click"
+                                        href="javascript:void(0);"
+                                    >
+                                        {{_ 'Save'}}
+                                    </a>
+
+                                    <a
+                                        class="btn btn-danger"
+                                        data-do="form-title-edit-cancel"
+                                        data-on="click"
+                                        href="javascript:void(0);"
+                                    >
+                                        {{_ 'Cancel'}}
+                                    </a>
+                                </div>
+                                <!-- END : Form Group : Form Name / form_name -->
+
+                                <!-- START : Container for form name display -->
+                                <div class="form-name-display">
+                                    <span>
+                                        {{item.form_name}}
+                                    </span>
+                                    {{#unless view_form}}
+                                        <a
+                                            data-do="form-name-change"
+                                            data-on="click"
+                                            href="javascript:void(0);"
+                                        >
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                    {{/unless}}
+                                </div>
+                            </div>
+                            <!-- START : Question List -->
+                            <div class="form-content question-list question-sortable">
+                                {{#if item.question}}
+                                    {{#each item.question}}
+                                    <!-- START : Question Item -->
+                                    <div 
+                                        class="form-wrapper quesition-item" 
+                                        data-do="question-sort"
+                                        data-on="init" 
+                                        data-priority="" 
+                                        data-id="{{question_id}}" 
+                                        id="question-{{question_id}}"
+                                    >
+
+                                        <input class="question_priority" type="hidden" value="" />
+                                        <div class="form-group">
+                                            <!-- START : Question Header -->
+                                                <div class="form-action">
+                                                <!-- START : Question Name -->
+                                                <input
+                                                    class="question-name-input"
+                                                    name="question_name"
+                                                    type="hidden"
+                                                    value="{{question_name}}"
+                                                >
+                                                <label class="question-name-display">{{question_name}}</label>
+                                                <!-- END : Question Name -->
+                                                <!-- START : Actions -->
+                                                {{#unless ../view_form}}
+                                                    <div class="btn-group">
+                                                        <button
+                                                            type="button"
+                                                            class="btn btn-default dropdown-toggle"
+                                                            data-toggle="dropdown"
+                                                            aria-haspopup="true"
+                                                            aria-expanded="false"
+                                                        >
+                                                            <i class="fa fa-cog"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu pull-right">
+                                                            <li>
+                                                                <a
+                                                                    data-do="question-edit"
+                                                                    data-on="click"
+                                                                    data-id="{{question_id}}"
+                                                                    title="{{_ 'Edit'}}"
+                                                                    href="javascript:void(0)"
+                                                                >
+                                                                    {{_ 'Edit'}}
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a
+                                                                    data-do="question-delete"
+                                                                    data-on="click"
+                                                                    data-id="{{question_id}}"
+                                                                    title="{{_ 'Delete'}}"
+                                                                    href="javascript:void(0)"
+                                                                >
+                                                                    {{_ 'Delete'}}
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                {{/unless}}
+                                                <!-- END : Actions -->
+                                            </div>
+                                            <!-- END : Question Header -->
+                                            <div class="form-indent">
+                                                <!-- START: Question Choices -->
+                                                <div class="question-choices">
+                                                {{#if question_choices}}
+                                                    {{#each question_choices}}
+                                                        <!-- START : Question Container -->
+                                                        <div class="radio-container question-container">
+                                                            <input
+                                                                class="radio orange question-choice"
+                                                                type="radio"
+                                                                id="{{../question_id}}-question-{{@index}}"
+                                                                name="answer_choices[{{../@index}}]"
+                                                            />
+                                                            <label
+                                                                class="radio-label question-label"
+                                                                for="{{../question_id}}-question-{{@index}}"
+                                                            >
+                                                                {{this}}
+                                                            </label>
+                                                        </div>
+                                                        <!-- END : Question Container -->
+                                                    {{/each}}
+                                                {{/if}}
+                                                </div>
+                                                <!-- END: Question Choices -->
+
+                                                <!-- START: Question Custom -->
+                                                {{#if question_custom}}
+                                                    <input
+                                                        type="email"
+                                                        class="form-control question-custom"
+                                                        placeholder="Custom Answer"
+                                                    />
+                                                {{/if}}
+                                                <!-- END: Question Custom -->
+
+                                                <!-- START: Question File -->
+                                                {{#if question_file}}
+                                                    <input
+                                                        class="form-control question-file"
+                                                        type="file"
+                                                    />
+                                                {{/if}}
+                                                <!-- END: Question File -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- START : Question Item -->
+                                    {{/each}}
+                                {{/if}}
+                            </div>
+                            <!-- END : Question List -->
+                            {{#unless view_form}}
+                                <div class="form-add">
+                                    <a
+                                        data-do="form-add-question"
+                                        data-form-id="{{item.form_id}}"
+                                        data-on="click"
+                                        href="javascript:void(0)"
+                                    >
+                                        <i class="fa fa-plus-circle"></i>
+                                        <span>{{_ 'Add Field'}}</span>
+                                    </a>
+                                </div>
+                            <div class="publish">
+                                <div>
+                                    {{#when item.form_flag '==' 0}}
+                                        <!-- START : Publish Button -->
+                                        <a
+                                            {{#unless item.question}}
+                                            disabled
+                                            {{/unless}}
+                                            class="btn btn-default form-publish"
+                                            data-do="form-publish"
+                                            data-id="{{item.form_id}}"
+                                            data-on="click"
+                                            href="javascript:void(0)"
+                                            title="{{_ 'Publish'}}"
+                                        >
+                                            {{_ 'Publish'}}
+                                        </a>
+                                        <!-- END : Publish Button -->
+                                    {{/when}}
+
+                                    <!-- START: Save Priority -->
+                                    <a
+                                        class="btn btn-default sortable-save hide"
+                                        data-do="save-priority"
+                                        data-id="{{item.form_id}}"
+                                        data-on="click"
+                                        href="javascript:void(0)"
+                                        title="{{_ 'Save'}}"
+                                    >
+                                        {{_ 'Save'}}
+                                    </a>
+                                <!-- END: Save Priority -->
+
+                                    <!-- START : Preview Button -->
+                                    <a
+                                        class="btn btn-primary"
+                                        data-do="form-preview"
+                                        data-id="{{item.form_id}}"
+                                        data-on="click"
+                                        href="javascript:void(0)"
+                                        title="{{_ 'Preview'}}"
+                                    >
+                                        {{_ 'Preview'}}
+                                    </a>
+                                    <!-- END : Preview Button -->
+                                </div>
+                            </div>
+                            {{/unless}}
+                            <div class="cancel">
+                                <a
+                                    href="/profile/tracking/application/poster/search"
+                                    title="{{_ 'Back'}}"
+                                >
+                                    {{_ 'Back'}}
+                                </a>
+                            </div>
+                        </div>
+                        <!-- END: Detail Form -->
+                    </div>
+                </div>
+                <!-- END: Detail -->
+            </div>
+            <!-- END: Main Content -->
+        </div>
+        <!-- END: Content Left -->
+    </div>
+    <!-- END: Profile Panel -->
+</div>
+
+{{> partial/form_questionclone }}
+{{> partial/form_question }}
+{{> partial/form_confirmation }}
+{{> post/modal_resume}}

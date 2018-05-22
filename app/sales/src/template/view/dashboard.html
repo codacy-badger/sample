@@ -1,0 +1,339 @@
+<!-- START: Scroll -->
+<div class="scroll">
+    <h3 class="template-blue">
+        <i class="fa fa-home"></i></i> {{_ 'Dashboard'}}
+    </h3>
+
+    <div class="row">
+        <div class="col-xs-4 text-center">
+            <div class="section-block">
+                <div class="block-title">
+                    {{_ 'On-going Negotiations'}}
+                </div>
+                {{number summary.active}}
+            </div>
+        </div>
+        <div class="col-xs-4 text-center">
+            <div class="section-block">
+                <div class="block-title">
+                    {{_ 'Expired Negotiations'}}
+                </div>
+                {{number summary.expired}}
+            </div>
+        </div>
+        <div class="col-xs-4 text-center">
+            <div class="section-block">
+                <div class="block-title">
+                    {{_ 'Expiring Negotiations'}}
+                </div>
+                {{number summary.expiring}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 table-block">
+            <div class="section-block">
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <div class="block-title">
+                            {{_ 'Upcoming Events'}}
+                        </div>
+                    </div>
+                    <div class="pull-right">
+                        <a href="/control/business/event/search">view more</a>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <th>{{_ 'Event Name'}}</th>
+                        <th>{{_ 'Start Date'}}</th>
+                        <th>{{_ 'End Date'}}</th>
+                        <th>{{_ 'Location'}}</th>
+                        <th>{{_ 'Agent'}}</th>
+                    </thead>
+                    <tbody>
+                        {{#each events}}
+                        <tr>
+                            <td>{{event_title}}</td>
+                            <td>{{date event_start 'M d h:i a'}}</td>
+                            <td>{{date event_end 'M d h:i a'}}</td>
+                            <td>{{event_location}}</td>
+                            <td>
+                                {{profile_name}}
+                            </td>
+                        </tr>
+                        {{/each}}
+                        {{#unless events}}
+                            <tr>
+                                <td colspan="5" class="text-center">
+                                    No events until {{date next_week 'F d'}}.
+                                </td>
+                            </tr>
+                        {{/unless}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-xs-6 table-block">
+            <div class="section-block">
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <div class="block-title">
+                            {{_ 'Recent Transactions'}}
+                        </div>
+                    </div>
+                    <div class="pull-right">
+                        <a href="/control/business/transaction/search">view more</a>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <th>{{_ 'Status'}}</th>
+                        <th>{{_ 'Method'}}</th>
+                        <th>{{_ 'Profile'}}</th>
+                        <th>{{_ 'Amount'}}</th>
+                        <th>{{_ 'Date'}}</th>
+                    </thead>
+                    <tbody>
+                        {{#each transactions}}
+                        <tr>
+                            <td>{{transaction_status}}</td>
+                            <td>{{transaction_method}}</td>
+                            <td>
+                                <a href="/control/business/deal/overview/{{deal_id}}">
+                                    {{profile_name}}
+                                </a>
+                            </td>
+                            <td>{{number transaction_total}}</td>
+                            <td>{{date transaction_created 'M d'}}</td>
+                        </tr>
+                        {{/each}}
+                        {{#unless transactions}}
+                            <tr>
+                                <td colspan="5" class="text-center">
+                                    No transactions.
+                                </td>
+                            </tr>
+                        {{/unless}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row table-block">
+        <div class="col-xs-6">
+            <div class="section-block">
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <div class="block-title">
+                            {{_ 'Recently Added Leads'}}
+                        </div>
+                    </div>
+                    <div class="pull-right">
+                        <a href="/control/business/lead/search">view more</a>
+                    </div>
+                </div>
+
+                <table class="table">
+                    <thead>
+                        <th>{{_ 'Company Name'}}</th>
+                        <th>{{_ 'Contact Person'}}</th>
+                        <th>{{_ 'Date Added'}}</th>
+                    </thead>
+                    <tbody>
+                        {{#each leads}}
+                        <tr>
+                            <td>
+                                <a href="/control/business/deal/overview/{{deal_id}}">
+                                    {{lead_company}}
+                                </a>
+                            </td>
+                            <td>{{lead_name}}</td>
+                            <td>{{date lead_created 'M d'}}</td>
+                        </tr>
+                        {{/each}}
+                        {{#unless leads}}
+                            <tr>
+                                <td colspan="5" class="text-center">
+                                    No new leads.
+                                </td>
+                            </tr>
+                        {{/unless}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="section-block">
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <div class="block-title">
+                            {{_ 'Recently Signed Up Companies'}}
+                        </div>
+                    </div>
+                    <div class="pull-right">
+                        <a href="/control/business/profile/search">view more</a>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <th>{{_ 'Company Name'}}</th>
+                        <th>{{_ 'Contact Person'}}</th>
+                        <th>{{_ 'Signup Date'}}</th>
+                    </thead>
+                    <tbody>
+                        {{#each profiles}}
+                            <tr>
+                                <td>
+                                    <a href="/control/business/deal/overview/{{deal_id}}">
+                                        {{profile_company}}
+                                    </a>
+                                </td>
+                                <td>{{profile_name}}</td>
+                                <td>{{date profile_created 'M d'}}</td>
+                            </tr>
+                        {{/each}}
+                        {{#unless profiles}}
+                            <tr>
+                                <td colspan="5" class="text-center">
+                                    No recent sign ups.
+                                </td>
+                            </tr>
+                        {{/unless}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="section-block">
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <div class="block-title">
+                            {{_ 'Recent Team Activities'}}
+                        </div>
+                    </div>
+                    <div class="pull-right">
+                        <a href="/control/business/activity/timeline">view more</a>
+                    </div>
+                </div>
+                <div class="activities">
+                    {{#each activities}}
+                        {{#when history_type '===' 'email'}}
+                            <div class="panel panel-primary {{history_type}}">
+                                <div class="panel-heading">
+                                    <i class="fa fa-envelope-o"></i>
+                                    {{profile_name}} {{history_action}} for {{deal_name}}
+                                </div>
+                                <div class="panel-body">
+                                    <div class="value">
+                                        <div class="subject">
+                                            <strong>{{thread.thread_subject}}</strong>
+                                        </div>
+                                        <div class="message">
+                                            {{thread.thread_snippet}}
+                                        </div>
+                                        <div class="see-more">
+                                            <a href="/control/business/deal/{{deal_id}}/thread/{{thread.thread_gmail_id}}">
+                                                <em>see thread ..</em>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!--  Date/Time -->
+                                    <span class="card-datetime">
+                                        {{date history_created 'F j, Y g:i a'}}
+                                    </span>
+                                </div>
+                            </div>
+                        {{/when}}
+                        {{#when history_type '===' 'note'}}
+                            <div class="panel panel-primary {{history_type}}">
+                                <div class="panel-heading">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                    {{profile_name}} {{history_action}} for {{deal_name}}
+                                </div>
+                                <div class="panel-body">
+                                    <div class="value">
+                                        {{{comment.comment_detail}}}
+                                    </div>
+                                    {{#if comment.files}}
+                                        <span class="attachments">Attachments:</span>
+                                        <div class="value">
+                                            {{#each comment.files}}
+                                                <div>
+                                                    <a href="{{file_link}}">
+                                                        {{#if file_name}}
+                                                            {{file_name}}
+                                                        {{else}}
+                                                            {{file_link}}
+                                                        {{/if}}
+                                                    </a>
+                                                </div>
+                                            {{/each}}
+                                        </div>
+                                    {{/if}}
+                                    <!--  Date/Time -->
+                                    <span class="card-datetime">
+                                        {{date history_created 'F j, Y g:i a'}}
+                                    </span>
+                                </div>
+                            </div>
+                        {{/when}}
+                        {{#when history_type '===' 'move'}}
+                            <article class="panel panel-primary {{history_type}}">
+                                <div class="panel-body">
+                                    <p class="value">
+                                        <i class="fa fa-handshake-o"></i>
+                                        {{profile_name}} {{{history_action}}}
+                                    </p>
+                                    <!--  Date/Time -->
+                                    <span class="card-datetime">
+                                        {{date history_created 'F j, Y g:i a'}}
+                                    </span>
+                                </div>
+                            </article>
+                        {{/when}}
+                        {{#when history_type '===' 'update'}}
+                            <article class="panel panel-primary {{history_type}}">
+                                <div class="panel-body">
+                                    <p class="value">
+                                        <i class="fa fa-pencil"></i>
+                                        {{profile_name}} {{{history_action}}}
+                                    </p>
+                                    <!--  Date/Time -->
+                                    <span class="card-datetime">
+                                        {{date history_created 'F j, Y g:i a'}}
+                                    </span>
+                                </div>
+                            </article>
+                        {{/when}}
+                        {{#when history_type '===' 'sms'}}
+                            <div class="panel panel-primary {{history_type}}">
+                                <div class="panel-heading">
+                                    <i class="fa fa-mobile"></i>
+                                    {{history_action}} for {{deal_name}}
+                                </div>
+                                <div class="panel-body">
+                                    <div class="value">
+                                        {{{comment.comment_detail}}}
+                                    </div>
+                                    <!--  Date/Time -->
+                                    <span class="card-datetime">
+                                        {{date history_created 'F j, Y g:i a'}}
+                                    </span>
+                                </div>
+                            </div>
+                        {{/when}}
+                    {{/each}}
+                    {{#unless activities}}
+                        <div class="well text-center">
+                            No recent team activities.
+                        </div>
+                    {{/unless}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Scroll -->

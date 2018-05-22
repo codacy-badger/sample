@@ -1,0 +1,11 @@
+Hello {{post_name}},
+
+{{profile_name}} is interested in: {{link}} .
+
+{{#if profile_email}}
+You can contact {{profile_name}} via email: {{profile_email}}
+{{/if}}{{#if profile_phone}}
+You can contact {{profile_name}} via phone: {{profile_phone}}
+{{/if}}
+
+ - The Jobayan Team

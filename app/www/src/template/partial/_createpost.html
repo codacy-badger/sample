@@ -1,0 +1,37 @@
+<!-- START: Create Post Partial -->
+<div class="create-post-partial">
+    <div class="container">
+        <{{head}} class="create-post-head">
+            {{#_ 'Join over %s successful recruiters and applicants'}}
+                {{recruiters_applicants totals.companies totals.applicants}}
+            {{/_}}
+        </{{head}}>
+        <p>{{_ "You're just one step away! Easy to set up, easy to use!"}}</p>
+        <{{heading}} class="btn-container">
+            <a
+                class="btn btn-default text-uppercase"
+                data-do="scroll-to-top"
+                data-on="click"
+                href="javascript:void(0);"
+                title="{{_ 'Create Post'}}"
+                id="create-post-button-partial"
+            >
+                {{_ 'Create post'}}
+            </a>
+        </{{heading}}>
+        {{#session 'me'}}
+        {{else}}
+            <{{heading}} class="btn-container">
+                <a
+                    class="btn btn-default text-uppercase"
+                    href="/signup?redirect_uri={{page.meta.path}}"
+                    title="{{_ 'Sign Up'}}"
+                    id="signup-button-partial"
+                >
+                    {{_ 'Sign Up'}}
+                </a>
+        </{{heading}}>
+        {{/session}}
+    </div>
+</div>
+<!-- END: Create Post Partial -->

@@ -1,0 +1,154 @@
+{{#when item.post_type '==' 'poster'}}
+<div id="post-update" class="post-update-modal modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                >
+                    &times;
+                </button>
+                <div class="modal-title">{{_ 'Edit your post'}}</div>
+            </div>
+            <form
+                action="/ajax/update/stash"
+                data-container="#post-update"
+                data-do="form-ajax"
+                data-on="submit"
+            >
+                <div class="modal-body clearfix">
+                    <!-- Name -->
+                    <div class="form-group">
+                        <label>{{_ 'Hello! we are'}}</label>
+                        <input
+                            class="form-control text-capitalize"
+                            name="post_name"
+                            maxlength="50"
+                            minlength="2" 
+                            placeholder="{{_ 'Name'}}"
+                            type="text"
+                        />
+                        <span class="help-text"></span>
+                    </div>
+                    <!-- Location -->
+                    <div class="form-group">
+                        <label>{{_ 'From'}}</label>
+                        <input
+                            class="form-control text-capitalize"
+                            name="post_location"
+                            maxlength="50"
+                            minlength="2" 
+                            placeholder="{{_ 'Location'}}"
+                            type="text"
+                        />
+                        <span class="help-text"></span>
+                    </div>
+                    <!-- Position -->
+                    <div class="form-group">
+                        <label>{{_ 'And we are looking for a/an'}}</label>
+                        <input
+                            class="form-control text-capitalize"
+                            maxlength="50"
+                            minlength="2" 
+                            name="post_position"
+                            placeholder="Position"
+                            type="text"
+                        />
+                        <span class="help-text"></span>
+                    </div>
+                    <!-- Experience -->
+                    <div class="form-group">
+                        <label>{{_ 'With years of experience'}}</label> 
+                        <input
+                            class="form-control"
+                            name="post_experience"
+                            maxlength="2"
+                            pattern="^([1-5]?[0-9]|60)$"
+                            placeholder="0"
+                            type="text"
+                            value="{{item.post_experience}}"
+                            data-do="prevent-letter-input"
+                            data-on="keypress"
+                        />                       
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary text-uppercase">{{_ 'Save'}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{else}}
+<div id="post-update" class="post-update-modal modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                >
+                    &times;
+                </button>
+                <div class="modal-title">{{_ 'Edit your post'}}</div>
+            </div>
+            <form
+                action="/ajax/update/stash"
+                data-container="#post-update"
+                data-do="form-ajax"
+                data-on="submit"
+            >
+                <div class="modal-body clearfix">
+                    <!-- Name -->
+                    <div class="form-group">
+                        <label>{{_ 'Hello! my name is'}}</label>
+                        <input
+                            class="form-control text-capitalize"
+                            maxlength="50"
+                            minlength="2" 
+                            name="post_name"
+                            placeholder="{{_ 'Name'}}"
+                            type="text"
+                        />
+                        <span class="help-text"></span>
+                    </div>
+                    <!-- Position -->
+                    <div class="form-group">
+                        <label>{{_ 'And I am a/an'}}</label>
+                        <input
+                            class="form-control text-capitalize"
+                            maxlength="50"
+                            minlength="2" 
+                            name="post_position"
+                            placeholder="{{_ 'Position'}}"
+                            type="text"
+                        />
+                        <span class="help-text"></span>
+                    </div>
+                    <!-- Location -->
+                    <div class="form-group">
+                        <label>{{_ 'Looking for a job in'}}</label>
+                        <input
+                            class="form-control text-capitalize"
+                            maxlength="50"
+                            minlength="2" 
+                            name="post_location"
+                            placeholder="{{_ 'Location'}}"
+                            type="text"
+                        />
+                        <span class="help-text"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary text-uppercase">{{_ 'Save'}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{/when}}

@@ -1,0 +1,77 @@
+<div class="message-jobseeker text-center">
+    <div class="message-jobseeker-content">
+        <div class="message-jobseeker-header">
+            <div class="message-jobseeker-title text-uppercase">
+                message {{profile.profile_name}}
+            </div>
+            <div class="message-jobseeker-image-container">
+                <div class="message-jobseeker-image">
+                    <div class="message-jobseeker-image-circle">
+                        <img
+                            src="{{profile.profile_image}}"
+                            onerror="this.src='{{default_avatar profile.profile_id}}'"
+                        >
+                    </div>  
+                    <span>{{profile.profile_name}}</span>
+                </div>  
+            </div>
+        </div>
+
+        <!-- START : Form -->
+        <form id="profile-message" data-profile-id="{{profile.profile_id}}">
+            <div class="message-jobseeker-body text-left">
+                <div class="form-group{{#if errors.blog_article}} has-error{{/if}}">
+                    <label class="control-label">Message</label>
+
+                    <!-- START : Profile ID -->
+                    <input 
+                        name="profile_id" 
+                        type="hidden"
+                        value="{{profile.profile_id}}"
+                    >
+                    <!-- END : Profile ID -->
+
+                    <!-- START : Profile Slug -->
+                    <input 
+                        name="profile_slug" 
+                        type="hidden"
+                        value="{{profile.profile_slug}}"
+                    >
+                    <!-- END : Profile Slug -->
+
+                    <div>
+                        <textarea 
+                            class="form-control text-value"
+                            data-do="wysiwyg" 
+                            name="message" 
+                            placeholder="Type your message" 
+                        >
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- START : Send Button -->
+            <div class="message-jobseeker-footer">
+                <div>
+                    <a 
+                        class="btn btn-default" 
+                        data-do="profile-message"
+                        data-on="click"
+                        data-profile-id="{{profile.profile_id}}"
+                        href="javascript:void(0);"
+                    >
+                        Send
+                    </a>
+                </div>
+            </div>
+            <!-- END : Send Button -->
+        </form>
+        <!-- END : Form -->
+    </div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.css"></link>
+<script src="/bower_components/wysihtml5x/dist/wysihtml5x-toolbar.min.js"></script>
+<script src="/bower_components/handlebars/handlebars.runtime.min.js"></script>
+<script src="/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.js"></script>

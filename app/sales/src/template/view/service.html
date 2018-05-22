@@ -1,0 +1,492 @@
+<!-- START: Crumbs -->
+<div class="crumbs">
+    <a href="/control/business/dashboard">
+        <i class="fa fa-home"></i> {{_ 'Dashboard'}}</a>
+    <span class="separator">
+        <i class="fa fa-angle-right"></i>
+    </span>
+    <a href="/control/business/service/search" class="active">
+        <i class="fa fa-user"></i> {{_ 'Services'}}</a>
+</div>
+<!-- END: Crumbs -->
+<!-- START: Scroll -->
+<div class="scroll">
+    <h3 class="template-blue">
+        <i class="fa fa-user"></i> {{_ 'Services'}}
+        <span class="badge badge-info">{{total}}</span>
+    </h3>
+
+    <!-- START: Search Actions -->
+    <div class="search-actions">
+        <div class="pull-right">
+            <a
+                class="btn btn-export"
+                href="/control/business/service/search?export=true&
+                {{~querystring}}"
+            >
+                <i class="fa fa-download"></i> {{_ 'Export'}}
+            </a>
+        </div>
+
+        <div class="btn-group" role="group">
+            <a
+                class="btn
+                    {{~#unless filter.service_active}}
+                        {{~#when filter.service_active '==' '0'}}
+                            btn-default
+                        {{else}}
+                            btn-active active
+                        {{~/when}}
+                    {{else}}
+                        {{~#when filter.service_active '==' '1'}}
+                            btn-active active
+                        {{/when}}
+                        {{~#when filter.service_active '==' '0'}}
+                            btn-default
+                        {{~/when}}
+                    {{/unless}}"
+                href="/control/business/service/search?{{querystring 'filter[service_active]' '1'}}"
+            >
+                {{_ 'Active'}}
+            </a>
+            <a
+                href="/control/business/service/search?{{querystring 'filter[service_active]' '0'}}"
+                class="btn
+                    {{~#when filter.service_active '==' '0'}}
+                        btn-active active
+                    {{~else}}
+                        btn-default
+                    {{~/when}}"
+            >
+                {{_ 'Inactive'}}
+            </a>
+        </div>
+    </div>
+    <!-- END: Search Actions -->
+    <!-- START: Search Filters -->
+    <div class="panel panel-default search-filters">
+        <div class="panel-heading">{{_ 'Filters'}}</div>
+        <div class="panel-body">
+            <form>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group{{#if errors.q}} has-error{{/if}}">
+                            <label>{{_ 'Search'}}</label>
+                            <div class="texts-field">
+                                <input type="text"
+                                    class="form-control"
+                                    name="q"
+                                    placeholder="{{_ 'Enter Keyword'}}"
+                                    type="text"
+                                    value="{{q}}"
+                                />
+                            </div>
+                            {{#if errors.q}}
+                                <span class="help-text">{{errors.q}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div
+                            class="form-group
+                                {{#if errors.deal_type}} has-error{{/if}}"
+                        >
+                            <label>{{_ 'Service Name'}}</label>
+                            <div class="select-field">
+                                <select name="filter[service_name]" class="form-control">
+                                    <option
+                                        value=""
+                                        {{#when filter.type '==' ''}}
+                                            selected
+                                        {{~/when~}}
+                                    >
+                                        {{_ 'All'}}
+                                    </option>
+
+                                    <option
+                                        value="Resume Download"
+                                        {{#when filter.service_name '==' 'Resume Download'}}selected{{/when}}
+                                    >
+                                        Resume Download
+                                    </option>
+
+                                    <option
+                                        value="Sms Match"
+                                        {{#when filter.service_name '==' 'Sms Match'}}selected{{/when}}
+                                    >
+                                        Sms Match
+                                    </option>
+
+                                    <option
+                                        value="Post Promotion"
+                                        {{#when filter.service_name '==' 'Post Promotion'}}selected{{/when}}
+                                    >
+                                        Post Promotion
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <!-- <div class="form-group">
+                            <label>{{_ 'Credits Used'}}</label>
+                            <div class="input-range date-range">
+                                <div class="input-from">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-money"></i>
+                                        </div>
+                                        <input
+                                            class="form-control"
+                                            name="filter_range[deal_amount][start]"
+                                            placeholder="min"
+                                            type="text"
+                                            value="{{filter_range.deal_amount.start}}"
+                                        />
+                                    </div>
+                                </div>
+                                <span class="input-separator">
+                                    <i class="fa fa-minus"></i>
+                                </span>
+                                <div class="input-to">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-money"></i>
+                                        </div>
+                                        <input
+                                            class="form-control"
+                                            name="filter_range[deal_amount][end]"
+                                            placeholder="max"
+                                            type="text"
+                                            value="{{filter_range.deal_amount.end}}"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="form-group">
+                            <label>{{_ 'Date Created'}}</label>
+                            <div class="input-range date-range">
+                                <div class="input-from">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input
+                                            class="form-control"
+                                            name="date[service_created][start_date]"
+                                            onfocus="(this.type='date')"
+                                            placeholder="{{_ '2017-01-01'}}"
+                                            type="text"
+                                            value="{{date.service_created.start_date}}"
+                                        />
+                                    </div>
+                                </div>
+                                <span class="input-separator">
+                                    <i class="fa fa-minus"></i>
+                                </span>
+                                <div class="input-to">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input
+                                            class="form-control"
+                                            name="date[service_created][end_date]"
+                                            onfocus="(this.type='date')"
+                                            placeholder="{{_ '2017-01-01'}}"
+                                            type="text"
+                                            value="{{date.service_created.end_date}}"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group filter-button-only">
+                    {{#when filter.lead_active '==' '0'}}
+                        <input
+                            type="hidden"
+                            name="filter[lead_active]"
+                            value="0"
+                        />
+                    {{/when}}
+                    <button class="btn btn-primary">{{_ 'Filter'}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- END: Search Filters -->
+    <!-- START: Search Table Actions -->
+    <div class="search-table-actions">
+        <form class="form-inline">
+            <div class="pull-right">
+                <div class="btn-group">
+                    <button
+                        type="button"
+                        class="btn btn-default dropdown-toggle"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                    >
+                        {{_ 'Show %s' range}} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a
+                                href="/control/business/service/search?
+                                {{~querystring}}&range=10"
+                            >
+                                {{_ 'Show 10'}}
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="/control/business/service/search?
+                                {{~querystring}}&range=25"
+                            >
+                                {{_ 'Show 25'}}
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="/control/business/service/search?
+                                {{~querystring}}&range=50"
+                            >
+                                {{_ 'Show 50'}}
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="/control/business/service/search?
+                                {{~querystring}}&range=100"
+                            >
+                                {{_ 'Show 100'}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- <div class="form-group">
+                <select name="bulk" class="form-control">
+                    <option value="restore">{{_ 'Make Active'}}</option>
+                    <option value="remove">{{_ 'Make Inactive'}}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary">{{_ 'Apply'}}</button>
+            </div> -->
+            <!-- START: Search Table -->
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <!-- <th>
+                            <input
+                                class="checkall"
+                                id="checkAll"
+                                type="checkbox"
+                            />
+                        </th> -->
+                        <!-- START : TH : Actions -->
+                        <!-- <th>Actions</th> -->
+                        <!-- END : TH : Actions -->
+                        <!-- START : TH : Company -->
+                        <th>
+                            <a href="?q={{q}}&{{#sort 'profile_company'}}
+                                {{~#unless value~}}
+                                    order[profile_company]=ASC
+                                {{~/unless~}}
+                                {{~#when value '===' 'ASC'~}}
+                                    order[profile_company]=DESC
+                                {{~/when~}}
+                                {{~#when value '===' 'DESC'~}}
+                                    order[profile_company]=ASC
+                                {{~/when}}
+                            {{~/sort~}}">
+                                Company
+                                {{#sort 'profile_company'}}
+                                    {{~#when value '===' 'ASC'~}}
+                                        <i class="fa fa-caret-up"></i>
+                                    {{~/when~}}
+                                    {{~#when value '===' 'DESC'~}}
+                                        <i class="fa fa-caret-down"></i>
+                                    {{~/when}}
+                                    {{~#unless value~}}
+                                        <i class="fa fa-caret-up"></i>
+                                    {{~/unless~}}
+                                {{~/sort~}}
+                            </a>
+                        </th>
+                        <!-- END : TH : Company -->
+                        <!-- START : TH : Name -->
+                        <th>
+                            <a href="?q={{q}}&{{#sort 'profile_name'}}
+                                {{~#unless value~}}
+                                    order[profile_name]=ASC
+                                {{~/unless~}}
+                                {{~#when value '===' 'ASC'~}}
+                                    order[profile_name]=DESC
+                                {{~/when~}}
+                                {{~#when value '===' 'DESC'~}}
+                                    order[profile_name]=ASC
+                                {{~/when}}
+                            {{~/sort~}}">
+                                Name
+                                {{#sort 'profile_name'}}
+                                    {{~#when value '===' 'ASC'~}}
+                                        <i class="fa fa-caret-up"></i>
+                                    {{~/when~}}
+                                    {{~#when value '===' 'DESC'~}}
+                                        <i class="fa fa-caret-down"></i>
+                                    {{~/when}}
+                                    {{~#unless value~}}
+                                        <i class="fa fa-caret-up"></i>
+                                    {{~/unless~}}
+                                {{~/sort~}}
+                            </a>
+                        </th>
+                        <!-- END : TH : Name -->
+
+                        <!-- START : TH : Service -->
+                        <th>
+                            Service
+                        </th>
+                        <!-- END : TH : Service -->
+
+                        <!-- START : TH : Credits -->
+                        <th>
+                            <a href="?q={{q}}&{{#sort 'service_credits'}}
+                                {{~#unless value~}}
+                                    order[service_credits]=ASC
+                                {{~/unless~}}
+                                {{~#when value '===' 'ASC'~}}
+                                    order[service_credits]=DESC
+                                {{~/when~}}
+                                {{~#when value '===' 'DESC'~}}
+                                    order[service_credits]=ASC
+                                {{~/when}}
+                            {{~/sort~}}">
+                                Credits
+                                {{#sort 'service_credits'}}
+                                    {{~#when value '===' 'ASC'~}}
+                                        <i class="fa fa-caret-up"></i>
+                                    {{~/when~}}
+                                    {{~#when value '===' 'DESC'~}}
+                                        <i class="fa fa-caret-down"></i>
+                                    {{~/when}}
+                                    {{~#unless value~}}
+                                        <i class="fa fa-caret-up"></i>
+                                    {{~/unless~}}
+                                {{~/sort~}}
+                            </a>
+                        </th>
+                        <!-- END : TH : Credits -->
+                        <!-- START : TH : Date Used -->
+                        <th>
+                            <a href="?q={{q}}&{{#sort 'service_created'}}
+                                {{~#unless value~}}
+                                    order[service_created]=ASC
+                                {{~/unless~}}
+                                {{~#when value '===' 'ASC'~}}
+                                    order[service_created]=DESC
+                                {{~/when~}}
+                                {{~#when value '===' 'DESC'~}}
+                                    order[service_created]=ASC
+                                {{~/when}}
+                            {{~/sort~}}">
+                                Date Used
+                                {{#sort 'service_created'}}
+                                    {{~#when value '===' 'ASC'~}}
+                                        <i class="fa fa-caret-up"></i>
+                                    {{~/when~}}
+                                    {{~#when value '===' 'DESC'~}}
+                                        <i class="fa fa-caret-down"></i>
+                                    {{~/when}}
+                                    {{~#unless value~}}
+                                        <i class="fa fa-caret-up"></i>
+                                    {{~/unless~}}
+                                {{~/sort~}}
+                            </a>
+                        </th>
+                        <!-- END : TH : Date Used -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each rows}}
+                    <tr data-id="{{service_id}}">
+                        <!-- <td>
+                            <input
+                                name="bulk_rows[]"
+                                value="{{deal_id}}"
+                                type="checkbox"
+                            />
+                        </td>
+                        <td>
+                            {{#when service_active '==' 1}}
+                            <a href="/control/service/update/{{service_id}}" title="Edit">
+                            <i class="fa fa-edit"></i></a>
+                            &nbsp;
+                            <a
+                                class="text-danger remove"
+                                href="/control/service/remove/{{service_id}}"
+                                title="Remove"
+                            >
+                                <i class="fa fa-times"></i>
+                            </a>
+                            {{/when}}
+                            {{#when service_active '==' 0}}
+                            <a
+                                class="text-success restore"
+                                href="/control/service/restore/{{service_id}}"
+                                title="Restore"
+                            >
+                                <i class="fa fa-external-link"></i>
+                            </a>
+                            {{/when}}
+                        </td> -->
+                        <td>
+                            <a href="?filter[profile_id]={{profile_id}}">{{profile_company}}</a>
+                        </td>
+                        <td>
+                            <a href="?filter[profile_id]={{profile_id}}">{{profile_name}}</a>
+                        </td>
+                        <td>
+                            <a href="?filter[service_name]={{service_name}}">{{service_name}}</a>
+                        </td>
+                        <td>
+                            {{number service_credits}}
+                        </td>
+                        <td>
+                            {{date service_created 'M d Y h:i a'}}
+                        </td>
+                    </tr>
+                    {{/each}}
+                    {{#unless rows}}
+                        <tr>
+                            <td  class="text-center" colspan="12">
+                                {{_ 'No results found'}}.
+                            </td>
+                        </tr>
+                    {{/unless}}
+                </tbody>
+            </table>
+            <!-- END: Search Table -->
+        </form>
+    </div>
+    <!-- END: Search Table Actions -->
+    <!-- START: Pagination -->
+    <nav>
+        <ul class="pagination">
+            {{#pager total range}}
+                <li{{#if active}} class="active"{{/if}}>
+                    <a href="?{{href}}">{{page}}</a>
+                </li>
+            {{/pager}}
+        </ul>
+    </nav>
+    <!-- END: Pagination -->
+</div>
+<!-- END: Scroll -->

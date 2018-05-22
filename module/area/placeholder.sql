@@ -1,0 +1,2 @@
+INSERT INTO `area` VALUES ('1', 'Metro Manila', 'state', '4', null, null, '0', '1', '2016-04-13 16:22:48', '2016-04-13 16:22:48');
+INSERT INTO `area` VALUES ('2', 'Caloocan City', 'city', '1', null, null, '0', '1', '2016-04-13 16:22:48', '2016-04-13 16:22:48');

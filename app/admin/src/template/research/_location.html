@@ -1,0 +1,403 @@
+<div class="location">
+    <!-- START: Location Name-->
+    <div class="form-group{{#if errors.research_location.name}} has-error{{/if}}">
+        <label class="control-label">Location</label>
+        <div>
+            <input
+                class="form-control"
+                data-do="generate-slug"
+                data-on="keyup"
+                data-name="research_location[slug]"
+                name="research_location[name]"
+                placeholder="Location"
+                type="text"
+                value="{{item.research_location.name}}"
+            />
+
+            {{#if errors.research_location.name}}
+            <span class="help-text">{{errors.research_location.name}}</span>
+            {{/if}}
+        </div>
+    </div>
+    <!-- END: Location Name-->
+
+    <!-- START: Location Slug-->
+    <div class="form-group{{#if errors.research_location.slug}} has-error{{/if}}">
+        <label class="control-label">Slug</label>
+        <div>
+            <input
+                class="form-control"
+                name="research_location[slug]"
+                placeholder="metro-manila"
+                type="text"
+                value="{{item.research_location.slug}}"
+            />
+
+            {{#if errors.research_location.slug}}
+            <span class="help-text">{{errors.research_location.slug}}</span>
+            {{/if}}
+        </div>
+    </div>
+    <!-- END: Location Name-->
+
+    <!-- START: Unemployment Rate-->
+    <div class="form-group{{#if errors.research_location.unemployment_rate}} has-error{{/if}}">
+        <label class="control-label">{{_ 'Unemployment Rate'}}</label>
+        <!-- START: Unemployment Rate Form-->
+        <div data-do="rate-template" data-name="unemployment_rate">
+            <!-- START: Header-->
+            <div class="row">
+                <div class="col-md-3"><label>{{_ 'Year'}}</label></div>
+                <div class="col-md-3"><label>{{_ 'Rate'}}</label></div>
+            </div>
+            <!-- END: Header-->
+
+            {{#if item.research_location.unemployment_rate}}
+                {{#each item.research_location.unemployment_rate}}
+                    <div class="row rate-template">
+                        <div class="col-md-3">
+                            <select class="form-control" name="research_location[unemployment_rate][{{@key}}][year]">
+                                <option value="2018" {{#when year '==' '2018'}} selected {{/when}}>2018</option>
+                                <option value="2017" {{#when year '==' '2017'}} selected {{/when}}>2017</option>
+                                <option value="2016" {{#when year '==' '2016'}} selected {{/when}}>2016</option>
+                                <option value="2015" {{#when year '==' '2015'}} selected {{/when}}>2015</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+
+                        <input class="form-control" type="text" name="research_location[unemployment_rate][{{@key}}][rate]" value="{{rate}}">
+                        </div>
+                        {{#if @key}}
+                            <a class="remove-tag text-danger" href="javascript:void(0);">&#x2716;</a>
+                        {{/if}}
+                    </div>
+                {{/each}}
+            {{else}}
+                <div class="row rate-template">
+                    <div class="col-md-3">
+                        <select class="form-control" name="research_location[unemployment_rate][{{@key}}][year]">
+                            <option value="2018">2018</option>
+                            <option value="2017">2017</option>
+                            <option value="2016">2016</option>
+                            <option value="2015">2015</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <input class="form-control" type="text" name="research_location[unemployment_rate][0][rate]">
+                    </div>
+                    <a class="remove-tag text-danger" href="javascript:void(0);">&#x2716;</a>
+                </div>
+            {{/if}}
+            <input class="add-rate btn btn-success" type="button" value="Add +">
+        </div>
+        <!-- END: Unemployment Rate Form-->
+    </div>
+    <!-- END: Unemployment Rate-->
+
+    <!-- START: Unemployment Rate Description -->
+    <div class="form-group{{#if errors.research_location.unemployment_rate_details}} has-error{{/if}}">
+        <label class="control-label">{{_ 'Unemployment Rate Description'}}</label>
+        <div>
+            <textarea
+                class="form-control"
+                data-do="wysiwyg"
+                name="research_location[unemployment_rate_details]"
+                placeholder="{{_ 'Unemployment Rate Description'}}"
+            >{{item.research_location.unemployment_rate_details}}</textarea>
+
+            {{#if errors.research_location.unemployment_rate_details}}
+                <span class="help-text">{{errors.research_location.unemployment_rate_details}}</span>
+            {{/if}}
+        </div>
+    </div>
+    <!-- END: Unemployment Rate Description -->
+
+    <!-- START: Hiring Rate-->
+    <div class="form-group{{#if errors.research_location.hiring_rate}} has-error{{/if}}">
+        <label class="control-label">{{_ 'Hiring Rate'}}</label>
+        <!-- START: Hiring Rate Form-->
+        <div data-do="hiring-rate" class="hiring-rate" data-name="hiring_rate">
+            <!-- START: Header-->
+            <div class="row">
+                <div class="col-md-3"><label>{{_ 'Job'}}</label></div>
+                <div class="col-md-3"><label>{{_ 'Min'}}</label></div>
+                <div class="col-md-3"><label>{{_ 'Max'}}</label></div>
+            </div>
+            <!-- END: Header-->
+
+            {{#if item.research_location.hiring_rate}}
+                {{#each item.research_location.hiring_rate}}
+                    <div class="row rate-template">
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="research_location[hiring_rate][{{@key}}][name]" placeholder="{{_ 'Call Center'}}" value="{{name}}">
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="research_location[hiring_rate][{{@key}}][min]" placeholder="10000" value="{{min}}">
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control" type="text" name="research_location[hiring_rate][{{@key}}][max]" placeholder="20000" value="{{max}}">
+                        </div>
+                        {{#if @key}}
+                            <a class="remove-tag text-danger" href="javascript:void(0);">&#x2716;</a>
+                        {{/if}}
+                    </div>
+                {{/each}}
+            {{else}}
+                <div class="row rate-template">
+                    <div class="col-md-3">
+                        <input class="form-control"  type="text" name="research_location[hiring_rate][0][name]"  placeholder="{{_ 'Call Center'}}"  value="{{name}}">
+                    </div>
+                    <div class="col-md-3">
+                        <input class="form-control" type="text" name="research_location[hiring_rate][0][min]"  placeholder="10000" >
+                    </div>
+                     <div class="col-md-3">
+                        <input class="form-control" type="text" name="research_location[hiring_rate][0][max]"  placeholder="20000" >
+                    </div>
+                </div>
+            {{/if}}
+            <input class="add-hiring-rate btn btn-success" type="button" value="Add +">
+        </div>
+        <!-- END: Hiring Rate Form-->
+    </div>
+    <!-- END: Hiring Rate-->
+
+    <!-- START: Hiring Rate Description -->
+    <div class="form-group{{#if errors.research_location.hiring_rate_details}} has-error{{/if}}">
+        <label class="control-label">{{_ 'Hiring Rate Description'}}</label>
+        <div>
+            <textarea
+                class="form-control"
+                data-do="wysiwyg"
+                name="research_location[hiring_rate_details]"
+                placeholder="{{_ 'Hiring Rate Description'}}"
+            >{{item.research_location.hiring_rate_details}}</textarea>
+
+            {{#if errors.research_location.hiring_rate_details}}
+                <span class="help-text">{{errors.research_location.hiring_rate_details}}</span>
+            {{/if}}
+        </div>
+    </div>
+    <!-- END: Hiring Rate Description -->
+
+    <!-- START: Salary Range -->
+    <div class="form-group{{#if errors.research_location.salary_range}} has-error{{/if}}">
+        <label class="control-label">{{_ 'Salary Range'}}</label>
+        <div class="row salary-range">
+            <!-- START: Salary Max -->
+            <div class="col-md-6 salary-max">
+                <div class="form-group
+                    {{#if errors.research_location.salary_range.min}}
+                        has-error
+                    {{/if}}
+                    "
+                >
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            &#8369;
+                        </span>
+                        <input
+                            class="form-control"
+                            min="0"
+                            name="research_location[salary_range][min]"
+                            placeholder="10,000"
+                            type="number"
+                            value="{{item.research_location.salary_range.min}}"
+                        />
+                    </div>
+                    {{#if errors.research_location.salary_range.min}}
+                        <span class="help-text">
+                            {{errors.research_location.salary_range.min}}
+                        </span>
+                    {{/if}}
+                </div>
+            </div>
+            <!-- END: Salary Max -->
+
+            <!-- START: Salary Max -->
+            <div class="col-md-6 salary-max">
+                <div class="form-group
+                    {{#if errors.research_location.salary_range.max}}
+                        has-error
+                    {{/if}}
+                    "
+                >
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            &#8369;
+                        </span>
+                        <input
+                            class="form-control"
+                            min="0"
+                            name="research_location[salary_range][max]"
+                            placeholder="100,000"
+                            type="number"
+                            value="{{item.research_location.salary_range.max}}"
+                        />
+                    </div>
+                    {{#if errors.research_location.salary_range.max}}
+                        <span class="help-text">
+                            {{errors.research_location.salary_range.max}}
+                        </span>
+                    {{/if}}
+                </div>
+            </div>
+            <!-- END: Salary Min -->
+        </div>
+    </div>
+    <!-- END: Salary Range -->
+
+    <!-- START: Salary Range Description -->
+    <div class="form-group{{#if errors.research_location.salary_range_details}} has-error{{/if}}">
+        <label class="control-label">{{_ 'Salary Range Description'}}</label>
+        <div>
+            <textarea
+                class="form-control"
+                data-do="wysiwyg"
+                name="research_location[salary_range_details]"
+                placeholder="{{_ 'Salary Range Description'}}"
+            >{{item.research_location.salary_range_details}}</textarea>
+
+            {{#if errors.research_location.salary_range_details}}
+                <span class="help-text">{{errors.research_location.salary_range_details}}</span>
+            {{/if}}
+        </div>
+    </div>
+    <!-- END: Salary Range Description -->
+
+    <!-- START: Common Description -->
+    <div class="form-group{{#if errors.research_location.description}} has-error{{/if}}">
+        <label class="control-label">{{_ 'Common Description'}}</label>
+        <div>
+            <textarea
+                class="form-control"
+                data-do="wysiwyg"
+                name="research_location[description]"
+                placeholder="{{_ 'Common Description'}}"
+            >{{item.research_location.description}}</textarea>
+
+            {{#if errors.research_location.description}}
+                <span class="help-text">{{errors.research_location.description}}</span>
+            {{/if}}
+        </div>
+    </div>
+    <!-- END: Common Description -->
+
+    <!-- START: Common Qualification -->
+    <div class="form-group{{#if errors.research_location.qualification}} has-error{{/if}}">
+        <label class="control-label">{{_ 'Common Qualification'}}</label>
+        <div>
+            <textarea
+                class="form-control"
+                data-do="wysiwyg"
+                name="research_location[qualification]"
+                placeholder="{{_ 'Common Qualification'}}"
+
+            >{{item.research_location.qualification}}</textarea>
+
+            {{#if errors.research_location.qualification}}
+                <span class="help-text">{{errors.research_location.qualification}}</span>
+            {{/if}}
+        </div>
+    </div>
+    <!-- END: Common Qualification -->
+
+    <!-- START: Geo -->
+    <div class="form-group">
+        <label class="control-label">Geolocation</label>
+        <div class="row">
+            <div class="col-md-6 latitude">
+                <label class="control-label">Latitude</label>
+                <input
+                    class="form-control"
+                    min="0"
+                    name="research_location[geo][latitude]"
+                    type="text"
+                    value="{{item.research_location.geo.latitude}}"
+                />
+            </div>
+            <div class="col-md-6 longhitude">
+                <label class="control-label">Longhitude</label>
+                <input
+                    class="form-control"
+                    min="0"
+                    name="research_location[geo][longhitude]"
+                    type="text"
+                    value="{{item.research_location.geo.longhitude}}"
+                />
+            </div>
+        </div>
+    </div>
+    <!-- END: Geo-->
+
+    <!-- START: Top Companies -->
+    <div class="form-group{{#if errors.research_location.top_companies}} has-error{{/if}} clearfix">
+        <label class="control-label">{{_ 'Top Companies'}}</label>
+        <div>
+            <div data-do="company-field" data-field="research_location[top_companies]" class="company-field">
+                {{#each item.research_location.top_companies}}
+                    <div class="top-company">
+                        <input
+                            class="top-company-input text-field"
+                            name="research_location[top_companies][]"
+                            placeholder="{{_ 'Add Company'}}"
+                            type="text"
+                            value="{{this}}"
+                        />
+                        <a
+                        class="remove"
+                        href="javascript:void(0)"
+                        >
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                {{/each}}
+            </div>
+
+            <div class="input-suggestion hide">
+                <ul class="suggestion-list"></ul>
+            </div>
+
+            {{#if errors.research_location.top_companies}}
+                <span class="help-text text-danger">{{errors.research_location.top_companies}}</span>
+            {{/if}}
+        </div>
+        <script id="top-company-translations" type="text/json">{"Company":"{{_ 'Company'}}"}</script>
+    </div>
+    <!-- END: Top Companies -->
+
+    <!-- START: Paid Companies -->
+    <div class="form-group{{#if errors.research_location.paid_companies}} has-error{{/if}} clearfix">
+        <label class="control-label">{{_ 'Paid Companies'}}</label>
+        <div>
+            <div data-do="company-field" data-field="research_location[paid_companies]" class="company-field">
+                {{#each item.research_location.paid_companies}}
+                    <div class="top-company">
+                        <input
+                            class="top-company-input text-field"
+                            name="research_location[paid_companies][]"
+                            placeholder="{{_ 'Add Company'}}"
+                            type="text"
+                            value="{{this}}"
+                        />
+                        <a
+                        class="remove"
+                        href="javascript:void(0)"
+                        >
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                {{/each}}
+            </div>
+
+            <div class="input-suggestion hide">
+                <ul class="suggestion-list"></ul>
+            </div>
+
+            {{#if errors.research_location.paid_companies}}
+                <span class="help-text text-danger">{{errors.research_location.paid_companies}}</span>
+            {{/if}}
+        </div>
+        <script id="top-company-translations" type="text/json">{"Paid Companies":"{{_ 'Paid Companies'}}"}</script>
+    </div>
+    <!-- END: Paid Companies -->
+</div>

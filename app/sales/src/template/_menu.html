@@ -1,0 +1,126 @@
+<nav role="navigation">
+  <div class="menuToggle pull-left">
+    <!--
+    A fake / hidden checkbox is used as click reciever,
+    so you can use the :checked selector on it.
+    -->
+    <input type="checkbox" />
+
+    <!--
+    Some spans to act as a hamburger.
+
+    They are acting like a real hamburger,
+    not that McDonalds stuff.
+    -->
+    <span class="burger"></span>
+    <span class="burger"></span>
+    <span class="burger"></span>
+
+    <!--
+    Too bad the menu has to be inside of the button
+    but hey, it's pure CSS magic.
+    -->
+    <ul class="menu">
+        <!-- START: Menu Dashboard -->
+        <li role="presentation"
+            {{#when page.active_menu '===' 'dashboard'}}
+                class="active"
+            {{/when}}
+        >
+            <a href="/control/business/dashboard">
+                <i class="fa fa-home"></i>
+                <span>{{_ 'Dashboard'}}</span>
+            </a>
+        </li>
+        <!-- END: Menu Dashboard -->
+        <!-- START: Menu Leads -->
+        <li role="presentation"
+            {{#when page.active_menu '===' 'lead'}}
+                class="active"
+            {{/when}}
+        >
+            <a href="/control/business/lead/search">
+                <i class="fa fa-user"></i>
+                <span>{{_ 'Leads'}}</span>
+            </a>
+        </li>
+        <!-- END: Menu Leads -->
+        <!-- START: Menu Users -->
+        <li role="presentation"
+            {{#when page.active_menu '===' 'profile'}}
+                class="active"
+            {{/when}}
+        >
+            <a href="/control/business/profile/search">
+                <i class="fa fa-building"></i>
+                <span>{{_ 'Companies'}}</span>
+            </a>
+        </li>
+        <!-- END: Menu Users -->
+        {{#session 'app_session'}}
+            {{#when results.profile_type '!=' 'agent'}}
+                <!-- START: Menu Agent -->
+                <li role="presentation"
+                    {{#when page.active_menu '===' 'agent'}}
+                        class="active"
+                    {{/when}}
+                >
+                    <a href="/control/business/agent/search">
+                        <i class="fa fa-user-secret"></i>
+                        <span>{{_ 'Sales Agent'}}</span>
+                    </a>
+                </li>
+                <!-- END: Menu Agent -->
+            {{/when}}
+        {{/session}}
+        <!-- START: Menu Pipelines -->
+        <li role="presentation"
+            {{#when page.active_menu '===' 'pipelines'}}
+                class="active"
+            {{/when}}
+        >
+            <a href="/control/business/pipeline/1/board">
+                <i class="fa fa-ellipsis-h"></i>
+                <span>{{_ 'Board'}}</span>
+            </a>
+        </li>
+        <!-- END: Menu Pipelines -->
+        <!-- START: Transactions -->
+        <li role="presentation"
+            {{#when page.active_menu '===' 'transaction'}}
+                class="active"
+            {{/when}}
+        >
+            <a href="/control/business/transaction/search">
+                <i class="fa fa-file-text" aria-hidden="true"></i>
+                <span>{{_ 'Transactions'}}</span>
+            </a>
+        </li>
+        <!-- END: Transactions -->
+        <!-- START: Services -->
+        <li role="presentation"
+            {{#when page.active_menu '===' 'service'}}
+                class="active"
+            {{/when}}
+        >
+            <a href="/control/business/service/search">
+                <i class="fa fa-heart" aria-hidden="true"></i>
+                <span>{{_ 'Services'}}</span>
+            </a>
+        </li>
+        <!-- END: Services -->
+        <!-- START: Events -->
+        <li role="presentation"
+            {{#when page.active_menu '===' 'event'}}
+                class="active"
+            {{/when}}
+        >
+            <a href="/control/business/event/search">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                <span>{{_ 'Events'}}</span>
+            </a>
+        </li>
+        <!-- END: Events -->
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,1 @@
+ALTER TABLE `transaction` ADD `transaction_paid_date` datetime DEFAULT NULL AFTER `transaction_updated`;

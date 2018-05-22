@@ -1,0 +1,78 @@
+<!-- START: Auth Verify Page -->
+<div class="auth-recover-body auth-form">
+    <!-- START: Auth Recover Panel -->
+    <div class="panel panel-default">
+        <!-- START: Website Logo -->
+        <div class="form-logo">
+            <center>
+                <a class="logo" href="/">
+                    <img alt="Jobayan Logo" src="{{config 'cdn'}}/images/logo.png" />
+                </a>
+            </center>
+        </div>
+        <!-- END: Website Logo -->
+        <h1 class="text-center">{{_ 'Recover Password'}}</h1>
+        <!-- START: Panel Body -->
+        <div class="panel-body" >
+            <!-- START: Auth Recover Form -->
+            <form method="post">
+                <!-- START: Auth Password -->
+                <div class="form-group {{#if errors.auth_password}} has-error{{/if}}">
+                    <label>{{_ 'New Password'}}</label>
+                    <input
+                        class="form-control"
+                        name="auth_password"
+                        placeholder="{{_ 'Password'}}"
+                        type="password"
+                        value="{{item.auth_password}}"
+                    />
+                    {{#if errors.auth_password}}
+                        <span class="help-text">{{errors.auth_password}}</span>
+                    {{/if}}
+                </div>
+                <!-- END: Auth Password -->
+                <!-- START: Confirm Password -->
+                <div class="form-group {{#if errors.confirm}} has-error{{/if}}">
+                    <label>{{_ 'Confirm Password'}}</label>
+                    <input
+                        class="form-control"
+                        data-do="password-strength"
+                        data-on="keyup"
+                        id="pass-strength"
+                        name="confirm"
+                        placeholder="{{_ 'Confirm Password'}}"
+                        type="password"
+                        value="{{item.confirm}}"
+                    />
+                    {{#if errors.confirm}}
+                        <span class="help-text">{{errors.confirm}}</span>
+                    {{/if}}
+                </div>
+                <!-- END: Confirm Password -->
+                <div class="text-center divide">
+                    <div class="divider" id="divider-1"></div>
+                    <div class="divider" id="divider-2"></div>
+                    <div class="divider" id="divider-3"></div>
+                    <div class="divider" id="divider-4"></div>
+                    <div class="divider" id="divider-5"></div>
+                </div>
+                <p class="instructions text-center">
+                    {{_ "Password must be at least 7 characters long,
+                    and can't be things like 123456 and abcdefg"}}
+                    </p>
+                <!-- START: Form Login -->
+                <div class="form-group">
+                    <input name="csrf" type="hidden" value="{{csrf}}" />
+                    <button class="btn btn-default" type="submit">
+                        {{_ 'change your password'}}
+                    </button>
+                </div>
+                <!-- END: Form Login -->
+            </form>
+            <!-- END: Auth Recover Form -->
+        </div>
+        <!-- END: Panel Body -->
+    </div>
+    <!-- END: Auth Forgot Panel -->
+</div>
+<!-- END: Auth Verify Page -->

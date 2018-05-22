@@ -1,0 +1,285 @@
+<div class="container interview-scheduler-container">
+    {{> profile_alert}}
+    <!-- START: Profile Panel -->
+    <div class="row profile-panel">
+        <!-- START: Sidebar Left -->
+        <aside class="col-md-3 left">
+            {{> profile_menu active="interview"}}
+        </aside>
+        <!-- END: Sidebar Left -->
+        <!-- START: Content Left -->
+        <div class="col-md-9 right">
+            <!-- START: Head -->
+            <div class="head row">
+                <div class="col-md-6 text-left">
+                    <h1>{{_ 'Interview Scheduler'}}</h1>
+                </div>
+            </div>
+            <!-- END: Head -->
+
+            <!-- START: Main Content -->
+            <div class="content">
+                <!-- START : Top -->
+                <div class="top">
+                    <a
+                        class="active"
+                        href="/profile/interview/calendar"
+                        title="{{_ 'Interview Calendar'}}"
+                    >
+                        {{_ 'Interview Calendar'}}
+                    </a>
+                    <a
+                        href="/profile/interview/settings"
+                        title="{{_ 'Schedule Settings'}}"
+                    >
+                        {{_ 'Schedule Settings'}}
+                    </a>
+                </div>
+                <!-- END : Top -->
+
+                <!-- START: Detail -->
+                <div class="detail clearfix">
+                    <div class="detail-wrapper">
+                        <!-- START: Breadcrumbs -->
+                        <div class="breadcrumbs">
+                            <ul>
+                                <li>
+                                    <a href="/profile/interview/calendar">
+                                        {{_ 'Calendar'}}
+                                    </a>
+                                </li>
+                                <li>
+                                    > {{_ 'Schedule an Applicant'}}
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- END: Breadcrumbs -->
+
+                        <!-- START : Scheduler Wrapper -->
+                        <div class="scheduler-wrapper">
+                            {{#if posts}}
+                                <form class="schedule-form">
+                                    <!-- START : Job List -->
+                                    <div class="form-group job-list">
+                                        <label>Job Title</label>
+                                        <div class="custom-select">
+                                            <select
+                                                class="form-control"
+                                                data-do="post-likes"
+                                                data-on="change"
+                                                name="post_id"
+                                            >
+                                                <option>{{_ 'Select a Job'}}</option>
+                                                {{#if posts}}
+                                                    {{#each posts}}
+                                                        <option value="{{post_id}}">{{post_position}}</option>
+                                                    {{/each}}
+                                                {{/if}}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- END : Job List -->
+
+                                    <!-- START : Job List -->
+                                    <div class="form-group profile-list">
+                                        <label>Applicant</label>
+                                        <div class="custom-select">
+                                            <select
+                                                class="form-control"
+                                                data-do="interview-applicants"
+                                                data-on="change"
+                                                disabled="disabled"
+                                                name="profile_id"
+                                                id="applicant-profile-list-0"
+                                            >
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- END : Job List -->
+
+                                    <!-- START: Interview Schedule List -->
+                                    <div class="form-group schedule-list dropdown-list">
+                                        <label>Date and Time</label>
+
+                                        <div
+                                            aria-expanded="false"
+                                            aria-haspopup="true"
+                                            class="clearfix dropdown-toggle list-selector"
+                                            disabled="disabled"
+                                        >
+                                            <input
+                                                class="form-control"
+                                                type="hidden"
+                                                name="interview_setting_id"
+                                                {{#if selected}}
+                                                    value={{selected.interview_setting_id}}
+                                                {{/if}}
+                                            >
+
+                                            <!-- START : Selected Interview Setting -->
+                                            <div class="clearfix setting-selected pull-left">
+                                                <!-- START : Interview Setting Date -->
+                                                <div class="interview-setting setting-date pull-left">
+                                                    <input
+                                                        name="slots_taken"
+                                                        type="hidden"
+                                                        value={{selected.slots_taken}}
+                                                    >
+
+                                                    <input
+                                                        name="max_slots"
+                                                        type="hidden"
+                                                        value="{{selected.interview_setting_slots}}"
+                                                    >
+
+                                                    <span class="slots">
+                                                        {{#if selected}}
+                                                            <i class="fa fa-user"></i> &nbsp;
+                                                            {{number_format selected.slots_taken 0}}/{{number_format selected.interview_setting_slots 0}}
+                                                        {{/if}}
+                                                    </span>
+
+                                                    <span class="date">
+                                                        {{#if selected}}
+                                                            {{date_format selected.interview_setting_date 'F d, Y'}}
+                                                        {{/if}}
+                                                    </span>
+                                                </div>
+                                                <!-- END : Interview Setting Date -->
+
+                                                <!-- START : Interview Setting Time -->
+                                                <div class="interview-setting setting-time pull-right">
+                                                    <span>
+                                                        {{#if selected}}
+                                                            {{time_format selected.interview_setting_start_time 'g:i A'}} - 
+                                                            {{time_format selected.interview_setting_end_time 'g:i A'}}
+                                                        {{/if}}
+                                                    </span>
+                                                </div>
+                                                <!-- END : Interview Setting Time -->
+                                            </div>
+                                            <!-- END : Selected Interview Setting -->
+
+                                            <div class="setting-dropdown pull-right">
+                                                <button class="">
+                                                    <i class="fa fa-caret-down"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <ul class="dropdown-menu pull-right">
+                                            {{#each settings}}
+                                                <li>
+                                                    <a
+                                                        {{#if ../selected}}
+                                                            {{#when ../selected.interview_setting_id '==' interview_setting_id}}
+                                                                class="active"
+                                                            {{/when}}
+                                                        {{/if}}
+                                                        data-do="select-interview-setting"
+                                                        data-id="{{interview_setting_id}}"
+                                                        data-on="click"
+                                                        href="javascript:void(0);"
+                                                    >
+                                                        <div
+                                                            class="clearfix setting-detail"
+                                                            id="setting-detail-{{interview_setting_id}}"
+                                                        >
+                                                            <!-- START : Interview Setting Date -->
+                                                            <div class="interview-setting setting-date pull-left">
+                                                                <input
+                                                                    disabled="disabled"
+                                                                    name="slots_taken"
+                                                                    type="hidden"
+                                                                    value={{slots_taken}}
+                                                                >
+
+                                                                <input
+                                                                    name="max_slots"
+                                                                    type="hidden"
+                                                                    value="{{interview_setting_slots}}"
+                                                                >
+
+                                                                <span class="slots">
+                                                                    <i class="fa fa-user"></i> &nbsp;
+                                                                    {{number_format slots_taken 0}}/{{number_format interview_setting_slots 0}}
+                                                                </span>
+
+                                                                <span class="date">
+                                                                    {{date_format interview_setting_date 'F d, Y'}}
+                                                                </span>
+                                                            </div>
+                                                            <!-- END : Interview Setting Date -->
+
+                                                            <!-- START : Interview Setting Time -->
+                                                            <div class="interview-setting setting-time pull-right">
+                                                                <span>
+                                                                    {{time_format interview_setting_start_time 'g:i A'}} - 
+                                                                    {{time_format interview_setting_end_time 'g:i A'}}
+                                                                </span>
+                                                            </div>
+                                                            <!-- END : Interview Setting Time -->
+                                                        </div>
+                                                    </a> 
+                                                </li>
+                                            {{/each}}
+
+                                            <li>
+                                                <a 
+                                                    class="last-option"
+                                                    href="/profile/interview/settings">
+                                                    <i class="fa fa-plus"></i>
+                                                    {{_ 'Add Time Availability'}}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- END: Interview Schedule List -->
+
+                                    <!-- START : Actions -->
+                                    <div class="actions">
+                                        <a
+                                            class="btn btn-default"
+                                            data-do="schedule-interview"
+                                            data-on="click"
+                                            href="javascript:void(0);"
+                                        >
+                                            {{_ 'Schedule'}}
+                                        </a>
+                                    </div>
+                                    <!-- END : Actions -->
+                                </form>
+                            {{else}}
+                                <div class="empty-list">
+                                    <span>
+                                        It seems you don't have any job posts yet.
+                                    </span>
+
+                                    <span>
+                                        Create your first job post now.
+                                    </span>
+
+                                    <a
+                                        class="btn btn-primary"
+                                        href="/post/create/poster"
+                                        title="Create Post"
+                                    >
+                                        Create Post
+                                    </a>
+                                </div>
+                            {{/if}}
+                        </div>
+                        <!-- END : Scheduler Wrapper -->
+                    </div>
+                </div>
+                <!-- END: Detail -->
+            </div>
+            <!-- END: Main Content -->
+        </div>
+        <!-- END: Content Left -->
+    </div>
+    <!-- END: Profile Panel -->
+</div>
+
+{{> partial/interview_availabilitynone }}
+{{> partial/interview_confirmation }}

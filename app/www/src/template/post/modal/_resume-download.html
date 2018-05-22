@@ -1,0 +1,36 @@
+<div id="resume-download" class="modal fade resume-download" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    {{_ 'Resume Download'}}
+                </div>
+            </div>
+            <div class="modal-body">
+                <h1 class="resume-sub-header text-center">
+                    {{_ 'Know your applicants!'}}
+                </h1>
+                <p class="text-center">
+                    {{_ 'For only 10 credits per download, you can now acquire
+                    their resume to better understand skills and talents.'}}
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a
+                    class="btn btn-default text-uppercase"
+                    data-do="information-resume"
+                    data-information-id="{{../profile_information.information_id}}"
+                    data-modal="#resume-download"
+                    data-on="click"
+                    data-profile-id="{{../profile_information.profile_id}}"
+                    href="javascript:void(0)"
+                >
+                    {{_ 'Download Resume'}}
+                </a>
+                <button class="btn btn-primary" data-dismiss="modal" type="button">
+                    {{_ 'Cancel'}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

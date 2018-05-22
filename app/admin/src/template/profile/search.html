@@ -1,0 +1,907 @@
+<h3>{{number_format total 0}} {{title}}</h3>
+
+<div class="clearfix">
+    <div
+        aria-label="..."
+        class="btn-group pull-left"
+        role="group"
+    >
+        <a class="btn btn-primary" href="?{{toquery 'filter[profile_active]' 1}}">
+            Active
+        </a>
+        <a class="btn btn-danger" href="?{{toquery 'filter[profile_active]' 0}}">
+            Inactive
+        </a>
+    </div>
+    <span class="pull-left">
+        <a class="btn btn-success" href="/control/profile/create">
+            <i class="fa fa-plus"></i>
+            Create New Profile
+        </a>
+    </span>
+
+    <!-- START : Form -->
+    <form
+        class="filter-form"
+        data-do="check-date"
+        data-on="submit"
+        method="get"
+    >
+        <div class="form-group pull-left">
+            <label class="pull-left">Type</label>
+
+            <select
+                class="form-control pull-left type"
+                data-do="redirect-filter"
+                data-on="change"
+                name="filter[type]"
+            >
+                <option
+                    value=""
+                    {{#when filter.type '==' ''}}
+                        selected
+                    {{~/when~}}
+                >
+                    {{_ 'All'}}
+                </option>
+
+                <option
+                    value="poster"
+                    {{#when filter.type '==' 'poster'}}
+                        selected
+                    {{~/when~}}
+                >
+                    Poster
+                </option>
+
+                <option
+                    value="seeker"
+                    {{#when filter.type '==' 'seeker'}}
+                        selected
+                    {{~/when~}}
+                >
+                    Seeker
+                </option>
+            </select>
+
+            <button
+                class="btn btn-success pull-left"
+                data-type="profile"
+                data-do="export-form"
+                data-on="click"
+                >
+                Export
+            </button>
+        </div>
+        <div class="pull-right">
+        <label class="date-from">
+            {{_ 'From'}}
+        </label>
+            <input
+                class="date"
+                id="start"
+                name="date[start_date]"
+                type="date"
+                value="{{date.start_date}}"
+            />
+        <label class="date-to">
+            {{_ 'To'}}
+        </label>
+            <input
+                class="date "
+                id="end"
+                name="date[end_date]"
+                type="date"
+                value="{{date.end_date}}"
+            />
+        <button class="btn btn-success">
+            {{_ 'Search'}}
+        </button>
+        </div>
+    </form>
+    <!-- END : Form -->
+
+
+</div>
+<br/>
+<div class="clearfix">
+    <!-- START: Upload CSV -->
+    <div class="pull-left">
+        <form
+            action="/control/profile/import"
+            class="form-inline"
+            enctype="multipart/form-data"
+            method="post"
+        >
+            <div class="form-group" >
+                <input
+                    class="upload"
+                    id="file_csv"
+                    name="csv"
+                    type="file"
+                />
+            </div>
+            <button class="btn btn-info" type="submit">
+                <i class="fa fa-upload"></i> Upload CSV
+            </button>
+            <a
+                class="btn btn-success export-button"
+                href="/csv/profile_format.csv"
+                title="Download CSV Format"
+            >
+                <i class="fa fa-file-excel-o"></i> Export CSV Format
+            </a>
+        </form>
+    </div>
+    <!-- END: Upload CSV -->
+    <!-- START: SEARCH FORM -->
+    <div class="pull-right">
+        <form
+            class="search form-inline"
+            method="get"
+            style="display:inline-block;"
+            action="?{{toquery}}"
+        >
+            {{#when filter.transaction_active '===' '0'}}
+               <input type="hidden"
+               name="filter[profile_active]"
+               value = "{{filter.profile_active}}"
+               />
+            {{/when}}
+            <select
+                name="select_filter">
+             <option
+                    value="profile_id"
+                    {{#when select_filter '==' 'profile_id'}}
+                        selected
+                    {{~/when~}}
+                >
+                    {{_ 'Profile ID'}}
+            </option>
+            <option
+                    value="profile_name"
+                    {{#when select_filter '==' 'profile_name'}}
+                        selected
+                    {{~/when~}}
+                >
+                    {{_ 'Profile Name'}}
+            </option>
+            <option
+                    value="profile_email"
+                    {{#when select_filter '==' 'profile_email'}}
+                        selected
+                    {{~/when~}}
+                >
+                    {{_ 'Email'}}
+            </option>
+            <option
+                    value="profile_company"
+                    {{#when select_filter '==' 'profile_company'}}
+                        selected
+                    {{~/when~}}
+                >
+                    {{_ 'Company'}}
+            </option>
+            <option
+                    value="profile_phone"
+                    {{#when select_filter '==' 'profile_phone'}}
+                        selected
+                    {{~/when~}}
+                >
+                    {{_ 'Phone'}}
+            </option>
+            </select>
+            <div class="form-group">
+                <input
+                    class="form-control"
+                    name="q[]"
+                    placeholder="Search"
+                    type="text"
+                    value="{{q.0}}"
+                />
+            </div>
+            <button class="btn"><i class="fa fa-search"></i></button>
+        </form>
+        <a
+            class="btn btn-success export-button"
+            href="/control/ajax/profile/export?{{querystring}}"
+            data-do="export-link"
+            data-on="click"
+            data-type="profile"
+        >
+            <i class="fa fa-file-excel-o no-pointer-events"></i>
+        </a>
+        <!-- <div class="dropdown text-right">
+                <button class="btn btn-default dropdown-toggle"
+                    type="button"
+                    id="type"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="true">
+                {{#if filter.type}}
+                    {{#when filter.type '==' 'seeker'}}
+                    Seeker
+                    {{/when}}
+                    {{#when filter.type '==' 'poster'}}
+                    Poster
+                    {{/when}}
+                {{else}}
+                    Profile Type
+                {{/if}}
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="type">
+                <li><a href="/control/profile/search?filter[type]=seeker">Seeker</a></li>
+                <li><a href="/control/profile/search?filter[type]=poster">Poster</a></li>
+            </ul>
+        </div> -->
+    </div>
+    <!-- END: SEARCH FORM -->
+    <div class="checkbox pull-right crawled">
+        <label>
+            <input
+                name="crawled"
+                type="checkbox"
+                data-do="profile-crawled"
+                data-on="click"
+            > Crawled Profile
+        </label>
+    </div>
+
+</div>
+
+<hr/>
+
+<!-- START: Upload CSV -->
+<div class="upload-profile-post clearfix">
+   <form
+       action="/control/profile/post/import"
+       class="form-inline pull-right"
+       enctype="multipart/form-data"
+       method="post"
+   >
+       <div class="form-group" >
+           <input class="upload" id="file_csv" name="csv" type="file" />
+       </div>
+       <button class="btn btn-info import-btn" type="submit">
+           <i class="fa fa-upload"></i> Upload Profile Post CSV
+       </button>
+
+        <a class="btn btn-success export-button" href="/csv/profile_post_format.csv" title="Download CSV Format">
+            <i class="fa fa-file-excel-o"></i> Export CSV Format
+        </a>
+   </form>
+</div>
+<!-- END: Upload CSV -->
+
+<hr/>
+
+<!-- START: BULK FORM -->
+<form method="post" class="form-inline bulk-form pad-vertical">
+    <div class="panel panel-default clear">
+        <div class="panel-body" >
+            {{#if rows}}
+                <div class="table-overflow">
+                    <!-- START: TABLE -->
+                    <table class="table table-striped">
+                        <!-- START : THead / Table Head -->
+                        <thead>
+                            <tr>
+                                <!-- START : TH : Actions -->
+                                <th>Actions</th>
+                                <!-- END : TH : Actions -->
+
+                                <!-- START : TH : ID -->
+                                <th>
+                                    <a href="?filter[profile_active]={{filter.profile_active}}{{q.0}}&{{#sort 'profile_id'}}
+                                        {{~#unless value~}}
+                                            order[profile_id]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[profile_id]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[profile_id]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        ID
+                                        {{#sort 'profile_id'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- END : TH : ID -->
+
+                                <!-- START : TH : Parent -->
+                                <th>
+                                    <span class="pull-left">Parent</span>
+                                </th>
+                                <!-- End : TH : Parent -->
+
+                                <!-- START : TH : Credits -->
+                                <th>
+                                    <a href="?filter[profile_active]={{filter.profile_active}}{{q.0}}&{{#sort 'profile_credits'}}
+                                        {{~#unless value~}}
+                                            order[profile_credits]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[profile_credits]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[profile_credits]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        Credits
+                                        {{#sort 'profile_credits'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- End : TH : Credits -->
+
+                                <!-- START : TH : Images -->
+                                <th>
+                                    <span class="pull-left">Image</span>
+                                </th>
+                                <!-- End : TH : Images -->
+
+                                <!-- START : TH : Name -->
+                                <th>
+                                    <a href="?filter[profile_active]={{filter.profile_active}}{{q.0}}&{{#sort 'profile_name'}}
+                                        {{~#unless value~}}
+                                            order[profile_name]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[profile_name]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[profile_name]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        Name
+                                        {{#sort 'profile_name'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- END : TH : Name -->
+
+                                <!-- START : TH : Slug -->
+                                <th>
+                                    <a href="?filter[profile_active]={{filter.profile_active}}{{q.0}}&{{#sort 'profile_slug'}}
+                                        {{~#unless value~}}
+                                            order[profile_slug]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[profile_slug]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[profile_slug]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        Slug
+                                        {{#sort 'profile_slug'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- START : TH : Slug -->
+
+                                <!-- START : TH : Email -->
+                                <th>
+                                    <a href="?filter[profile_active]={{filter.profile_active}}{{q.0}}}&{{#sort 'profile_email'}}
+                                        {{~#unless value~}}
+                                            order[profile_email]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[profile_email]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[profile_email]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        Email
+                                        {{#sort 'profile_email'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- START : TH : Email -->
+
+                                <!-- START : TH : Company -->
+                                <th>
+                                    <a href="??filter[profile_active]={{filter.profile_active}}{{q.0}}&{{#sort 'profile_company'}}
+                                        {{~#unless value~}}
+                                            order[profile_company]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[profile_company]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[profile_company]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        Company
+                                        {{#sort 'profile_company'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- START : TH : Company -->
+
+                                <!-- START : TH : Phone -->
+                                <th>
+                                    <a href="?filter[profile_active]={{filter.profile_active}}{{q.0}}&{{#sort 'profile_phone'}}
+                                        {{~#unless value~}}
+                                            order[profile_phone]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[profile_phone]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[profile_phone]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        Phone
+                                        {{#sort 'profile_phone'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- START : TH : Phone -->
+
+                                <!-- START : TH : Type -->
+                                <th>
+                                    <a href="?filter[profile_active]={{filter.profile_active}}{{q.0}}&{{#sort 'profile_type'}}
+                                        {{~#unless value~}}
+                                            order[profile_type]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[profile_type]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[profile_type]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        Type
+                                        {{#sort 'profile_type'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <th>
+                                    <a href="?filter[profile_active]={{filter.profile_active}}{{q.0}}&{{#sort 'profile_created'}}
+                                        {{~#unless value~}}
+                                            order[profile_created]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[profile_created]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[profile_created]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        {{_ 'Profile Created'}}
+                                        {{#sort 'profile_type'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- START : TH : Type -->
+                            </tr>
+                        </thead>
+                        <!-- END : THead / Table Head -->
+
+                        <tbody>
+                            {{#each rows}}
+                            <tr data-id="{{profile_id}}">
+                                <td>
+                                    {{#when profile_active '==' 1}}
+                                    <a
+                                        class="text-info post"
+                                        href="/control/post/search/?profile={{profile_id}}"
+                                        title="View Post"
+                                    >
+                                        <i class="fa fa-address-card"></i>
+                                    </a>
+                                    &nbsp;
+                                    <a
+                                        class="text-success post"
+                                        href="/control/post/create?profile_id={{profile_id}}"
+                                        title="Create Post"
+                                    >
+                                        <i class="fa fa-address-card"></i>
+                                    </a>
+
+                                    <br />
+
+                                    <a
+                                        class="text-info"
+                                        href="/control/transaction/search?filter[profile_id]={{profile_id}}"
+                                        title="View Transactions"
+                                    >
+                                    <i class="fa fa-money"></i>
+                                    </a>
+                                    &nbsp;
+                                    <a
+                                        class="text-success"
+                                        href="/control/transaction/create/{{profile_id}}?redirect_uri={{../redirect_uri}}"
+                                        title="Create Transaction"
+                                    >
+                                    <i class="fa fa-money"></i>
+                                    </a>
+
+                                    <br />
+
+                                    <a
+                                        class="text-info"
+                                        href="/control/service/search?filter[profile_id]={{profile_id}}"
+                                        title="View Services"
+                                    >
+                                    <i class="fa fa-handshake-o"></i></a>
+                                    &nbsp;
+                                    <a
+                                        class="text-success"
+                                        href="/control/service/create/{{profile_id}}?redirect_uri={{../redirect_uri}}"
+                                        title="Create Service"
+                                    >
+                                    <i class="fa fa-handshake-o"></i></a>
+
+                                    <br />
+
+
+                                    <a
+                                        class="text-warning"
+                                        href="/control/profile/update/{{profile_id}}?redirect_uri={{../redirect_uri}}"
+                                        title="Edit"
+                                    >
+                                    <i class="fa fa-edit"></i></a>
+                                    &nbsp;
+                                    <a
+                                        class="text-warning"
+                                        href="/control/profile/detail/{{profile_id}}?redirect_uri={{../redirect_uri}}"
+                                        title="View"
+                                    >
+                                    <i class="fa fa-eye"></i></a>
+                                    &nbsp;
+                                    <a
+                                        class="text-danger remove"
+                                        href="/control/profile/remove/{{profile_id}}?redirect_uri={{../redirect_uri}}"
+                                        title="Remove"
+                                    >
+                                        <i class="fa fa-times"></i>
+                                    </a>
+
+                                    <br />
+                                   
+                                    <a
+                                            class="text-danger remove"
+                                            href="/control/profile/resend-verification/{{profile_id}}?redirect_uri={{../redirect_uri}}"
+                                            title="Resent Verification Email"
+                                    >
+                                        <i class="fa fa-refresh"></i>
+                                     &nbsp;
+                                    </a>
+
+                                    {{/when}}
+                                    {{#when profile_active '==' 0}}
+                                    <a
+                                        class="text-success restore"
+                                        href="/control/profile/restore/{{profile_id}}?redirect_uri={{../redirect_uri}}"
+                                        title="Restore"
+                                    >
+                                    <i class="fa fa-external-link"></i></a>
+                                    {{/when}}
+                                    <br />
+                                    {{#when profile_type '==' 'claim'}}
+                                        {{#when profile_flag '==' '1'}}
+                                            <a
+                                                class="text-muted claim"
+                                                href="/control/profile/claim/{{profile_id}}?redirect_uri={{../redirect_uri}}"
+                                                onclick="return false;"
+                                                title="Claim Email already sent"
+                                            >
+                                            <i class="fa fa-suitcase"></i></a>
+                                        {{/when}}
+                                    {{/when}}
+
+                                    {{#unless auth_id}}
+                                            {{#unless profile_flag}}
+                                                <a
+                                                    class="text-success claim"
+                                                    href="/control/profile/claim/{{profile_id}}?redirect_uri={{../redirect_uri}}"
+                                                    title="Send Claim Email"
+                                                >
+                                                <i class="fa fa-suitcase"></i></a>
+                                        {{/unless}}
+                                    {{/unless}}
+                                </td>
+                                <td>
+                                    {{profile_id}}
+                                </td>
+                                <td>
+                                    {{profile_parent}}
+                                </td>
+                                <td>
+                                    {{number profile_credits}}
+                                </td>
+                                <td>
+                                    {{#if profile_image}}
+                                    <img src="{{profile_image}}" width="100" />
+                                    {{else}}
+                                    <img
+                                        src="{{default_avatar profile_id}}"
+                                        width="100"
+                                    />
+                                    {{/if}}
+                                </td>
+                                <td>
+                                    {{profile_name}}
+                                </td>
+                                <td>
+                                    {{profile_slug}}
+                                </td>
+                                <td>
+                                    {{#when profile_email_flag '===' '0'}}
+                                        <i class="fa fa-warning text-warning" title="Not Yet Verified"></i>
+                                        <a
+                                            class="text-success"
+                                            {{#when profile_email_flag '===' '0'}}
+                                                data-do="validate-email"
+                                                data-on="click"
+                                                data-profile-email="{{profile_email}}"
+                                                href="javascript:void(0);"
+                                            {{else}}
+                                            disabled
+                                            {{/when}}
+                                            title="Validate Email"
+                                        >
+                                        <i class="fa fa-refresh"></i></a>
+                                    {{/when}}
+                                    {{#when profile_email_flag '===' '1'}}
+                                        <i class="fa fa-check-circle text-success" title="Valid Email"></i>
+                                    {{/when}}
+                                    {{#when profile_email_flag '===' '-1'}}
+                                        <i class="fa fa-times-circle text-danger" title="Invalid Email"></i>
+                                    {{/when}}
+
+                                    {{profile_email}}
+                                </td>
+                                <td>
+                                    {{profile_company}}
+                                </td>
+                                <td>
+                                    {{profile_phone}}
+                                </td>
+                                <td>
+                                    {{#if profile_company}}
+                                    <a href="?filter[type]=poster">poster</a>
+                                    {{else}}
+                                    <a href="?filter[type]=seeker">seeker</a>
+                                    {{/if}}
+                                </td>
+                                <td>
+                                    {{profile_created}}
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    <!-- END: TABLE -->
+                </div>
+            {{else}}
+                <!-- START: NO RESULTS -->
+                <div class="well no-results">No Results Found</div>
+                <!-- END: NO RESULTS -->
+            {{/if}}
+        </div>
+    </div>
+
+    <ul class="pagination">
+        {{#pager total range}}
+        <li{{#if active}} class="active"{{/if}}><a href="?{{href}}">{{page}}</a></li>
+        {{/pager}}
+    </ul>
+</form>
+
+<!-- Export Modal -->
+<div class="modal fade export-modal" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="exportModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="text-center" style="padding-top: 3rem; padding-bottom: 3rem;">
+                    <p>Export in progress ...</p><br>
+                    <i class="fa fa-spinner fa-spin fa-3x"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#if import}}
+<style>
+.profile-post-import-loader {
+    background-color: rgba(0,0,0,.75);
+    color: #FFFFFF;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.profile-post-import-loader .loader-wrapper {
+    background-color: rgba(255,255,255,0.3);
+    border-radius: 5px;
+    margin: 120px auto 0;
+    padding: 20px;
+    width: 50%;
+}
+
+.profile-post-import-loader .loader-wrapper .loader-label {
+    font-size: 20px;
+}
+
+.profile-post-import-loader .loader-wrapper .bg-success {
+    background-color: #28a745 !important;
+}
+
+.profile-post-import-loader .loader-wrapper .bg-danger {
+    background-color: #dc3545 !important;
+}
+
+</style>
+<div class="profile-post-import-loader">
+    <div class="loader-wrapper text-center">
+        <div class="loader-label"><i class="fa fa-spinner fa-pulse fa-fw"></i> Processing Import <span id="import-processing"></span></div>
+        <br/>
+        <div class="progress">
+            <div class="progress-bar"
+                id="import-loader"
+                role="progressbar"
+                aria-valuenow="0"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style="width: 0%">
+            </div>
+        </div>
+        <a class="btn btn-sm btn-danger btstop-import" href="javascript:void(0)">
+            <i class="fa fa-close"></i> {{_ 'Stop Importing'}}
+        </a>
+    </div>
+</div>
+
+<script type="text/javascript">
+ (function($) {
+     var stop = false;
+     var runImport = function(page) {
+         page = page || 1;
+         if (stop == true) {
+             $('#import-loader').addClass('bg-danger');
+
+             window.location.href = '/control/profile/search?done=true';
+             return;
+         }
+
+         var endpoint = '/control/profile/post/import/run';
+         var params = { page : page };
+         $.get(endpoint, params, function(results) {
+             results = eval ('(' + results + ')');
+             if (results.error == true) {
+                 alert('Import failed');
+                 window.location.href = '/control/profile/search';
+                 return;
+             }
+
+             if (results.done == true) {
+                 window.location.href = '/control/profile/search?done=true';
+                 return;
+             }
+
+             page = parseInt(results.page) + 1 || 1;
+
+             $('#import-processing').html(results.message);
+             $('#import-loader').attr('aria-valuenow', results.percentage);
+             $('#import-loader').css('width', results.percentage + '%');
+
+             if(results.percentage == 100) {
+                 setTimeout(function() {
+                    $('#import-loader').addClass('bg-success');
+                 }, 500);
+             }
+
+             return runImport(page);
+         });
+     }
+
+     $('.stop-import').show();
+     $('.import-btn').prop('disabled', 'disabled').html('<i class="fa fa-upload"></i> Importing...');
+
+     // run import
+     runImport();
+
+     $('.stop-import').click(function() {
+         if (confirm('Click OK to stop importing')) {
+             stop = true;
+         }
+     });
+
+ }(jQuery));
+
+</script>
+{{/if}}

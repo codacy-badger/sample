@@ -1,0 +1,198 @@
+<form method="post">
+    <div class="row">
+        <div class="col-sm-6">
+            <!-- START: Title -->
+            <div class="form-group{{#if errors.template_title}} has-error{{/if}}">
+                <label for="template-title">{{_ 'Title'}}</label>
+                <div class="texts-field">
+                    <input
+                        class="form-control"
+                        id="template-title"
+                        name="template_title"
+                        placeholder="{{_ 'Title here'}}"
+                        type="text"
+                        value="{{item.template_title}}"
+                    />
+                </div>
+                {{#if errors.template_title}}
+                    <span class="help-text">{{errors.template_title}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Title -->
+            <!-- START: type -->
+            <div class="form-group{{#if errors.title}} has-error{{/if}}">
+                <label for="template-type">{{_ 'Type'}}</label>
+                <div class="select-field">
+                    <select
+                        class="form-control"
+                        id="template-type"
+                        name="template_type"
+                    >
+                        <option 
+                            {{#when item.template_type '===' 'email'}}
+                                selected
+                            {{/when}}
+                            value="email"
+                        >
+                            {{_ 'Email'}}
+                        </option>
+                        <option 
+                            {{#when item.template_type '===' 'sms'}}
+                                selected
+                            {{/when}}
+                            value="sms"
+                        >
+                            {{_ 'SMS'}}
+                        </option>
+                        <option 
+                            {{#when item.template_type '===' 'messenger'}}
+                                selected
+                            {{/when}}
+                            value="messenger"
+                        >
+                            {{_ 'Messenger'}}
+                        </option>
+                        <option 
+                            {{#when item.template_type '===' 'viber'}}
+                                selected
+                            {{/when}}
+                            value="viber"
+                        >
+                            {{_ 'Viber'}}
+                        </option>
+                    </select>
+                </div>
+
+                {{#if errors.template_type}}
+                    <span class="help-text">{{errors.template_type}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Type -->
+            <!-- START: Submit -->
+            <div class="form-group">
+                <button class="btn btn-primary">{{_ 'Submit'}}</button>
+            </div>
+            <!-- END: Submit -->
+            <!-- START: Variables -->
+            <div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>{{_ 'Variables'}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                {{{_ '{{unsubscribe}}'}}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{{_ '{{profile_name}}'}}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{{_ '{{profile_firstname}}'}}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{{_ '{{profile_email}}'}}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{{_ '{{profile_phone}}'}}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{{_ '{{profile_location}}'}}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{{_ '{{profile_school}}'}}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{{_ '{{profile_company}}'}}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{{_ '{{profile_birth}}'}}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{{_ '{{profile_gender}}'}}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- END: Variables -->
+        </div>
+        <div class="col-sm-6">
+            <!-- START: HTML -->
+            <div class="form-group{{#if errors.template_html}} has-error{{/if}}">
+                <label for="template-html">{{_ 'HTML'}}</label>
+                <div class="texts-field">
+                    <textarea
+                        class="wysiwyg form-control"
+                        id="template-html"
+                        name="template_html"
+                        rows="7"
+                        placeholder="Placeholder"
+                    >
+                        {{item.template_html}}
+                    </textarea>
+                </div>
+
+                {{#if errors.template_html}}
+                    <span class="help-text">{{errors.template_html}}</span>
+                {{/if}}
+            </div>
+            <!-- END: HTML -->
+            <!-- START: Text -->
+            <div class="form-group {{#if errors.template_text}} has-error{{/if}}">
+                <label for="template-text">{{_ 'Text'}}</label>
+                <div class="texts-field">
+                    <textarea
+                        class="form-control"
+                        id="template-text"
+                        name="template_text"
+                        rows="7"
+                        placeholder="{{_ 'Type your text here'}}"
+                    >
+                        {{~item.template_text~}}
+                    </textarea>
+                </div>
+
+                {{#if errors.template_text}}
+                    <span class="help-text">{{errors.template_text}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Text -->
+        </div>
+    </div>
+</form>
+
+<!--Start: Tinymce wysiwyg plugin-->
+<script src="/bower_components/tinymce/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+        selector: '.wysiwyg',
+        menubar: true,
+        plugins: [
+            'code fullscreen',
+            'paste textcolor colorpicker codesample'
+        ],
+        toolbar: 'undo redo | bold italic underline strikethrough | forecolor backcolor | code',
+    });
+</script>
+<!--End: Tinymce wysiwyg plugin-->

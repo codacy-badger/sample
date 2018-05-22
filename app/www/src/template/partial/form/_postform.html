@@ -1,0 +1,90 @@
+<!-- START: Confirmation Modal -->
+<div
+    class="modal fade"
+    id="post-form"
+    role="dialog"
+>
+    <!-- START: Modal Dialog -->
+    <div class="modal-dialog">
+        <!-- START: Modal Content -->
+        <div class="modal-content">
+            <!-- START: Modal Header -->
+            <div class="modal-header">
+                {{form.form_name}}
+            </div>
+            <!-- END: Modal Header -->
+
+            <!-- START: Form -->
+            <form
+                class="form-horizontal"
+                data-do="submit-form"
+                data-on="submit"
+            >
+                <!-- START: Modal Body -->
+                <div class="modal-body">
+                    {{#if questions}}
+                        <!-- START : Form Questions -->
+                        <div class="form-questions">
+                            {{#each questions}}
+                                <!-- START : Form Question -->
+                                <div class="form-question">
+                                    <!-- START : Question Name -->
+                                    <div class="question-name">
+                                        {{question_name}}
+                                    </div>
+                                    <!-- END : Question Name -->
+
+                                    <!-- START : Question Answers -->
+                                    <div class="question-answers">
+                                        {{#if question_choices}}
+                                            {{#each question_choices}}
+                                                <!-- START : Question Answer -->
+                                                <label>
+                                                    <input
+                                                        class=""
+                                                        name="answer[{{@index}}]"
+                                                        type="radio"
+                                                        value="{{this}}"
+                                                    >
+                                                    <span>{{this}}</span>
+                                                </label>
+                                                <!-- END : Question Answer -->
+                                            {{/each}}
+                                        {{/if}}
+
+                                        {{#when question_flag '==' 1}}
+                                            <input name="custom_answer" type="text">
+                                        {{/when}}
+                                    </div>
+                                    <!-- END : Question Answers -->
+                                </div>
+                                <!-- END : Form Question -->
+                            {{/each}}
+                        </div>
+                        <!-- END : Form Questions -->
+                    {{/if}}
+                </div>
+                <!-- END: Modal Body -->
+
+                <!-- START : Modal Footer -->
+                <div class="modal-footer">
+                    <!-- START : Modal Submit -->
+                    <button class="btn btn-primary" type="submit">
+                        {{_ 'Submit'}}
+                    </button>
+
+                    <!-- START : Modal Dismiss -->
+                    <button class="close" data-dismiss="btn modal" type="button">
+                        {{_ 'Cancel'}}
+                    </button>
+                    <!-- END : Modal Dismiss -->
+                </div>
+                <!-- END : Modal Footer -->
+            </form>
+            <!-- END : Form -->
+        </div>
+        <!-- END: Modal Content -->
+    </div>
+    <!-- END: Modal Dialog -->
+</div>
+<!-- END: Confirmation Modal -->

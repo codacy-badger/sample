@@ -1,0 +1,187 @@
+<!-- Start: Send Resume -->
+<div class="resume-modal modal fade" id="sendResume" role="dialog" tabindex="-1">
+    <!-- Start: Modal Dialog -->
+    <div class="modal-dialog">
+        <!-- Start: Modal Content -->
+        <div class="modal-content">
+            <!-- START: Modal Header -->
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" type="button">
+                    &times;
+                </button>
+                <div class="modal-title">{{_ 'Apply for this Position'}}</div>
+            </div>
+            <!-- END: Modal Header -->
+
+            <!-- Start: Modal Body -->
+            <div class="modal-body">
+                <form
+                    id="resumeUpload"
+                    method="post"
+                    {{#if cdn_config}}
+                        data-acl="{{cdn_config.inputs.acl}}"
+                        data-action="{{cdn_config.form.action}}"
+                        data-algorythm="{{cdn_config.inputs.X-Amz-Algorithm}}"
+                        data-cdn="{{cdn_config.form.action}}"
+                        data-credential="{{cdn_config.inputs.X-Amz-Credential}}"
+                        data-complete="{{_ 'Upload Complete'}}"
+                        data-date="{{cdn_config.inputs.X-Amz-Date}}"
+                        data-do="cdn-upload"
+                        data-enctype="{{cdn.form.enctype}}"
+                        data-key="{{cdn_config.inputs.key}}"
+                        data-method="{{cdn_config.form.method}}"
+                        data-on="submit"
+                        data-progress="{{_ 'We are uploading your files. Please
+                            do not refresh page.'}}"
+                        data-policy="{{cdn_config.inputs.Policy}}"
+                        data-signature="{{cdn_config.inputs.X-Amz-Signature}}"
+                    {{/if}}
+                >
+                    <!-- START : Container Title -->
+                    <span class="resume-container-title">Upload your Resume</span>
+                    <!-- END : Container Title -->
+
+                    <!-- START : Resume Container -->
+                    <div class="resume-container">
+                        <input id="postId" name="post_id" type="hidden" />
+                        <input id="resumeType" name="type" type="hidden" value="link">
+
+                        <div class="choose-resume-group row">
+                            <div class="col-sm-2"></div>
+                            <div class="form-group col-sm-8">
+                                <label class="control-label">
+                                    {{_ 'Choose Resume'}}
+                                </label>
+                                <select
+                                    class="form-control"
+                                    id="resumeId"
+                                    name="resume_id"
+                                >
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="choose-resume-group text-center">
+                            or
+                            <a
+                                data-do="add-new-resume"
+                                data-on="click"
+                                href="javascript:void(0);"
+                                title="{{_ 'Add new resume'}}"
+                            >
+                                {{_ 'Add new resume'}}
+                            </a>
+                        </div>
+
+                        <div
+                            class="file-upload upload-group text-center"
+                            data-do="file-upload"
+                            data-on="init"
+                        >
+                            <input data-files="" id="uploaded_files" type="hidden" />
+                            <p class="file-count"></p>
+                            <div class="resume-content choose-file">
+                                <div class="text-center">
+                                    <i class="fa fa-cloud-upload"></i>
+                                </div>
+                                <em>
+                                    {{#_ '%s'}}
+                                        Drop your resume or
+                                        <span>
+                                            click here to choose a file
+                                        </span>.
+                                    {{/_}}
+                                </em>
+                            </div>
+                            <input
+                                class="hide"
+                                data-do="file-uploading"
+                                data-on="change"
+                                type="file"
+                            />
+                        </div>
+                    </div>
+                    <!-- END : Resume Container -->
+
+                    <!-- START : Form Questions -->
+                    <div class="form-questions hide">
+                        <!-- START : Form Id -->
+                        <input id="form_id" name="form_id" type="hidden">
+                        <!-- END : Form Id -->
+
+                        <!-- START : Form Question -->
+                        <div class="form-question form-group hide">
+                            <!-- START : Question Name -->
+                            <label class="question-name"></label>
+                            <!-- END : Question Name -->
+
+                            <!-- START : Question Answers -->
+                            <div class="question-answers">
+                                <!-- START : Question Answer -->
+                                <div class="question-answer hide radio-container">
+                                    <input
+                                        class="choice-answer radio orange"
+                                        data-do="choice-answer"
+                                        id=""
+                                        name=""
+                                        type="radio"
+                                        value=""
+                                    />
+                                    <label
+                                        class="radio-label"
+                                        for=""
+                                    ></label>
+                                </div>
+                                <!-- END : Question Answer -->
+
+                                <input
+                                    class="custom-answer form-control hide"
+                                    data-do="custom-answer"
+                                    name=""
+                                    placeholder="Custom Answer"
+                                    type="text"
+                                >
+
+                                <input
+                                    class="request-file form-control hide"
+                                    data-do="custom-upload"
+                                    name=""
+                                    type="file"
+                                >
+                                <input
+                                    class="request-file-hidden"
+                                    name=""
+                                    type="hidden"
+                                >
+                            </div>
+                            <!-- END : Question Answers -->
+                        </div>
+                        <!-- END : Form Question -->
+                    </div>
+                    <!-- END : Form Questions -->
+                 </form>
+            </div>
+            <!-- END: Modal BODY -->
+
+            <!-- START: Resume Modal Footer -->
+            <div class="modal-footer">
+                <!-- START : Apply Button -->
+                <div>
+                    <button
+                        class="btn btn-default btn-file-send hide"
+                        data-do="file-upload"
+                        data-on="click"
+                        type="button"
+                    >
+                        {{_ 'Apply'}}
+                    </button>
+                </div>
+                <!-- END : Apply Button -->
+            </div>
+            <!-- END: Resume Modal Footer -->
+        </div>
+        <!-- End: Modal Content-->
+    </div>
+    <!-- End: Modal Dialog-->
+</div>
+<!-- End: Send Resume-->

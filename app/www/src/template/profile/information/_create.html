@@ -1,0 +1,62 @@
+<div class="modal fade information-create-modal" id="information-create-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <form
+            action="/ajax/resume/parser"
+            data-do="information-create"
+            data-on="submit"
+        >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                        {{_ 'Use This Resume to Create Profile'}}
+                    </div>
+                </div>
+                <!-- START: Body -->
+                <div class="modal-body">
+                    <p>
+                        {{_ 'Choosing this resume to generate your profile will remove other
+                        uploaded resumes in this account'}}.
+                    </p>
+                    <p>
+                        {{_ 'Moving forward, your resume will serve as your profile'}}.
+                    </p>
+                    <div class="resume-image">
+                        <div class="resume">
+                            <p>{{_ 'Uploaded Resume'}}</p>
+                            <img
+                                alt="{{_ 'Upload Resume Image'}}"
+                                src="{{cofing 'cdn'}}/images/information/resume.png"
+                            />
+                        </div>
+                        <div class="profile">
+                            <p>{{_ 'My Profile'}}</p>
+                            <img
+                                alt="{{_ 'My Profile Image'}}"
+                                src="{{cofing 'cdn'}}/images/information/profile.png"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Body -->
+                <!-- START: Footer -->
+                <div class="modal-footer">
+                    <input type="hidden" name="information_resume_link" />
+                    <button
+                        class="btn btn-default"
+                        type="submit"
+                    >
+                        {{_ 'Continue'}}
+                    </button>
+                    <button
+                        class="btn btn-primary"
+                        data-dismiss="modal"
+                        type="button"
+                    >
+                        {{_ 'Cancel'}}
+                    </button>
+                </div>
+                <!-- END: Footer -->
+            </div>
+        </form>
+    </div>
+</div>

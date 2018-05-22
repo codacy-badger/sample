@@ -1,0 +1,44 @@
+{{#if item.career_page}}
+    <div id="wrapper"></div>
+    <script type="text/javascript">
+        window.JBWPageInit = function() {
+            JBWPage({
+                widget_key  : '{{item.career_page.widget_key}}',
+                widget_root : '{{item.career_page.widget_root}}',
+                widget_type : '{{item.career_page.widget_type}}',
+                widget_selector : 'wrapper'
+            });
+        };
+
+        (function(d, s, id) {
+            var js, jjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//{{item.career_page.widget_root}}/plugins/widget/career-page.js?widget_key={{item.career_page.widget_key}}";
+            jjs.parentNode.insertBefore(js, jjs);
+        }(document, 'script', 'jobayan-career-page'));
+    </script>
+{{else}}
+{{/if}}
+
+{{#if item.career_widget}}
+    <script type="text/javascript">
+        window.JBWidgetInit = function() {
+            JBWidget({
+                widget_key  : '{{item.career_widget.widget_key}}',
+                widget_root : '{{item.career_widget.widget_root}}',
+                widget_type : '{{item.career_widget.widget_type}}'
+            });
+        };
+
+        (function(d, s, id) {
+            var js, jjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//{{item.career_widget.widget_root}}/plugins/widget/career-widget.js?widget_key={{item.career_widget.widget_key}}";
+            jjs.parentNode.insertBefore(js, jjs);
+        }(document, 'script', 'jobayan-career-widget'));
+    </script>
+{{/if}}
+                          
+

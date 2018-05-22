@@ -1,0 +1,551 @@
+<!-- START: Crumbs -->
+<div class="crumbs">
+    <a href="/control/business/dashboard">
+        <i class="fa fa-home"></i> {{_ 'Dashboard'}}</a>
+    <span class="separator">
+        <i class="fa fa-angle-right"></i>
+    </span>
+    <a href="/control/business/transaction/search" class="active">
+        <i class="fa fa-user"></i> {{_ 'Transactions'}}</a>
+</div>
+<!-- END: Crumbs -->
+<!-- START: Scroll -->
+<div class="scroll">
+    <h3 class="template-blue">
+        <i class="fa fa-user"></i> {{_ 'Transactions'}}
+        <span class="badge badge-info">{{total}}</span>
+    </h3>
+
+    <!-- START: Search Actions -->
+    <div class="search-actions">
+        <div class="pull-right">
+            <a
+                class="btn btn-export"
+                href="/control/business/transaction/search?export=true&
+                {{~querystring}}"
+            >
+                <i class="fa fa-download"></i> {{_ 'Export'}}
+            </a>
+        </div>
+
+        <div class="btn-group" role="group">
+            <a
+                class="btn
+                    {{~#unless filter.transaction_active}}
+                        {{~#when filter.transaction_active '==' '0'}}
+                            btn-default
+                        {{else}}
+                            btn-active active
+                        {{~/when}}
+                    {{else}}
+                        {{~#when filter.transaction_active '==' '1'}}
+                            btn-active active
+                        {{/when}}
+                        {{~#when filter.transaction_active '==' '0'}}
+                            btn-default
+                        {{~/when}}
+                    {{/unless}}"
+                href="/control/business/transaction/search?{{querystring 'filter[transaction_active]' '1'}}"
+            >
+                {{_ 'Active'}}
+            </a>
+            <a
+                href="/control/business/transaction/search?{{querystring 'filter[transaction_active]' '0'}}"
+                class="btn
+                    {{~#when filter.transaction_active '==' '0'}}
+                        btn-active active
+                    {{~else}}
+                        btn-default
+                    {{~/when}}"
+            >
+                {{_ 'Inactive'}}
+            </a>
+        </div>
+    </div>
+    <!-- END: Search Actions -->
+    <!-- START: Search Filters -->
+    <div class="panel panel-default search-filters">
+        <div class="panel-heading">{{_ 'Filters'}}</div>
+        <div class="panel-body">
+            <form>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group{{#if errors.q}} has-error{{/if}}">
+                            <label>{{_ 'Search'}}</label>
+                            <div class="texts-field">
+                                <input type="text"
+                                    class="form-control"
+                                    name="q"
+                                    placeholder="{{_ 'Enter Keyword'}}"
+                                    type="text"
+                                    value="{{q}}"
+                                />
+                            </div>
+                            {{#if errors.q}}
+                                <span class="help-text">{{errors.q}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div
+                            class="form-group
+                                {{#if errors.deal_type}} has-error{{/if}}"
+                        >
+                            <label>{{_ 'Transaction Status'}}</label>
+                            <div class="select-field">
+                                <select name="filter[transaction_status]" class="form-control">
+                                    <option
+                                        value=""
+                                        {{#when filter.transaction_status '==' ''}}
+                                            selected
+                                        {{/when}}
+                                    >
+                                        All
+                                    </option>
+                                    <option
+                                        value="pending"
+                                        {{#when filter.transaction_status '==' 'pending'}}
+                                            selected
+                                        {{/when}}
+                                    >
+                                        Pending
+                                    </option>
+                                    <option
+                                        value="verified"
+                                        {{#when filter.transaction_status '==' 'verified'}}
+                                            selected
+                                        {{/when}}
+                                    >
+                                        Verified
+                                    </option>
+                                    <option
+                                        value="complete"
+                                        {{#when filter.transaction_status '==' 'complete'}}
+                                            selected
+                                        {{/when}}
+                                    >
+                                        Complete
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div
+                            class="form-group
+                                {{#if errors.deal_type}} has-error{{/if}}"
+                        >
+                            <label>{{_ 'Payment Method'}}</label>
+                            <div class="select-field">
+                                <select name="filter[transaction_payment_method]" class="form-control">
+                                    <option
+                                        value=""
+                                        {{#when filter.transaction_payment_method '==' ''}}
+                                            selected
+                                        {{/when}}
+                                    >
+                                        All
+                                    </option>
+                                    <option
+                                        value="Free Credits"
+                                        {{#when filter.transaction_payment_method '==' 'Free Credits'}}
+                                            selected
+                                        {{/when}}
+                                    >
+                                        {{_ 'Free Credits'}}
+                                    </option>
+                                    <option
+                                        value="paypal"
+                                        {{#when filter.transaction_payment_method '==' 'paypal'}}
+                                            selected
+                                        {{/when}}
+                                    >
+                                        {{_ 'Paypal'}}
+                                    </option>
+                                    <option
+                                        value="magpie"
+                                        {{#when filter.transaction_payment_method '==' 'magpie'}}
+                                            selected
+                                        {{/when}}
+                                    >
+                                        {{_ 'Magpie'}}
+                                    </option>
+                                    <option
+                                        value="bank transfer"
+                                        {{#when filter.transaction_payment_method '==' 'bank transfer'}}
+                                            selected
+                                        {{/when}}
+                                    >
+                                        {{_ 'Bank Transfer'}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label>{{_ 'Amount'}}</label>
+                            <div class="input-range date-range">
+                                <div class="input-from">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-money"></i>
+                                        </div>
+                                        <input
+                                            class="form-control"
+                                            name="filter_range[transaction_total][start]"
+                                            placeholder="min"
+                                            type="text"
+                                            value="{{filter_range.transaction_total.start}}"
+                                        />
+                                    </div>
+                                </div>
+                                <span class="input-separator">
+                                    <i class="fa fa-minus"></i>
+                                </span>
+                                <div class="input-to">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-money"></i>
+                                        </div>
+                                        <input
+                                            class="form-control"
+                                            name="filter_range[transaction_total][end]"
+                                            placeholder="max"
+                                            type="text"
+                                            value="{{filter_range.transaction_total.end}}"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>{{_ 'Date Created'}}</label>
+                            <div class="input-range date-range">
+                                <div class="input-from">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input
+                                            class="form-control"
+                                            name="date[start_date]"
+                                            onfocus="(this.type='date')"
+                                            placeholder="{{_ '2017-01-01'}}"
+                                            type="text"
+                                            value="{{date.start_date}}"
+                                        />
+                                    </div>
+                                </div>
+                                <span class="input-separator">
+                                    <i class="fa fa-minus"></i>
+                                </span>
+                                <div class="input-to">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input
+                                            class="form-control"
+                                            name="date[end_date]"
+                                            onfocus="(this.type='date')"
+                                            placeholder="{{_ '2017-01-01'}}"
+                                            type="text"
+                                            value="{{date.end_date}}"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group filter-button-only">
+                    {{#when filter.lead_active '==' '0'}}
+                        <input
+                            type="hidden"
+                            name="filter[lead_active]"
+                            value="0"
+                        />
+                    {{/when}}
+                    <button class="btn btn-primary">{{_ 'Filter'}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- END: Search Filters -->
+    <!-- START: Search Table Actions -->
+    <div class="search-table-actions">
+        <form class="form-inline">
+            <div class="pull-right">
+                <div class="btn-group">
+                    <button
+                        type="button"
+                        class="btn btn-default dropdown-toggle"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                    >
+                        {{_ 'Show %s' range}} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a
+                                href="/control/business/transaction/search?
+                                {{~querystring}}&range=10"
+                            >
+                                {{_ 'Show 10'}}
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="/control/business/transaction/search?
+                                {{~querystring}}&range=25"
+                            >
+                                {{_ 'Show 25'}}
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="/control/business/transaction/search?
+                                {{~querystring}}&range=50"
+                            >
+                                {{_ 'Show 50'}}
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="/control/business/transaction/search?
+                                {{~querystring}}&range=100"
+                            >
+                                {{_ 'Show 100'}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- <div class="form-group">
+                <select name="bulk" class="form-control">
+                    <option value="restore">{{_ 'Make Active'}}</option>
+                    <option value="remove">{{_ 'Make Inactive'}}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary">{{_ 'Apply'}}</button>
+            </div> -->
+            <!-- START: Search Table -->
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <!-- <th>
+                            <input
+                                class="checkall"
+                                id="checkAll"
+                                type="checkbox"
+                            />
+                        </th> -->
+                        <!-- START : TH : Actions -->
+                        <!-- <th>
+                            Actions
+                        </th> -->
+                        <!-- END : TH : Actions -->
+
+                        <!-- START : TH : Status -->
+                        <th class="header-status">
+                            Status
+                        </th>
+                        <!-- END : TH : Status -->
+
+                        <!-- START : TH : Method -->
+                        <th class="header-method">
+                            Method
+                        </th>
+                        <!-- END : TH : Method -->
+
+                        <!-- START : TH : Reference -->
+                        <th class="header-reference">
+                            Reference
+                        </th>
+                        <!-- END : TH : Reference -->
+
+                        <!-- START : TH : Profile -->
+                        <th class="header-profile">
+                            Profile
+                        </th>
+                        <!-- END : TH : Profile -->
+
+                        <!-- START : TH : Total -->
+                        <th>
+                            <a href="?q={{q}}&{{#sort 'transaction_total'}}
+                                {{~#unless value~}}
+                                    order[transaction_total]=ASC
+                                {{~/unless~}}
+                                {{~#when value '===' 'ASC'~}}
+                                    order[transaction_total]=DESC
+                                {{~/when~}}
+                                {{~#when value '===' 'DESC'~}}
+                                    order[transaction_total]=ASC
+                                {{~/when}}
+                            {{~/sort~}}">
+                                Total
+                                {{#sort 'transaction_total'}}
+                                    {{~#when value '===' 'ASC'~}}
+                                        <i class="fa fa-caret-up"></i>
+                                    {{~/when~}}
+                                    {{~#when value '===' 'DESC'~}}
+                                        <i class="fa fa-caret-down"></i>
+                                    {{~/when}}
+                                    {{~#unless value~}}
+                                        <i class="fa fa-caret-up"></i>
+                                    {{~/unless~}}
+                                {{~/sort~}}
+                            </a>
+                        </th>
+                        <!-- END : TH : Total -->
+
+                        <!-- START : TH : Credits -->
+                        <th>
+                            <a href="?q={{q}}&{{#sort 'transaction_credits'}}
+                                {{~#unless value~}}
+                                    order[transaction_credits]=ASC
+                                {{~/unless~}}
+                                {{~#when value '===' 'ASC'~}}
+                                    order[transaction_credits]=DESC
+                                {{~/when~}}
+                                {{~#when value '===' 'DESC'~}}
+                                    order[transaction_credits]=ASC
+                                {{~/when}}
+                            {{~/sort~}}">
+                                Credits
+                                {{#sort 'transaction_credits'}}
+                                    {{~#when value '===' 'ASC'~}}
+                                        <i class="fa fa-caret-up"></i>
+                                    {{~/when~}}
+                                    {{~#when value '===' 'DESC'~}}
+                                        <i class="fa fa-caret-down"></i>
+                                    {{~/when}}
+                                    {{~#unless value~}}
+                                        <i class="fa fa-caret-up"></i>
+                                    {{~/unless~}}
+                                {{~/sort~}}
+                            </a>
+                        </th>
+                        <!-- END : TH : Credits -->
+
+                        <!-- START : TH : Created -->
+                        <th>
+                            <a href="?q={{q}}&{{#sort 'profile_created'}}
+                                {{~#unless value~}}
+                                    order[profile_created]=ASC
+                                {{~/unless~}}
+                                {{~#when value '===' 'ASC'~}}
+                                    order[profile_created]=DESC
+                                {{~/when~}}
+                                {{~#when value '===' 'DESC'~}}
+                                    order[profile_created]=ASC
+                                {{~/when}}
+                            {{~/sort~}}">
+                                Created
+                                {{#sort 'profile_created'}}
+                                    {{~#when value '===' 'ASC'~}}
+                                        <i class="fa fa-caret-up"></i>
+                                    {{~/when~}}
+                                    {{~#when value '===' 'DESC'~}}
+                                        <i class="fa fa-caret-down"></i>
+                                    {{~/when}}
+                                    {{~#unless value~}}
+                                        <i class="fa fa-caret-up"></i>
+                                    {{~/unless~}}
+                                {{~/sort~}}
+                            </a>
+                        </th>
+                        <!-- END : TH : Created -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each rows}}
+                    <tr data-id="{{transaction_id}}">
+                        <!-- <td>
+                            <input
+                                name="bulk_rows[]"
+                                value="{{deal_id}}"
+                                type="checkbox"
+                            />
+                        </td>
+                        <td>
+                            {{#when transaction_active '==' 1}}
+                            <a
+                                href="/control/transaction/update/{{transaction_id}}"
+                                title="Edit"
+                            >
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            &nbsp;
+                            <a
+                                class="text-danger remove"
+                                href="/control/transaction/remove/{{transaction_id}}"
+                                title="Remove"
+                            >
+                                <i class="fa fa-times"></i>
+                            </a>
+                            {{/when}}
+                            {{#when transaction_active '==' 0}}
+                            <a
+                                class="text-success restore"
+                                href="/control/transaction/restore/{{transaction_id}}"
+                                title="Restore"
+                            >
+                                <i class="fa fa-external-link"></i>
+                            </a>
+                            {{/when}}
+                        </td> -->
+                        <td class="row-status">
+                            {{transaction_status}}
+                        </td>
+                        <td class="row-method">
+                            {{transaction_payment_method}}
+                        </td>
+                        <td>
+                            {{transaction_payment_reference}}
+                        </td>
+                        <td>
+                            <a
+                            href="?filter[profile_id]={{transaction_profile.profile_id}}"
+                            >{{transaction_profile.profile_name}}</a>
+                        </td>
+                        <td>
+                            <strong>{{transaction_currency}}</strong> {{number_format transaction_total 0}}
+                        </td>
+                        <td>
+                            {{number_format transaction_credits 0}}
+                        </td>
+                        <td>
+                            {{date transaction_created 'M d, Y'}}
+                        </td>
+                    </tr>
+                    {{/each}}
+                    {{#unless rows}}
+                        <tr>
+                            <td  class="text-center" colspan="12">
+                                {{_ 'No results found'}}.
+                            </td>
+                        </tr>
+                    {{/unless}}
+                </tbody>
+            </table>
+            <!-- END: Search Table -->
+        </form>
+    </div>
+    <!-- END: Search Table Actions -->
+    <!-- START: Pagination -->
+    <nav>
+        <ul class="pagination">
+            {{#pager total range}}
+                <li{{#if active}} class="active"{{/if}}>
+                    <a href="?{{href}}">{{page}}</a>
+                </li>
+            {{/pager}}
+        </ul>
+    </nav>
+    <!-- END: Pagination -->
+</div>
+<!-- END: Scroll -->

@@ -1,0 +1,218 @@
+<div class="container">
+        <!-- START: Profile Panel -->
+        <div class="row profile-panel">
+            <!-- START: Sidebar Left -->
+            <aside class="col-md-3 left">
+                {{> profile_menu active="billing"}}
+            </aside>
+            <!-- END: Sidebar Left -->
+            <!-- START: Content Right -->
+            <div class="col-md-9 right">
+                <!-- START: Head -->
+                <div class="head row">
+                    <div class="text-left col-md-6">
+                        <h1>{{_ 'Billing Information'}}</h1>
+                    </div>
+                </div>
+                <!-- END: Head -->
+                <!-- START: Main Content -->
+                <div class="content">
+                    <div class="contact-wrapper">
+                        <!-- START: Form -->
+                        <form
+                            action="/profile/transaction/search"
+                            method="post"
+                        >
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <!-- START: Billing Name -->
+                                    <div
+                                        class="form-group
+                                            {{#if errors.profile_billing_name}}
+                                                has-error
+                                            {{/if}}"
+                                    >
+                                        <label>{{_ 'Billing Name *'}}</label>
+                                        <input
+                                            class="form-control"
+                                            name="profile_billing_name"
+                                            placeholder="{{_ 'Billing Name'}}"
+                                            type="text"
+                                            required="required"
+                                            value="
+                                                {{~#if item.profile_billing_name~}}
+                                                    {{item.profile_billing_name}}
+                                                {{~else~}}
+                                                    {{item.profile_name}}
+                                                {{~/if~}}"
+                                        />
+                                        {{#if errors.profile_billing_name}}
+                                        <span class="help-text">{{errors.profile_billing_name}}</span>
+                                        {{/if}}
+                                    </div>
+                                    <!-- END: Billing Name -->
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- START: Street Address -->
+                                    <div
+                                        class="form-group
+                                            {{#if errors.profile_address_street}}
+                                                has-error
+                                            {{/if}}"
+                                    >
+                                        <label>{{_ 'Street Address *'}}</label>
+                                        <input
+                                            class="form-control"
+                                            name="profile_address_street"
+                                            placeholder="{{_ 'Street Address'}}" 
+                                            required="required"
+                                            type="text"
+                                            value="{{item.profile_address_street}}"
+                                        />
+                                        {{#if errors.profile_address_street}}
+                                        <span class="help-text">{{errors.profile_address_street}}</span>
+                                        {{/if}}
+                                    </div>
+                                    <!-- END: Street Address -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <!-- START: State/Province -->
+                                    <div class="form-group
+                                        {{#if errors.profile_address_state}}
+                                            has-error
+                                        {{/if}}"
+                                    >
+                                        <label>{{_ 'State/Province *'}}</label>
+                                        <input type="hidden" name="profile_address_state" value="{{item.profile_address_state}}">
+                                        <select
+                                            class="form-control"
+                                            data-do="state"
+                                            data-on="change"
+                                            data-value="{{item.profile_address_state}}"
+                                            id="state"
+                                        >
+                                        </select>
+                                        {{#if errors.profile_address_state}}
+                                        <span class="help-text">{{errors.profile_address_state}}</span>
+                                        {{/if}}
+                                    </div>
+                                    <!-- START: State/Province -->
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- START: City -->
+                                    <div class="form-group
+                                        {{#if errors.profile_address_city}}
+                                            has-error
+                                        {{/if}}"
+                                    >
+                                        <label>{{_ 'City *'}}</label>
+                                        <select
+                                            class="form-control" 
+                                            data-do="city"
+                                            data-on="change"
+                                            data-value="{{item.profile_address_city}}"
+                                            id="city"
+                                            name="profile_address_city" 
+                                            >
+                                        </select>
+                                        {{#if errors.profile_address_city}}
+                                        <span class="help-text">{{errors.profile_address_city}}</span>
+                                        {{/if}}
+                                    </div>
+                                    <!-- END: City -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <!-- START: Country -->
+                                    <div class="form-group
+                                        {{#if errors.profile_address_country}}
+                                            has-error
+                                        {{/if}}"
+                                    >
+                                        <label>{{_ 'Country'}}</label>
+                                        <input
+                                            class="form-control"
+                                            name="profile_address_country"
+                                            placeholder="Philippines"
+                                            required="required"
+                                            type="text"
+                                            value="
+                                                    {{~#if item.profile_address_country~}}
+                                                        {{item.profile_address_country}}
+                                                    {{~else~}}
+                                                        Philippines
+                                                    {{~/if~}}"
+                                        />
+                                        {{#if errors.profile_address_country}}
+                                        <span class="help-text">{{errors.profile_address_country}}</span>
+                                        {{/if}}
+                                    </div>
+                                    <!-- END: Country -->
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- START: Postal Code -->
+                                    <div class="form-group
+                                        {{#if errors.profile_address_postal}}
+                                            has-error
+                                        {{/if}}"
+                                    >
+                                        <label>{{_ 'Postal Code *'}}</label>
+                                        <input
+                                            class="form-control"
+                                            data-do="prevent-letter-input"
+                                            data-on="keypress"
+                                            maxlength="5"
+                                            name="profile_address_postal"
+                                            pattern=".{5,}"
+                                            placeholder="12345"
+                                            required="required"
+                                            title="Should be 5 digits"
+                                            type="text"
+                                            value="{{item.profile_address_postal}}"
+                                        />
+                                        {{#if errors.profile_address_postal}}
+                                        <span class="help-text">{{errors.profile_address_postal}}</span>
+                                        {{/if}}
+                                    </div>
+                                    <!-- START: Postal Code -->
+                                </div>
+                            </div>
+                            <div class="form-group text-right">
+                                <input
+                                    name="csrf"
+                                    type="hidden"
+                                    value="{{csrf}}"
+                                />
+                                <input
+                                    name="redirect"
+                                    type="hidden"
+                                    value="/profile/transaction/search/update"
+                                />
+                                <button
+                                    type="submit"
+                                    class="btn btn-default text-uppercase"
+                                >
+                                    {{_ 'Save'}}
+                                </button>
+                                <a
+                                    href="/profile/transaction/search"
+                                    class="btn btn-warning text-uppercase"
+                                    title="Cancel"
+                                >
+                                    {{_ 'Cancel'}}
+                                </a>
+                            </div>
+                        </form>
+                        <!-- END: Form -->
+                    </div>
+                </div>
+                <!-- END: Main Content -->
+            </div>
+            <!-- END: Content Right -->
+        </div>
+        <!-- END: Profile Panel -->
+    </div>
+    

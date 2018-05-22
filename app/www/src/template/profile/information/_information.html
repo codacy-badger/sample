@@ -1,0 +1,363 @@
+<div class="modal fade information-modal" id="information-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- START: Form -->
+            <form
+                action="/ajax/information/update"
+                data-do="information-form"
+                data-on="submit"
+            >
+                <!-- START: Header -->
+                <div class="modal-header">
+                    <div class="modal-title">
+                        {{_ 'Edit Personal Information'}}
+                    </div>
+                    <div
+                        class="image"
+                        data-alt="Upload Photo"
+                        data-do="image-field"
+                        data-height="200"
+                        data-name="profile_image"
+                        data-width="200"
+                    >
+                        {{#if information.profile_image}}
+                            <img
+                                alt="{{_ 'Profile Image'}}"
+                                src="{{information.profile_image}}"
+                                width="100"
+                            />
+                            <input
+                                name="profile_image"
+                                type="hidden"
+                                value="{{information.profile_image}}"
+                            />
+                        {{else}}
+                            {{#session 'me'}}
+                                {{#if profile_image}}
+                                    <img
+                                        alt="{{_ 'Profile Image'}}"
+                                        src="{{profile_image}}"
+                                        width="100"
+                                    />
+                                {{else}}
+                                    <img
+                                        alt="{{_ 'Profile Image'}}"
+                                        src="{{default_avatar profile_id}}"
+                                        width="100"
+                                    />
+                                {{/if}}
+                            {{/session}}
+                        {{/if}}
+                        <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <!-- END: Header -->
+                <div class="modal-body">
+                    <!-- START: Name -->
+                    <div class="form-group">
+                        <label>{{_ 'Name'}}</label>
+                        <input
+                            class="form-control"
+                            maxlength="50"
+                            name="profile_name"
+                            placeholder="{{_ 'Name'}}"
+                            type="text"
+                            value="
+                                {{~#if information.profile_name~}}
+                                    {{information.profile_name}}
+                                {{~else~}}
+                                    {{~#session 'me'~}}
+                                        {{profile_name}}
+                                    {{~/session~}}
+                                {{~/if~}}
+                            "
+                        />
+                        <span class="help-text"></span>
+                    </div>
+                    <!-- END: Name -->
+                    <!-- START: Heading -->
+                    <div class="form-group">
+                        <label>{{_ 'Heading'}}</label>
+                        <input
+                            class="form-control"
+                            maxlength="100"
+                            name="information_heading"
+                            placeholder="I'm a kick-ass Web Developer with 4 years of solid programming experience"
+                            type="text"
+                            value="{{information.information_heading}}"
+                        />
+                        <span class="help-text"></span>
+                    </div>
+                    <!-- END: Heading -->
+                    <!-- START: Email Address -->
+                    <div class="form-group">
+                        <label>{{_ 'Email Address'}}</label>
+                        <input
+                            class="form-control"
+                            maxlength="50"
+                            name="profile_email"
+                            placeholder="{{_ 'Email Address'}}"
+                            type="text"
+                            value="
+                                {{~#if information.profile_email~}}
+                                    {{information.profile_email}}
+                                {{~else~}}
+                                    {{~#session 'me'~}}
+                                        {{profile_email}}
+                                    {{~/session~}}
+                                {{~/if~}}
+                            "
+                        />
+                        <span class="help-text"></span>
+                    </div>
+                    <!-- END: Email Address -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- START: Gender -->
+                            <div class="form-group">
+                                <label>{{_ 'Gender'}}</label>
+                                <div class="custom-select">
+                                    <select name="profile_gender" class="form-control">
+                                        <option value="">{{_ 'Gender'}}</option>
+                                        <option
+                                            value="male"
+                                            {{#when information.profile_gender '==' 'male'}}
+                                                selected
+                                            {{/when}}
+                                        >
+                                            {{_ 'Male'}}
+                                        </option>
+                                        <option
+                                            value="female"
+                                            {{#when information.profile_gender '==' 'female'}}
+                                                selected
+                                            {{/when}}
+                                        >
+                                            {{_ 'Female'}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <span class="help-text"></span>
+                            </div>
+                            <!-- END: Gender -->
+                        </div>
+                        <div class="col-md-6">
+                            <!-- START: Date of Birth -->
+                            <div class="form-group">
+                                <label>{{_ 'Date of Birth'}}</label>
+                                <input
+                                    class="datepicker form-control"
+                                    data-do="datepicker"
+                                    name="profile_birth"
+                                    placeholder="January 01, 1990"
+                                    readonly
+                                    type="text"
+                                    value="
+                                        {{~#if information.profile_birth~}}
+                                            {{date information.profile_birth 'F d, Y'}}
+                                        {{~/if~}}
+                                    "
+                                />
+                                <span class="help-text"></span>
+                            </div>
+                            <!-- END: Date of Birth -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- START: Civil Status -->
+                            <div class="form-group">
+                                <label>{{_ 'Civil Status'}}</label>
+                                <div class="custom-select">
+                                    <select name="information_civil_status" class="form-control">
+                                        <option value="">{{_ 'Civil Status'}}</option>
+                                        <option
+                                            value="single"
+                                            {{#when information.information_civil_status '==' 'single'}}
+                                                selected
+                                            {{/when}}
+                                        >
+                                            {{_ 'Single'}}
+                                        </option>
+                                        <option
+                                            value="married"
+                                            {{#when information.information_civil_status '==' 'married'}}
+                                                selected
+                                            {{/when}}
+                                        >
+                                            {{_ 'Married'}}
+                                        </option>
+                                        <option
+                                            value="divorced"
+                                            {{#when information.information_civil_status '==' 'divorced'}}
+                                                selected
+                                            {{/when}}
+                                        >
+                                            {{_ 'Divorced'}}
+                                        </option>
+                                        <option
+                                            value="separated"
+                                            {{#when information.information_civil_status '==' 'separated'}}
+                                                selected
+                                            {{/when}}
+                                        >
+                                            {{_ 'Separated'}}
+                                        </option>
+                                        <option
+                                            value="widowed"
+                                            {{#when information.information_civil_status '==' 'widowed'}}
+                                                selected
+                                            {{/when}}
+                                        >
+                                            {{_ 'Widowed'}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <span class="help-text"></span>
+                            </div>
+                            <!-- END: Civil Status -->
+                        </div>
+                        <div class="col-md-6">
+                            <!-- START: Contact Number -->
+                            <div class="form-group">
+                                <label>{{_ 'Contact Number'}}</label>
+                                <input
+                                    class="form-control"
+                                    data-do="prevent-letter-input"
+                                    data-on="keypress"
+                                    maxlength="50"
+                                    name="profile_phone"
+                                    placeholder="{{_ 'Contact Number'}}"
+                                    type="text"
+                                    value="{{information.profile_phone}}"
+                                />
+                                <span class="help-text"></span>
+                            </div>
+                            <!-- END: Contact Number -->
+                        </div>
+                    </div>
+                    <!-- START: Street Address -->
+                    <div class="form-group">
+                        <label>{{_ 'Present Address'}}</label>
+                        <input
+                            class="form-control"
+                            maxlength="100"
+                            name="profile_address_street"
+                            placeholder="{{_ 'Street Address'}}"
+                            type="text"
+                            value="{{information.profile_address_street}}"
+                        />
+                        <span class="help-text"></span>
+                    </div>
+                    <!-- END: Street Address -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- START: State / Province Region -->
+                            <div class="form-group">
+                                <div class="custom-select">
+                                    <select
+                                        class="form-control"
+                                        data-city="profile_address_city"
+                                        data-do="information-province"
+                                        data-on="change"
+                                        name="profile_address_state"
+                                    >
+                                        <option value="">{{_ 'State / Province Region'}}</option>
+                                        {{#each area.state}}
+                                            <option
+                                                data-id="{{area_id}}"
+                                                value="{{area_name}}"
+                                                {{#when ../information.profile_address_state '==' area_name}} selected{{/when}}
+                                            >
+                                                {{area_name}}
+                                            </option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <span class="help-text"></span>
+                            </div>
+                            <!-- END: State / Province Region -->
+                        </div>
+                        <div class="col-md-6">
+                            <!-- START: City -->
+                            <div class="form-group">
+                                <div class="custom-select">
+                                    <select name="profile_address_city" class="form-control">
+                                        <option value="">{{_ 'City'}}</option>
+                                        {{#each area.city}}
+                                            <option value="{{area_name}}"
+                                                {{~#when ../information.profile_address_city '==' area_name}} selected{{/when~}}
+                                            >
+                                                {{area_name}}
+                                            </option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <span class="help-text"></span>
+                            </div>
+                            <!-- END: City -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- START: ZIP / Postal Code -->
+                            <div class="form-group">
+                                <input
+                                    class="form-control"
+                                    maxlength="50"
+                                    name="profile_address_postal"
+                                    placeholder="{{_ 'ZIP / Postal Code'}}"
+                                    type="text"
+                                    value="{{information.profile_address_postal}}"
+                                />
+                                <span class="help-text"></span>
+                            </div>
+                            <!-- END: ZIP / Postal Code -->
+                        </div>
+                        <div class="col-md-6">
+                            <!-- START: Country -->
+                            <div class="form-group">
+                                <input
+                                    class="form-control"
+                                    maxlength="50"
+                                    name="profile_address_country"
+                                    placeholder="{{_ 'Country'}}"
+                                    type="text"
+                                    value="
+                                        {{~#if information.profile_address_country~}}
+                                            {{information.profile_address_country}}
+                                        {{~else~}}
+                                            Philippines
+                                        {{~/if~}}
+                                    "
+                                />
+                                <span class="help-text"></span>
+                            </div>
+                            <!-- END: Country -->
+                        </div>
+                    </div>
+                </div>
+                <!-- START: Footer -->
+                <div class="modal-footer">
+                    <button
+                        class="btn btn-default"
+                        type="submit"
+                        id="save-for-now-button"
+                    >
+                        {{_ 'Save for now'}}
+                    </button>
+                    <button
+                        class="btn btn-primary"
+                        data-dismiss="modal"
+                        type="button"
+                        id="cancel-save-button"
+                    >
+                        {{_ 'Cancel'}}
+                    </button>
+                </div>
+                <!-- END: Footer -->
+            </form>
+            <!-- END: Form -->
+        </div>
+    </div>
+</div>

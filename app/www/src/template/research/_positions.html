@@ -1,0 +1,27 @@
+<!-- START: Positions Container -->
+<div class="positions-container">
+    <span class="section-title">Top Positions</span>
+    <!-- START: Positions List Container -->
+    <div class="positions-list-container">
+
+        {{#each top_positions}}
+        <!-- START: Position Container -->
+        <div class="clearfix position-container">
+            <!-- START: Position Detail -->
+            <div class="position-detail-container">
+                <span class="position-name">
+                    <a
+                        href="/post/search?filter[post_position]={{post_position}}&filter[post_location]={{../location}}">
+                        {{post_position}}
+                    </a>
+                    </span>
+                <span class="position-salary">{{total}} new job postings</span>
+            </div>
+            <!-- END: Position Detail -->
+        </div>
+        <!-- END: Position Container -->
+        {{/each}}
+    </div>
+    <!-- END: Positions List Container -->
+</div>
+<!-- END: Positions Container -->

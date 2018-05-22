@@ -1,0 +1,37 @@
+{{#session 'me'}}
+    {{#if profile_company}}
+        {{#when profile_credits '>=' 100}}
+            <div class="information info">
+                {{#_ 'You have %s credits. Click %s for more information on credits and to buy more.'}}
+                    {{number profile_credits}}
+                    __
+                    <a href="/profile/credit/checkout">here</a>
+                {{/_}}
+            </div>
+        {{else}}
+            {{#if profile_credits}}
+                <div class="information warning">
+                    {{#_ 'You only have %s left. Click %s for more information on credits and to buy more.'}}
+                        {{number profile_credits}}
+                        __
+                        <a href="/profile/credit/checkout">here</a>
+                    {{/_}}
+                </div>
+            {{else}}
+                <div class="information danger">
+                    {{#_ 'You have no more credits left. Click %s for more information on credits and to buy more.'}}
+                        <a href="/profile/credit/checkout">here</a>
+                    {{/_}}
+                </div>
+            {{/if}}
+        {{/when}}
+    {{else}}
+        {{#if ../information}}
+            {{#when ../information.information_progress '<' '100'}}
+            <div class="information warning">
+                {{_ "Ooops! You're profile is incomplete. Complete your profile to level up your job hunting. Companies prioritize seekers with complete profiles."}}
+            </div>
+            {{/when}}
+        {{/if}}
+    {{/if}}
+{{/session}}

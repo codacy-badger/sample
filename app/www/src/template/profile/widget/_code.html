@@ -1,0 +1,39 @@
+{{#when widget_type '==' 'career_widget'}}
+<script type="text/javascript">
+    window.JBWidgetInit = function() {
+        JBWidget({
+            widget_key  : '{{widget_key}}',
+            widget_root : '{{widget_root}}',
+            widget_type : '{{widget_type}}'
+        });
+    };
+
+    (function(d, s, id) {
+        var js, jjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//{{widget_root}}/plugins/widget/career-widget.js?v=1.0&widget_key={{widget_key}}";
+        jjs.parentNode.insertBefore(js, jjs);
+    }(document, 'script', 'jobayan-career-widget'));
+</script>
+{{/when}}{{#when widget_type '==' 'career_page'}}
+<div id="wrapper"></div>
+<script type="text/javascript">
+    window.JBWPageInit = function() {
+        JBWPage({
+            widget_key  : '{{widget_key}}',
+            widget_root : '{{widget_root}}',
+            widget_type : '{{widget_type}}',
+            widget_selector : 'wrapper'
+        });
+    };
+
+    (function(d, s, id) {
+        var js, jjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//{{widget_root}}/plugins/widget/career-page.js?v=1.0&widget_key={{widget_key}}";
+        jjs.parentNode.insertBefore(js, jjs);
+    }(document, 'script', 'jobayan-career-page'));
+</script>
+{{/when}}

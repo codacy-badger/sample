@@ -1,0 +1,51 @@
+<!-- START: Auth Verify Page -->
+<div class="auth-verify-body auth-form">
+    <!-- START: Auth Verify Panel -->
+    <div class="panel panel-default">
+        <!-- START: Website Logo -->
+        <div class="form-logo">
+            <center>
+                <a class="logo" href="/">
+                    <img alt="Jobayan Logo" src="{{config 'cdn'}}/images/logo.png" />
+                </a>
+            </center>
+        </div>
+        <!-- END: Website Logo -->
+        <h1 class="text-center">{{_ 'Verify your Account'}}</h1>
+        <!-- START: Panel Body -->
+        <div class="panel-body">
+            <p class="text-center">
+                {{_ "We'll email you with a link to activate your account.
+                Please enter the e-mail address used to register with this site
+                and we'll contact you shortly."}}
+            </p>
+            <!-- START: Auth Verify Form -->
+            <form method="post">
+                <!-- START: Auth Slug -->
+                <div class="form-group{{#if errors.auth_slug}} has-error{{/if}}">
+                    <input
+                        class="form-control"
+                        name="auth_slug"
+                        placeholder="{{_ 'Email'}}"
+                        type="email"
+                        value="{{item.auth_slug}}"
+                    />
+                    {{#if errors.auth_slug}}
+                    <span class="help-text">{{errors.auth_slug}}</span>
+                    {{/if}}
+                </div>
+                <!-- END: Auth Slug -->
+                <!-- START: Form Submit -->
+                <div class="form-group">
+                    <input type="hidden" name="csrf" value="{{csrf}}" />
+                    <button type="submit" class="btn btn-default" id="verify-button">{{_ 'Verify'}}</button>
+                </div>
+                <!-- END: Form Submit -->
+            </form>
+            <!-- END: Auth Verify Form -->
+        </div>
+        <!-- END: Panel Body -->
+    </div>
+    <!-- END: Auth Verify Panel -->
+</div>
+<!-- END: Auth Verify Page -->

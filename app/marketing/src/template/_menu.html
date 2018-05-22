@@ -1,0 +1,109 @@
+<ul class="nav nav-pills nav-stacked">
+    <!-- START: Menu Dashboard -->
+    <li role="presentation"
+        {{#when page.active_menu '===' 'dashboard'}}
+            class="active"
+        {{/when}}
+    >
+        <a href="/control/marketing/dashboard">
+            <i class="fa fa-home"></i>
+            <span>{{_ 'Dashboard'}}</span>
+        </a>
+    </li>
+    <!-- END: Menu Dashboard -->
+    <!-- START: Menu Leads -->
+    <li role="presentation"
+        {{#when page.active_menu '===' 'lead'}}
+            class="active"
+        {{/when}}
+    >
+        <a href="/control/marketing/lead/search">
+            <i class="fa fa-user"></i>
+            <span>{{_ 'Leads'}}</span>
+        </a>
+    </li>
+    <!-- END: Menu Leads -->
+    <!-- START: Menu Users -->
+    <li role="presentation"
+        {{#when page.active_menu '===' 'profile'}}
+            class="active"
+        {{/when}}
+    >
+        <a href="/control/marketing/profile/search">
+            <i class="fa fa-user"></i>
+            <span>{{_ 'Users'}}</span>
+        </a>
+    </li>
+    <!-- END: Menu Users -->
+    <!-- START: Menu Agent -->
+    <li role="presentation"
+        {{#when page.active_menu '===' 'agent'}}
+            class="active"
+        {{/when}}
+    >
+    {{#session 'app_session'}}
+        {{#when results.auth_type '===' 'admin'}}
+            <a href="/control/marketing/agent/search">
+                <i class="fa fa-users"></i>
+                <span>{{_ 'Marketers'}}</span>
+            </a>
+        {{else}}
+            {{#when results.auth_type '===' 'agent'}}
+                <a href="/control/marketing/agent/search">
+                    <i class="fa fa-users"></i>
+                    <span>{{_ 'Marketers'}}</span>
+                </a>
+            {{/when}}
+        {{/when}}
+    {{/session}}
+    </li>
+    <!-- END: Menu Agent -->
+    <!-- START: Menu Campaigns -->
+    <li role="presentation"
+        {{#when page.active_menu '===' 'campaign'}}
+            class="active"
+        {{/when}}
+    >
+        <a href="/control/marketing/campaign/search">
+            <i class="fa fa-calendar"></i>
+            <span>{{_ 'Campaigns'}}</span>
+        </a>
+    </li>
+    <!-- END: Menu Campaigns -->
+    <!-- START: Menu Templates -->
+    <li role="presentation"
+        {{#when page.active_menu '===' 'template'}}
+            class="active"
+        {{/when}}
+    >
+        <a href="/control/marketing/template/search">
+            <i class="fa fa-edit"></i>
+            <span>{{_ 'Templates'}}</span>
+        </a>
+    </li>
+    <!-- END: Menu Templates -->
+    <!-- START: Menu Links -->
+    <li role="presentation"
+        {{#when page.active_menu '===' 'link'}}
+            class="active"
+        {{/when}}
+    >
+        <a href="/control/marketing/link/search">
+            <i class="fa fa-code"></i>
+            <span>{{_ 'Links'}}</span>
+        </a>
+    </li>
+    <!-- END: Menu Links -->
+    <!-- START: Menu Actions -->
+    <li role="presentation"
+        {{#when page.active_menu '===' 'action'}}
+            class="active"
+        {{/when}}
+    >
+        <a href="/control/marketing/action/search">
+            <i class="fa fa-bullhorn"></i>
+            <span>{{_ 'Actions'}}</span>
+        </a>
+    </li>
+    <!-- END: Menu Actions -->
+</ul>

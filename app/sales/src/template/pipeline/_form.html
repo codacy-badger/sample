@@ -1,0 +1,61 @@
+<form method="post">
+    <!-- START: Pipeline Title -->
+    <div class="form-group{{#if errors.pipeline_name}} has-error{{/if}}">
+        <label>{{_ 'Pipeline Title'}}</label>
+        <div class="texts-field">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="fa fa-briefcase"></i>
+                </div>
+                <input
+                    type="text"
+                    name="pipeline_name"
+                    class="form-control"
+                    placeholder="{{_ 'Sales Pipeline'}}"
+                    value="{{item.pipeline_name}}"
+                />
+            </div>
+        </div>
+
+        {{#if errors.pipeline_name}}
+            <span class="help-text">{{errors.pipeline_name}}</span>
+        {{/if}}
+    </div>
+    <!-- END: Pipeline Title -->
+    <!-- START: Pipeline Stages -->
+    <div
+        class="form-group"
+        id="when-group"
+    >
+        <label>{{_ 'Pipeline Stages'}}</label>
+        <div
+            data-do="tag-field"
+            data-name="pipeline_stages"
+            data-placeholder="{{_ 'Add Stage'}}"
+            class="tag-field"
+        >
+            {{#each item.pipeline_stages}}
+                <div class="tag">
+                    <input type="text"
+                        class="tag-input text-field"
+                        name="pipeline_stages[]"
+                        placeholder="{{_ 'Add Stage'}}"
+                        value="{{this}}"
+                    />
+                    <a class="remove" href="javascript:void(0)">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            {{/each}}
+        </div>
+
+        {{#if errors.stage}}
+            <span class="help-text">{{errors.stage}}</span>
+        {{/if}}
+    </div>
+    <!-- END: Pipeline Stages -->
+
+    <div class="clearfix form-group">
+        <button class="btn btn-primary">{{_ 'Submit'}}</button>
+    </div>
+</form>

@@ -1,0 +1,243 @@
+<div class="container">
+    {{> profile_alert}}
+    <!-- START: Profile Panel -->
+    <div class="row profile-panel">
+        <!-- START: Sidebar Left -->
+        <aside class="col-md-3 left">
+            {{> profile_menu active="application"}}
+        </aside>
+        <!-- END: Sidebar Left -->
+        <!-- START: Content Left -->
+        <div class="col-md-9 right">
+            <!-- START: Head -->
+            <div class="head">
+                <h1>{{_ 'Applicant Form'}}</h1>
+            </div>
+            <!-- END: Head -->
+            <!-- START: Main Content -->
+            <div class="content">
+                <div class="top">
+                    <span>{{_ 'Application Forms'}}</span>
+                </div>
+                <!-- START: Detail -->
+                <div class="detail clearfix">
+                    <div class="detail-wrapper">
+                        <!-- START: Breadcrumbs -->
+                        <div class="breadcrumbs">
+                            <ul>
+                                <li>
+                                    <a
+                                        href="/profile/tracking/application/seeker/search"
+                                    >
+                                        {{_ 'Application Listing'}}
+                                    </a>
+
+                                </li>
+                                <li>
+                                    > {{item.post_name}}
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- END: Breadcrumbs -->
+                        <!-- START: Detail Form -->
+                        <div class="detail-form">
+                            <div class="form-title">
+                                <!-- START : Container for form name display -->
+                                <div class="form-name-display">
+                                    <span>
+                                        {{item.form_name}}
+                                    </span>
+
+                                    <a
+                                        data-do="form-name-change"
+                                        data-on="click"
+                                        href="javascript:void(0);"
+                                    >
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- START : Question List -->
+                            <div class="form-content question-list">
+                                {{#if item.answer}}
+                                    <!-- START: If Question Has Answer -->
+                                    {{#each item.questions}}
+                                        <!-- START : Question Item -->
+                                        <div class="form-group">
+                                            <!-- START : Question Name -->
+                                            <input
+                                                class="question-name-input"
+                                                name="question_name"
+                                                type="hidden"
+                                                value="{{question_name}}"
+                                            >
+                                            <label class="question-name-display">{{question_name}}</label>
+                                            <!-- END : Question Name -->
+                                            <div class="form-indent">
+                                                {{#if question_custom}}
+                                                <!-- START: Question Custom -->
+                                                    {{answer_name}}
+                                                <!-- END: Question Custom -->
+                                                {{else}}
+                                                <!-- START: Question Choices -->
+                                                <div class="question-choices">
+                                                {{#if question_choices}}
+                                                    {{#each question_choices}}
+                                                        <!-- START : Question Container -->
+                                                        <div class="radio-container question-container">
+                                                            <input
+                                                                class="radio orange question-choice"
+                                                                type="radio"
+                                                                id="{{../question_id}}-question-{{@index}}"
+                                                                name="answer_choices[{{../@index}}]"
+                                                                {{#when ../answer_name '==' this}}
+                                                                    checked
+                                                                {{/when}}
+                                                            />
+                                                            <label
+                                                                class="radio-label question-label"
+                                                            >
+                                                                {{this}}
+                                                            </label>
+                                                        </div>
+                                                        <!-- END : Question Container -->
+                                                    {{/each}}
+                                                {{/if}}
+                                                </div>
+                                                <!-- END: Question Choices -->
+                                                {{/if}}
+                                                <!-- START: Question File -->
+                                                {{#if question_file}}
+                                                    <a
+                                                        href="{{answer_name}}"
+                                                        target="_blank"
+                                                        title="{{_ 'File Link'}}"
+                                                    >
+                                                        {{_ 'File Link'}}
+                                                    </a>
+                                                {{/if}}
+                                                <!-- END: Question File -->
+                                            </div>
+                                        </div>
+                                        <!-- END : Question Item -->
+                                    {{/each}}
+                                    <!-- END: If Question Has Answer -->
+                                {{else}}
+                                    <!-- START: If Question Has No Answer -->
+                                    <form enctype="multipart/form-data" method="post" data-do="applicant-form" data-on="submit">
+                                        {{#each item.questions}}
+                                            <!-- START : Question Item -->
+                                            <div class="form-group">
+                                                <!-- START : Question Name -->
+                                                <input
+                                                    class="question-name-input"
+                                                    name="question_name"
+                                                    type="hidden"
+                                                    value="{{question_name}}"
+                                                >
+                                                <label class="question-name-display">{{question_name}}</label>
+                                                <!-- END : Question Name -->
+                                                <div class="form-indent">
+                                                    <!-- START: Question Choices -->
+                                                    <div class="question-choices">
+                                                    {{#if question_choices}}
+                                                        {{#each question_choices}}
+                                                            <!-- START : Question Container -->
+                                                            <div class="radio-container question-container">
+                                                                <input
+                                                                    class="radio orange question-choice choice-{{../question_id}}"
+                                                                    data-question="{{../question_id}}"
+                                                                    id="{{../question_id}}-question-{{@index}}"
+                                                                    name="question[{{../question_id}}]"
+                                                                    type="radio"
+                                                                    value="{{this}}"
+                                                                    {{#if ../question_custom}}
+                                                                        data-do="form-check-custom"
+                                                                        data-on="change"
+                                                                    {{/if}}
+                                                                    {{#if ../../post}}
+                                                                        {{#when ../question_value '==' this}}
+                                                                            checked
+                                                                        {{/when}}
+                                                                    {{/if}}
+                                                                />
+                                                                <label
+                                                                    class="radio-label question-label"
+                                                                    for="{{../question_id}}-question-{{@index}}"
+                                                                >
+                                                                    {{this}}
+                                                                </label>
+                                                            </div>
+                                                            <!-- END : Question Container -->
+                                                        {{/each}}
+                                                    {{/if}}
+                                                    </div>
+                                                    <!-- END: Question Choices -->
+                                                    <!-- START: Question Custom -->
+                                                    {{#if question_custom}}
+                                                        <input
+                                                            class="form-control question-custom custom-{{question_id}}"
+                                                            data-question="{{question_id}}"
+                                                            name="question[{{question_id}}]"
+                                                            type="text"
+                                                            value="{{question_value}}"
+                                                            {{#if question_choices}}
+                                                                data-do="form-check-choices"
+                                                                data-on="input"
+                                                            {{/if}}
+                                                        />
+                                                    {{/if}}
+                                                    <!-- END: Question Custom -->
+                                                    <!-- START: Question File -->
+                                                    {{#if question_file}}
+                                                        <input
+                                                            class="form-control question-file"
+                                                            data-do="custom-upload"
+                                                            data-question="{{question_id}}"
+                                                            type="file"
+                                                        />
+                                                        <input
+                                                            class="file-answer"
+                                                            name="question[{{question_id}}]"
+                                                            type="hidden"
+                                                        />
+                                                    {{/if}}
+                                                    <!-- END: Question File -->
+                                                </div>
+                                            </div>
+                                            <!-- END : Question Item -->
+                                        {{/each}}
+                                        <div class="form-submit">
+                                            <input
+                                                name="applicant_id"
+                                                type="hidden"
+                                                value="{{item.applicant_id}}"
+                                            />
+                                            <input
+                                                name="csrf"
+                                                type="hidden"
+                                                value="{{csrf}}"
+                                            />
+                                            <button
+                                                class="btn btn-default"
+                                                type="submit"
+                                            >
+                                                {{_ 'Submit Form'}}
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <!-- END: If Question Has No Answer -->
+                                {{/if}}
+                            </div>
+                            <!-- END : Question List -->
+                        </div>
+                        <!-- END: Detail Form -->
+                    </div>
+                </div>
+                <!-- END: Detail -->
+            </div>
+            <!-- END: Main Content -->
+        </div>
+        <!-- END: Content Left -->
+    </div>
+    <!-- END: Profile Panel -->
+</div>

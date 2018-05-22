@@ -1,0 +1,1 @@
+ALTER TABLE `profile` ADD `profile_meta` JSON NULL AFTER `profile_campaigns`;

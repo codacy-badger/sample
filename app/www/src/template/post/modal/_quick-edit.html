@@ -1,0 +1,49 @@
+<div id="quick-edit-modal" class="modal fade quick-edit-modal" role="dialog">
+    <div class="modal-dialog" role="document">
+        <form
+            action="/ajax/information/quick/update"
+            data-do="information-quick"
+            data-on="submit"
+        >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                        {{_ 'Quick Edit'}}
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                            <label>{{_ 'Name'}}</label>
+                            <input
+                                class="form-control"
+                                name="profile_name"
+                                placeholder="{{_ 'Name'}}"
+                                type="text"
+                                value="{{../profile_information.profile_name}}"
+                            />
+                            <span class="help-text"></span>
+                    </div>
+                    <div class="form-group">
+                            <label>{{_ 'Headline'}}</label>
+                            <input
+                                class="form-control"
+                                name="information_heading"
+                                placeholder="I'm a Web designer working at Openovate Labs"
+                                type="text"
+                                value="{{../profile_information.information_heading}}"
+                            />
+                            <span class="help-text"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default text-uppercase" type="submit">
+                        {{_ 'Save'}}
+                    </button>
+                    <button class="btn btn-primary" data-dismiss="modal" type="button">
+                        {{_ 'Cancel'}}
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

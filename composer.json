@@ -1,0 +1,119 @@
+{
+    "name": "cradlephp/kitchen-sink",
+    "description": "Flow samples and testing",
+    "type": "framework",
+    "minimum-stability": "dev",
+    "license": "MIT",
+    "homepage": "https://cradlephp.github.io/",
+    "authors": [
+        {
+            "name": "Christian Blanquera",
+            "email": "cblanquera@openovate.com"
+        }
+    ],
+
+    "repositories": {
+        "emailcheckerphp": {
+            "type": "package",
+            "package": {
+                "name": "clark21/emailcheckerphp",
+                "version": "1.0",
+                "source": {
+                    "url": "https://github.com/clark21/EmailCheckerPHP.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        }
+    },
+
+    "require-dev": {
+        "sebastian/diff": "^1.4",
+        "codeception/codeception": "^2.2",
+        "squizlabs/php_codesniffer": "~2.6"
+    },
+    "require": {
+        "cradlephp/packages": "~1.1.1",
+        "cradlephp/framework": "~1.1.1",
+        "cradlephp/sink-faucet": "dev-master",
+        "cblanquera/cradle-captcha": "dev-master",
+        "cblanquera/cradle-csrf": "dev-master",
+        "cblanquera/cradle-handlebars": "dev-master",
+        "cblanquera/cradle-queue": "dev-master",
+        "elasticsearch/elasticsearch": "2.2.2",
+        "predis/predis": "1.1.1",
+        "aws/aws-sdk-php": "3.19.30",
+        "swiftmailer/swiftmailer": "5.4.3",
+        "jakoch/phantomjs-installer": "2.1.1-p07",
+        "facebook/php-sdk-v4" : "~5.0",
+        "linkedinapi/linkedin": "1.1.0",
+        "phpunit/phpunit": "5.6",
+        "phpunit/phpunit-mock-objects": "3.2.1",
+        "doctrine/instantiator": "1.0.x-dev",
+        "symfony/debug": "3.4.x-dev",
+        "symfony/console": "3.4.x-dev",
+        "ezyang/htmlpurifier":"^4.9",
+        "aprilsacil/goip-php-api": "dev-master",
+        "phpmailer/phpmailer": "dev-master",
+        "google/apiclient": "^2.0",
+        "league/oauth2-client": "2.2.0",
+        "spipu/html2pdf": "dev-master",
+        "smalot/pdfparser": "^0.11.0",
+        "clark21/emailcheckerphp": "1.*"
+
+    },
+    "autoload": {
+        "files" : [
+            "vendor/clark21/emailcheckerphp/autoload.php"
+        ],
+        "psr-4": {
+            "Cradle\\Module\\Degree\\": "module/degree/src/",
+            "Cradle\\Module\\Tracer\\": "module/tracer/src/",
+            "Cradle\\Module\\Interview\\": "module/interview/src/",
+            "Cradle\\Module\\Event\\": "module/event/src/",
+            "Cradle\\Module\\Thread\\": "module/thread/src/",
+            "Cradle\\Module\\Gmail\\": "module/gmail/src/",
+            "Cradle\\Module\\Comment\\": "module/comment/src/",
+            "Cradle\\Module\\File\\": "module/file/src/",
+            "Cradle\\Module\\History\\": "module/history/src/",
+            "Cradle\\Module\\Sales\\": "module/sales/src/",
+            "Cradle\\Module\\Action\\": "module/action/src/",
+            "Cradle\\Module\\Template\\": "module/template/src/",
+            "Cradle\\Module\\Campaign\\": "module/campaign/src/",
+            "Cradle\\Module\\Lead\\": "module/lead/src/",
+            "Cradle\\Module\\Ses\\": "module/ses/src/",
+            "Cradle\\Module\\Currency\\": "module/currency/src/",
+            "Cradle\\Module\\Tracking\\": "module/tracking/src/",
+            "Cradle\\Module\\Ats\\": "module/tracking/src/",
+            "Cradle\\Module\\Feature\\": "module/feature/src/",
+            "Cradle\\Module\\Position\\": "module/position/src/",
+            "Cradle\\Module\\Research\\": "module/research/src/",
+            "Cradle\\Module\\Blog\\": "module/blog/src/",
+            "Cradle\\Module\\Utm\\": "module/utm/src/",
+            "Cradle\\Module\\Area\\": "module/area/src/",
+            "Cradle\\Module\\Resume\\": "module/resume/src/",
+            "Cradle\\Module\\Service\\": "module/service/src/",
+            "Cradle\\Module\\Transaction\\": "module/transaction/src/",
+            "Cradle\\Module\\Term\\": "module/term/src/",
+            "Cradle\\Module\\Crawler\\": "module/crawler/src/",
+            "Cradle\\Module\\Post\\": "module/post/src/",
+            "Cradle\\Module\\Oauth\\": "module/oauth/src/",
+            "Cradle\\Module\\Profile\\": "module/profile/src/",
+            "Cradle\\Module\\Utility\\": "module/utility/src/",
+            "Cradle\\Module\\Widget\\": "module/widget/src/",
+            "Cradle\\Module\\School\\": "module/school/src/",
+            "Module\\Checker\\" : "Module/Checker/src"
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "PhantomInstaller\\Installer::installPhantomJS"
+        ],
+        "post-update-cmd": [
+            "PhantomInstaller\\Installer::installPhantomJS"
+        ]
+    }
+}

@@ -1,0 +1,20 @@
+<!-- START: Crumbs -->
+<div class="crumbs">
+    <a href="/control/business/dashboard">
+        <i class="fa fa-home"></i> {{_ 'Dashboard'}}
+    </a>
+    <span class="separator"><i class="fa fa-angle-right"></i></span>
+    <a href="/control/business/pipeline/1/board"><i class="fa fa-ellipsis-h"></i> {{_ 'Board'}}</a>
+    <span class="separator"><i class="fa fa-angle-right"></i></span>
+    <a href="#" class="active">
+        <i class="fa fa-edit"></i> {{_ 'Update Pipeline'}}
+    </a>
+</div>
+<!-- END: Crumbs -->
+<!-- START: Scroll -->
+<div class="scroll">
+    <h3 class="template-blue">
+        <i class="fa fa-edit"></i> {{_ 'Update Pipeline'}}
+    </h3>
+    {{> pipeline_form}}
+</div>

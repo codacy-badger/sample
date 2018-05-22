@@ -1,0 +1,679 @@
+{{#if filter.profile_id}}
+    {{#if rows}}
+    <h4>{{rows.0.profile_name}} ({{rows.0.profile_email}})</h4>
+    {{/if}}
+{{/if}}
+
+{{#when filter.post_active '===' '0'}}
+    <h3>
+        {{number_format total 0}} Inactive {{title}}
+        {{#if q.0}}
+            matching {{q.0}}
+        {{/if}}
+    </h3>
+{{else}}
+    <h3>
+        {{number_format total 0}} {{title}}
+        {{#if q.0}}
+            matching {{q.0}}
+        {{/if}}
+    </h3>
+{{/when}}
+
+<div class="clearfix">
+    <div aria-label="..." class="btn-group pull-left" role="group">
+        <a class="btn btn-primary" href="?{{toquery 'filter[post_active]' '1'}}">
+            Active
+        </a>
+        <a class="btn btn-danger" href="?{{toquery 'filter[post_active]' '0'}}">
+            Inactive
+        </a>
+    </div>
+    <span class="pull-left">
+        <a class="btn btn-success" href="/control/post/create">
+            <i class="fa fa-plus"></i>
+            Create New Post
+        </a>
+    </span>
+
+    <!-- START : Form -->
+    <form
+        class="filter-form"
+        data-do="check-date"
+        data-on="submit"
+        method="get"
+    >
+    {{#when filter.post_active '===' '0'}}
+        <input type="hidden"
+        name="filter[post_active]"
+        value = "0"
+        />
+    {{/when}}
+        <div class="form-group pull-left">
+            <label class="pull-left">Type</label>
+
+            <!-- START : Select post_type -->
+            <select
+                class="form-control pull-left post_type"
+                id="typeCast"
+                name="filter[post_type]"
+            >
+                <option
+                    value=""
+                    {{#when filter.type '==' ''}}
+                        selected
+                    {{~/when~}}
+                >
+                    {{_ 'All'}}
+                </option>
+
+                <option
+                    value="poster"
+                    {{#when filter.post_type '==' 'poster'}}
+                        selected
+                    {{~/when~}}
+                >
+                    Poster
+                </option>
+
+                <option
+                    value="seeker"
+                    {{#when filter.post_type '==' 'seeker'}}
+                        selected
+                    {{/when}}
+                >
+                    Seeker
+                </option>
+            </select>
+            <!-- END : Select post_type -->
+            <button
+                class="btn btn-success pull-left"
+                data-type="post"
+                data-do="export-form"
+                data-on="click"
+            >
+                Export
+            </button>
+        </div>
+        <div >
+        <label class="date-from">
+            {{_ 'From'}}
+        </label>
+            <input
+                class="date form-control"
+                id="start"
+                name="date[start_date]"
+                type="date"
+                value="{{date.start_date}}"
+            />
+        <label class="date-to">
+            {{_ 'To'}}
+        </label>
+            <input
+                class="date form-control"
+                id="end"
+                name="date[end_date]"
+                type="date"
+                value="{{date.end_date}}"
+            />
+
+            <button class="btn btn-success post-type-search">
+                {{_ 'Search'}}
+            </button>
+            <!-- START: SEARCH FORM -->
+            <div class="pull-right">
+                <div class="search form-inline" method="get">
+                    <div class="form-group">
+                        <input
+                            class="form-control"
+                            name="q[]"
+                            placeholder="Search"
+                            type="text"
+                            value="{{q.0}}"
+                        />
+                        <button class="btn"><i class="fa fa-search"></i></button>
+                    </div>
+                    <a
+                        class="btn btn-success"
+                        href="/control/ajax/post/export?{{querystring}}"
+                        data-do="export-link"
+                        data-on="click"
+                        data-type="post"
+                    >
+                        <i class="fa fa-file-excel-o no-pointer-events"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- END: SEARCH FORM -->
+        </div>
+    </form>
+    <!-- END : Form -->
+</div>
+<br>
+<div class="clearfix">
+     <!-- START: Upload CSV -->
+    <div class="pull-left upload-export">
+        <form
+            action="/control/post/import"
+            class="form-inline"
+            enctype="multipart/form-data"
+            method="post"
+        >
+            <div class="form-group" >
+                <input class="upload" id="file_csv" name="csv" type="file" />
+            </div>
+            <button class="btn btn-info" type="submit">
+                <i class="fa fa-upload"></i> Upload CSV
+            </button>
+            <a
+                class="btn btn-success export-button"
+                href="/csv/post_format.csv"
+                title="Download CSV Format"
+            >
+                <i class="fa fa-file-excel-o"></i> Export CSV Format
+            </a>
+        </form>
+    </div>
+    <!-- END: Upload CSV -->
+</div>
+
+<!-- START: BULK FORM -->
+<form class="form-inline bulk-form pad-vertical" method="post">
+    {{#when filter.post_active '===' '0'}}
+        <input type="hidden"
+        name="filter[post_active]"
+        value = "0"
+        />
+    {{/when}}
+    <div class="panel panel-default clear">
+        <div class="panel-body" >
+            {{#if rows}}
+                <div class="table-overflow">
+                    <!-- START: TABLE -->
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                            <!-- START : TH : Actions -->
+                                <th>
+                                    Actions
+                                </th>
+                                <!-- END : TH : Actions -->
+
+                                <!-- START : TH : ID -->
+                                <th>
+                                    <a href="?filter[post_active]={{filter.post_active}}&q[]={{q.0}}&{{#sort 'post_id'}}
+                                        {{~#unless value~}}
+                                            order[post_id]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[post_id]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[post_id]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        ID
+                                        {{#sort 'post_id'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- END : TH : ID -->
+
+                                <!-- START : TH : Name -->
+                                <th>
+                                    <a href="?filter[post_active]={{filter.post_active}}&q[]={{q.0}}&{{#sort 'post_name'}}
+                                        {{~#unless value~}}
+                                            order[post_name]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[post_name]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[post_name]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        Name
+                                        {{#sort 'post_name'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- END : TH : Name -->
+
+                                <!-- START : TH : Email -->
+                                <th>
+                                    <a href="?filter[post_active]={{filter.post_active}}&q[]={{q.0}}&{{#sort 'post_email'}}
+                                        {{~#unless value~}}
+                                            order[post_email]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[post_email]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[post_email]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        Email
+                                        {{#sort 'post_email'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- END : TH : Email -->
+
+                                <!-- START : TH : Phone -->
+                                <th>
+                                    <a href="?filter[post_active]={{filter.post_active}}&q[]={{q.0}}&{{#sort 'post_phone'}}
+                                        {{~#unless value~}}
+                                            order[post_phone]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[post_phone]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[post_phone]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        Phone
+                                        {{#sort 'post_phone'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- END : TH : Phone -->
+
+                                <!-- START : TH : Job Position -->
+                                <th>
+                                    <a href="?filter[post_active]={{filter.post_active}}&q[]={{q.0}}&{{#sort 'post_position'}}
+                                        {{~#unless value~}}
+                                            order[post_position]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[post_position]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[post_position]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        Job Position
+                                        {{#sort 'post_position'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- END : TH : Job Position -->
+
+                                <!-- START : TH : Link -->
+                                <th>
+                                    Link
+                                </th>
+                                <!-- END : TH : Link -->
+
+                                <!-- START : TH : Location -->
+                                <th>
+                                    <a href="?filter[post_active]={{filter.post_active}}&q[]={{q.0}}&{{#sort 'post_location'}}
+                                        {{~#unless value~}}
+                                            order[post_location]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[post_location]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[post_location]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        Location
+                                        {{#sort 'post_location'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- END : TH : Location -->
+
+                                <!-- START : TH : Interested -->
+                                <th>
+                                    <a href="?filter[post_active]={{filter.post_active}}&q[]={{q.0}}&{{#sort 'post_like_count'}}
+                                        {{~#unless value~}}
+                                            order[post_like_count]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[post_like_count]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[post_like_count]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        Interested
+                                        {{#sort 'post_like_count'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- END : TH : Interested -->
+
+                                <!-- START : TH : Downloaded Resumes -->
+                                <th>
+                                    <a href="?filter[post_active]={{filter.post_active}}&q[]={{q.0}}&{{#sort 'post_download_count'}}
+                                        {{~#unless value~}}
+                                            order[post_download_count]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[post_download_count]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[post_download_count]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        Downloaded Resumes
+                                        {{#sort 'post_download_count'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- END : TH : Downloaded Resumes -->
+
+                                <!-- START : TH : Type -->
+                                <th>
+                                    <a href="?filter[post_active]={{filter.post_active}}&q[]={{q.0}}&{{#sort 'post_type'}}
+                                        {{~#unless value~}}
+                                            order[post_type]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[post_type]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[post_type]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        Type
+                                        {{#sort 'post_type'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- END : TH : Type -->
+
+                                <!-- START : TH : Experience -->
+                                <th>
+                                    <a href="?filter[post_active]={{filter.post_active}}&q[]={{q.0}}&{{#sort 'post_experience'}}
+                                        {{~#unless value~}}
+                                            order[post_experience]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[post_experience]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[post_experience]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        Experience
+                                        {{#sort 'post_experience'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- END : TH : Experience -->
+
+                                <!-- START : TH : Expires -->
+                                <th>
+                                    <a href="?filter[post_active]={{filter.post_active}}&q[]={{q.0}}&{{#sort 'post_expires'}}
+                                        {{~#unless value~}}
+                                            order[post_expires]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[post_expires]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[post_expires]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        Expires
+                                        {{#sort 'post_expires'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- END : TH : Expires -->
+
+                                <!-- START : TH : Created -->
+                                <th>
+                                    <a href="?filter[post_active]={{filter.post_active}}&q[]={{q.0}}&{{#sort 'post_created'}}
+                                        {{~#unless value~}}
+                                            order[post_created]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[post_created]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[post_created]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        Created
+                                        {{#sort 'post_created'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- END : TH : Created -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each rows}}
+                            <tr data-id="{{post_id}}">
+                                <td nowrap="">
+                                    {{#when post_active '==' 1}}
+                                    <a title="Edit" href="/control/post/update/{{post_id}}?redirect_uri={{../redirect_uri}}">
+                                    <i class="fa fa-edit"></i></a>
+                                    &nbsp;
+                                    <a href="/control/post/detail/{{post_id}}" title="View">
+                                    <i class="fa fa-eye"></i></a>
+                                    &nbsp;
+                                    <a
+                                        class="copy"
+                                        href="/control/post/copy/{{post_id}}?redirect_uri={{../redirect_uri}}"
+                                        title="Copy"
+                                    >
+                                        <i class="text-info fa fa-copy"></i>
+                                    </a>
+                                    &nbsp;
+                                    <a
+                                        class="text-danger remove"
+                                        href="/control/post/remove/{{post_id}}?redirect_uri={{../redirect_uri}}"
+                                        title="Remove"
+                                    >
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                    &nbsp;
+
+                                    {{/when}}
+                                    {{#when post_active '==' 0}}
+                                    <a
+                                        class="text-success restore"
+                                        href="/control/post/restore/{{post_id}}?redirect_uri={{../redirect_uri}}"
+                                        title="Restore"
+                                    >
+                                        <i class="fa fa-external-link"></i>
+                                    </a>
+                                    {{/when}}
+                                </td>
+                                <td>
+                                    {{post_id}}
+                                </td>
+                                <td>
+                                    {{post_name}}
+                                </td>
+                                <td>
+                                    {{post_email}}
+                                </td>
+                                <td>
+                                    {{post_phone}}
+                                </td>
+                                <td>
+                                    <a href="/Company-Hiring/{{post_slug}}" target="_blank">{{post_position}}</a>
+                                </td>
+                                <td>
+                                {{#if post_link}}
+                                    {{post_link}}
+                                {{else}}
+                                    N/A
+                                {{/if}}
+                                </td>
+                                <td>
+                                    {{post_location}}
+                                </td>
+                                <td>
+                                    {{post_like_count}}
+                                </td>
+                                <td>
+                                    {{post_download_count}}
+                                </td>
+                                <td>
+                                    <a href="?filter[post_type]={{post_type}}">{{post_type}}</a>
+                                </td>
+                                <td>
+                                {{#if post_experience}}
+                                    {{post_experience}}
+                                {{else}}
+                                    0
+                                {{/if}}
+                                </td>
+                                <td>
+                                    {{date post_expires 'M d'}}
+                                </td>
+                                <td>
+                                    {{date post_created 'M d Y'}}
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    <!-- END: TABLE -->
+                </div>
+            {{else}}
+                <!-- START: NO RESULTS -->
+                <div class="well no-results">No Results Found</div>
+                <!-- END: NO RESULTS -->
+            {{/if}}
+        </div>
+    </div>
+
+    <ul class="pagination">
+        {{#pager total range}}
+        <li{{#if active}} class="active"{{/if}}><a href="?{{href}}">{{page}}</a></li>
+        {{/pager}}
+    </ul>
+</form>
+
+<!-- Export Modal -->
+<div class="modal fade export-modal" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="exportModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="text-center" style="padding-top: 3rem; padding-bottom: 3rem;">
+                    <p>Export in progress ...</p><br>
+                    <i class="fa fa-spinner fa-spin fa-3x"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

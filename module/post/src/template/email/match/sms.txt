@@ -1,0 +1,2 @@
+We found a match! {{post_name}} is a {{post_position}}, looking for a job
+in {{post_location}}. {{link}}

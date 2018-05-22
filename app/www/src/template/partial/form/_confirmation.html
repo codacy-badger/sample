@@ -1,0 +1,87 @@
+<!-- START: Confirmation Modal -->
+<div
+    class="modal fade confirmation-form"
+    id="confirmation-form"
+    role="dialog"
+>
+    <!-- START: Modal Dialog -->
+    <div class="modal-dialog">
+        <!-- START: Modal Content -->
+        <div class="modal-content">
+            <!-- START: Modal Header -->
+            <div class="modal-header">
+                <!-- START: Modal Title -->
+                <div class="modal-title"></div>
+                <!-- END: Modal Title -->
+            </div>
+            <!-- END: Modal Header -->
+            <!-- START: Form -->
+            <form
+                class="form-horizontal modal-form"
+                data-do="form-confirmation"
+                data-id=""
+                data-on="submit"
+                data-type=""
+            >
+                <!-- START: Modal Body -->
+                <div class="modal-body">
+                    <!-- START : Sub Title -->
+                    <span class="sub-title hide"></span>
+                    <!-- END : Sub Title -->
+
+                    <!-- START : Message -->
+                    <span class="modal-message"></span>
+                    <!-- END : Message -->
+
+                    <!-- START : Form Name -->
+                    <div class="form-group form-name hide">
+                        <input
+                            class="form-control"
+                            name="form_name"
+                            placeholder="Marketing Director"
+                            type="text"
+                            value=""
+                            disabled="disabled"
+                        />
+                    </div>
+                    <!-- END : Form Name -->
+
+                    <!-- START : Label Name -->
+                    <div class="form-group label-name hide">
+                        <input
+                            class="form-control"
+                            name="label_name"
+                            placeholder="Custom"
+                            type="text"
+                            value=""
+                            disabled="disabled"
+                        />
+                    </div>
+                    <!-- END : Label Name -->
+                </div>
+                <!-- END: Modal Body -->
+
+                <!-- START : Modal Footer -->
+                <div class="modal-footer">
+                    <!-- START : Modal Submit -->
+                    <button class="btn btn-default" type="submit"></button>
+                    <!-- END : Modal Submit -->
+                    <!-- START : Modal Dismiss -->
+                    <button
+                        class="btn btn-primary"
+                        data-dismiss="modal"
+                        type="button"
+                    >
+                        {{_ 'Cancel'}}
+                    </button>
+                    <!-- END : Modal Dismiss -->
+                </div>
+                <!-- END : Modal Footer -->
+            </form>
+            <!-- END : Form -->
+        </div>
+        <!-- END: Modal Content -->
+    </div>
+    <!-- END: Modal Dialog -->
+</div>
+<!-- END: Confirmation Modal -->

@@ -1,0 +1,178 @@
+<!-- START: Question Modal -->
+<div
+    class="modal fade form-custom-question"
+    id="form-custom-question"
+    role="dialog"
+>
+    <!-- START: Modal Dialog -->
+    <div class="modal-dialog">
+        <!-- START: Modal Content -->
+        <div class="modal-content">
+            <!-- START: Modal Header -->
+            <div class="modal-header"></div>
+            <!-- END: Modal Header -->
+                <!-- START: Form -->
+                <form
+                    data-do="form-add-question"
+                    data-on="submit"
+                >
+                    <!-- START: Modal Body -->
+                    <div class="clearfix modal-body">
+                        <input type="hidden" name="form_id">
+                        <input type="hidden" name="question_id">
+
+                        <!-- START : Form Group : Custom Question -->
+                        <div class="form-group form-question">
+                            <label class="control-label">Custom Question</label>
+                            <input
+                                class="form-control"
+                                name="question_name"
+                                placeholder="What is your preferred working hours?"
+                                type="text"
+                                value=""
+                            />
+                        </div>
+                        <!-- END : Form Group : Custom Question -->
+
+                        <!-- START : Individual Answer -->
+                        <div class="form-answer hide">
+                            <input
+                                class="form-control"
+                                data-do="form-choices"
+                                data-on="keyup"
+                                name="question_choices[]"
+                                placeholder="Choice"
+                                type="text"
+                                value=""
+                            />
+                            <button
+                                class="close"
+                                data-do="form-remove-answer"
+                                data-on="click"
+                                type="button"
+                            >
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                        <!-- END : Individual Answer -->
+
+                        <!-- START : Form Group : Answers -->
+                        <div class="form-group form-answers">
+                            <label class="control-label">Answer</label>
+                            <!-- START : Individual Answer -->
+                            <div class="form-answer">
+                                <input
+                                    class="form-control"
+                                    data-do="form-choices"
+                                    data-on="keyup"
+                                    name="question_choices[]"
+                                    placeholder="Choice"
+                                    type="text"
+                                    value=""
+                                />
+                                <button
+                                    class="close"
+                                    data-do="form-remove-answer"
+                                    data-on="click"
+                                    type="button"
+                                >
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                            <!-- END : Individual Answer -->
+                            <!-- START : Individual Answer -->
+                            <div class="form-answer">
+                                <input
+                                    class="form-control"
+                                    data-do="form-choices"
+                                    data-on="keyup"
+                                    name="question_choices[]"
+                                    placeholder="Choice"
+                                    type="text"
+                                    value=""
+                                />
+                                <button
+                                    class="close"
+                                    data-do="form-remove-answer"
+                                    data-on="click"
+                                    type="button"
+                                >
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                            <!-- END : Individual Answer -->
+                        </div>
+                        <!-- END : Form Group : Answers -->
+
+                        <!-- START : Tick Boxes -->
+                        <div class="form-group form-add">
+                            <!-- START : Custom Answer / question_custom -->
+                            <div class="checkbox">
+                                <input
+                                    data-do="form-custom-answer"
+                                    data-on="click"
+                                    id="form-custom"
+                                    name="question_custom"
+                                    type="checkbox"
+                                    placeholder="Custom Answer"
+                                >
+                                <label for='form-custom'>Allow Custom Answer</label>
+                            </div>
+                            <!-- END : Custom Answer / question_custom -->
+
+                            <!-- START : File / question_file -->
+                            <div class="checkbox">
+                                <input
+                                    data-do="form-file"
+                                    data-on="click"
+                                    id="form-file"
+                                    name="question_file"
+                                    type="checkbox"
+                                >
+                                <label for="form-file">Request a file</label>
+                            </div>
+                            <!-- END : File / question_file -->
+                        </div>
+                        <!-- END : Tick Boxes -->
+
+                        <!-- START : Add Answer -->
+                        <button
+                            name="form-add-answer"
+                            class="btn btn-add btn-primary"
+                            data-do="form-add-answer"
+                            data-on="click"
+                            type="submit"
+                        >
+                            <i class="fa fa-plus"></i> {{_ 'Answer Box'}}
+                        </button>
+                        <!-- END : Add Answer -->
+                    </div>
+                    <!-- END: Modal Body -->
+
+                    <!-- START : Modal Footer -->
+                    <div class="modal-footer">
+                        <!-- START : Modal Submit -->
+                        <button class="btn btn-default" type="submit">
+                            {{_ 'Save'}}
+                        </button>
+
+                        <!-- START : Modal Dismiss -->
+                        <a 
+                            href="/profile/tracking/application/poster/update/{{item.form_id}}" 
+                            class="btn btn-primary"
+                            role="button"
+                        >
+                            {{_ 'Cancel'}}
+                        </a>
+                        <!-- END : Modal Dismiss -->
+                    </div>
+                    <!-- END : Modal Footer -->
+                </form>
+                <!-- END : Form -->
+
+        </div>
+        <!-- END: Modal Content -->
+    </div>
+    <!-- END: Modal Dialog -->
+</div>
+<!-- END: Confirmation Modal -->

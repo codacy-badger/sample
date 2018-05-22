@@ -1,0 +1,814 @@
+<div class="container">
+    {{> profile_alert}}
+    <!-- START: Profile Panel -->
+    <div class="row profile-panel">
+        <!-- START: Sidebar Left -->
+        <aside class="col-md-3 left">
+            {{> profile_menu active="posts"}}
+        </aside>
+        <!-- END: Sidebar Left -->
+        <!-- START: Content Left -->
+        <div class="col-md-9 right">
+            <!-- START: Head -->
+            <div class="head row">
+                <div class="col-md-6 text-left">
+                    <h1>{{_ 'My Jobs'}}</h1>
+                </div>
+                <div class="col-md-6">
+                    <!-- START: Search -->
+                    <div class="search text-right">
+                        <form class="form-inline" method="get" action="?{{toquery}}">
+                            <input type="hidden" name="filter[post_active]" value="{{filter.post_active}}">
+                            <input type="hidden" name="post_expires" value="{{post_expires}}">
+                            <div class="input-group">
+                                <input
+                                    class="form-control"
+                                    name="q"
+                                    placeholder="{{_ 'Search'}}"
+                                    type="text"
+                                    value="{{q}}"
+                                />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="submit">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- END: Search -->
+                </div>
+            </div>
+            <!-- END: Head -->
+            <!-- START: Main Content -->
+            <div class="content">
+                <div class="top">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- START: Post Status -->
+                            <div class="post-status text-left">
+                                <a
+                                    class="
+                                        {{~#unless post_expires~}}
+                                            {{~#unless filter.post_active~}}
+                                                {{~#when filter.post_active '!=' '0'~}}
+                                                active
+                                                {{~/when~}}
+                                            {{~else~}}
+                                                {{~#when filter.post_active '===' '1'~}}
+                                                    active
+                                                {{~/when~}}
+                                            {{~/unless~}}
+                                        {{~/unless~}}
+                                        "
+                                    href="?filter[post_active]=1"
+                                >
+                                    {{_ 'Active'}}
+                                </a>
+                                <a
+                                    class="
+                                        {{~#when filter.post_active '===' '0'~}}
+                                            active
+                                        {{~/when~}}"
+                                    href="?filter[post_active]=0"
+                                >
+                                    {{_ 'Inactive'}}
+                                </a>
+
+                                <a
+                                    class="
+                                        {{~#when post_expires '===' '-1'~}}
+                                            active
+                                        {{~/when~}}"
+                                    href="?post_expires=-1"
+                                >
+                                    {{_ 'Expired'}}
+                                </a>
+                            </div>
+                            <!-- END: Post Status -->
+                        </div>
+                    </div>
+                </div>
+                <!-- START: Detail -->
+                <div class="detail clearfix">
+                    <!-- START: breadcrumbs and jobs label -->
+                    <div class="jobs-labels">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="breadcrumbs">
+                                    <ul>
+                                        <li>{{_ 'My Jobs'}}</li>
+                                    </ul>
+                                </div>
+                                <div class="clearfix">
+                                    <h2 class="pull-left">
+                                        {{~#unless post_expires~}}
+                                            {{~#unless filter.post_active~}}
+                                                {{~#when filter.post_active '!=' '0'~}}
+                                                    {{_ 'Active Job Posts'}}
+                                                {{~/when~}}
+                                            {{~else~}}
+                                                {{~#when filter.post_active '===' '1'~}}
+                                                    {{_ 'Active Job Posts'}}
+                                                {{~/when~}}
+                                            {{~/unless~}}
+                                        {{~/unless~}}
+                                        {{~#when filter.post_active '===' '0'~}}
+                                            {{_ 'Inactive Job Posts'}}
+                                        {{/when}}
+                                        {{~#when post_expires '===' '-1'~}}
+                                            {{_ 'Expired Job Posts'}}
+                                        {{/when}}
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END: breadcrumbs and jobs label -->
+                    <!-- START: post detail content scroller -->
+                    <div class="scroll">
+                        <!-- START: post detail container -->
+                        <div data-do="detail">
+                            <!-- START: Job post header -->
+                            <div class="post-detail-header">
+                                <div class="post-detail-title">
+                                    {{_ 'Job Title'}}
+                                    <div class="sort">
+                                        <a href="?order[post_position]=ASC" title="Sort Ascending">
+                                            <i class="fa fa-caret-up"></i>
+                                        </a>
+                                        <a href="?order[post_position]=DESC" title="Sort Descending">
+                                            <i class="fa fa-caret-down"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="post-detail-matches">
+                                    {{_ 'Matches'}}
+                                </div>
+                                <div class="post-detail-interested">
+                                    {{_ 'Interested'}}
+                                </div>
+                                {{#session 'me'}}
+                                    {{#if profile_company}}
+                                        {{~#when ../filter.post_active '!=' '0'}}
+                                            {{~#when ../post_expires '===' '-1'~}}
+                                            {{else}}
+                                                <div class="post-detail-booster">
+                                                    {{_ 'Booster'}}
+                                                </div>
+                                            {{/when}}
+                                        {{~/when}}
+                                    {{/if}}
+                                {{/session  }}
+                                <div class="post-detail-action">
+                                    {{_ 'Actions'}}
+                                </div>
+                            </div>
+                            <!-- END: Job post header -->
+
+                            {{#if rows}}
+                                {{#each rows}}
+                                    <div class="detail-wrapper">
+                                        <div class="panel" id=post-{{post_id}}>
+                                            <div class="panel-heading" role="tab" id="headingOne">
+                                                <!-- START: Post Title -->
+                                                <div class="post-title">
+                                                    <a
+                                                        class="position text-capitalize"
+                                                        href="/{{post_slug}}/post-detail"
+                                                        title="{{_ 'Position : %s' post_position}}"
+                                                    >
+                                                            {{post_position}}
+                                                    </a>
+                                                </div>
+                                                <!-- END: Post Title -->
+                                                <!-- START: Post Matches -->
+                                                <div class="post-matches">
+                                                    {{#if post_total_matches}}
+                                                        <a
+                                                            class="match"
+                                                            {{~#when ../filter.post_active '!=' '0'}}
+                                                                {{~#when ../post_expires '===' '-1'~}}
+                                                                    href="/profile/match/search?post_expires=-{{post_active}}&post_position={{post_position}}&post_location={{post_location}}"
+                                                                {{else}}
+                                                                    href="/profile/match/search?filter[post_active]={{post_active}}&post_position={{post_position}}&post_location={{post_location}}"
+                                                                {{/when}}
+                                                            {{else}}
+                                                                href="/profile/match/search?filter[post_active]={{post_active}}&post_position={{post_position}}&post_location={{post_location}}"
+                                                            {{~/when}}
+                                                        >
+                                                            {{post_total_matches}}
+                                                        </a>
+                                                    {{/if}}
+                                                    {{#unless post_total_matches}}
+                                                        {{post_total_matches}}
+                                                    {{/unless}}
+                                                </div>
+                                                <!-- END: Post Matches -->
+                                                <!-- START: Post Interested -->
+                                                <div class="post-interested">
+                                                    {{#if post_like_count}}
+                                                        <a
+                                                            class="like"
+                                                            {{~#when ../filter.post_active '!=' '0'}}
+                                                                {{~#when ../post_expires '===' '-1'~}}
+                                                                    href="/profile/likes/search?post_expires=-{{post_active}}&post_id={{post_id}}"
+                                                                {{else}}
+                                                                    href="/profile/likes/search?filter[post_active]={{post_active}}&post_id={{post_id}}"
+                                                                {{/when}}
+                                                            {{else}}
+                                                                href="/profile/likes/search?filter[post_active]={{post_active}}&post_id={{post_id}}"
+                                                            {{~/when}}
+                                                        >
+                                                            {{post_like_count}}
+                                                        </a>
+                                                    {{/if}}
+                                                    {{#unless post_like_count}}
+                                                        {{post_like_count}}
+                                                    {{/unless}}
+                                                </div>
+                                                <!-- END: Post Interested -->
+                                                <!-- START: Post Boost -->
+                                                {{#if profile_company}}
+                                                    {{~#when ../filter.post_active '!=' '0'}}
+                                                        {{~#when ../post_expires '===' '-1'~}}
+                                                        {{else}}
+                                                            <div class="post-booster">
+                                                                <div class="dropdown">
+                                                                    {{#when post_type '==' 'poster'}}
+                                                                        <button
+                                                                            class="btn btn-default dropdown-toggle text-uppercase"
+                                                                            type="button"
+                                                                            data-toggle="dropdown"
+                                                                        >
+                                                                            {{_ 'Boost Post'}}
+                                                                        </button>
+                                                                    {{/when}}
+                                                                    <ul class="dropdown-menu">
+                                                                       <li>
+                                                                           <a class="post-boost-title" href="">
+                                                                               {{_ 'Boost Your Post'}}
+                                                                           </a>
+                                                                       </li>
+                                                                        <!-- START: Promote Post -->
+                                                                            {{#if post_flag}}
+                                                                                <li>
+                                                                                    <a
+                                                                                        class="disabled"
+                                                                                        data-id="{{post_id}}"
+                                                                                        href="javascript:void(0)"
+                                                                                    >
+                                                                                        <i class="fa fa-check"></i>
+                                                                                        {{_ 'Promote Post'}}
+                                                                                    </a>
+                                                                                </li>
+                                                                            {{else}}
+                                                                                <li>
+                                                                                    <a
+                                                                                        class="not-active-promote"
+                                                                                        data-action="promote-post"
+                                                                                        data-boost="promote post"
+                                                                                        data-do="boost-modal"
+                                                                                        data-id="{{post_id}}"
+                                                                                        data-on="click"
+                                                                                        data-position="{{post_position}}"
+                                                                                        data-reload="1"
+                                                                                        data-title="You are about to use <b>500 credits</b> for this boost. Promoting a post is an easy and cost-effective way to reach talents. Make your job post more visible on Jobayan’s job listings. Promoted posts are guaranteed increased visibility for a month."
+                                                                                        href="javascript:void(0)"
+                                                                                        title="{{_ 'Promote Post'}}"
+                                                                                    >
+                                                                                        <i class="fa fa-check"></i>
+                                                                                        {{_ 'Promote Post'}}
+                                                                                    </a>
+                                                                                </li>
+                                                                            {{/if}}
+                                                                        <!-- END: Promote Post -->
+                                                                        <!-- START: SMS Interested -->
+                                                                        {{#in 'sms-interest' profile_package}}
+                                                                            <li>
+                                                                                <a
+                                                                                    class="disabled"
+                                                                                    data-id="{{post_id}}"
+                                                                                    href="javascript:void(0)"
+                                                                                    title="{{_ 'SMS Interested'}}"
+                                                                                >
+                                                                                    <i class="fa fa-check"></i>
+                                                                                    {{_ 'SMS Interested'}}
+                                                                                </a>
+                                                                            </li>
+                                                                        {{else}}
+                                                                            {{#in 'sms-interest' post_notify}}
+                                                                                <li>
+                                                                                    <a
+                                                                                        class="disabled"
+                                                                                        href="javascript:void(0)"
+                                                                                        title="{{_ 'SMS Interested'}}"
+                                                                                    >
+                                                                                        <i class="fa fa-check"></i>
+                                                                                        {{_ 'SMS Interested'}}
+                                                                                    </a>
+                                                                                </li>
+                                                                            {{else}}
+                                                                                <li>
+                                                                                    <a
+                                                                                        class="not-active-promote"
+                                                                                        data-action="sms-interest"
+                                                                                        data-boost="Enable SMS Interested"
+                                                                                        data-do="boost-modal"
+                                                                                        data-id="{{post_id}}"
+                                                                                        data-on="click"
+                                                                                        data-position="{{post_position}}"
+                                                                                        data-reload="1"
+                                                                                        data-title="You are about to use <b>500 credits</b> for this boost. Once SMS Interested is enabled for your post, you don’t need to go online to check interested candidates. You can now receive notifications via SMS for a month from each job seekers that are interested on your job post."
+                                                                                        href="javascript:void(0)"
+                                                                                        title="{{_ 'SMS Interested'}}"
+                                                                                    >
+                                                                                        <i class="fa fa-check"></i>
+                                                                                        {{_ 'SMS Interested'}}
+                                                                                    </a>
+                                                                                </li>
+                                                                            {{/in}}
+                                                                        {{/in}}
+                                                                        <!-- END: SMS Interested -->
+                                                                        <!-- START: SMS Match -->
+                                                                        {{#in 'sms-match' profile_package}}
+                                                                            <li>
+                                                                                <a
+                                                                                    class="disabled"
+                                                                                    href="javascript:void(0)"
+                                                                                    title="{{_ 'SMS Match'}}"
+                                                                                >
+                                                                                    <i class="fa fa-check"></i>
+                                                                                    {{_ 'SMS Match'}}
+                                                                                </a>
+                                                                            </li>
+                                                                        {{else}}
+                                                                            {{#in 'sms-match' post_notify}}
+                                                                            <li>
+                                                                                <a
+                                                                                    class="disabled"
+                                                                                    href="javascript:void(0)"
+                                                                                    title="{{_ 'SMS Match'}}"
+                                                                                >
+                                                                                    <i class="fa fa-check"></i>
+                                                                                    {{_ 'SMS Match'}}
+                                                                                </a>
+                                                                            </li>
+                                                                            {{else}}
+                                                                            <li>
+                                                                                <a
+                                                                                    class="not-active-promote"
+                                                                                    data-action="sms-notification"
+                                                                                    data-boost="Enable SMS Match"
+                                                                                    data-do="boost-modal"
+                                                                                    data-id="{{post_id}}"
+                                                                                    data-on="click"
+                                                                                    data-position="{{post_position}}"
+                                                                                    data-reload="1"
+                                                                                    data-title="You are about to use <b>300 credits</b> for this boost. Once SMS Match is enabled for your post, you can now receive match notifications via SMS for a month anytime, anywhere without the need to click interested button on job seekers."
+                                                                                    href="javascript:void(0)"
+                                                                                    title="{{_ 'SMS Match'}}"
+                                                                                >
+                                                                                    <i class="fa fa-check"></i>
+                                                                                    {{_ 'SMS Match'}}
+                                                                                </a>
+                                                                            </li>
+                                                                            {{/in}}
+                                                                        {{/in}}
+                                                                        <!-- END: SMS Match -->
+                                                                        <!-- START: Renew Post -->
+                                                                        {{#when expire_soon '===' 1}}
+                                                                            {{#if profile_company}}
+                                                                                <li>
+                                                                                    <a
+                                                                                        class="not-active-promote"
+                                                                                        data-days="{{days_left}}"
+                                                                                        data-id="{{post_id}}"
+                                                                                        data-name="{{post_name}}"
+                                                                                        data-position="{{post_position}}"
+                                                                                        data-location="{{post_location}}"
+                                                                                        data-currency="{{post_currency}}"
+                                                                                        data-salary="{{post_salary_max}}"
+                                                                                        data-type="poster"
+                                                                                        data-do="renew-modal"
+                                                                                        data-on="click"
+                                                                                        href="javascript:void(0)"
+                                                                                        title="{{_ 'Renew this Post'}}"
+                                                                                    >
+                                                                                        <i class="fa fa-check"></i>
+                                                                                        {{_ 'Renew this Post'}}
+                                                                                    </a>
+                                                                                </li>
+                                                                            {{else}}
+                                                                                 <li>
+                                                                                    <a
+                                                                                        class="not-active-promote"
+                                                                                        data-days="{{days_left}}"
+                                                                                        data-id="{{post_id}}"
+                                                                                        data-name="{{post_name}}"
+                                                                                        data-position="{{post_position}}"
+                                                                                        data-location="{{post_location}}"         
+                                                                                        data-type="seeker"
+                                                                                        data-do="renew-modal"
+                                                                                        data-on="click"
+                                                                                        href="javascript:void(0)"
+                                                                                        title="{{_ 'Renew this Post'}}"
+                                                                                    >
+                                                                                        <i class="fa fa-check"></i>
+                                                                                        {{_ 'Renew this Post'}}
+                                                                                    </a>
+                                                                                </li>
+                                                                            {{/if}}
+                                                                        {{/when}}
+                                                                        <!-- END: Renew Post -->
+                                                                        <!-- START: ATS -->
+                                                                        {{#in 'ats' profile_package}}
+                                                                            <li>
+                                                                                <a
+                                                                                    class="disabled"
+                                                                                    href="javascript:void(0)"
+                                                                                    title="{{_ 'Attach Application Form'}}"
+                                                                                >
+                                                                                    <i class="fa fa-check"></i>
+                                                                                    {{_ 'Attach Application Form'}}
+                                                                                </a>
+                                                                            </li>
+                                                                        {{else}}
+                                                                            {{#if post_form}}
+                                                                                <li>
+                                                                                    <a
+                                                                                        class="disabled"
+                                                                                        href="javascript:void(0)"
+                                                                                        title="{{_ 'Attach Application Form'}}"
+                                                                                    >
+                                                                                        <i class="fa fa-check"></i>
+                                                                                        {{_ 'Attach Application Form'}}
+                                                                                    </a>
+                                                                                </li>
+                                                                            {{else}}
+                                                                                <li>
+                                                                                    <a
+                                                                                        class="not-active-promote"
+                                                                                        data-boost="Attach Application Form"
+                                                                                        data-do="boost-modal"
+                                                                                        data-id="{{post_id}}"
+                                                                                        data-on="click"
+                                                                                        data-position="{{post_position}}"
+                                                                                        data-reload="1"
+                                                                                        data-link="/profile/tracking/post/search"
+                                                                                        data-title="You are about to use <b>500 credits</b> for this boost. Once Applicant Tracking System is enabled for this post, we can direct applicants to your company easier by enabling an application section. Attach forms for seekers to fill out and get to assess their profile better."
+                                                                                        title="{{_ 'Attach Application Form'}}"
+                                                                                    >
+                                                                                        <i class="fa fa-check"></i>
+                                                                                        {{_ 'Attach Application Form'}}
+                                                                                    </a>
+                                                                                </li>
+                                                                            {{/if}}
+                                                                        {{/in}}
+                                                                        <!-- END: ATS -->
+                                                                        <!-- START: Interview Scheduler -->
+                                                                        {{#in 'interview-scheduler' profile_package}}
+                                                                            <li>
+                                                                                <a
+                                                                                    class="disabled"
+                                                                                    data-id="{{post_id}}"
+                                                                                    href="javascript:void(0)"
+                                                                                >
+                                                                                    <i class="fa fa-check"></i>
+                                                                                    {{_ 'Schedule Interviews'}}
+                                                                                </a>
+                                                                            </li>
+                                                                        {{else}}
+                                                                            {{#in 'interview-post' post_package}}
+                                                                                <li>
+                                                                                    <a
+                                                                                        class="disabled"
+                                                                                        data-id="{{post_id}}"
+                                                                                        href="javascript:void(0)"
+                                                                                    >
+                                                                                        <i class="fa fa-check"></i>
+                                                                                        {{_ 'Schedule Interviews'}}
+                                                                                    </a>
+                                                                                </li>
+                                                                            {{else}}
+                                                                                <li>
+                                                                                    <a
+                                                                                        class="not-active-promote"
+                                                                                        data-action="interview-post"
+                                                                                        data-boost="Enable Interview Scheduler"
+                                                                                        data-do="boost-modal"
+                                                                                        data-id="{{post_id}}"
+                                                                                        data-on="click"
+                                                                                        data-package="interview-post"
+                                                                                        data-position="{{post_position}}"
+                                                                                        data-reload="1"
+                                                                                        data-title="You are about to use <b>500 credits</b> for this boost. Once Interview Scheduler is enabled for this post, you can schedule interviews, manage screening the candidate and progress stages accordingly."
+                                                                                        title="{{_ 'Schedule Interviews'}}"
+                                                                                    >
+                                                                                        <i class="fa fa-check"></i>
+                                                                                        {{_ 'Schedule Interviews'}}
+                                                                                    </a>
+                                                                                </li>
+                                                                            {{/in}}
+                                                                        {{/in}}
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        {{/when}}
+                                                    {{~/when}}
+                                                {{/if}}
+                                                <!-- END: Post Boost -->
+                                                <!-- START: Post Actions -->
+                                                <div class="post-actions">
+                                                    <a
+                                                        aria-controls="collapse-positions"
+                                                        aria-expanded="true"
+                                                        {{~#when ../filter.post_active '===' '0'}}
+                                                            class="panel-container"
+                                                        {{~/when}}
+                                                        data-parent="#related-accordion-{{post_id}}"
+                                                        data-toggle="collapse"
+                                                        href="#post-accordion-{{post_id}}"
+                                                        role="button"
+                                                        title="{{post_position}}"
+                                                    >
+                                                        <!-- <i class="fa fa-eye fa-fw" aria-hidden="true"></i> -->
+                                                        <div class="action-eye"></div>
+                                                    </a>
+                                                    {{#when ../filter.post_active '!=' '0'}}
+                                                        {{~#when ../post_expires '===' '-1'~}}
+                                                            {{#if profile_company}}
+                                                            <a
+                                                                class="not-active-promote"
+                                                                data-days="{{days_left}}"
+                                                                data-id="{{post_id}}"
+                                                                data-name="{{post_name}}"
+                                                                data-position="{{post_position}}"
+                                                                data-location="{{post_location}}"
+                                                                data-currency="{{post_currency}}"
+                                                                data-salary="{{post_salary_max}}"
+                                                                data-type="poster"
+                                                                data-do="renew-expired-modal"
+                                                                data-on="click"
+                                                                href="javascript:void(0)"
+                                                                title="{{_ 'Renew'}}"
+                                                            >
+                                                                <div class="action-restore"></div>
+                                                            </a>
+                                                            {{else}}
+                                                            <a
+                                                                class="not-active-promote"
+                                                                data-days="{{days_left}}"
+                                                                data-id="{{post_id}}"
+                                                                data-name="{{post_name}}"
+                                                                data-position="{{post_position}}"
+                                                                data-location="{{post_location}}"         
+                                                                data-type="seeker"
+                                                                data-do="renew-expired-modal"
+                                                                data-on="click"
+                                                                href="javascript:void(0)"
+                                                                title="{{_ 'Renew'}}"
+                                                            >
+                                                                <div class="action-restore"></div>
+                                                            </a>
+                                                            {{/if}}
+                                                        {{~else~}}
+                                                            <a
+                                                                 href="/post/update/
+                                                                    {{~post_type}}/
+                                                                    {{~post_id}}?redirect_uri={{../redirect_uri}}"
+                                                                title="{{_ 'Update'}}"
+                                                            >
+                                                                <div class="action-pencil"></div>
+                                                            </a>
+                                                            <a
+                                                                href="/post/copy/
+                                                                    {{~post_id}}?redirect_uri={{../redirect_uri}}"
+                                                                title="{{_ 'Clone'}}"
+                                                            >
+                                                                <div class="action-clone"></div>
+                                                            </a>
+                                                            <a
+                                                                class="post-remove"
+                                                                data-do="confirm-modal"
+                                                                data-link="/post/remove/
+                                                                    {{~post_id}}?redirect_uri={{../redirect_uri}}"
+                                                                data-on="click"
+                                                                data-title="Are you sure you want to remove this post?"
+                                                                href="javascript:void(0)"
+                                                            >
+                                                                <i class="fa fa-fw fa-trash" aria-hidden="true"></i>
+                                                            </a>
+                                                        {{~/when~}}
+                                                    {{/when}}
+                                                </div>
+                                                <!-- END: Post Actions -->
+                                                <!-- START: Post Reactivate -->
+                                                {{~#when ../filter.post_active '===' '0'~}}
+                                                    <div class="post-reactivate">
+                                                        {{~#when post_type '==' 'poster'}}
+                                                            {{~#when ../post_count '>=' 5}}
+                                                                <a
+                                                                    class="btn btn-default text-uppercase restore submit restore-post"
+                                                                    data-count="{{../post_count}}"
+                                                                    data-do="restore-post"
+                                                                    data-on="click"
+                                                                    data-post-id="{{post_id}}"
+                                                                    href="/profile/post/restore/{{post_id}}"
+                                                                    title="Restore"
+                                                                >
+                                                                    <input
+                                                                        name="credit_pay"
+                                                                        type="hidden"
+                                                                        value="
+                                                                            {{#if item.credit_pay}}
+                                                                                {{item.credit_pay}}
+                                                                                    {{else}}
+                                                                                        0
+                                                                            {{/if}}"
+                                                                    />
+                                                                    {{_ 'Re-Activate'}}
+                                                                </a>
+                                                            {{else}}
+                                                                <a
+                                                                    class="btn btn-default text-uppercase restore submit"
+                                                                    href="/profile/post/restore/{{post_id}}"
+                                                                    title="{{_ 'Restore'}}"
+                                                                >
+                                                                    {{_ 'Re-Activate'}}
+                                                                </a>
+                                                            {{/when~}}
+                                                        {{else}}
+                                                            <a
+                                                                class="btn btn-default text-uppercase restore submit"
+                                                                href="/profile/post/restore/{{post_id}}"
+                                                                title="{{_ 'Restore'}}"
+                                                            >
+                                                                {{_ 'Re-Activate'}}
+                                                            </a>
+                                                        {{/when~}}
+                                                    </div>
+                                                {{~/when}}
+                                                <!-- END: Post Reactivate -->
+                                            </div>
+                                        </div>
+                                        <!-- START: Post Details -->
+                                        <div
+                                            aria-labelledby="headingOne"
+                                            class="panel-collapse collapse"
+                                            id="post-accordion-{{post_id}}"
+                                            role="tabpanel"
+                                        >
+                                            <div class="panel-body">
+                                                <div class="post-details">Job Details</div>
+                                                <div class="job-details-holder">
+                                                    <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4">
+                                                        <span class="post-location">
+                                                            <i class="fa fa-map-marker fa-fw"></i>
+                                                            {{post_location}}
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                                                        <span class="job-detail-timer"></span>
+                                                        {{relative post_created}}
+                                                    </div>
+                                                    <div class="col-lg-5 col-md-5 col-xs-5 col-sm-5">
+                                                        <i class="fa fa-calendar"></i>
+                                                        {{~#when ../post_expires '===' '-1'~}}
+                                                            {{_ ' Expired :'}}
+                                                        {{else}}
+                                                            {{_ 'Expires :'}}
+                                                        {{/when}}
+                                                        {{date post_expires 'M d, Y'}}
+                                                    </div>
+                                                </div>
+                                                <div class="post-details">Contact Details</div>
+                                                <div class="contact-details-holder">
+                                                    <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4">
+                                                        <span class="post-name">
+                                                            <i class="fa fa-user"></i>
+                                                            {{profile_name}}
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                                                        <span class="post-phone">
+                                                            <span class="contact-detail-phone"></span>
+                                                            {{post_phone}}
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-lg-5 col-md-5 col-xs-5 col-sm-5">
+                                                        <span class="post-email">
+                                                            <i class="fa fa-envelope fa-fw"></i>
+                                                            {{post_email}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END: Post Details -->
+                                    </div>
+                                {{/each}}
+                                <!-- START: Pagination -->
+                                <ul class="pagination">
+                                    {{#pager total range}}
+                                        <li class="{{#if active}}active{{/if}}">
+                                            <a href="?{{href}}">{{page}}</a>
+                                        </li>
+                                    {{/pager}}
+                                </ul>
+                                <!-- END: Pagination -->
+                            {{else}}
+                                <!-- START: No Results -->
+                                <div class="no-results">
+                                    No job post available
+                                </div>
+                                <!-- End: No Results -->
+                            {{/if}}
+                            <div class="detail-footer">
+                                <div class="clearfix import-export">
+                                    <form class="filter-form" method="get">
+                                        <div class="col-md-8">
+                                            <div class="import-export-title">
+                                                <span>{{_ 'Export Job Post'}}</span>
+                                            </div>
+                                            <select
+                                                class="form-control pull-left type"
+                                                data-do="redirect-filter"
+                                                data-on="change"
+                                                name="filter[post_active]"
+                                            >
+                                                <option
+                                                    value="-1"
+                                                    {{#when filter.type '==' ''}}
+                                                        selected
+                                                    {{~/when~}}
+                                                >
+                                                    {{_ 'All'}}
+                                                </option>
+
+                                                <option
+                                                    value="1"
+                                                    {{#when filter.type '==' '1'}}
+                                                        selected
+                                                    {{~/when~}}
+                                                >
+                                                    Active
+                                                </option>
+
+                                                <option
+                                                    value="0"
+                                                    {{#when filter.type '==' '0'}}
+                                                        selected
+                                                    {{~/when~}}
+                                                >
+                                                    Inactive
+                                                </option>
+                                                <option
+                                                    value="export_expired"
+                                                    {{#when filter.type '==' 'export_expired'}}
+                                                        selected
+                                                    {{~/when~}}
+                                                >
+                                                    Expired
+                                                </option>
+                                            </select>
+
+                                            <button
+                                                class="btn btn-success pull-left"
+                                                name="export"
+                                                type="submit"
+                                                value="1"
+                                            >
+                                                Export
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- END: post detail container -->
+                    <!-- END: post detail content scroller -->
+                </div>
+                <!-- END: Detail -->
+            </div>
+            <!-- END: Main Content -->
+        </div>
+        <!-- END: Content Left -->
+    </div>
+    <!-- END: Profile Panel -->
+</div>
+{{> profile_confirm}}
+{{> profile_renew}}
+{{> profile_boost}}
+{{> profile_expiredRenew}}
+
+<!-- Credit Modal -->
+{{> post/modal_credit}}
+
+<!-- START: Credit Required-->
+{{#if errors.credits_required}}
+<script type="text/javascript">
+    $('#credit_modal').modal('show');
+</script>
+{{/if}}
+<!-- END: Credit Required-->

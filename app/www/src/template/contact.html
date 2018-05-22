@@ -1,0 +1,395 @@
+<!-- START: Contact Page -->
+<div class="grey-bg">
+    <div class="contact-body static">
+        <!-- START: First Row -->
+        <div class="first-row text-center">
+            <div class="container">
+                <h1>{{_ 'GET IN TOUCH WITH US!'}}</h1>
+                <hr />
+                <p>
+                    {{_ 'We are ready to provide you with more information,
+                    answer your questions, and create effective solutions for
+                    your recruitment needs.'}}
+                </p>
+            </div>
+        </div>
+        <!-- END: First Row -->
+        <!-- START: Second Row -->
+        <div class="second-row text-center">
+            <div class="container">
+                <h2>{{_ "We'd like to help!"}}</h2>
+                <p>
+                    {{_
+                        'Please select the purpose of your inquiry. If you have questions,
+                                would like to request quotation, or would like to setup an
+                                appointment with one of our business managers, do not hesitate to
+                                contact us.
+                    '}}
+                </p>
+            </div>
+        </div>
+        <!-- END: Second Row -->
+        <!-- START: Third Row -->
+        <div class="third-row">
+            <!-- START: Contact Us Form -->
+            <form class="container" method="post">
+                <div
+                    class="form-group
+                        {{#if errors.contact_subject}}
+                            has-error
+                        {{/if}}
+                        "
+                >
+                    <label for="field1">{{_ 'How can we help?'}}</label>
+                    <div class="custom-select">
+                        <select
+                            class="form-control"
+                            id="field1"
+                            name="contact_subject"
+                            onchange="newForm()"
+                        >
+                            <option
+                                value="bug_report"
+                                {{#when item.contact_subject '==' 'bug_report'}}
+                                    selected
+                                {{/when}}
+                            >
+                                {{_ 'Report a bug'}}
+                            </option>
+                            <option
+                                value="marketing"
+                                {{#when item.contact_subject '==' 'marketing'}}
+                                    selected
+                                {{/when}}
+                            >
+                                {{_ 'How does marketing work in Jobayan?'}}
+                            </option>
+                            <option
+                                value="quote"
+                                {{#when item.contact_subject '==' 'quote'}}
+                                    selected
+                                {{/when}}
+                            >
+                                {{_ 'Need a quotation?'}}
+                            </option>
+                            <option
+                                value="info"
+                                {{#when item.contact_subject '==' 'info'}}
+                                    selected
+                                {{/when}}
+                            >
+                                {{_ 'Need more info about Jobayan?'}}
+                            </option>
+                            <option
+                                value="demo"
+                                {{#when item.contact_subject '==' 'demo'}}
+                                    selected
+                                {{/when}}
+                            >
+                                {{_ 'Request a Demo'}}
+                            </option>
+                        </select>
+                    </div>
+                    {{#if errors.contact_subject}}
+                        <center class="help-text">
+                            {{errors.contact_subject}}
+                        </center>
+                    {{/if}}
+                </div>
+                <div>
+                <div
+                    class="form-group"
+                >
+                <!-- START: First and Last Name -->
+                <div>
+                    <div class="col-md-6 form-label fname
+                        {{#if errors.contact_name}}
+                            has-error
+                        {{/if}}">
+                        <label for="field2">First Name*</label>
+                            <div>
+                                <input
+                                    class="form-control"
+                                    id="field2"
+                                    name="contact_fname"
+                                    placeholder="First Name"
+                                    type="text"
+                                    value="{{item.contact_fname}}"
+                                />
+                                {{#if errors.contact_fname}}
+                                    <center class="help-text">
+                                        {{errors.contact_fname}}
+                                    </center>
+                                {{/if}}
+                            </div>
+                    </div>
+                    <div class="col-md-6 form-label lname">
+                        <label for="field3">Last Name</label>
+                            <div>
+                                <input
+                                    class="form-control"
+                                    id="field3"
+                                    name="contact_lname"
+                                    placeholder="Last Name"
+                                    type="text"
+                                    value="{{item.contact_lname}}"
+                                />
+                                {{#if errors.contact_lname}}
+                                    <center class="help-text">
+                                        {{errors.contact_lname}}
+                                    </center>
+                                {{/if}}
+                            </div>
+                    </div>
+                </div>
+                <!-- END: First and Last Name -->
+                <!-- START: Email and Phone -->
+                <div>
+                    <div class="col-md-6 form-label email
+                            {{#if errors.contact_email}}
+                                has-error
+                            {{/if}}">
+                        <label for="field4" id="email">{{_ 'Email'}}*</label>
+                            <input
+                                class="form-control"
+                                id="field4"
+                                name="contact_email"
+                                placeholder="Email"
+                                type="text"
+                                value="{{item.contact_email}}"
+                            />
+                            {{#if errors.contact_email}}
+                                <center class="help-text">
+                                    {{errors.contact_email}}
+                                </center>
+                            {{/if}}
+                    </div>
+                    <div class="col-md-6 form-label phone
+                        {{#if errors.contact_email}}
+                                has-error
+                            {{/if}}">
+                        <label for="field5">{{_ 'Phone'}}*</label>
+                        <input
+                            class="form-control"
+                            id="field5"
+                            name="contact_phone"
+                            placeholder="Phone"
+                            type="phone"
+                            value="{{item.contact_phone}}"
+                        />
+                        {{#if errors.contact_phone}}
+                            <center class="help-text">
+                                {{errors.contact_phone}}
+                            </center>
+                        {{/if}}
+                    </div>
+                    <div
+                        class="form-group
+                            {{#if errors.contact_phone}}
+                                has-error
+                            {{/if}}
+                            "
+                    >
+                    </div>
+                </div>
+                <!-- Additional Fields when request demo  is selected -->
+                <div id="co-name" hidden>
+                    <div id="co-1" class="col-md-6 form-label co-name">
+                        <label for="field6">Company Name</label>
+                            <div>
+                                <input
+                                    class="form-control"
+                                    id="field6"
+                                    name="contact_co-name"
+                                    placeholder="Company Name"
+                                    type="text"
+                                    value="{{item.contact_co-name}}"
+                                />
+                                {{#if errors.contact_co-name}}
+                                    <center class="help-text">
+                                        {{errors.contact_co-name}}
+                                    </center>
+                                {{/if}}
+                            </div>
+                    </div>
+                    <div id="co-2" class="col-md-6 form-label total-emp">
+                        <label for="field7">Number of Employees (optional)</label>
+                            <div>
+                                <select class="form-control">
+                                    <option value="" disabled selected>-Please Select-</option>
+                                    <option value="1_50">1-50</option>
+                                    <option value="51_200">51-200</option>
+                                    <option value="201_1000">201-1000</option>
+                                    <option value="1000_5000">1000-5000</option>
+                                    <option value="5000+">5000+</option>
+                                </select>
+                                {{#if errors.contact_total-emp}}
+                                    <center class="help-text">
+                                        {{errors.contact_total-emp}}
+                                    </center>
+                                {{/if}}
+                            </div>
+                    </div>
+                </div>
+
+
+                </div>
+<!-- END: Email and Phone -->
+                <div
+                    class="form-group
+                        {{#if errors.contact_message}}
+                            has-error
+                        {{/if}}
+                        "
+                >
+                    <label for="field5" class="message">{{_ 'Message'}}*</label>
+                    <textarea
+                        class="form-control"
+                        cols="80"
+                        id="field5"
+                        name="contact_message"
+                        placeholder="Enter your message"
+                        rows="8"
+                    >{{item.contact_message}}</textarea>
+                    {{#if errors.contact_message}}
+                        <center class="help-text">
+                            {{errors.contact_message}}
+                        </center>
+                    {{/if}}
+                </div>
+                <div class="text-center">
+                    <input
+                        class="btn btn-default"
+                        type="submit"
+                        value="{{_ 'Submit'}}"
+                    />
+                </div>
+                <input type="hidden" name="csrf" value="{{csrf}}" />
+            </form>
+        </div>
+            <!-- END: Contact Us Form -->
+        </div>
+        <!-- END: Third Row -->
+        <!-- START: Fourth Row -->
+        <div class="fourth-row clearfix">
+            <!-- START: Google map -->
+            <div class="col-md-6 map">
+                <iframe
+                    allowfullscreen
+                    frameborder="0"
+                    height="450"
+                    src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ5bx8ATHIlzMRtJMPpi-jJDg&key=AIzaSyAevAIeQy_NWp2IAf3sA9kyv9jdoiHF2fQ"
+                    style="border:0"
+                    width="100%"
+                >
+                </iframe>
+            </div>
+            <!-- END: Google map -->
+            <!-- START: Find Us -->
+            <div class="col-md-6 text">
+                <h2>{{_ 'Visit us at %s' "Mandala Park"}}</h2>
+                <!-- START: Find Us - location -->
+                <div class="location">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    Shaw Blvd, Pleasant Hills <br /> Mandaluyong, 1552 Metro Manila
+                </div>
+                <!-- END: Find Us - location -->
+                <!-- START: Find Us - Contact -->
+                <div class="contact">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    <a href="mailto:business@jobayan.com">
+                        business@jobayan.com
+                    </a>
+                </div>
+                <div class="phone">
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                    (632) 897 2296
+                </div>
+                <!-- END: Find Us - Contact-->
+                <!-- START: Find Us - socials -->
+                <div class="socials">
+                    <h2>{{_ 'Connect with us through social media'}}</h2>
+                    <a href="https://facebook.com/jobayancom" target="_blank">
+                        <i class="fa fa-facebook-square" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://twitter.com/jobayancom" target="_blank">
+                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/company/13271950/" target="_blank">
+                        <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <!-- END: Find Us - socials -->
+            </div>
+            <!-- END: Find Us -->
+        </div>
+        <!-- END: Fourth Row -->
+        <!-- START: Fifth Row -->
+        <div class="fifth-row">
+            {{> partial_createpost head='div' heading='div'}}
+        </div>
+        <!-- END: Fifth Row -->
+    </div>
+</div>
+</div>
+
+<script type="text/javascript">
+    var urlParams = new URLSearchParams(window.location.search);
+
+    var req = urlParams.get('request');
+
+    if (req == 'demo') {
+        document.getElementById("field1").selectedIndex = "4";
+        document.getElementById("email").innerHTML = 'Company Email*';
+        document.getElementById("co-name").style.display = 'block';
+    }
+
+    if (req == 'quote') {
+        document.getElementById("field1").selectedIndex = "2";
+    }
+
+    function newForm() {
+
+        var x = document.getElementById("field1").value;
+
+        if (x != 'demo') {
+            document.getElementById("email").innerHTML = 'Email';
+            document.getElementById("co-name").style.display = 'none';
+        }
+            else if (x === 'demo') {
+                document.getElementById("email").innerHTML = 'Company Email';
+                document.getElementById("co-name").style.display = 'block';
+            }
+    }
+</script>
+
+<!-- Local Business Schema -->
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "LocalBusiness",
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Shaw Blvd, Pleasant Hills",
+        "addressLocality": "Mandaluyong City",
+        "addressRegion": "Metro Manila",
+        "postalCode": "1552",
+        "addressCountry": "PH"
+    },
+    "description": "Search for thousands of jobs in Philippines with Jobayan, the fastest growing job community! Finds jobs. Hire Talent.",
+    "name": "Jobayan",
+    "telephone": "(+632) 897 2296",
+    "openingHours": "Mo,Tu,We,Th,Fr 10:00-19:00",
+    "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "14.588438",
+        "longitude": "121.04259790000003"
+    },
+    "sameAs" : [
+        "https://www.facebook.com/jobayancom",
+        "https://twitter.com/jobayancom",
+        "https://www.linkedin.com/company/13271950"
+    ],
+    "image": "https://www.jobayan.com/images/logo.png"
+}
+</script>

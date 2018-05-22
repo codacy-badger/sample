@@ -1,0 +1,573 @@
+<!-- START: Container -->
+<div class="container">
+    <!-- START: Title -->
+    {{#if title}}<h2>{{title}}</h2>{{/if}}
+    <!-- END: Title -->
+    <!-- START: Post Type -->
+    {{#session 'me'}}
+    {{else}}
+    <div class="post-type">
+        <!-- Seeker -->
+        <div class="seeker">
+            <a href="/post/create/seeker?clear">LOOKING FOR A NEW JOB</a>
+        </div>
+        <!-- Poster -->
+        <div class="poster">
+            <a class="active" href="/post/create/poster?clear">
+                LOOKING FOR A NEW EMPLOYEE
+            </a>
+        </div>
+    </div>
+    {{/session}}
+    <!-- END: Post Type -->
+
+    <!-- START: Madlibs -->
+    <div class="madlibs">
+        <!-- START: Post Update Form -->
+        <form
+            class="form-horizontal"
+            id="post-form"
+            method="post"
+            {{#if action}}
+                action="{{action}}"
+            {{/if}}
+            {{#if cdn_config}}
+                data-acl="{{cdn_config.inputs.acl}}"
+                data-action="{{cdn_config.form.action}}"
+                data-algorythm="{{cdn_config.inputs.X-Amz-Algorithm}}"
+                data-cdn="{{cdn_config.form.action}}"
+                data-complete="{{_ 'Upload Complete'}}"
+                data-credential="{{cdn_config.inputs.X-Amz-Credential}}"
+                data-date="{{cdn_config.inputs.X-Amz-Date}}"
+                data-do="cdn-upload"
+                data-enctype="{{cdn.form.enctype}}"
+                data-key="{{cdn_config.inputs.key}}"
+                data-method="{{cdn_config.form.method}}"
+                data-on="submit"
+                data-policy="{{cdn_config.inputs.Policy}}"
+                data-progress="{{_ 'We are uploading your files.
+                    Please do not refresh page.'}}"
+                data-signature="{{cdn_config.inputs.X-Amz-Signature}}"
+            {{/if}}>
+
+            <!-- START: Name / Job Title -->
+            <div class="row">
+                <!-- START: Post Name -->
+                <div class="col-md-6">
+                    <div class="form-group{{#if errors.post_name}} has-error{{/if}}">
+                        <label>{{_ 'Name'}} *</label>
+                        <input
+                            class="form-control"
+                            maxlength="50"
+                            minlength="2"
+                            name="post_name"
+                            placeholder="{{_ 'Name'}}"
+                            type="text"
+                            value="{{item.post_name}}"
+                        />
+                        {{#if errors.post_name}}
+                            <span class="help-text">{{errors.post_name}}</span>
+                        {{/if}}
+                    </div>
+                </div>
+                <!-- END: Post Name -->
+
+                <!-- START: Job Title -->
+                <div class="col-md-6">
+                    <div class="form-group{{#if errors.post_position}} has-error{{/if}}">
+                        <label>{{_ 'Job Title'}} *</label>
+                        <input
+                            class="form-control"
+                            name="post_position"
+                            maxlength="50"
+                            minlength="2"
+                            placeholder="{{_ 'Job Title'}}"
+                            type="text"
+                            value="{{item.post_position}}"
+                        />
+                        {{#if errors.post_position}}
+                            <span class="help-text">{{errors.post_position}}</span>
+                        {{/if}}
+                    </div>
+                </div>
+                <!-- END: Job Title -->
+            </div>
+            <!-- END: Name / Job Title -->
+
+            <!-- START: Location / Years of Experience -->
+            <div class="row">
+                <!-- START: Location -->
+                <div class="col-md-6">
+                    <div class="form-group{{#if errors.post_location}} has-error{{/if}}">
+                        <label>{{_ 'Location'}} *</label>
+                    <input
+                        class="form-control"
+                        name="post_location"
+                        maxlength="50"
+                        minlength="2"
+                        placeholder="{{_ 'Location'}}"
+                        type="text"
+                        value="{{item.post_location}}"
+
+                    />
+                    {{#if errors.post_location}}
+                        <span class="help-text">{{errors.post_location}}</span>
+                    {{/if}}
+                    <em>
+                        <strong>{{_ 'Optional'}}.</strong>
+                        {{_
+                            'Please type the city where your business is located.'
+                        }}
+                    </em>
+                    </div>
+                </div>
+                <!-- END: Location -->
+
+                <!-- START: Years of Experience  -->
+                <div class="col-md-6">
+                    <div class="form-group{{#if errors.post_experience}} has-error{{/if}}">
+                        <label>{{_ 'Years of Experience'}}</label>
+                        <input
+                            class="form-control"
+                            name="post_experience"
+                            maxlength="2"
+                            pattern="^([1-5]?[0-9]|60)$"
+                            placeholder="{{_ 'Years of Experience'}}"
+                            type="text"
+                            value="{{item.post_experience}}"
+                            data-do="prevent-letter-input"
+                            data-on="keypress"
+                        />
+                        {{#if errors.post_experience}}
+                            <span class="help-text">{{errors.post_experience}}</span>
+                        {{/if}}
+                        <em>
+                            <strong>{{_ 'Optional'}}.</strong>
+                            {{_
+                                'Connect with applicants that match
+                                your needs by providing the number of
+                                years of experience needed for the job post.'
+                            }}
+                        </em>
+                    </div>
+                </div>
+                <!-- END: Years of Experience  -->
+            </div>
+            <!-- END: Location / Years of Experience -->
+
+            <!-- START: Salary Range -->
+            <div class="form-group">
+                <label>{{_ 'Salary Range'}}</label>
+                <div class="row salary-range">
+                    <!-- START: Salary Min -->
+                    <div class="col-md-6 salary-min">
+                        <div class="form-group
+                            {{#if errors.post_salary_min}}
+                                has-error
+                            {{/if}}
+                            "
+                        >
+                            <div class="input-group" style="width:100%;">
+                                <div class="custom-select pull-left">
+                                    <select
+                                        class="inform-group"
+                                        name="post_currency"
+                                        id="post_currency"
+                                        style="padding-left: 5px;"
+                                        >
+                                        {{#each currency.rows}}
+                                            <option
+                                                value="{{currency_symbol}}"
+                                                {{#when currency_symbol '===' ../item.post_currency}}
+                                                    selected
+                                                {{/when}}
+                                                >
+                                                {{currency_symbol}}
+                                            </option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <input
+                                    class="col-sm-10 post_salary_min"
+                                    data-do="salary-input"
+                                    data-on="keydown|keyup"
+                                    min="0"
+                                    name="post_salary_min"
+                                    placeholder="10,000"
+                                    style="width: 87%;"
+                                    type="text"
+                                    value="{{item.post_salary_min}}"
+                                />
+                            </div>
+                            {{#if errors.post_salary_min}}
+                                <span class="help-text">
+                                    {{errors.post_salary_min}}
+                                </span>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <!-- END: Salary Min -->
+
+                    <!-- START: Salary Max -->
+                    <div class="col-md-6 salary-max">
+                        <div class="form-group
+                            {{#if errors.post_salary_max}}
+                                has-error
+                            {{/if}}
+                            "
+                        >
+                            <div class="input-group" style="width:100%;">
+                                <input
+                                    class="form-control post_salary_max"
+                                    data-do="salary-input"
+                                    data-on="keydown|keyup"
+                                    min="0"
+                                    name="post_salary_max"
+                                    placeholder="20,000"
+                                    style="width:100%;"
+                                    type="text"
+                                    value="{{item.post_salary_max}}"
+                                />
+                            </div>
+                            {{#if errors.post_salary_max}}
+                                <span class="help-text">
+                                    {{errors.post_salary_max}}
+                                </span>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <!-- END: Salary Max -->
+
+                    <div class="col-md-12">
+                        <em>
+                            <strong>{{_ 'Optional'}}.</strong>
+                            {{_
+                                'Salary Ranges are displayed to help potential
+                                applicants decided if they want to be contacted'
+                            }}.
+                        </em>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Salary Range -->
+
+            <!-- START: Promotional Image -->
+            <div class="form-group{{#if errors.post_banner}} has-error{{/if}}">
+                <label>{{_ 'Promotional Image'}}</label>
+                <div data-do="file-field" data-name="post_banner">
+                    <input accept="image/*" class="form-control" type="file"/>
+                    {{#if action}}
+                        {{#if item.post_banner}}
+                            <input
+                                name="post_banner"
+                                type="hidden"
+                                value="{{item.post_banner}}"
+                            />
+                        {{/if}}
+                    {{/if}}
+                </div>
+                {{#if errors.post_banner}}
+                    <span class="help-text">
+                        {{errors.post_banner}}
+                    </span>
+                {{/if}}
+                {{#unless errors}}
+                    {{#if item.post_banner}}
+                        <em>
+                            <a href="{{item.post_banner}}" target="_blank">
+                                {{_ 'See your current banner'}}.
+                            </a>
+                            <br />
+                        </em>
+                    {{/if}}
+                {{/unless}}
+                <em>
+                    <strong>{{_ 'Optional'}}.</strong>
+                        {{_ 'Promotional images are used to visually attract
+                            potential applicants to your post. Suggested
+                            size: 313 x 85px'
+                        }}
+                </em>
+            </div>
+            <!-- END: Promotional Image -->
+
+            <!-- START: Email -->
+            <div class="form-group{{#if errors.post_email}} has-error{{/if}}">
+                <label>{{_ 'Email'}}</label>
+                <input
+                    class="form-control"
+                    name="post_email"
+                    placeholder="{{_'Email Address'}}"
+                    type="email"
+                    value="{{item.post_email}}"
+                />
+                {{#if errors.post_email}}
+                    <span class="help-text">{{errors.post_email}}</span>
+                {{/if}}
+                <em>
+                    <strong>{{_ 'Optional'}}.</strong>
+                    {{#_ 'Your email address will be primarily used to notify
+                        you on matches or if a job seeker is interetested in
+                        your post. Please see our %s for more information' }}
+                            <a href="/privacy-policy" target="_blank">
+                                {{_ 'Privacy Policy'}}
+                            </a>
+                    {{/_}}.
+                </em>
+            </div>
+            <!-- END: Email -->
+
+            <!-- START: Phone -->
+            <div class="form-group{{#if errors.post_phone}} has-error{{/if}}">
+                <label>{{_ 'Phone'}}</label>
+                <input
+                    class="form-control"
+                    name="post_phone"
+                    placeholder="Phone Number"
+                    type="text"
+                    value="{{item.post_phone}}"
+                    data-do="prevent-letter-input"
+                    data-on="keypress"
+                />
+                {{#if errors.post_phone}}
+                    <span class="help-text">{{errors.post_phone}}</span>
+                {{/if}}
+                <em>
+                    <strong>{{_ 'Optional'}}.</strong>
+                    {{#_ 'Your phone number will be primarily used to notify
+                        you on matches or if a job seeker is interetested in
+                        your post.  Please see our %s for more information'
+                    }}
+                        <a href="/privacy-policy" target="_blank">
+                            {{_ 'Privacy Policy'}}</a>
+                    {{/_}}.
+                </em>
+            </div>
+            <!-- END: Phone -->
+
+
+            <!-- START: Additional Info -->
+            <div class="form-group{{#if errors.post_detail}} has-error{{/if}}">
+                <label>{{_ 'Additional Information'}}</label>
+                <textarea
+                    class="form-control"
+                    data-do="wysiwyg"
+                    name="post_detail"
+                    placeholder="{{_ 'Additional Information'}}"
+                >
+                    {{{item.post_detail}}}
+                </textarea>
+                {{#if errors.post_detail}}
+                    <span class="help-text">{{errors.post_detail}}</span>
+                {{/if}}
+                <em>
+                    {{_
+                        'This is used to help potential applicants decide on
+                        whether to be contacted by you. Enter more information
+                        about your job post will also help us display your
+                        post on Google Search results'
+                    }}.
+                </em>
+            </div>
+            <!-- END: Additional Info -->
+
+            <!-- START: Tags -->
+            <div class="clearfix form-group
+                {{#if errors.post_tags}}
+                    has-error
+                {{/if}}">
+                <label>{{_ 'Tags'}}</label>
+                <div data-do="tag-field" class="tag-field">
+                    {{#each item.post_tags}}
+                        <div class="tag">
+                            <input
+                                class="tag-input text-field"
+                                name="post_tags[]"
+                                placeholder="{{_ 'Add Tag'}}"
+                                type="text"
+                                value="{{this}}"
+                            />
+                            <a class="remove" href="javascript:void(0)">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    {{/each}}
+                </div>
+                <div class="hide input-suggestion">
+                    <ul class="suggestion-list"></ul>
+                </div>
+                {{#if errors.post_tags}}
+                    <span class="help-text text-danger">{{errors.post_tags}}</span>
+                {{/if}}
+                <em>
+                    {{_ 'Tags are used to help applicants find your post
+                        quicker. It is also used to help us market specific
+                        topics more accurately. Only the first 5 tags will be
+                        displayed'
+                    }}.
+                </em>
+                <script id="tag-translations" type="text/json">{"Tag":"{{_ 'Tag'}}"}</script>
+            </div>
+            <!-- END: Tags -->
+
+            <!-- START: Verify -->
+            {{#session 'me'}}{{else}}
+            <div class="form-group{{#if errors.post_verify}} has-error{{/if}}">
+                <label>{{_ 'Verify me with'}}</label>
+                <div class="radio-container">
+                    <input
+                        class="radio"
+                        id="post_verify_facebook"
+                        name="post_verify"
+                        type="radio"
+                        value="facebook"
+                        checked="checked"
+                    />
+                    <label for="post_verify_facebook" class="radio-label">
+                        {{_ 'Facebook'}}
+                    </label>
+                </div>
+                <div class="radio-container">
+                    <input
+                        class="radio"
+                        id="post_verify_linkedin"
+                        name="post_verify"
+                        type="radio"
+                        value="linkedin"
+                    />
+                    <label for="post_verify_linkedin" class="radio-label">
+                        {{_ 'LinkedIn'}}
+                    </label>
+                </div>
+                {{#if errors.post_verify}}
+                    <span class="help-text">{{errors.post_verify}}</span>
+                {{/if}}
+            </div>
+            {{/session}}
+            <!-- END: Verify -->
+
+            <!-- START: Notification -->
+            <div class="form-group form-notification
+                {{#if errors.post_notify}}
+                    has-error
+                {{/if}}">
+                <!-- START: Notify Matches -->
+                <div class="checkbox notify-match">
+                    <input
+                        {{#if item.post_notify}}
+                            {{#in 'matches' item.post_notify}}
+                                checked
+                            {{/in}}
+                        {{/if}}
+                        id="notify_matches"
+                        name="post_notify[]"
+                        type="checkbox"
+                        value="matches"
+                    />
+                    <label for="notify_matches">
+                        {{_ 'Notify me when a job seeker matches
+                            this description' }}.
+                        <em><strong>{{_ 'Optional' }}.</strong></em>
+                    </label>
+                </div>
+                <!-- END: Notify Matches -->
+                <!-- START Notify Company -->
+                <div class="checkbox notify-jobseeker">
+                    <input
+                        {{#if item.post_notify}}
+                            {{#in 'likes' item.post_notify}}
+                                checked
+                            {{/in}}
+                        {{/if}}
+                        id="notify_company"
+                        name="post_notify[]"
+                        type="checkbox"
+                        value="likes"
+                    />
+                    <label for="notify_company">
+                        {{#_ 'Notify me when a job seeker %s this post' }}
+                             <i class="fa fa-heart"></i>
+                        {{/_}}.
+                        <em><strong>{{_ 'Optional'}}.</strong></em>
+                    </label>
+                </div>
+                <!-- END Notify Company -->
+
+                {{#if errors.post_notify}}
+                    <span class="help-text">{{errors.post_notify}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Notification -->
+
+            <!-- START: Submit -->
+            <div class="submit text-center">
+                <p>
+                    {{#_ 'This post will be active for 30 days. If you filled
+                        this position, please remove this post. By clicking the
+                        button below, you have read our %s and agree to its terms'
+                    }}
+                        <a href="/Terms-And-Conditions" target="_blank">
+                            {{_ 'Terms and Conditions' }}
+                        </a>
+                    {{/_}}.
+                 </p>
+                <input name="post_type" type="hidden" value="poster"/>
+                <input
+                    name="credit_pay"
+                    type="hidden"
+                    value="
+                        {{#if item.credit_pay}}
+                            {{item.credit_pay}}
+                        {{else}}
+                            0
+                        {{/if}}
+                    "
+                >
+                <button
+                    class="btn btn-default submit text-uppercase"
+                    data-count="{{post_count}}"
+                    data-do="submit-post"
+                    data-on="click"
+                >
+                    {{_ 'Post Now' }}
+                </button>
+            </div>
+            <!-- END: Submit -->
+        </form>
+        <!-- END: Post Update Form -->
+    </div>
+    <!-- START: Madlibs -->
+</div>
+<!-- END: Container -->
+
+<!-- Credit Modal -->
+{{> post/modal_credit}}
+
+<!-- Styles -->
+<link
+    rel="stylesheet"
+    type="text/css"
+    href="/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.css">
+</link>
+
+<!-- Scripts -->
+<script
+    src="/bower_components/wysihtml5x/dist/wysihtml5x-toolbar.min.js"
+    type="text/javascript">
+</script>
+<script
+    src="/bower_components/handlebars/handlebars.runtime.min.js"
+    type="text/javascript">
+</script>
+<script
+    src="/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.js"
+    type="text/javascript">
+</script>
+
+<!-- START: Credits Required -->
+{{#if errors.credits_required}}
+<script type="text/javascript">
+    $('#credit_modal').modal('show');
+</script>
+{{/if}}
+<!-- END: Credits Required -->

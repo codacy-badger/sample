@@ -1,0 +1,51 @@
+<div class="panel panel-default clear" >
+    <div class="panel-heading brand">
+        <div class="panel-title">{{_ 'Create Currency'}}</div>
+    </div>
+
+    <div class="panel-body" >
+        <form enctype="multipart/form-data" method="post">
+
+            <div class="form-group{{#if errors.currency_type}} has-error{{/if}}">
+                <label class="control-label">{{_ 'Currency'}}</label>
+                <div>
+                    <input
+                        class="form-control"
+                        name="currency_type"
+                        placeholder="php"
+                        type="text"
+                        value="{{item.currency_type}}"
+                    />
+
+                    {{#if errors.currency_type}}
+                    <span class="help-text">{{errors.currency_type}}</span>
+                    {{/if}}
+                </div>
+            </div>
+
+            <div class="form-group{{#if errors.currency_symbol}} has-error{{/if}}">
+                <label class="control-label">{{_ 'Symbol'}}</label>
+                <div>
+                    <input
+                        class="form-control"
+                        name="currency_symbol"
+                        placeholder="₱"
+                        type="text"
+                        value="{{item.currency_symbol}}"
+                    />
+
+                    {{#if errors.currency_symbol}}
+                    <span class="help-text">{{errors.currency_symbol}}</span>
+                    {{/if}}
+                </div>
+            </div>
+
+            <div class="clear form-group">
+                <input type="hidden" name="csrf" value="" />
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="/scripts/cropper.js"></script>

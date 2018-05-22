@@ -1,0 +1,52 @@
+<!-- START: Blog Breacrumbs-->
+<div class="container">
+    <div class="row-fluid header">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/Articles">Articles</a></li>
+            <li class="breadcrumb-item"><a href="/Articles/Categories">Category</a></li>
+            <li class="breadcrumb-item active">{{blog_title}}</li>
+        </ol>
+    </div>
+</div>
+<!-- END: Blog Breacrumbs-->
+
+<!-- START: Blog Body -->
+<div class="container blog-detail-body">
+    <!-- START: Blog Image -->
+    <div class="blog-category-image center">
+        <img alt="{{blog_title}}" src="{{blog_image}}" />
+    </div>
+
+    <div class="blog-header text-center ">
+        <h1>{{blog_title}}</h1>
+    </div>
+    <!-- END: Blog Image -->
+
+    <hr />
+    <!-- START: Blog Article -->
+    <div class="blog-article">
+        <p>{{{blog_article}}}</p>
+    </div>
+    <!-- END: Blog Article -->
+    <hr />
+    <!-- START: Categories -->
+    {{#if category}}
+        <div class="row category-container">
+            {{#each category}}
+                <div class="blog-category">
+                    <div class="col-md-3">
+                        <a href="/Article/{{blog_slug}}" title="{{blog_title}}">
+                            <img class="blog-image" src="{{blog_image}}" />
+                            <br />
+                            <span>{{blog_title}}</span>
+                        </a>
+                    </div>
+                </div>
+
+            {{/each}}
+        </div>
+    {{/if}}
+    <!-- END: Categories -->
+</div>
+<!-- END: Blog Body -->

@@ -1,0 +1,63 @@
+<div class="modal fade skills-modal" id="skills-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    {{_ 'Add Skills'}}
+                </div>
+            </div>
+            <!-- START: Form -->
+            <form
+                action="/ajax/skills/create"
+                data-do="information-form"
+                data-on="submit"
+            >
+                <div class="modal-body">
+                    <!-- START: Skill -->
+                    <div class="form-group">
+                        <label>{{_ 'Skills'}}</label>
+                        <div
+                            class="tag-field"
+                            data-do="tag-field"
+                            data-tag-count="1"
+                            data-placeholder="{{_ 'Skills'}}"
+                            data-name="information_skills"
+                        >
+                        </div>
+                        <p class="skills-count">
+                            {{#_ 'You can add %s more skills'}}
+                                <span>10</span>
+                            {{/_}}
+                        </p>
+                        <span class="help-text"></span>
+                        <div class="input-suggestion hide">
+                            <ul class="suggestion-list"></ul>
+                        </div>
+                        <script id="tag-translations" type="text/json">
+                            {"Skills":"{{_ 'Skills'}}"}
+                        </script>
+                    </div>
+                    <!-- END: Skill -->
+                </div>
+                <!-- START: Footer -->
+                <div class="modal-footer">
+                    <button
+                        class="btn btn-default"
+                        type="submit"
+                    >
+                        {{_ 'Add Skills'}}
+                    </button>
+                    <button
+                        class="btn btn-primary"
+                        data-dismiss="modal"
+                        type="button"
+                    >
+                        {{_ 'Cancel'}}
+                    </button>
+                </div>
+                <!-- END: Footer -->
+            </form>
+            <!-- END: Form -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,100 @@
+<!-- START: Match Me Poster -->
+<div class="partial-match-me match-poster
+    {{#session 'me'}}
+        {{#unless profile_company}}
+            hide
+        {{/unless}}
+        {{else}}
+            hide
+    {{/session}}">
+    <p>{{_ "Can't find what you're looking for?"}}</p>
+    <p>{{_ 'Create your own post and let the job seekers find you.'}}</p>
+
+    <!-- START: Form -->
+    <form
+        action="/"
+        class="row"
+        data-do="madlibs-form"
+        data-on="submit"
+        method="post"
+    >
+
+        {{#each page.featured_keywords}}
+            <input type="hidden" name="featured_keywords[]" value="{{this}}" />
+        {{/each}}
+
+        <!-- START: Post Name -->
+        <div class="column col-md-2">
+            <span>{{_ 'Hello, we are'}}</span>
+            <input
+                maxlength="50"
+                minlength="2" 
+                name="post_name"
+                placeholder="{{_ 'ex: Acme Inc.'}}"
+                type="text"
+                value="{{#session 'me'}}{{profile_company}}{{/session}}"
+            />
+        </div>
+        <!-- END: Post Name -->
+
+        <!-- START: Post Location -->
+        <div class="column col-md-2">
+            <span>{{_ 'From'}}</span>
+            <input
+                autocomplete="off"
+                data-do="suggestion-field"
+                data-type="location"
+                maxlength="50"
+                minlength="2"
+                name="post_location"
+                placeholder="{{_ 'ex: Manila'}}"
+                type="text"
+                value=""
+            />
+        </div>
+        <!-- END: Post Location -->
+
+        <!-- START: Post Position -->
+        <div class="column col-md-4">
+            <span>{{_ 'And we are looking for a/an'}}</span>
+            <input
+                autocomplete="off"
+                data-do="suggestion-field"
+                data-type="position"
+                maxlength="50"
+                minlength="2"
+                name="post_position"
+                placeholder="{{_ 'ex: Programmer'}}"
+                type="text"
+                value=""
+            />
+        </div>
+        <!-- END: Post Position -->
+
+        <!-- START: Post Experience -->
+        <div class="column col-md-4">
+            <span>{{_ 'With at least'}}</span>
+            <input
+                class="post-experience"
+                maxlength="2" 
+                name="post_experience"
+                pattern="^([1-5]?[0-9]|60)$"
+                placeholder="0"
+                type="text"
+                value=""
+                data-do="prevent-letter-input"
+                data-on="keypress"
+            /> {{{_ 'year(s) of experience'}}}
+        </div>
+        <!-- END: Post Experience -->
+
+        <!-- START: Match Me Button -->
+        <div class="submit-button">
+            <input name="post_type" type="hidden" value="poster">
+            <button class="btn btn-default" type="submit">{{_ 'Match me up'}}</button>
+        </div>
+        <!-- END: Match Me Button -->
+    </form>
+    <!-- END: Form -->
+</div>
+<!-- END: Match Me Poster -->

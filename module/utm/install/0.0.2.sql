@@ -1,0 +1,1 @@
+ALTER TABLE `utm` ADD `utm_clicked` int(10) UNSIGNED NOT NULL DEFAULT 0 AFTER `utm_image`;

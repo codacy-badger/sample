@@ -1,0 +1,121 @@
+<div class="modal fade completeness-modal" id="completeness-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    {{_ 'Profile Completeness'}}
+                </div>
+            </div>
+            <div class="modal-body">
+                <!-- START: Completeness -->
+                <div class="completeness">
+                    <div class="completeness-head">
+                        <div class="completeness-title">
+                            {{_ 'Profile Completeness'}}
+                        </div>
+                        <div class="completeness-status">
+                            {{#if profile_information}}
+                                {{profile_information.information_progress}}%
+                            {{else}}
+                                0%
+                            {{/if}}
+                            Complete
+                        </div>
+                    </div>
+                    <div class="progress-wrapper">
+                        <ul class="progress-custom">
+                            <li data-step="1" class="
+                                {{~#unless profile_information~}}
+                                    is-active
+                                {{~else~}}
+                                    {{~#when profile_information.information_progress '==' '0'~}}
+                                        is-active
+                                    {{~/when~}}
+                                    {{~#when profile_information.information_progress '>' '0'~}}
+                                        is-complete
+                                    {{~/when~}}
+                                {{~/unless~}}
+                            ">
+                            </li>
+                            <li data-step="2" class="
+                                {{~#when profile_information.information_progress '==' '20'~}}
+                                    is-active
+                                {{~/when~}}
+                                {{~#when profile_information.information_progress '>' '20'~}}
+                                    is-complete
+                                {{~/when~}}
+                            ">
+                            </li>
+                            <li data-step="3" class="
+                                {{~#when profile_information.information_progress '==' '40'~}}
+                                    is-active
+                                {{~/when~}}
+                                {{~#when profile_information.information_progress '>' '40'~}}
+                                    is-complete
+                                {{~/when~}}
+                            ">
+                            </li>
+                            <li data-step="4" class="
+                                {{~#when profile_information.information_progress '==' '60'~}}
+                                    is-active
+                                {{~/when~}}
+                                {{~#when profile_information.information_progress '>' '60'~}}
+                                    is-complete
+                                {{~/when~}}
+                            ">
+                            </li>
+                            <li data-step="5" class="
+                                {{~#when profile_information.information_progress '==' '80'~}}
+                                    is-active
+                                {{~/when~}}
+                                {{~#when profile_information.information_progress '>' '80'~}}
+                                    is-complete
+                                {{~/when~}}
+                            ">
+                            </li>
+                            <li data-step="6" class="
+                                {{~#when profile_information.information_progress '==' '100'~}}
+                                    is-active
+                                {{~/when}}
+                                progress-last
+                            ">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- END: Completeness -->
+                {{#when profile_information.information_progress '==' '100'}}
+                    <p>
+                        {{_ 'Good job! Companies now have better view of your profile.'}}
+                    </p>
+                {{else}}
+                    <p>
+                        {{_ 'Almost there! Complete your profile to level up your job
+                            hunting. Companies prioritize seekers with complete profiles.'}}
+                    </p>
+                {{/when}}
+            </div>
+            <!-- START: Footer -->
+            <div class="modal-footer">
+                {{#when profile_information.information_progress '==' '100'}}
+                    <a
+                        class="btn btn-default text-uppercase"
+                        href="/profile/information"
+                        title="{{_ 'View / edit my profile'}}"
+                    >
+                        {{_ 'View / edit my profile'}}
+                    </a>
+                {{else}}
+                    <a
+                        class="btn btn-default text-uppercase"
+                        href="/profile/information"
+                        title="{{_ 'View Edit'}}"
+                    >
+                        {{_ 'Complete my profile'}}
+                    </a>
+                {{/when}}
+            </div>
+            <!-- END: Footer -->
+        </div>
+    </div>
+</div>

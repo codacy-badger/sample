@@ -1,0 +1,153 @@
+<!-- START: Crumbs -->
+<div class="crumbs">
+    <a href="/control/business/dashboard">
+        <i class="fa fa-home"></i> {{_ 'Dashboard'}}</a>
+    <span class="separator">
+        <i class="fa fa-angle-right"></i>
+    </span>
+    <a href="/control/business/activity/timeline" class="active">
+        <i class="fa fa-futbol-o" aria-hidden="true"></i> {{_ 'Activity'}}</a>
+</div>
+<!-- END: Crumbs -->
+<!-- START: Scroll -->
+<div class="scroll">
+    <div class="pull-left">
+        <h3 class="template-blue">
+            <i class="fa fa-futbol-o" aria-hidden="true"></i> {{_ 'Activity'}}
+        </h3>
+    </div>
+    <div class="pull-right">
+        <!-- START: Search Actions -->
+        <div class="search-actions">
+            <form class="form-inline" method="get">
+                <div class="form-group">
+                    <select class="form-control" name="display">
+                        <option value="">{{_ 'All'}}</option>
+                        <option
+                            value="lead"
+                            {{#when display == 'lead'}}
+                                selected
+                            {{/when}}
+                        >
+                            {{_ 'Lead'}}
+                        </option>
+                        <option
+                            value="profile"
+                            {{#when display == 'profile'}}
+                                selected
+                            {{/when}}
+                        >
+                            {{_ 'Profile'}}
+                        </option>
+                        <option
+                            value="own"
+                            {{#when display == 'own'}}
+                                selected
+                            {{/when}}
+                        >
+                            {{_ 'My Activity'}}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="input-range date-range">
+                        <div class="input-from">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input
+                                    class="form-control"
+                                    name="date[history_created][start_date]"
+                                    onfocus="(this.type='date')"
+                                    placeholder="{{_ '2017-01-01'}}"
+                                    type="text"
+                                    value="{{date.history_created.start_date}}"
+                                />
+                            </div>
+                        </div>
+                        <span class="input-separator">
+                            <i class="fa fa-minus"></i>
+                        </span>
+                        <div class="input-to">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input
+                                    class="form-control"
+                                    name="date[history_created][end_date]"
+                                    onfocus="(this.type='date')"
+                                    placeholder="{{_ '2017-01-01'}}"
+                                    type="text"
+                                    value="{{date.history_created.end_date}}"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input
+                        class="form-control"
+                        name="q"
+                        placeholder="{{_ 'Search'}}"
+                        type="text"
+                        value="{{q}}"
+                    />
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-success" type="submit">
+                        {{_ 'Search'}}
+                    </button>
+                </div>
+                <div class="form-group">
+                    <a
+                        class="btn btn-export"
+                        href="/control/business/transaction/search?export=true&
+                        {{~querystring}}"
+                        >
+                        <i class="fa fa-download"></i> {{_ 'Export'}}
+                    </a>
+                </div>
+            </form>
+        </div>
+    <!-- END: Search Actions -->
+    </div>
+</div>
+<!-- END: Scroll -->
+<div class="main-wrapper">
+    <style id="dynamic-style"></style>
+    <div class="timeline" data-do="activity-ajax">
+        {{#each rows}}
+            <div class="activity {{#is_even @index}}left{{else}}right{{/is_even}}">
+                <div class="content">
+                    <h4>{{profile_name}} {{{history_action}}}</h4>
+                    <div>
+                        {{{comment.comment_detail}}}
+                        {{#if comment.files}}
+                        <div class="attachments">
+                            attachments:
+                            {{#each comment.files}}
+                            <div>
+                                <a href="{{file_link}}">
+                                    {{#if file_name}}
+                                    {{file_name}}
+                                    {{else}}
+                                    {{file_link}}
+                                    {{/if}}
+                                </a>
+                            </div>
+                            {{/each}}
+                        </div>
+                        {{/if}}
+                        {{thread.thread_subject}}
+                        <p class="snippet">{{thread.thread_snippet}}</p>
+                    </div>
+                    <div class="timestamp">
+                        {{date history_created 'M d, Y h:i a'}}
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>

@@ -1,0 +1,254 @@
+<link rel="stylesheet" type="text/css" href="{{config 'cdn'}}/bower_components/highcharts/css/highcharts.css"/>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script type="text/javascript" src="{{config 'cdn'}}/bower_components/highcharts/js/highcharts-more.js"></script>
+<script type="text/javascript" src="{{config 'cdn'}}/bower_components/highcharts/js/modules/solid-gauge.js"></script>
+
+<div class="clearfix wrapper">
+    <div class="clearfix research-location-container">
+        <!-- START: Location Container -->
+        <div class="location-container">
+            <!-- START: Breadcrumbs -->
+            <a class="breadcrumbs" href="/research">< Back</a>
+            <!-- END: Breadcrumbs -->
+
+            <!-- START: location Body -->
+            <div class="location-body">
+                <!-- START: Location Name -->
+                <h1 class="location-name">
+                    {{~#if research_location.name}}
+                    Philippines > {{research_location.name}}
+                    {{~else~}}
+                    Philippines
+                    {{/if~}}
+                </h1>
+                <!-- END: Location Name -->
+
+                <span class="location-sample">
+                    {{_ 'Below are the estimates on employment rate and salary range in this location.'}}
+                    <!-- <i
+                        aria-hidden="true"
+                        class="fa fa-question-circle"
+                        data-do="tooltip"
+                        title="{{_ 'Tooltip'}}"
+                    >
+                    </i> -->
+                </span>
+
+                <!-- START: Unemployment Rate Container -->
+                <div class="clearfix location-unemployment-container">
+                    <span class="section-title">{{_ 'Unemployment Rate'}}</span>
+
+                    <div class="clearfix">
+                        <!-- START: Unemployment Detail -->
+                        <div class="unemployment-detail">
+                            <p>
+                                {{{research_location.unemployment_rate_details}}}
+                            </p>
+                        </div>
+                        <!-- END: Unemployment Detail -->
+
+                        <!-- START: Unemployment Chart Container -->
+                        <div class="clearfix unemployment-chart-container">
+                            {{#each research_location.unemployment_rate}}
+                                {{#when year '==' '2018'}}
+                                    <div class="chart chart-current">
+                                        <div class="chart-circle">
+                                            <div class="label-percentage">{{rate}}%</div>
+                                            <svg class="progress-circle" width="185" height="185" viewBox="0 0 120 120">
+                                                <circle class="progress__meter" cx="60" cy="60" r="54" stroke-width="12" />
+                                                <circle class="progress__value" cx="60" cy="60" r="54" stroke-width="12" style="stroke-dasharray: {{dasharray}}; stroke-dashoffset: {{dashoffset}};"/>
+                                            </svg>
+                                            <div class="text-center label-year">{{year}}</div>
+                                        </div>
+                                    </div>
+                                    <!-- END: Current Year Chart -->
+                                <!-- START: Current Year Chart -->
+                                {{else}}
+                                    <!-- START: Previous Years Chart -->
+                                    <div class="chart chart-previous">
+                                        <div class="chart-circle">
+                                            <div class="label-percentage">{{rate}}%</div>
+                                            <svg class="progress-circle" width="120" height="120" viewBox="0 0 120 120">
+                                                <circle class="progress__meter" cx="60" cy="60" r="54" stroke-width="12" />
+                                                <circle class="progress__value" cx="60" cy="60" r="54" stroke-width="12" style="stroke-dasharray: {{dasharray}}; stroke-dashoffset: {{dashoffset}};"/>
+                                            </svg>
+                                            <div class="text-center label-year">{{year}}</div>
+                                        </div>
+                                    </div>
+                                    <!-- END: Previous Years Chart -->
+                                {{/when}}
+                            {{/each}}
+                        </div>
+                        <!-- END: Unemployment Chart Container -->
+                    </div>
+                </div>
+                <!-- END: Unemployment Rate Container -->
+
+                <!-- START: Hiring Rate Container -->
+                <div class="hiring-rate-container">
+                    <span class="section-title">{{_ 'Hiring Rate'}}</span>
+
+                    <!-- START: Supporting Details -->
+                    <p class="supporting-details">
+                        {{{research_location.hiring_rate_details}}}
+                    </p>
+                    <!-- START: Supporting Details -->
+
+                    <!-- START: Hiring Rate Chart Container -->
+                    <div class="clearfix hiring-rate-chart-container">
+                        <div class="bar-1" id="bar-1"></div>
+                    </div>
+                    <!-- END: Hiring Rate Chart Container -->
+                </div>
+                <!-- END: Hiring Rate Container -->
+
+                <!-- START: Salary Range Container -->
+                <div class="salary-range-container">
+                    <span class="section-title">{{_ 'Salary Range per Position'}}</span>
+                    <p>
+                        {{{research_location.salary_range_details}}}
+                    </p>
+                    <!-- START: Industry Select Container -->
+                    <div class="industry-container">
+                        <div class="form-group">
+                            <div class="custom-select" data-do="first-rate">
+                                <select
+                                    class="form-control hiring-rate"
+                                    data-do="select-industry"
+                                    data-on="change"
+                                >
+                                    {{#each research_location.hiring_rate}}
+                                    <option value="{{name}}" data-min="{{min}}" data-max="{{max}}">
+                                        {{name}}
+                                    </option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END: Industry Select Container -->
+
+                    <!-- START: Salary Range -->
+                    <div class="salary-range">
+                        <h3 class="body-title"></h3>
+                        <span>{{toupper 'Salary Range'}}</span>
+
+                        <!-- START: Range Container -->
+                        <div class="clearfix range-container">
+                            <div class="pull-left">
+                                <span class="range-min"></span>
+                            </div>
+
+                            <div class="pull-right">
+                                <span class="range-max"></span>
+                            </div>
+                        </div>
+                        <!-- END: Range Container -->
+                    </div>
+                    <!-- END: Salary Range -->
+                </div>
+                <!-- END: Salary Range Container -->
+            </div>
+            <!-- START: Position Body -->
+        </div>
+        <!-- END: Location Container -->
+
+        <!-- START: Side Container -->
+        <div class="side-container">
+            {{> research_companies}}
+            {{> research_positions}}
+        </div>
+        <!-- END: Side Container -->
+    </div>
+
+</div>
+
+{{#if research_location.geo}}
+<!-- START: Structured Data for Place -->
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Place",
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "{{research_location.geo.latitude}}",
+    "longitude": "{{research_location.geo.longitude}}"
+  },
+  "name": "{{research_location.name}}"
+}
+</script>
+<!-- END: Structured Data for Place -->
+{{/if}}
+
+<script>
+$(function() {
+    // Create the chart
+    bar = new Highcharts.Chart({
+        chart: {
+            renderTo: 'bar-1',
+            type: 'bar'
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: [
+                {{#each research_location.hiring_rate}}
+                    '{{ellipsis name 40}}',
+                {{/each}}
+            ],
+            title: {
+                text: ''
+            }
+        },
+        yAxis: {
+            min: 0,
+            max: {{max_graph_salary}}
+        },
+        tooltip: {
+            valueSuffix: null
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: true
+                }
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        series: [
+            {
+                data: [
+                    {{#each research_location.hiring_rate}}
+                        {{max}},
+                    {{/each}}
+                ]
+            }
+        ]
+    });
+});
+
+function renderIcons() {
+    // Move icon
+    if (!this.series[0].icon) {
+        this.series[0].icon = this.renderer.path(['M', -8, 0, 'L', 8, 0, 'M', 0, -8, 'L', 8, 0, 0, 8])
+            .attr({
+                'stroke': '#303030',
+                'stroke-linecap': 'round',
+                'stroke-linejoin': 'round',
+                'stroke-width': 2,
+                'zIndex': 10
+            });
+    }
+    this.series[0].icon.translate(
+        this.chartWidth / 2 - 10,
+        this.plotHeight / 2 - this.series[0].points[0].shapeArgs.innerR -
+            (this.series[0].points[0].shapeArgs.r - this.series[0].points[0].shapeArgs.innerR) / 2
+    );
+}
+</script>

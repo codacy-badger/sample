@@ -1,0 +1,72 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button
+            type="button"
+            class="navbar-toggle collapsed"
+            data-toggle="collapse"
+            data-target="#main-nav">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                TheJobs PH
+            </a>
+        </div>
+
+        <div id="main-nav" class="collapse navbar-collapse{{#session 'me'}} loggedin{{/session}}">
+            {{#session 'me'}}
+            <ul class="nav navbar-nav">
+                <li><a href="/crawler/website/search">Web Sites</a></li>
+                <li><a href="/crawler/log/search">Crawler Logs</a></li>
+                <li><a href="/crawler/webpage/search">Web Pages</a></li>
+            </ul>
+            {{/session}}
+            <ul class="nav navbar-nav navbar-right">
+                {{#session 'me'}}
+                    <li class="dropdown session-dropdown">
+                        <a
+                            href="javascript:void(0)"
+                            data-toggle="dropdown"
+                            role="button"
+                            aria-haspopup="true"
+                            aria-expanded="false">
+                                <img alt="{{profile_name}}"
+                                class="profile-image"
+                                {{#if profile_type '==' 'merchant'}}
+                                    onerror="this.src='{{settings 'cdn'}}/images/default/default-merchant.png'"
+                                {{else}}
+                                    onerror="this.src='{{settings 'cdn'}}/images/default/default-avatar.png'"
+                                {{/if}}
+                                width="35"
+                                src="{{profile_image}}" />
+                                <span>{{profile_name}}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/profile/detail/{{profile_id}}" class="btn btn-success">
+                                    {{_ 'View Profile'}}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/account" class="btn text-info">
+                                    {{_ 'Account Settings'}}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/logout" class="btn text-danger">
+                                    {{_ 'Logout'}}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                {{else}}
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/signup">Signup</a></li>
+                {{/session}}
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>

@@ -1,0 +1,1 @@
+ALTER TABLE `area` ADD `area_location` POINT NULL AFTER `area_postal`;

@@ -1,0 +1,126 @@
+<h3>Crawlers</h3>
+<div class="panel panel-default clear">
+    <div class="panel-body" >
+        {{#if workers}}
+        <!-- START: POST TABLE -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>ID</th>
+                    <th>Link</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                    <th>Updated</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each workers}}
+                <tr data-id="{{worker_id}}">
+                    <td>
+                        <a title="Remove" href="{{root}}/crawler/worker/remove/{{worker_id}}?redirect_uri=/crawler/website/search"
+                        class="text-danger"><i class="fa fa-times"></i></a>
+                    </td>
+                    <td>{{worker_id}}</td>
+                    <td>{{worker_link}}</td>
+                    <td>{{worker_status}}</td>
+                    <td>{{date worker_created 'M d g:iA'}}</td>
+                    <td>{{date worker_updated 'M d g:iA'}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <!-- END: POST TABLE -->
+        {{else}}
+        <!-- START: NO RESULTS -->
+        <div class="well no-results">Noone is working :(</div>
+        <!-- END: NO RESULTS -->
+        {{/if}}
+    </div>
+</div>
+
+<h3>Websites</h3>
+
+<div class="clearfix">
+    <!-- START: SEARCH FORM -->
+    <form class="pull-right search form-inline" method="get">
+        <div class="form-group">
+            <input name="q" placeholder="Search Web Sites" type="text"
+            value="{{q}}" class="form-control" />
+        </div>
+        <button class="btn"><i class="fa fa-search"></i></button>
+    </form>
+    <!-- END: SEARCH FORM -->
+
+    <span>
+        <a class="btn btn-success" href="{{root}}/crawler/website/create">
+            <i class="fa fa-plus"></i>
+            New Website
+        </a>
+    </span>
+</div>
+
+<!-- START: BULK FORM -->
+<form method="post" class="form-inline bulk-form pad-vertical">
+    <div class="panel panel-default clear">
+        <div class="panel-body" >
+            {{#if rows}}
+            <!-- START: POST TABLE -->
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Root</th>
+                        <th>Start</th>
+                        <th>Active</th>
+                        <th>Status</th>
+                        <th>Updated</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each rows}}
+                    <tr data-id="{{website_id}}">
+                        <td>
+                            <a title="Edit" href="{{root}}/crawler/website/update/{{website_id}}">
+                            <i class="fa fa-edit"></i></a>
+                            &nbsp;
+                            {{#when website_active '==' 1}}
+                            <a title="Start Crawling" href="{{root}}/crawler/website/start/{{website_id}}"
+                            class="text-success"><i class="fa fa-bug"></i></a>
+                            &nbsp;
+                            <a title="Remove" href="{{root}}/crawler/website/remove/{{website_id}}"
+                            class="text-danger remove"><i class="fa fa-times"></i></a>
+                            {{/when}}
+                            {{#when website_active '==' 0}}
+                            <a title="Restore" href="{{root}}/crawler/website/restore/{{website_id}}" class="text-success restore">
+                            <i class="fa fa-external-link"></i></a>
+                            {{/when}}
+                        </td>
+                        <td>{{website_id}}</td>
+                        <td>{{website_name}}</td>
+                        <td>{{website_root}}</td>
+                        <td width="50"><a href="{{website_start}}" target="_blank">{{website_start}}</a></td>
+                        <td>{{#if website_active}}Yes{{else}}No{{/if}}</td>
+                        <td>{{website_status}}</td>
+                        <td>{{date website_updated 'M d g:iA'}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            <!-- END: POST TABLE -->
+            {{else}}
+            <!-- START: NO RESULTS -->
+            <div class="well no-results">No Web Sites Found</div>
+            <!-- END: NO RESULTS -->
+            {{/if}}
+        </div>
+    </div>
+
+    <ul class="pagination">
+        {{#pager total range}}
+        <li{{#if active}} class="active"{{/if}}><a href="?{{href}}">{{page}}</a></li>
+        {{/pager}}
+    </ul>
+</form>

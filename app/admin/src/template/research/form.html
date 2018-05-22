@@ -1,0 +1,66 @@
+<div class="panel panel-default clear" >
+    <div class="panel-heading brand">
+        <div class="panel-title">{{title}}</div>
+    </div>
+
+    <div class="panel-body" >
+        <form enctype="multipart/form-data" name="research-form" method="post">
+            <div id="fields-view-init" class="{{#if view}}view{{/if}}">
+            <!-- START: Research Type -->
+            <div class="form-group{{#if errors.research_type}} has-error{{/if}}">
+                <label class="control-label">Type</label>
+                <div>
+                    <select class="form-control" name="research_type" data-do="research-type" data-on="change">
+                        <option
+                            value="position"
+                            {{#when item.research_type '==' 'position'}}selected{{/when}}
+                            >Position
+                        </option>
+                        <option
+                            value="location"
+                            {{#when item.research_type '==' 'location'}}selected{{/when}}
+                            >Location
+                        </option>
+                        <option
+                            value="position-location"
+                            {{#when item.research_type '==' 'position-location'}}selected{{/when}}
+                            >Position in Location
+                        </option>
+                    </select>
+
+                    {{#if errors.research_type}}
+                    <span class="help-text">{{errors.research_type}}</span>
+                    {{/if}}
+                </div>
+            </div>
+            <!-- END: Research Type -->
+
+            <!-- START: Position Panel-->
+            {{> research_position}}
+            <!-- END: Position Panel-->
+
+            <!-- START: Location Panel-->
+            {{> research_location}}
+            <!-- END: Location Panel-->
+
+            <!-- START: Position-Location Panel-->
+            {{> research_position-location}}
+            <!-- END: Position-Location Panel-->
+
+            <div class="clear form-group">
+                <input type="hidden" name="csrf" value="" />
+                {{#if view}}
+                    <a href="/control/service/search" class="btn btn-link" type="submit"><i class="fa fa-caret-left"></i> &nbsp;{{_ 'Back'}}</a>
+                {{else}}
+                    <button class="btn btn-primary" type="button" data-do="research-form" data-on="click">{{_ 'Submit'}}</button>
+                {{/if}}
+            </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.css"></link>
+<script src="/bower_components/wysihtml5x/dist/wysihtml5x-toolbar.min.js"></script>
+<script src="/bower_components/handlebars/handlebars.runtime.min.js"></script>
+<script src="/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.js"></script>

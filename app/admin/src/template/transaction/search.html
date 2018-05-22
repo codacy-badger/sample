@@ -1,0 +1,413 @@
+{{#when filter.transaction_active '===' '0'}}
+    <h3>
+        {{number_format total 0}} Inactive {{title}}
+        {{#if q.0}}
+            matching {{q.0}}
+        {{/if}}
+    </h3>
+{{else}}
+    <h3>
+        {{number_format total 0}} {{title}}
+        {{#if q.0}}
+            matching {{q.0}}
+        {{/if}}
+    </h3>
+{{/when}}
+
+<div class="clearfix">
+    <!-- START: SEARCH FORM -->
+    <!-- END: SEARCH FORM -->
+    <div class="left-group">
+        <div class="btn-group pull-left" role="group" aria-label="...">
+            <a
+                class="btn btn-primary"
+                href="?{{toquery 'filter[transaction_active]' '1'}}"
+            >
+                Active
+            </a>
+            <a
+                class="btn btn-danger"
+                href="?{{toquery 'filter[transaction_active]' '0'}}"
+            >
+                Inactive
+            </a>
+        </div>
+
+        <!-- START : Form -->
+        <form
+            class="filter-form"
+            data-do="check-date"
+            data-on="submit"
+            method="get"
+        >
+            {{#when filter.transaction_active '===' '0'}}
+                   <input type="hidden"
+                   name="filter[transaction_active]"
+                   value = "0"
+                   />
+            {{/when}}
+            <div class="form-group">
+                <label class="pull-left">Status</label>
+
+                <select
+                    class="form-control pull-left transaction_status"
+                    name="filter[transaction_status]"
+                >
+                    <option
+                        value=""
+                        {{#when filter.type '==' ''}}
+                            selected
+                        {{~/when~}}
+                    >
+                        {{_ 'All'}}
+                    </option>
+
+                    <option
+                        value="complete"
+                        {{#when filter.transaction_status '==' 'complete'}} selected{{~/when~}}
+                    >
+                        Complete
+                    </option>
+
+                    <option
+                        value="verified"
+                        {{#when filter.transaction_status '==' 'verified'}} selected{{~/when~}}
+                    >
+                        Verified
+                    </option>
+                </select>
+
+                <label class="date-from">
+                    {{_ 'From'}}
+                </label>
+                    <input
+                        class="date form-control"
+                        id="start"
+                        name="date[start_date]"
+                        type="date"
+                        value={{date.start_date}}
+                    />
+                <label class="date-to">
+                    {{_ 'To'}}
+                </label>
+                    <input
+                        class="date form-control"
+                        id="end"
+                        name="date[end_date]"
+                        type="date"
+                        value={{date.end_date}}
+                    />
+                <button class="btn btn-success">
+                    {{_ 'Search'}}
+                </button>
+
+                <button
+                    class="btn btn-success "
+                    name="export"
+                    type="submit"
+                    value="1"
+                >
+                    Export
+                </button>
+                <button class="btn pull-right">
+                    <i class="fa fa-search"></i>
+                </button>
+                <input
+                    class="form-control pull-right search"
+                    name="q[]"
+                    placeholder="Search"
+                    type="text"
+                    value="{{q.0}}"
+                />
+            </div>
+
+
+            <select class="form-control pull-left transaction_payment_method hidden">
+                <option
+                    value="paypal"
+                    {{#when filter.transaction_payment_method '==' 'paypal'}}selected{{/when}}
+                >paypal</option>
+                <option
+                    value="magpie"
+                    {{#when filter.transaction_payment_method '==' 'magpie'}}selected{{/when}}
+                >magpie</option>
+                <option
+                    value="Free Credits"
+                    {{#when filter.transaction_payment_method '==' 'Free Credits'}}selected{{/when}}
+                >Free Credits</option>
+            </select>
+        </form>
+        <!-- END : Form -->
+    </div>
+</div>
+
+<!-- START: BULK FORM -->
+<form method="post" class="form-inline bulk-form pad-vertical">
+    <div class="panel panel-default clear">
+        <div class="panel-body" >
+            {{#if rows}}
+                <div class="table-overflow">
+                    <!-- START: TABLE -->
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <!-- START : TH : Actions -->
+                                <th>
+                                    Actions
+                                </th>
+                                <!-- END : TH : Actions -->
+
+                                <!-- START : TH : Status -->
+                                <th class="header-status">
+                                    Status
+                                </th>
+                                <!-- END : TH : Status -->
+
+                                <!-- START : TH : Method -->
+                                <th class="header-method">
+                                    Method
+                                </th>
+                                <!-- END : TH : Method -->
+
+                                <!-- START : TH : Reference -->
+                                <th class="header-reference">
+                                    Reference
+                                </th>
+                                <!-- END : TH : Reference -->
+
+                                <!-- START : TH : Profile -->
+                                <th class="header-profile">
+                                    Profile
+                                </th>
+                                <!-- END : TH : Profile -->
+
+                                <!-- START : TH : Total -->
+                                <th>
+                                    <a href="?filter[transaction_active]={{filter.transaction_active}}&filter[transaction_status]={{filter.transaction_status}}&date[start_date]={{date.start_date}}&date[end_date]={{date.end_date}}&q[]={{q.0}}&{{#sort 'transaction_total'}}
+                                        {{~#unless value~}}
+                                            order[transaction_total]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[transaction_total]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[transaction_total]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        Total
+                                        {{#sort 'transaction_total'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- END : TH : Total -->
+
+                                <!-- START : TH : Credits -->
+                                <th>
+                                    <a href="?filter[transaction_active]={{filter.transaction_active}}&filter[transaction_status]={{filter.transaction_status}}&date[start_date]={{date.start_date}}&date[end_date]={{date.end_date}}&q[]={{q.0}}&{{#sort 'transaction_credits'}}
+                                        {{~#unless value~}}
+                                            order[transaction_credits]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[transaction_credits]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[transaction_credits]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        Credits
+                                        {{#sort 'transaction_credits'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- END : TH : Credits -->
+
+                                <!-- START : TH : Created -->
+                                <th>
+                                    <a      href="?filter[transaction_active]={{filter.transaction_active}}&filter[transaction_status]={{filter.transaction_status}}&date[start_date]={{date.start_date}}&date[end_date]={{date.end_date}}&q[]={{q.0}}&{{#sort 'transaction_created'}}
+                                        {{~#unless value~}}
+                                            order[transaction_created]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[transaction_created]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[transaction_created]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        Created
+                                        {{#sort 'transaction_created'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- END : TH : Created -->
+
+                                <!-- START : TH : Updated -->
+                                <th>
+                                    <a href="?filter[transaction_active]={{filter.transaction_active}}&filter[transaction_status]={{filter.transaction_status}}&date[start_date]={{date.start_date}}&date[end_date]={{date.end_date}}&q[]={{q.0}}&{{#sort 'transaction_updated'}}
+                                        {{~#unless value~}}
+                                            order[transaction_updated]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[transaction_updated]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[transaction_updated]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        Updated
+                                        {{#sort 'transaction_updated'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- END : TH : Updated -->
+                                <!-- START : TH : Paid Date -->
+                                <th>
+                                    <a href="?filter[transaction_active]={{filter.transaction_active}}&filter[transaction_status]={{filter.transaction_status}}&date[start_date]={{date.start_date}}&date[end_date]={{date.end_date}}&q[]={{q.0}}&{{#sort 'transaction_paid_date'}}
+                                        {{~#unless value~}}
+                                            order[transaction_paid_date]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[transaction_paid_date]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[transaction_paid_date]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        Paid Date
+                                        {{#sort 'transaction_paid_date'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- END : TH : Paid Date -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each rows}}
+                            <tr data-id="{{transaction_id}}">
+                                <td>
+                                    {{#when transaction_active '==' 1}}
+                                    <a
+                                        href="/control/transaction/update/{{transaction_id}}"
+                                        title="Edit"
+                                    >
+                                        <i class="fa fa-edit"></i>
+                                    &nbsp;
+                                    <a href="/control/transaction/detail/{{transaction_id}}" title="View">
+                                    <i class="fa fa-eye"></i></a>
+                                    &nbsp;
+                                    <a
+                                        class="text-danger remove"
+                                        href="/control/transaction/remove/{{transaction_id}}"
+                                        title="Remove"
+                                    >
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                    {{/when}}
+                                    {{#when transaction_active '==' 0}}
+                                    <a
+                                        class="text-success restore"
+                                        href="/control/transaction/restore/{{transaction_id}}"
+                                        title="Restore"
+                                    >
+                                        <i class="fa fa-external-link"></i>
+                                    </a>
+                                    {{/when}}
+                                </td>
+                                <td class="row-status">
+                                    {{transaction_status}}
+                                </td>
+                                <td class="row-method">
+                                    {{transaction_payment_method}}
+                                </td>
+                                <td>
+                                    {{transaction_payment_reference}}
+                                </td>
+                                <td>
+                                    <a
+                                    href="?filter[profile_id]={{transaction_profile.profile_id}}"
+                                    >{{transaction_profile.profile_name}}</a>
+                                </td>
+                                <td>
+                                    <strong>{{transaction_currency}}</strong> {{number_format transaction_total 2}}
+                                </td>
+                                <td>
+                                    {{number_format transaction_credits 0}}
+                                </td>
+                                <td>
+                                    {{date transaction_created 'M d Y'}}
+                                </td>
+                                <td>
+                                    {{date transaction_updated 'M d Y'}}
+                                </td>
+                                <td>
+                                    {{#if transaction_paid_date}}
+                                            {{date transaction_paid_date 'M d Y'}}
+                                        {{else}}
+                                            {{_ 'N/A'}}
+                                    {{/if}}
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    <!-- END: TABLE -->
+                </div>
+            {{else}}
+                <!-- START: NO RESULTS -->
+                <div class="well no-results">No Results Found</div>
+                <!-- END: NO RESULTS -->
+            {{/if}}
+        </div>
+    </div>
+
+    <ul class="pagination">
+        {{#pager total range}}
+        <li{{#if active}} class="active"{{/if}}><a href="?{{href}}">{{page}}</a></li>
+        {{/pager}}
+    </ul>
+</form>

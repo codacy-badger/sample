@@ -1,0 +1,125 @@
+{{#if item.widget_preview}}
+<link rel="stylesheet" type="text/css" href="/styles/plugins/career-widget.css" />
+{{else}}
+    <!DOCTYPE html>
+    <html 
+        id="JBWidgetFrame" 
+        data-key="{{item.widget_key}}"
+        data-type="{{item.widget_type}}"
+        data-root="{{item.widget_root}}"
+    >
+        <head>
+            <link rel="stylesheet" type="text/css" href="//{{item.widget_root}}/bower_components/font-awesome/css/font-awesome.min.css" />
+            <link rel="stylesheet" type="text/css" href="//{{item.widget_root}}/styles/plugins/career-widget.css" />
+
+            <script type="text/javascript" src="//{{item.widget_root}}/bower_components/jquery/dist/jquery.min.js"></script>
+            <script type="text/javascript" src="//{{item.widget_root}}/scripts/doon.js"></script>
+            <script type="text/javascript" src="//{{item.widget_root}}/scripts/plugins/widget-main.js"></script>
+        </head>
+    <body>
+{{/if}}
+
+<div 
+    id="JBCareerWidget" 
+    class="jb-career-widget"
+    {{#if item.widget_header_color}}
+        style="border: 1px solid {{item.widget_header_color}}"
+    {{/if}}
+>
+    <div 
+        class="widget-header clearfix"
+        {{#if item.widget_header_color}}
+            style="background: {{item.widget_header_color}}"
+        {{/if}}
+    >
+        <div class="widget-title">
+            <span class="title">
+                {{#if item.widget_button_title}}
+                    {{item.widget_button_title}}
+                {{else}}
+                    We Are Hiring!
+                {{/if}}
+            </span>
+        </div>
+        <div class="widget-toggle" data-do="widget-close" data-on="click">
+            <span class="toggle-button">&times;</span>
+        </div>
+    </div>
+    <div class="widget-body">
+        <div class="widget-items">
+            {{#if item.rows}}
+                {{> profile/widget/partials_post}}
+            {{else}}
+                <div class="widget-empty">
+                    <center>No available posts.</center>
+                </div>
+            {{/if}}
+        </div>
+
+        {{#if item.rows}}
+            {{#when item.total '>' 5}}
+                <div class="widget-load-more">
+                    <button 
+                        class="load-more-button"
+                        data-do="widget-load-more"
+                        data-on="click"
+                        {{#if item.widget_header_color}}
+                            style="background: {{item.widget_header_color}}; border: 1px solid {{item.widget_header_color}}"
+                        {{/if}}
+                    >Load More</button>
+                </div>
+            {{/when}}
+        {{/if}}
+
+
+        <div class="widget-loader hide">
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+        </div>
+    </div>
+    <div class="widget-branding">
+        {{#if item.widget_branding}}
+            <img
+                src="/images/powered_by_jobayan100.png"
+                alt="Branding"
+            />
+        {{else}}
+            <img src="{{item.profile_image}}" onerror="this.src='{{default_avatar profile_id}}'">
+            <span class="company-name">{{item.profile_company}}</span>
+        {{/if}}
+    </div>
+</div>
+
+{{#unless item.widget_preview}}
+    {{#if flash}}
+        <div 
+            class="{{flash.type}}"
+            data-do="widget-flash" 
+            id="JBFlash" 
+        >
+            <div class="flash-header clearfix">
+                <div class="flash-title">
+                    {{#when flash.type '==' 'error'}}
+                        <p>Error</p>
+                    {{/when}}
+
+                    {{#when flash.type '==' 'success'}}
+                        <p>Success</p>
+                    {{/when}}
+                </div>
+                <div class="flash-close">
+                    <i 
+                        class="fa fa-times"
+                        data-do="widget-flash-close" 
+                        data-on="click" 
+                    >
+                    </i>
+                </div>
+            </div>
+            <div class="flash-message">
+                <p>{{flash.message}}</p>
+            </div>
+        </div>
+    {{/if}}
+    </body>
+    </html>
+{{/unless}}

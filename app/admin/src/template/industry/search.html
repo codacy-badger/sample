@@ -1,0 +1,68 @@
+<h3>{{title}}</h3>
+
+<div class="clearfix">
+    <!-- START: SEARCH FORM -->
+    <form class="pull-right search form-inline" method="get">
+        <div class="form-group">
+            <input name="q[]" placeholder="Search" type="text"
+            value="{{q.0}}" class="form-control" />
+        </div>
+        <button class="btn"><i class="fa fa-search"></i></button>
+    </form>
+    <!-- END: SEARCH FORM -->
+
+    <span>
+        <a class="btn btn-success" href="/control/industry/create">
+            <i class="fa fa-plus"></i>
+            Create New Industry
+        </a>
+    </span>
+</div>
+<!-- START: BULK FORM -->
+<form method="post" class="form-inline bulk-form pad-vertical">
+    <div class="panel panel-default clear">
+        <div class="panel-body" >
+            {{#if industries}}
+                <div class="table-overflow">
+                    <!-- START: TABLE -->
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Actions</th>
+                                <th>Industry Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each industries}}
+                            <tr data-id="{{post_id}}">
+                                <td nowrap="">
+                                    <a title="Edit" href="/control/industry/update/{{@index}}?redirect_uri={{../redirect_uri}}">
+                                    <i class="fa fa-edit"></i></a>
+                                    &nbsp;
+                                    <a title="Remove" href="/control/industry/remove/{{@index}}?redirect_uri={{../redirect_uri}}"
+                                    class="text-danger remove"><i class="fa fa-times"></i></a>
+                                    &nbsp;
+                                </td>
+                                <td>
+                                    {{this}}
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    <!-- END: TABLE -->
+                </div>
+            {{else}}
+                <!-- START: NO RESULTS -->
+                <div class="well no-results">No Results Found</div>
+                <!-- END: NO RESULTS -->
+            {{/if}}
+        </div>
+    </div>
+
+    <ul class="pagination">
+        {{#pager total range}}
+        <li{{#if active}} class="active"{{/if}}><a href="?{{href}}">{{page}}</a></li>
+        {{/pager}}
+    </ul>
+</form>

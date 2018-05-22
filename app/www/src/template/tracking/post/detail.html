@@ -1,0 +1,562 @@
+<div class="container">
+    {{> profile_alert}}
+    <!-- START: Profile Panel -->
+    <div class="row profile-panel">
+        <!-- START: Sidebar Left -->
+        <aside class="col-md-3 left">
+            {{> profile_menu active="tracking"}}
+        </aside>
+        <!-- END: Sidebar Left -->
+        <!-- START: Content Left -->
+        <div class="col-md-9 right">
+            <!-- START: Head -->
+            <div class="head row">
+                <div class="col-md-6 text-left">
+                    <h1>{{_ 'Applicant Tracking System'}}</h1>
+                </div>
+                <div class="col-md-6 text-right">
+                    <!-- START: Search -->
+                    <form class="form-inline" method="get">
+                        <div class="input-group">
+                            <input
+                                class="form-control"
+                                name="q"
+                                placeholder="Search"
+                                type="text"
+                                value="{{q}}"
+                            />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                    <!-- END: Search -->
+                </div>
+            </div>
+            <!-- END: Head -->
+            <!-- START: Main Content -->
+            <div class="content">
+                <div class="top">
+                    <a
+                        class="active"
+                        href="/profile/tracking/post/search"
+                        title="{{_ 'Job Posts'}}"
+                    >
+                        {{_ 'Job Posts'}}
+                    </a>
+                    <a
+                        href="/profile/tracking/application/poster/search"
+                        title="{{_ 'Application Forms'}}"
+                    >
+                        {{_ 'Application Forms'}}
+                    </a>
+                </div>
+                <!-- START: Detail -->
+                <div class="detail clearfix">
+                    <div class="detail-wrapper">
+                        <!-- START: Breadcrumbs -->
+                        <div class="breadcrumbs">
+                            <ul>
+                                <li>
+                                    <a href="/profile/tracking/post/search">
+                                        {{_ 'Job Post Listing'}}
+                                    </a>
+                                </li>
+                                <li>
+                                    > {{detail.post_position}}
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- END: Breadcrumbs -->
+                        <h2>{{detail.post_position}}</h2>
+                        <div class="description">
+                            {{#if detail.post_detail}}
+                                {{_ 'Job Description'}}
+                                <p>
+                                    {{{detail.post_detail}}}
+                                </p>
+                            {{/if}}
+                        </div>
+                        <!-- START: Action -->
+                        <div class="action">
+                            <!-- START: Remove -->
+                            <div class="remove">
+                                {{> partial_applicantactions
+                                    delete_custom="true"
+                                    action_delete="bulk-remove-applicant"
+                                    action_label="bulk-attach-label"
+                                    label_custom=label.label_custom
+                                }}
+
+                                <a
+                                    class="btn btn-default"
+                                    data-do="confirm-content"
+                                    data-title="Create a New Label"
+                                    data-action="Create"
+                                    data-type="create-label"
+                                    data-on="click"
+                                    href="javascript:void(0);"
+                                >
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                            <!-- END: Remove -->
+                            <!-- START: Filter -->
+                            <div class="filter">
+                                <div class="btn-group btn-filter">
+                                    <button
+                                        aria-expanded="false"
+                                        aria-haspopup="true"
+                                        class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                        type="button"
+                                    >
+                                        {{#if filter.applicant_status}}
+                                            {{filter.applicant_status}}
+                                        {{else}}
+                                            Filter
+                                        {{/if}}
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu filter-menu">
+                                        <li>
+                                            <a
+                                                href="?"
+                                                title="{{_ 'All'}}"
+                                            >
+                                                {{_ 'All'}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                href="?filter[applicant_status]={{_ 'Scheduled'}}"
+                                                title="{{_ 'Scheduled'}}"
+
+                                            >
+                                                {{_ 'Scheduled'}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                href="?filter[applicant_status]={{_ 'Interviewed'}}"
+                                                title="{{_ 'Interviewed'}}"
+                                            >
+                                                {{_ 'Interviewed'}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                href="?filter[applicant_status]={{_ 'Passed'}}"
+                                                title="{{_ 'Passed'}}"
+                                            >
+                                                {{_ 'Passed'}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                href="?filter[applicant_status]={{_ 'Offer Letter'}}"
+                                                title="{{_ 'Offer Letter'}}"
+                                            >
+                                                {{_ 'Offer Letter'}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                href="?filter[applicant_status]={{_ 'Started'}}"
+                                                title="{{_ 'Started'}}"
+                                            >
+                                                {{_ 'Started'}}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                href="?filter[applicant_status]={{_ 'Illegible'}}"
+                                                title="{{_ 'Illegible'}}"
+                                            >
+                                                {{_ 'Illegible'}}
+                                            </a>
+                                        </li>
+                                        {{#each label.label_custom}}
+                                            <li>
+                                                <a
+                                                    href="?filter[applicant_status]={{this}}"
+                                                    title="{{this}}"
+                                                >
+                                                    {{this}}
+                                                </a>
+                                            </li>
+                                        {{/each}}
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- END: Filter -->
+                        </div>
+                        <!-- END: Action -->
+                        <!-- START: Detail Head -->
+                        <div class="detail-head">
+                            <div class="detail checkbox">
+                                <input
+                                    id="ats_applicant_bulk"
+                                    class="checkbox-all"
+                                    name="post_notify[]"
+                                    type="checkbox"
+                                    value=""
+                                />
+                                <label for="ats_applicant_bulk">&nbsp;</label>
+                            </div>
+                            <div class="detail-applicant">
+                                    {{_ 'Applicant'}}
+                                <div class="sort">
+                                    <a
+                                        href="?order[profile_name]=ASC&q={{q}}"
+                                        title="Sort Ascending"
+                                    >
+                                        <i class="fa fa-caret-up"></i>
+                                    </a>
+                                    <a
+                                        href="?order[profile_name]=DESC&q={{q}}"
+                                        title="Sort Descending"
+                                    >
+                                        <i class="fa fa-caret-down"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="detail-date">
+                                {{_ 'Date'}}
+                                <div class="sort">
+                                    <a
+                                        href="?order[applicant_created]=ASC&q={{q}}"
+                                        title="Sort Ascending"
+                                    >
+                                        <i class="fa fa-caret-up"></i>
+                                    </a>
+                                    <a
+                                        href="?order[applicant_created]=DESC&q={{q}}"
+                                        title="Sort Descending"
+                                    >
+                                        <i class="fa fa-caret-down"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="detail-resume">
+                                {{_ 'Resume'}}
+                            </div>
+                            <div class="detail-form">
+                                {{_ 'Form'}}
+                            </div>
+                            <div class="detail-label">
+                                {{_ 'Label'}}
+                            </div>
+                            <div class="detail-action">
+                                {{_ 'Action'}}
+                            </div>
+                        </div>
+                        <!-- END: Detail Head -->
+                        <!-- START: Detail List -->
+                        {{#if rows}}
+                            {{#each rows}}
+                            <div class="detail-list" id="applicant-detail-list-{{profile_id}}">
+                                <div class="panel" id="post-{{profile_id}}">
+                                    <div class="panel-heading" role="tab" id="headingOne">
+                                        <div class="list checkbox">
+                                            <input
+                                                id="post-checkbox-{{applicant_id}}"
+                                                name="applicant_ids[]"
+                                                type="checkbox"
+                                                data-applicant-id="{{applicant_id}}"
+                                                data-post-id="{{applicant_id}}"
+                                                value="{{applicant_id}}"
+                                            />
+                                            {{#if answers}}
+                                                <label for="post-checkbox-{{applicant_id}}">&nbsp;</label>
+                                            {{/if}}
+                                        </div>
+                                        <div class="list-applicant">
+                                            <a
+                                                aria-controls="collapse-positions"
+                                                aria-expanded="true"
+                                                class="collapsed"
+                                                data-parent="#related-accordion-{{profile_id}}"
+                                                data-toggle="collapse"
+                                                href="#post-accordion-{{profile_id}}"
+                                                role="button"
+                                                title=""
+                                            >
+                                                {{profile_name}}
+                                            </a>
+                                        </div>
+
+                                        <!-- START : Application Created -->
+                                        <div class="list-date">
+                                            {{#if applicant_created}}
+                                                {{date applicant_created 'M d, Y'}}
+                                            {{/if}}
+                                        </div>
+                                        <!-- END : Application Created -->
+
+                                        <!-- START : Download Resume -->
+                                        <div class="list-resume">
+                                            {{#if profile_resume}}
+                                                <a
+                                                    data-do="post-download"
+                                                    data-id="{{profile_resume.resume_id}}"
+                                                    data-on="click"
+                                                    data-type="resume"
+                                                    href="javascript:void(0)"
+                                                >
+                                                    <span
+                                                        data-do="tooltip"
+                                                        class="resume"
+                                                        title="{{_ 'This represents the number of times this resume has been downloaded'}}"
+                                                    >
+                                                        {{#if profile_resume.resume_download_count}}
+                                                            {{profile_resume.resume_download_count}}
+                                                        {{/if}}
+                                                    </span>
+                                                    <span
+                                                        data-do="tooltip"
+                                                        data-html="true"
+                                                        title="
+                                                        {{_ 'Downloading a resume costs 10 credits' ~}}
+                                                        <hr style='background-color: black;
+                                                        height: 1px;
+                                                        border: 0;
+                                                        margin: 10px 0px 10px 0px;
+                                                        width: 100%;'>
+                                                        {{_ 'Resume - Last Updated' ~}}
+                                                        <br>
+                                                        <i>{{date_format profile_information.information_updated 'M d, Y' ~}}<i>
+                                                        ">
+                                                        <i class="fa fa-download" aria-hidden="true"></i>
+                                                        {{_ 'Resume'}}
+                                                    </span>
+                                                </a>
+                                            {{else}}
+                                                {{#when profile_information.information_progress '>=' '40'}}
+                                                    <a
+                                                        data-do="information-resume"
+                                                        data-information-id="{{profile_information.information_id}}"
+                                                        data-on="click"
+                                                        data-profile-id="{{profile_information.profile_id}}"
+                                                        href="javascript:void(0)"
+                                                    >
+                                                        <span
+                                                            data-do="tooltip"
+                                                            class="resume"
+                                                            title="{{_ 'This represents the number of times this resume has been downloaded'}}"
+                                                        >
+                                                            {{#if profile_information.information_download_count}}
+                                                                {{profile_information.information_download_count}}
+                                                            {{/if}}
+                                                        </span>
+                                                        <span
+                                                            data-do="tooltip"
+                                                            data-html="true"
+                                                            title="
+                                                            {{_ 'Downloading a resume costs 10 credits' ~}}
+                                                            <hr style='background-color: black;
+                                                            height: 1px;
+                                                            border: 0;
+                                                            margin: 10px 0px 10px 0px;
+                                                            width: 100%;'>
+                                                            {{_ 'Resume - Last Updated' ~}}
+                                                            <br>
+                                                            <i>{{date_format profile_information.information_updated 'M d, Y' ~}}<i>
+                                                            ">
+                                                            <i class="fa fa-download" aria-hidden="true"></i>
+                                                            {{_ 'Resume'}}
+                                                        </span>
+                                                    </a>
+                                                {{/when}}
+                                            {{/if}}
+                                        </div>
+                                        <!-- END : Download Resume -->
+
+                                        <!-- START : View Form -->
+                                        <div class="list-form">
+                                            {{#if answers}}
+                                                {{#when answers '==' '1'}}
+                                                    <a
+                                                        href="/profile/tracking/post/form/{{post_id}}/{{profile_id}}"
+                                                        title="Download"
+                                                    >
+                                                        {{_ 'View Form'}}
+                                                    </a>
+                                                {{else}}
+                                                    Pending - No Answer
+                                                {{/when}}
+                                            {{else}}
+                                                Pending - Not Informed
+                                            {{/if}}
+                                        </div>
+                                        <!-- START : View Form -->
+
+                                        <div class="list-label">
+                                            {{#each applicant_status}}
+                                            <span class="label label-default" data-label="{{this}}">
+                                                <span title="{{this}}">{{this}}</span>
+                                                <a
+                                                    class="applicant-remove-label-{{../applicant_id}}"
+                                                    data-action="Remove"
+                                                    data-do="confirm-content"
+                                                    data-id="{{../applicant_id}}"
+                                                    data-label-name="{{this}}"
+                                                    data-message="{{_ 'Are you sure want to remove this label?'}}"
+                                                    data-on="click"
+                                                    data-title="{{_ 'Remove Label'}}"
+                                                    data-type="remove-applicant-label"
+                                                    href="javascript:void(0)"
+                                                    title="Remove Label"
+                                                >
+                                                    x
+                                                </a>
+                                            </span>
+                                            {{/each}}
+                                        </div>
+                                        <div class="list-action">
+                                            <!-- START : airplane tooltip -->
+                                            <div
+                                                class="airplane-tooltip"
+                                                data-profile-id="{{profile_id}}"
+                                            >
+                                                {{_ 'Notify Applicant'}}
+                                            </div>
+                                            <!-- END : airplane tooltip -->
+                                            {{> partial_applicantactions
+                                                delete_custom="false"
+                                                applicant_id=applicant_id
+                                                action_delete="remove-applicant"
+                                                action_label="attach-label"
+                                                label_custom=label_custom
+                                            }}
+                                            <!-- START : Notify Button -->
+                                            {{#unless answers}}
+                                                <a
+                                                    class="btn btn-default btn-notify"
+                                                    data-form-id="{{../form.form_id}}"
+                                                    data-post-id="{{post_id}}"
+                                                    data-profile-id="{{profile_id}}"
+                                                    data-do="ats-inform-single-seeker"
+                                                    data-on="click"
+                                                    type="button"
+                                                >
+                                                    <img
+                                                        class="airplane-image";
+                                                        src="/images/notify-orange.png"
+                                                        data-profile-id="{{profile_id}}"
+                                                    >
+                                                </a>
+                                            {{else}}
+                                                {{#when answers '!=' '2'}}
+                                                    <a
+                                                        class="btn btn-default btn-notify"
+                                                        data-form-id="{{../form.form_id}}"
+                                                        data-post-id="{{post_id}}"
+                                                        data-profile-id="{{profile_id}}"
+                                                        type="button"
+                                                    >
+                                                        <img
+                                                            class="airplane-image-grey";
+                                                            src="/images/notify-grey.png"
+                                                            data-profile-id="{{profile_id}}"
+                                                        >
+                                                    </a>
+                                                {{else}}
+                                                    <a
+                                                        class="btn btn-default btn-notify"
+                                                        data-form-id="{{../form.form_id}}"
+                                                        data-post-id="{{post_id}}"
+                                                        data-profile-id="{{profile_id}}"
+                                                        data-do="ats-inform-single-seeker"
+                                                        data-on="click"
+                                                        type="button"
+                                                    >
+                                                        <img
+                                                            class="airplane-image";
+                                                            src="/images/notify-orange.png"
+                                                            data-profile-id="{{profile_id}}"
+                                                        >
+                                                    </a>
+                                                {{/when}}
+                                            {{/unless}}
+
+                                            <!-- END : Notify Button -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    aria-labelledby="headingOne"
+                                    class="panel-collapse collapse"
+                                    id="post-accordion-{{profile_id}}"
+                                    role="tabpanel"
+                                >
+                                    <div class="panel-body">
+                                        <div class="panel-left">
+                                            {{#if profile_email}}
+                                                <div>
+                                                    <i class="fa fa-envelope fa-fw"></i> {{profile_email}}
+                                                </div>
+                                            {{/if}}
+                                            {{#if profile_phone}}
+                                                <div>
+                                                    <i class="fa fa-phone fa-fw"></i> {{profile_phone}}
+                                                </div>
+                                            {{/if}}
+                                        </div>
+                                        <div class="panel-right">
+                                            {{#if profile_address}}
+                                                <div>
+                                                    <i class="fa fa-map-marker fa-fw"></i>
+                                                    {{#if profile_address_street}}
+                                                        {{profile_address_street}},
+                                                    {{/if}}
+                                                    {{#if profile_address_city}}
+                                                        {{profile_address_city}},
+                                                    {{/if}}
+                                                    {{#if profile_address_state}}
+                                                        {{profile_address_state}},
+                                                    {{/if}}
+                                                    {{#if profile_address_country}}
+                                                        {{profile_address_country}}
+                                                    {{/if}}
+                                                    {{#if profile_address_postal}}
+                                                        {{profile_address_postal}}
+                                                    {{/if}}
+                                                </div>
+                                            {{/if}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{/each}}
+                            <!-- END: Detail List -->
+                            <!-- START: Pagination -->
+                            <ul class="pagination">
+                                {{#pager total range}}
+                                    <li class="{{#if active}}active{{/if}}">
+                                        <a href="?{{href}}">{{page}}</a>
+                                    </li>
+                                {{/pager}}
+                            </ul>
+                            <!-- END: Pagination -->
+                        {{else}}
+                        <!-- START: No Results -->
+                        <div class="no-results">
+                            {{_ 'No Results Found'}}
+                        </div>
+                        <!-- End: No Results -->
+                        {{/if}}
+                    </div>
+                </div>
+                <!-- END: Detail -->
+            </div>
+            <!-- END: Main Content -->
+        </div>
+        <!-- END: Content Left -->
+    </div>
+    <!-- END: Profile Panel -->
+</div>
+
+{{> partial/form_confirmation}}
+{{> partial_elementclone}}

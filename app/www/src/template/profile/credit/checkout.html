@@ -1,0 +1,422 @@
+<script type="text/javascript"> //<![CDATA[
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
+
+<div class="container">
+    <div class="row profile-panel">
+        <aside class="col-sm-3 left">
+            {{> profile_menu active="checkout"}}
+        </aside>
+        <form data-do="credit-calculator" method="post">
+            <div class="col-sm-9 right">
+                <div class="checkout-body">
+                    <h4>Buy Credits</h4>
+                    <p class="page-description">Credits are used to avail of <a href="/services" target="_blank">different services</a> of Jobayan. Credits are a cost effective way of getting ahead of the competition on Jobayan. You can purchase as low as ₱100 worth of credits and credits will last forever. Find out more information on credits and services <a href="/services" target="_blank">here</a>. For payments via <strong>checks and bank deposits</strong>, or specialized services please contact us at <a href="mailto:info@jobayan.com">info@jobayan.com</a>.</p>
+                    <div class="page-description text-center">
+                        <h4>Buy Credits</h4>
+                        <div class="form-group{{#if errors.amount}} has-error{{/if}}">
+                            <div class="inline buy-credit">
+                                <div class="input-group">
+                                    <div class="input-group-addon">₱</div>
+                                    <input type="text" class="form-control" name="amount" placeholder="Enter amount" value="{{item.amount}}">
+                                </div>
+                            </div>
+                            {{#if errors.amount}}
+                                <span class="help-text text-danger">{{errors.amount}}</span>
+                            {{/if}}
+                            <em class="help-text">** 1:1 Peso to Credit</em>
+                            <em class="help-text">** Minimum ₱100</em>
+                        </div>
+                    </div>
+                    <div class="cta">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <span class="pull-right">
+                                    <i class="fa fa-lock"></i>
+                                </span>
+                                <span class="title">Secured Payment Form</span>
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-md-7">
+                                    <div
+                                        class="credit-card-container"
+                                        data-do="payment-method"
+                                        data-on="click"
+                                    >
+                                        <!-- START: Payment Method - Credit Card -->
+                                        <div
+                                            aria-expanded="false"
+                                            class="credit-card-button payment-button collapsed"
+                                            data-do="show-collapse"
+                                            data-on="click"
+                                            data-parent="#accordion"
+                                            data-toggle="collapse"
+                                            href="#credit-card"
+                                            role="button"
+                                            id="pay-via-credit-card-button"
+                                        >
+                                            <span>
+                                                <div class="credit-card-button-title payment-title">
+                                                    Pay via Credit Cart
+                                                </div>
+                                                <img
+                                                    src="/images/icon_credit_card.png"
+                                                    alt="Credit Card Icon"
+                                                >
+                                            </span>
+                                        </div>
+                                        <div
+                                            class="credit-card-collapse collapse"
+                                            id="credit-card"
+                                            role="tabpanel"
+                                        >
+                                            <!-- START: Card Details Title -->
+                                            <div class="form-group{{#if errors.number}} has-error{{/if}}">
+                                                <span class="payment-options">
+                                                    <h3>Enter Card Details</h3>
+                                                    <i class="payment payment-visa"></i>
+                                                    <i class="payment payment-mastercard"></i>
+                                                    <i class="payment payment-amex"></i>
+                                                    <a href="https://paymaya.com/" target="_blank">
+                                                        <i class="payment payment-paymaya"></i>
+                                                    </a>
+                                                </span>
+                                            </div>
+                                            <!-- END: Card Details Title -->
+                                            <!-- START: Card Name -->
+                                            <div class="form-group{{#if errors.exp}} has-error{{/if}}{{#if errors.name}} has-error{{/if}}">
+                                                <div class="input-group input-group-right">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                                    </div>
+                                                    <input type="text"
+                                                        class="form-control card-full"
+                                                        name="name"
+                                                        placeholder="Card Name"
+                                                        value="{{item.name}}" />
+                                                </div>
+                                                {{#if errors.name}}
+                                                <span class="help-text text-danger">{{errors.name}}</span>
+                                                {{/if}}
+                                            </div>
+                                            <!-- END: Card Name -->
+                                            <!-- START: Card Number -->
+                                            <div class="form-group{{#if errors.exp}} has-error{{/if}}{{#if errors.cvc}} has-error{{/if}} card">
+                                                <div data-do="payment-options" class="input-group input-group-right">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-credit-card"></i>
+                                                    </div>
+                                                    <input type="text"
+                                                        class="form-control card-full"
+                                                        name="number"
+                                                        placeholder="Card Number"
+                                                        value="{{item.number}}" />
+                                                </div>
+                                                {{#if errors.number}}
+                                                <span class="help-text text-danger">{{errors.number}}</span>
+                                                {{/if}}
+                                            </div>
+                                            <!-- END: Card Number -->
+                                            <div class="form-group{{#if errors.exp}} has-error{{/if}}{{#if errors.cvc}} has-error{{/if}} card clearfix">
+                                                <div class="inline card">
+                                                    <!-- START: Card Detail Month -->
+                                                    <div class="input-group card expiry">
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-calendar-o"></i>
+                                                        </div>
+                                                        <input type="text"
+                                                            class="form-control"
+                                                            name="exp_month"
+                                                            placeholder="MM"
+                                                            value="{{item.exp_month}}" />
+                                                    </div>
+                                                    <!-- END: Card Detail Month -->
+                                                    <!-- START: Card Detail Year -->
+                                                    <div class="card expiry">
+                                                        <input type="text"
+                                                            class="form-control"
+                                                            name="exp_year"
+                                                            placeholder="YYYY"
+                                                            value="{{item.exp_year}}" />
+                                                    </div>
+                                                    {{#if errors.exp}}
+                                                        <span class="help-text text-danger">{{errors.exp}}</span>
+                                                    {{/if}}
+                                                    <!-- END: Card Detail Year -->
+                                                </div>
+                                                <!-- START: CVV -->
+                                                <div class="inline card">
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-lock"></i>
+                                                        </div>
+                                                        <input type="text"
+                                                            class="form-control"
+                                                            name="cvc"
+                                                            placeholder="CVC"
+                                                            value="{{item.cvc}}" />
+                                                    </div>
+                                                    {{#if errors.cvc}}
+                                                        <span class="help-text text-danger">{{errors.cvc}}</span>
+                                                    {{/if}}
+                                                </div>
+                                                <!-- END: CVV -->
+                                            </div>
+                                            <hr />
+                                            <!-- START: CC Badge -->
+                                            <div class="form-group clearfix badges text-center">
+                                                <a href="https://magpie.im/" target="_blank">
+                                                    <img src="/images/badge/badge-magpie.png" class="badge-2"/>
+                                                </a>
+                                                <a href="https://www.cloudflare.com/security/" target="_blank">
+                                                    <img src="/images/badge/badge-cloudflare.png" class="badge-2"/>
+                                                </a>
+                                            </div>
+                                            <!-- END: CC Badge -->
+                                            <!-- START: Buy credits button -->
+                                            <div class="text-center">
+                                                <a
+                                                    class="btn btn-default"
+                                                    data-do="checkout-modal"
+                                                    data-on="click"
+                                                    id="checkout-buy-credits-button"
+                                                >
+                                                    BUY CREDITS
+                                                </a>
+                                            </div>
+                                            <!-- END: Buy credits button -->
+                                        </div>
+                                    </div>
+                                    <!-- END: Payment Method - Credit Card -->
+                                    <!-- START: Payment Method - Bank Deposit -->
+                                    <div
+                                        class="bank-deposit-container"
+                                        data-do="payment-method"
+                                        data-on="click"
+                                    >
+                                        <div
+                                            aria-expanded="false"
+                                            class="bank-deposit-button payment-button collapsed"
+                                            data-do="show-collapse"
+                                            data-on="click"
+                                            data-parent="#accordion"
+                                            data-toggle="collapse"
+                                            href="#bank-deposit"
+                                            role="button"
+                                            id="pay-via-bank-deposit-button"
+                                        >
+                                            <span>
+                                                <div class="bank-deposit-button-title payment-title">
+                                                    Pay via Bank Deposit
+                                                </div>
+                                                <img
+                                                    src="/images/icon_credit_money.png"
+                                                    alt="Bank Deposit Icon"
+                                                >
+                                            </span>
+                                        </div>
+                                        <div
+                                            class="credit-card-collapse collapse"
+                                            id="bank-deposit"
+                                            role="tabpanel"
+                                        >
+                                            <div class="bank-details">
+                                                <b>{{_ "Bank Details"}}</b>
+                                            </div>
+                                            <div class="account-name">
+                                                <span class="bank-deposit-title">
+                                                    Account Name:
+                                                </span>
+                                                <span class="bank-deposit-description">
+                                                    <b>Sterling Openovate Corporation</b>
+                                                </span>
+                                            </div>
+                                            <div class="bank-name">
+                                                <span class="bank-deposit-title">
+                                                    Bank Name:
+                                                </span>
+                                                <span class="bank-deposit-description">
+                                                    <b>Metropolitan Bank & Trust Company</b>
+                                                </span>
+                                            </div>
+                                            <div class="account-no">
+                                                <span class="bank-deposit-title">
+                                                    Account No:
+                                                </span>
+                                                <span class="bank-deposit-description">
+                                                    <b>#233-7-233551429(PESO ACCOUNT)</b>
+                                                </span>
+                                            </div>
+                                            <div class="bank-branch">
+                                                <span class="bank-deposit-title">
+                                                    Bank Branch:
+                                                </span>
+                                                <span class="bank-deposit-description">
+                                                    <b>Kayamanan-C</b>
+                                                </span>
+                                            </div>
+                                            <div class="bank-deposit-notes">
+                                                <div class="important-notes">
+                                                    {{_ "Important Note:"}}
+                                                </div>
+                                                <span>Please send a copy of <b>deposit slip</b> to <b><a href="mailto:info@acme.com">business@jobayan.com</a></b> with your <b>company name</b> and <b>credit amount</b> you want to purchase as the email subject.</span>
+                                                <br />
+                                                <br />
+                                                e.g.<b>Company- 100</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- END: Payment Method - Bank Deposit -->
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="summary">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Payment Details</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="total">Credits <br>
+                                                        <i class="fa fa-circle" aria-hidden="true"></i>
+                                                        <span>{{#if item.amount}}{{number item.amount}}{{else}}1,000{{/if}}</span> Credits
+                                                    </td>
+                                                    <td class="total"><br>₱<span>{{#if item.amount}}{{number item.amount}}{{else}}1,000{{/if}}</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="account"><strong>Total Amount</strong></td>
+                                                    <td class="total">₱<span>{{#if item.amount}}{{number item.amount}}{{else}}1,000{{/if}}</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <input type="hidden" name="csrf" value="{{csrf}}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="checkout_modal" class="checkout-modal modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h2>BUY CREDITS</h2>
+                            <span>Kindly review details below</span>
+                            <hr>
+                        </div>
+                        <div class="modal-body clearfix">
+                            <div class="col-md-5">
+                                <div class="card-details">
+                                    <h6>Card Details</h6>
+                                    <div class="inline">
+                                        <div class="label">Name</div>
+                                        <div class="data" id="card-name"></div>
+                                    </div>
+                                    <div class="inline">
+                                        <div class="label">Card Number</div>
+                                        <div class="data" id="card-number"></div>
+                                    </div>
+                                    <div class="inline">
+                                        <div class="inline pull-left">
+                                            <div class="label">Expiration</div>
+                                            <div class="data"><div id="exp-month"></div> / <div id="exp-year"></div></div>
+                                        </div>
+                                        <div class="inline pull-right">
+                                            <div class="label">CVC</div>
+                                            <div class="data" id="card-cvc"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <hr>
+                                <div class="contact-info">
+                                    <h6>Contact Information</h6>
+                                    <div class="inline">
+                                        <div class="label">Company</div>
+                                        <div class="data">{{#session 'me'}}{{profile_company}}{{/session}}</div>
+                                    </div>
+                                    <div class="inline">
+                                        <div class="label">Contact</div>
+                                        <div class="data">
+                                            {{#session 'me'}}
+                                                {{#if profile_billing_name}}
+                                                    {{profile_billing_name}}
+                                                {{else}}
+                                                    {{profile_name}}
+                                                {{/if}}
+                                            {{/session}}
+                                        </div>
+                                    </div>
+                                    <div class="inline">
+                                        <div class="label">Email</div>
+                                        <div class="data">{{#session 'me'}}{{profile_email}}{{/session}}</div>
+                                    </div>
+                                    {{#if profile_address}}
+                                    <div class="inline">
+                                        <div class="label">Address</div>
+                                        <div class="data">
+                                            {{#session 'me'}}
+                                                {{#if profile_address_street}}
+                                                    {{profile_address_street}},
+                                                {{/if}}
+                                                {{#if profile_address_city}}
+                                                    {{profile_address_city}},
+                                                {{/if}}
+                                                {{#if profile_address_state}}
+                                                    {{profile_address_state}},
+                                                {{/if}}
+                                                {{#if profile_address_country}}
+                                                    {{profile_address_country}}
+                                                {{/if}}
+                                                {{#if profile_address_postal}}
+                                                    {{profile_address_postal}}
+                                                {{/if}}
+                                            {{/session}}
+                                        </div>
+                                    </div>
+                                    {{/if}}
+                                    <div class="inline">
+                                        <a href="/profile/transaction/search?redirect_uri=/profile/credit/checkout">change information <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="summary">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Payment Details</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="total">Credits <br>
+                                                    <span>{{#if item.amount}}{{number item.amount}}{{else}}1,000{{/if}}</span> Credits
+                                                </td>
+                                                <td class="total"><br>₱<span>{{#if item.amount}}{{number item.amount}}{{else}}1,000{{/if}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="account"><strong>Total Amount</strong></td>
+                                                <td class="total">₱<span>{{#if item.amount}}{{number item.amount}}{{else}}1,000{{/if}}</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <hr>
+                            <button type="submit" class="btn btn-default" id="confirm-checkout-button">CONFIRM</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

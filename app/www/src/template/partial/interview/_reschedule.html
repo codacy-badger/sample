@@ -1,0 +1,129 @@
+<!-- START: Confirmation Modal -->
+<div
+    class="modal fade confirmation-form interview-reschedule"
+    id="interview-reschedule"
+    role="dialog"
+>
+    <!-- START: Modal Dialog -->
+    <div class="modal-dialog">
+        <!-- START: Modal Content -->
+        <div class="modal-content">
+            <!-- START: Modal Header -->
+            <div class="modal-header">
+                <!-- START: Modal Title -->
+                <div class="modal-title">
+                    {{_ 'Reschedule Interview'}}
+                </div>
+                <!-- END: Modal Title -->
+            </div>
+            <!-- END: Modal Header -->
+            <!-- START: Form -->
+            <form class="add-form form-horizontal modal-form">
+                <!-- START: Modal Body -->
+                <div class="modal-body">
+                    <!-- START : Interview Schedules -->
+                    <div class="interview-schedules dropdown-list">
+                        <input
+                            class="form-control"
+                            type="hidden"
+                            name="interview_setting_id"
+                        >
+
+                        <span class="sub-label">{{_ 'Date and Time'}}</span>
+
+                        <!-- START : Selected Date -->
+                        <div
+                            aria-expanded="false"
+                            aria-haspopup="true"
+                            class="clearfix dropdown-toggle list-selector"
+                            data-toggle="dropdown"
+                        >
+                            <input
+                                class="form-control"
+                                type="hidden"
+                                name="interview_setting_id"
+                                {{#if selected}}
+                                    value={{selected.interview_setting_id}}
+                                {{/if}}
+                            >
+
+                            <!-- START : Selected Interview Setting -->
+                            <div class="clearfix setting-selected pull-left">
+                                <!-- START : Interview Setting Date -->
+                                <div class="interview-setting setting-date pull-left">
+                                    <input
+                                        name="slots_taken"
+                                        type="hidden"
+                                        value={{slots_taken}}
+                                    >
+
+                                    <input
+                                        name="max_slots"
+                                        type="hidden"
+                                        value="{{interview_setting_slots}}"
+                                    >
+
+                                    <span class="slots"></span>
+                                    <span class="date"></span>
+                                </div>
+                                <!-- END : Interview Setting Date -->
+
+                                <!-- START : Interview Setting Time -->
+                                <div class="interview-setting setting-time pull-right">
+                                    <span>
+                                    </span>
+                                </div>
+                                <!-- END : Interview Setting Time -->
+                            </div>
+                            <!-- END : Selected Interview Setting -->
+
+                            <div class="setting-dropdown pull-right">
+                                <a href="javascript:void(0);">
+                                    <i class="fa fa-caret-down"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- END : Selected Date -->
+
+                        <ul class="dropdown-menu interview-setting-list">
+                        </ul>
+                    </div>
+                    <!-- START : Interview Schedules -->
+
+                    <div class="message">
+                        <span>{{_ 'Are you sure you want to reschedule the interview for this applicant?'}}</span>
+                    </div>
+                </div>
+                <!-- END: Modal Body -->
+
+                <!-- START : Modal Footer -->
+                <div class="modal-footer">
+                    <!-- START : Modal Submit -->
+                    <button
+                        class="btn btn-default btn-reschedule"
+                        data-do="reschedule-interview"
+                        data-on="click"
+                    >
+                        {{_ 'Confirm'}}
+                    </button>
+                    <!-- END : Modal Submit -->
+                    
+                    <!-- START : Modal Dismiss -->
+                    <button
+                        class="btn btn-primary"
+                        data-dismiss="modal"
+                        type="button"
+                    >
+                        {{_ 'Cancel'}}
+                    </button>
+                    <!-- END : Modal Dismiss -->
+                </div>
+                <!-- END : Modal Footer -->
+            </form>
+            <!-- END : Form -->
+        </div>
+        <!-- END: Modal Content -->
+    </div>
+    <!-- END: Modal Dialog -->
+</div>
+<!-- END: Confirmation Modal -->

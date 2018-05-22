@@ -1,0 +1,206 @@
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+<div style="background: #f6f6f6; margin: 20px auto; padding: 0; width: 600px;">
+    <!-- Head -->
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" 
+        style="border-collapse: collapse; 
+            background: #7cd4e8;
+            font-family: 'Montserrat', sans-serif; 
+            text-align: center;">
+        <tr>
+            <td>
+                <div style="margin: 30px 0; text-align: center;">
+                    <a  href="{{host}}" target="_blank">  
+                        <img src="{{host}}/images/logo-white-orange.png" />
+                    </a>
+                </div>
+                <div>
+                    <h2 style="color: #ffffff; 
+                        font-weight: 400;
+                        font-size: 18px;
+                        margin-bottom: 0;">Hello, {{profile_company}}</h2>
+                    <div style="color: #ffffff; 
+                        font-size: 20px;
+                        font-weight: 800;
+                        letter-spacing: 0;">
+                        We found you a match!
+                    </div>
+                    <div style="background: #ffffff; 
+                        border-top-left-radius: 12px;
+                        border-top-right-radius: 12px;
+                        margin-top: 25px;
+                        margin-left: auto;
+                        margin-right: auto;
+                        width: 250px;">
+                        <img src="{{#if profile_image}}
+                            {{profile_image}}
+                            {{else}}
+                                {{default_avatar profile_id}}
+                            {{/if}}" 
+                            style="border: 3px solid #18bbd7;
+                            border-radius: 60px;
+                            height: 100px;
+                            margin-bottom: 10px;
+                            margin-top: 15px;
+                            padding: 5px;
+                            width: 100px;" />
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <!-- Body -->
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="500" 
+        style="background: #ffffff; 
+            border-collapse: collapse; 
+            color: #b0b3b4; 
+            font-family: 'Open Sans', sans-serif; 
+            text-align: center;">
+        <tr>
+            <td style="padding: 0 25px 50px 25px;">
+                <div style="background: #ffffff; 
+                    border-left: 2px solid #7cd4e8;
+                    border-bottom: 2px solid #7cd4e8;
+                    border-right: 2px solid #7cd4e8;
+                    border-bottom-left-radius: 12px;
+                    border-bottom-right-radius: 12px;
+                    font-size: 15px;
+                    margin-left: auto;
+                    margin-right: auto;
+                    padding: 10px 25px;
+                    width: 200px;
+                    color: #595959;">
+                    Hi I'm <strong style="color: #18bbd7;">{{post_name}}</strong>! 
+                    I'm a <strong style="color: #18bbd7;">{{post_position}}</strong> 
+                    Looking for a job in <strong style="color: #18bbd7;">{{post_location}}</strong>
+                </div>
+                <div style="font-size: 14px; margin-top: 30px; color:#595959; text-align: left;">
+                    If you would like to contact this job seeker, visit the link
+                     below and click the 
+                    <span style="color:#F06292;">
+                    <img 
+                        src="{{host}}/images/heart-icon.png"
+                        style="height: 15px; width: 15px;" 
+                    />
+                        interested
+                    </span> button found in the lower right corner of 
+                     the job posting.
+                </div>
+                 <div>
+                     <a href="{{link}}" target="_blank"
+                        style="background: #f99462;
+                        border-radius: 5px;
+                        color: #ffffff;
+                        display: inline-block;
+                        font-size: 15px;
+                        margin-bottom: 20px;
+                        margin-top: 15px;
+                        padding: 10px 60px;
+                        text-decoration: none;">VISIT PAGE
+                    </a>
+                </div>
+                <div style="font-size: 14px; text-align: left; color: #595959">
+                    The number next to the interested link is a counter to let you know how
+                    many other companies are interested in this candidate.
+                    <strong>Timing is of the essence!</strong> Candidates usually respond
+                    to companies in order of first contact. 
+                </div>
+                <div style="font-size: 15px; line-height: 20px; margin-top: 50px; text-align: left;">
+                    <strong style="color: #a0a3a4;">Best Regards,</strong>
+                    <div>The Jobayan Team</div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <!-- Footer -->
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="500" 
+        style="background: transparent; 
+            border-collapse: collapse; 
+            color: #b0b3b4; 
+            font-family: 'Montserrat', sans-serif; 
+            text-align: center;">
+        <tr>
+            <td style="padding: 25px;">
+                <a  href="{{host}}" target="_blank">  
+                    <img src="{{host}}/images/logo-gray.png" />
+                </a> 
+               <ul style="list-style-type: none;
+                    margin-bottom: 25px;
+                    margin-top: 20px;
+                    padding: 0;">
+                   <li style="border-radius: 25px;
+                            border: 2px solid #9fa098;
+                            color: #9fa098;
+                            display: inline-block;
+                            width:40px;
+                            height:40px;">
+                        <a href="https://www.facebook.com/jobayancom" target="_blank"
+                            style="display: grid;">
+                            <img src="{{host}}/images/email/fb.png" style="margin: 8px;"/>
+                        </a>
+                    </li>
+                    &nbsp;
+                    <li style="border-radius: 25px;
+                            border: 2px solid #9fa098;
+                            color: #9fa098;
+                            display: inline-block;
+                            width:40px;
+                            height:40px">
+                        <a href="https://twitter.com/jobayancom" target="_blank"
+                            style="display: grid;">
+                            <img src="{{host}}/images/email/twitter.png" style="margin: 8px;"/>
+                        </a>
+                    </li>
+                    &nbsp;
+                    <li style="border-radius: 25px;
+                            border: 2px solid #9fa098;
+                            color: #9fa098;
+                            display: inline-block;
+                            width:40px;
+                            height:40px">
+                        <a href="https://www.linkedin.com/company/13271950" target="_blank"
+                            style="display: grid;">
+                            <img src="{{host}}/images/email/linkedin.png" style="margin: 8px;"/>
+                        </a>
+                    </li>
+               </ul>
+               <p style="color: #b0b3b4;
+                        font-size: 14px;
+                        margin-bottom: 5px;
+                        margin-top: 5px;">
+                    Questions? Concerns? Email us at 
+                    <a href="mailto:info@jobayan.com" 
+                        style="color: #b0b3b4; 
+                            text-decoration:none">info@jobayan.com</a>
+                </p>
+                <p style="color: #b0b3b4;
+                        font-size: 14px;
+                        margin-bottom: 5px;
+                        margin-top: 5px;">
+                    Mandala Park, 1552 Shaw Blvd,
+                </p>
+                <p style="color: #b0b3b4;
+                        font-size: 14px;
+                        margin-bottom: 5px;
+                        margin-top: 5px;">
+                    Pleasant Hills Mandaluyong
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="border-top: 1px solid #b9bbbc; clear: both; padding: 20px 0 40px 0;">
+                <div style="font-size: 13px; float: left;">
+                    Copyright &copy; 2017 All Rights Reserved
+                </div>
+                <div style="font-size: 13px; float: right;">
+                    Jobayan PH &middot; 
+                    <a href="{{host}}/privacy" target="_blank" 
+                        style="color: #b0b3b4;
+                        text-decoration: none;">Our Privacy Policy</a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

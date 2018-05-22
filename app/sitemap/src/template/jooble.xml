@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jobs>
+    {{#each rows}}
+        <job>
+            <link><![CDATA[{{../root}}/Company-Hiring/{{post_slug}}]]></link>
+            <name><![CDATA[{{utf8_encode post_position}}]]></name>
+            <region><![CDATA[{{utf8_encode post_location}}]]></region>
+            <country><![CDATA[PH]]></country>
+            {{#if post_detail}}
+                <description><![CDATA[{{sanitize_string post_detail}}]]></description>
+            {{else}}
+                <description>
+                    <![CDATA[Hello! We are {{utf8_encode post_name}} from {{utf8_encode post_location}}
+                    and we are looking for a {{utf8_encode post_position}}]]>
+                </description>
+            {{/if}}
+            <pubdate><![CDATA[{{date_format post_created 'm.d.Y'}}]]></pubdate>
+            <updated><![CDATA[{{date_format post_updated 'm.d.Y'}}]]></updated>
+            {{#if post_salary_min}}
+                <salary><![CDATA[
+                    {{~#if post_salary_max~}}
+                        {{~#when post_salary_max '==' post_salary_min~}}
+                            {{post_salary_min}} ₱
+                        {{~else~}}
+                            {{post_salary_min}} ₱ -{{post_salary_max}} ₱
+                        {{~/when~}}
+                    {{~else~}}
+                        {{post_salary_min}}
+                    {{~/if~}}]]>
+                </salary>
+            {{/if}}
+            <company><![CDATA[{{utf8_encode post_name}}]]></company>
+            <expire><![CDATA[{{date_format post_expires 'm.d.Y'}}]]></expire>
+            <jobtype>full-time</jobtype>
+        </job>
+    {{/each}}
+</jobs>

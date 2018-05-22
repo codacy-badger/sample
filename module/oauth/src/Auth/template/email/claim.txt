@@ -1,0 +1,4 @@
+{{_ 'Claim Profile'}}
+
+{{#_ 'There are job seekers currently trying to reach you weekly! To claim this profile please visit here (FREE): %s'}}{{claimLink}}{{/_}}
+**{{_ 'If you did not initiate this process, you can simply ignore this email.'}}

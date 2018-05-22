@@ -1,0 +1,149 @@
+<!-- START : Delete Applicant -->
+<a
+    class="btn btn-default {{class_delete}}"
+    data-applicant-id="{{applicant_id}}"
+    {{#when action_delete '==' 'remove-applicant'}}
+        data-do="confirm-content"
+        data-message="{{_ 'You are removing this applicant. Once deleted, It will marked as illegible. Are you sure you want to remove?'}}"
+        data-action="Remove"
+        data-type="remove-applicant"
+        data-id="{{applicant_id}}"
+    {{else}}
+        data-do="{{action_delete}}"
+    {{/when}}
+    data-label-name="Illegible"
+    data-on="click"
+    href="javascript:void(0)"
+>
+    <i class="fa fa-trash"></i>
+</a>
+<!-- END : Delete Applicant -->
+
+<!-- START : Labels -->
+<div class="btn-group btn-tag {{class_labels}}">
+    <button
+        aria-expanded="false"
+        aria-haspopup="true"
+        class="btn btn-default dropdown-toggle {{#unless answers}}disabled{{/unless}}"
+        data-do="select-label"
+        data-on="init" 
+        data-toggle="dropdown"
+        type="button"
+    >
+        <i class="fa fa-tag"></i>
+    </button>
+    <ul class="dropdown-menu label-menu">
+        <li>
+            {{_ 'Label as:'}}
+        </li>
+        <li>
+            <a
+                data-applicant-id="{{applicant_id}}"
+                data-do="{{action_label}}"
+                data-label="{{_ 'Scheduled'}}"
+                data-on="click"
+                href="javascript:void(0)"
+            >
+                {{_ 'Scheduled'}}
+            </a>
+        </li>
+        <li>
+            <a
+                data-applicant-id="{{applicant_id}}"
+                data-do="{{action_label}}"
+                data-label="{{_ 'Interviewed'}}"
+                data-on="click"
+                href="javascript:void(0)"
+            >
+                {{_ 'Interviewed'}}
+            </a>
+        </li>
+        <li>
+            <a
+                data-applicant-id="{{applicant_id}}"
+                data-do="{{action_label}}"
+                data-label="{{_ 'Passed'}}"
+                data-on="click"
+                href="javascript:void(0)"
+            >
+                {{_ 'Passed'}}
+            </a>
+        </li>
+        <li>
+            <a
+                data-applicant-id="{{applicant_id}}"
+                data-do="{{action_label}}"
+                data-label="{{_ 'Offer Letter'}}"
+                data-on="click"
+                href="javascript:void(0)"
+            >
+                {{_ 'Offer Letter'}}
+            </a>
+        </li>
+        <li>
+            <a
+                data-applicant-id="{{applicant_id}}"
+                data-do="{{action_label}}"
+                data-label="{{_ 'Started'}}"
+                data-on="click"
+                href="javascript:void(0)"
+            >
+                {{_ 'Started'}}
+            </a>
+        </li>
+        <li>
+            <a
+                data-applicant-id="{{applicant_id}}"
+                data-do="{{action_label}}"
+                data-label="{{_ 'Illegible'}}"
+                data-on="click"
+                href="javascript:void(0)"
+            >
+                {{_ 'Illegible'}}
+            </a>
+        </li>
+        {{#each label_custom}}
+            {{#when ../delete_custom '==' 'true'}}
+            <li class="clearfix custom-label" data-label="{{this}}">
+                <a
+                    data-applicant-id="{{../applicant_id}}"
+                    data-do="{{../action_label}}"
+                    data-label="{{this}}"
+                    data-on="click"
+                    href="javascript:void(0)"
+                    title="{{this}}"
+                >
+                    {{this}}
+                </a>
+                <a
+                    data-action="Remove"
+                    data-do="confirm-content"
+                    data-in="click"
+                    data-label-name="{{this}}"
+                    data-message="{{_ 'Are you sure you want to delete this label? Doing so will also remove labels tagged to applicants.'}}"
+                    data-on="click"
+                    data-subtitle="{{this}}"
+                    data-title="Delete Label"
+                    data-type="remove-label"
+                    href="javascript:void(0)"
+                >
+                    x
+                </a>
+            </li>
+            {{else}}
+            <li data-label="{{this}}">
+                <a
+                    data-applicant-id="{{../applicant_id}}"
+                    data-do="{{../action_label}}"
+                    data-label="{{this}}"
+                    data-on="click"
+                    href="javascript:void(0)"
+                >
+                    {{this}}
+                </a>
+            </li>
+            {{/when}}
+        {{/each}}
+    </ul>
+</div>
+<!-- END : Labels -->

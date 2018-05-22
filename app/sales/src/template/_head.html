@@ -1,0 +1,27 @@
+<!-- <a href="/control/business/dashboard">
+    <img height="40" src="/images/logo.png" />
+</a> -->
+{{> menu}}
+<h3>{{_ 'Business Dashboard'}}</h3>
+
+<a
+    class="btn pull-right logout-btn"
+    href='/logout?redirect_uri=/control/business/login'
+>
+    <strong>
+        <i class="fa fa-sign-out"></i>
+        {{_ 'Logout'}}
+    </strong>
+</a>
+
+{{#session 'app_session'}}
+    <a
+        class="btn pull-right logout-btn"
+        href='/control/business/agent/update/{{results.profile_id}}'
+    >
+        <strong>
+            <i class="fa fa-cog"></i>
+            {{_ 'Account Settings'}}
+        </strong>
+    </a>
+{{/session}}

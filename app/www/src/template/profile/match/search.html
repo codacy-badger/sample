@@ -1,0 +1,315 @@
+<div class="container">
+    {{> profile_alert}}
+    <!-- START: Profile Panel -->
+    <div class="row profile-panel">
+        <!-- START: Sidebar Left -->
+        <aside class="col-md-3 left">
+            {{> profile_menu active="matches"}}
+        </aside>
+        <!-- END Sidebar Left -->
+        <!-- START: Content Left -->
+        <div class="col-md-9 right">
+            <!-- START: Head -->
+            <div class="head row">
+                <div class="col-md-6 text-left">
+                    <h1>{{_ 'My Jobs'}}</h1>
+                </div>
+                <div class="col-md-6 text-right">
+                    <!-- START: Search -->
+                    <form class="form-inline" method="get">
+                        <div class="input-group">
+                            <input
+                                class="form-control"
+                                name="q"
+                                placeholder="{{_ 'Search'}}"
+                                type="text"
+                                value="{{q}}"
+                            />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                    <!-- END: Search -->
+                </div>
+            </div>
+            <!-- END: Head -->
+            <!-- START: Main Content -->
+            <div class="content">
+                <div class="top">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- START: Post Status -->
+                            <div class="post-status text-left">
+                                <a
+                                    class="
+                                        {{~#unless post_expires~}}
+                                            {{~#unless filter.post_active~}}
+                                                {{~#when filter.post_active '!=' '0'~}}
+                                                active
+                                                {{~/when~}}
+                                            {{~else~}}
+                                                {{~#when filter.post_active '===' '1'~}}
+                                                    active
+                                                {{~/when~}}
+                                            {{~/unless~}}
+                                        {{~/unless~}}
+                                        "
+                                    href="/profile/post/search?filter[post_active]=1"
+                                >
+                                    {{_ 'Active'}}
+                                </a>
+                                <a
+                                    class="
+                                        {{~#when filter.post_active '===' '0'~}}
+                                            active
+                                        {{~/when~}}"
+                                    href="/profile/post/search?filter[post_active]=0"
+                                >
+                                    {{_ 'Inactive'}}
+                                </a>
+
+                                <a
+                                    class="
+                                        {{~#when post_expires '===' '-1'~}}
+                                            active
+                                        {{~/when~}}"
+                                    href="/profile/post/search?post_expires=-1"
+                                >
+                                    {{_ 'Expired'}}
+                                </a>
+                            </div>
+                            <!-- END: Post Status -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- START: breadcrumbs and jobs label -->
+                        <div class="col-md-12">
+                            <div class="jobs-labels">
+                                <div class="breadcrumbs">
+                                    <ul>
+
+                                        <li>
+                                            <a class="matches-my-jobs" href="/profile/post/search">{{_ 'My Jobs'}}</a>
+                                            >
+                                            <a class="matches-breadcrumbs-link" href="">{{rows.0.post_position}} {{_ '- Matches'}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="clearfix">
+                                    <h2 class="pull-left">
+                                        {{rows.0.post_position}} {{_ '- Matches'}}
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: breadcrumbs and jobs label -->
+                    </div>
+                </div>
+                <div class="scroll">
+                    <div data-do="match-detail" data-on="init">
+                        {{#if rows}}
+                            {{#session 'me'}}
+                                {{#if profile_company}}
+                                    <div class="company-matches-container-header">
+                                        <div class="company-matches-applicant">
+                                            {{_ 'Applicant'}}
+                                            <div class="sort">
+                                                <a href="?order[profile_name]=ASC" title="Sort Ascending">
+                                                    <i class="fa fa-caret-up"></i>
+                                                </a>
+                                                <a href="?order[profile_name]=DESC" title="Sort Descending">
+                                                    <i class="fa fa-caret-down"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="company-matches-location">
+                                            {{_ 'Location'}}
+                                        </div>
+                                        <div class="company-matches-resume">
+                                            {{_ 'Resume'}}
+                                        </div>
+                                    </div>
+                                    {{#each ../rows}}
+                                    <!-- START: Poster -->
+                                    <div class="poster detail">
+                                        <div class="detail-matches-applicant">
+                                            <a href="/{{post_slug}}/post-detail"
+                                                class="position like text-capitalize">
+                                                {{profile_name}}
+                                            </a>
+                                        </div>
+                                        <div class="detail-matches-location">
+                                            {{post_location}}
+                                        </div>
+                                        <div class="detail-matches-resume">
+                                            {{#if profile_resume}}
+                                                <a class="download"
+                                                    data-do="post-download"
+                                                    data-id="{{profile_resume.resume_id}}"
+                                                    data-on="click"
+                                                    data-type="resume"
+                                                    href="javascript:void(0)"
+                                                    title="{{_ 'Download resume'}}"
+                                                >
+                                                        <span
+                                                        data-do="tooltip"
+                                                        class="resume"
+                                                        title="{{_ 'This represents the number of times this resume has been downloaded'}}"
+                                                    >
+                                                        {{#if profile_resume.resume_download_count}}
+                                                            {{profile_resume.resume_download_count}}
+                                                        {{/if}}
+                                                    </span>
+                                                    <span
+                                                        data-do="tooltip"
+                                                        data-html="true"
+                                                        title="
+                                                        {{_ 'Downloading a resume costs 10 credits' ~}}
+                                                        <hr style='background-color: black;
+                                                        height: 1px;
+                                                        border: 0;
+                                                        margin: 10px 0px 10px 0px;
+                                                        width: 100%;'>
+                                                        {{_ 'Resume - Last Updated' ~}}
+                                                        <br>
+                                                        <i>{{date_format post_resume.resume_updated 'M d, Y' ~}}<i>"
+                                                    >
+                                                        <i class="fa fa-download" aria-hidden="true">
+                                                        </i> {{_ 'Resume'}}
+                                                    </span>
+                                                </a>
+                                            {{else}}
+                                                {{#when profile_information.information_progress '>=' '40'}}
+                                                    <a class="download"
+                                                        data-do="information-resume"
+                                                        data-information-id="{{profile_information.information_id}}"
+                                                        data-profile-id="{{profile_information.profile_id}}"
+                                                        data-on="click"
+                                                        href="javascript:void(0)"
+                                                        title="{{_ 'Download resume'}}"
+                                                    >
+                                                        <span
+                                                            data-do="tooltip"
+                                                            class="resume"
+                                                            title="{{_ 'This represents the number of times this resume has been downloaded'}}"
+                                                        >
+                                                            {{#if profile_information.information_download_count}}
+                                                                {{profile_information.information_download_count}}
+                                                            {{/if}}
+                                                        </span>
+                                                        <span
+                                                            data-do="tooltip"
+                                                            data-html="true"
+                                                            title="
+                                                            {{_ 'Downloading a resume costs 10 credits' ~}}
+                                                            <hr style='background-color: black;
+                                                            height: 1px;
+                                                            border: 0;
+                                                            margin: 10px 0px 10px 0px;
+                                                            width: 100%;'>
+                                                            {{_ 'Resume - Last Updated' ~}}
+                                                            <br>
+                                                            <i>{{date_format profile_information.information_updated 'M d, Y' ~}}<i>"
+                                                        >
+                                                            <i class="fa fa-download" aria-hidden="true">
+                                                            </i> {{_ 'Resume'}}
+                                                        </span>
+                                                    </a>
+                                                {{/when}}
+                                            {{/if}}
+                                        </div>
+                                    </div>
+                                    <!-- END: Poster -->
+                                    {{/each}}
+                                {{else}}
+                                    <div class="seeker-matches-container-header">
+                                        <div class="seeker-matches-applicant">
+                                            {{_ 'Company'}}
+                                            <div class="sort">
+                                                <a href="?order[profile_company]=ASC" title="Sort Ascending">
+                                                    <i class="fa fa-caret-up"></i>
+                                                </a>
+                                                <a href="?order[profile_company]=DESC" title="Sort Descending">
+                                                    <i class="fa fa-caret-down"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="seeker-matches-location">
+                                            {{_ 'Location'}}
+                                        </div>
+                                        <div class="seeker-matches-experience">
+                                            {{_ 'YRS of Experience'}}
+                                        </div>
+                                    </div>
+                                    {{#each ../rows}}
+                                        <!-- START: Seeker -->
+                                        <div class="seeker detail">
+                                            <div class="detail-matches-applicant">
+                                                <a href="/{{post_slug}}/post-detail"
+                                                    class="position like text-capitalize">
+                                                    {{profile_name}}
+                                                </a>
+                                            </div>
+                                            <div class="detail-interested-location">
+                                                {{#if post_location}}
+                                                    <span class="text-capitalize">
+                                                        {{post_location}}
+                                                    </span>
+                                                {{else}}
+                                                    -
+                                                {{/if}}
+                                            </div>
+                                            <div class="detail-interested-experience">
+                                                {{#if post_experience}}
+                                                    {{#_ '%s of exp'}}
+                                                        {{post_experience}} {{append_s 'year' post_experience~}}
+                                                    {{/_~}}
+                                                {{else}}
+                                                    -
+                                                {{/if}}
+                                            </div>
+                                        </div>
+                                        <!-- END: Seeker -->
+                                    {{/each}}
+                                {{/if}}
+                            {{/session}}
+                            <!-- START: Pagination -->
+                            <ul class="pagination">
+                                {{#pager total range}}
+                                <li class="{{#if active}}active{{/if}}">
+                                    <a href="?{{href}}">{{page}}</a>
+                                </li>
+                                {{/pager}}
+                            </ul>
+                            <!-- END: Pagination -->
+                        {{else}}
+                            <!-- START: No Results -->
+                            <div class="no-results">
+                                No job post available
+                            </div>
+                            <!-- END: No Results -->
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+            <!-- END: Main Content -->
+        </div>
+        <!-- END: Content Left -->
+    </div>
+    <!-- END: Profile Panel -->
+</div>
+<!-- Script for wysihtml5  -->
+<link rel="stylesheet" type="text/css" href="/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.css"></link>
+<script src="/bower_components/wysihtml5x/dist/wysihtml5x-toolbar.min.js"></script>
+<script src="/bower_components/handlebars/handlebars.runtime.min.js"></script>
+<script src="/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.js"></script>
+<!-- Script for wysihtml5  -->
+<!-- START: message modal  -->
+{{#each rows}}
+    {{> profile_message}}
+{{/each}}
+<!-- END: message modal -->
+

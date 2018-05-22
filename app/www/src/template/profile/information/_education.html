@@ -1,0 +1,118 @@
+<div class="modal fade education-modal" id="education-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    {{_ 'Add Education'}}
+                </div>
+            </div>
+            <!-- START: Form -->
+            <form
+                action="/ajax/education/create"
+                data-do="information-form"
+                data-on="submit"
+            >
+                <div class="modal-body">
+                    <!-- START: School -->
+                    <div class="form-group">
+                        <label>{{_ 'School'}}</label>
+                        <input
+                            autocomplete="off"
+                            class="form-control"
+                            data-do="suggestion-field"
+                            data-type="school"
+                            maxlength="80"
+                            name="education_school"
+                            placeholder="{{_ 'School'}}"
+                            type="text"
+                            value=""
+                        />
+                        <span class="help-text"></span>
+                    </div>
+                    <!-- END: School -->
+                    <!-- START: Degree -->
+                    <div class="form-group">
+                        <label>{{_ 'Degree'}}</label>
+                        <input
+                            autocomplete="off"
+                            class="form-control"
+                            data-do="suggestion-field"
+                            data-type="degree"
+                            maxlength="80"
+                            name="education_degree"
+                            placeholder="{{_ 'Degree'}}"
+                            type="text"
+                            value=""
+                        />
+                        <span class="help-text"></span>
+                    </div>
+                    <!-- END: Degree -->
+                    <!-- START: Activities and Societies -->
+                    <div class="form-group">
+                        <label>{{_ 'Activities and Societies'}}</label>
+                        <input
+                            class="form-control"
+                            name="education_activity"
+                            maxlength="100"
+                            placeholder="{{_ 'Activities and Societies'}}"
+                            type="text"
+                            value=""
+                        />
+                        <span class="help-text"></span>
+                    </div>
+                    <!-- END: Activities and Societies -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- START: From -->
+                            <div class="form-group">
+                                <label>{{_ 'From'}}</label>
+                                <input
+                                    class="datepicker form-control"
+                                    data-do="datepicker"
+                                    name="education_from"
+                                    placeholder="January 01, 1990"
+                                    type="text"
+                                />
+                                <span class="help-text"></span>
+                            </div>
+                            <!-- END: From -->
+                        </div>
+                        <div class="col-md-6">
+                            <!-- START: To -->
+                            <div class="form-group">
+                                <label>{{_ 'To'}}</label>
+                                <input
+                                    class="datepicker form-control"
+                                    data-do="datepicker"
+                                    name="education_to"
+                                    placeholder="January 01, 1990"
+                                    type="text"
+                                />
+                                <span class="help-text"></span>
+                            </div>
+                            <!-- END: To -->
+                        </div>
+                    </div>
+                </div>
+                <!-- START: Footer -->
+                <div class="modal-footer">
+                    <button
+                        class="btn btn-default"
+                        type="submit"
+                    >
+                        {{_ 'Save for now'}}
+                    </button>
+                    <button
+                        class="btn btn-primary"
+                        data-dismiss="modal"
+                        type="button"
+                    >
+                        {{_ 'Cancel'}}
+                    </button>
+                </div>
+                <!-- END: Footer -->
+            </form>
+            <!-- END: Form -->
+        </div>
+    </div>
+</div>

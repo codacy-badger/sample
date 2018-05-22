@@ -1,0 +1,217 @@
+<form
+    method="post"
+    {{#if action}}
+        action="{{action}}"
+    {{/if}}
+    {{#if cdn_config}}
+        data-do="cdn-upload"
+        data-on="submit"
+        data-progress="{{_ 'We are uploading your files.
+            Please do not refresh page.'}}"
+        data-complete="{{_ 'Upload Complete'}}"
+        data-enctype="{{cdn_config.form.enctype}}"
+        data-method="{{cdn_config.form.method}}"
+        data-action="{{cdn_config.form.action}}"
+        data-cdn="{{cdn_config.form.action}}"
+        data-acl="{{cdn_config.inputs.acl}}"
+        data-key="{{cdn_config.inputs.key}}"
+        data-credential="{{cdn_config.inputs.X-Amz-Credential}}"
+        data-algorythm="{{cdn_config.inputs.X-Amz-Algorithm}}"
+        data-date="{{cdn_config.inputs.X-Amz-Date}}"
+        data-policy="{{cdn_config.inputs.Policy}}"
+        data-signature="{{cdn_config.inputs.X-Amz-Signature}}"
+    {{/if}}
+>
+    <div class="row">
+        <div class="col-sm-4">
+            <!-- START: Image -->
+            <div class="form-group{{#if errors.post_detail}} has-error{{/if}}">
+                <center><label>{{_ 'Image'}}</label></center>
+                <div
+                    data-do="image-field"
+                    data-name="profile_image"
+                    data-width="188px"
+                    data-height="188px"
+                    data-alt="Change this Photo"
+                    class="image-field">
+                    <div class="image-wrapper">
+                        {{#if item.profile_image}}
+                            <img
+                                width="188px"
+                                height="188px"
+                                src="{{item.profile_image}}"
+                            />
+                            <input
+                                type="hidden"
+                                name="profile_image"
+                                value="{{item.profile_image}}"
+                            />
+                        {{else}}
+                            <img
+                                width="188px"
+                                height="188px"
+                                src="/images/default-avatar.png"
+                            />
+                        {{/if}}
+
+                        {{#if errors.profile_image}}
+                        <span class="help-text">{{errors.profile_image}}</span>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+            <!-- END: Image -->
+        </div>
+        <div class="col-sm-4">
+            <!-- START: Name -->
+            <div class="form-group{{#if errors.profile_name}} has-error{{/if}}">
+                <label>{{_ 'Name'}}</label>
+                <div class="texts-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <input
+                            type="text"
+                            name="profile_name"
+                            class="form-control"
+                            placeholder="{{_ 'John Doe'}}"
+                            value="{{item.profile_name}}"
+                        />
+                    </div>
+                </div>
+
+                {{#if errors.profile_name}}
+                    <span class="help-text">{{errors.profile_name}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Name -->
+            <!-- START: Email -->
+            <div class="form-group{{#if errors.profile_email}} has-error{{/if}}">
+                <label>{{_ 'Email'}}</label>
+                <div class="texts-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-envelope"></i>
+                        </div>
+                        <input
+                            class="form-control"
+                            name="profile_email"
+                            placeholder="{{_ 'john@acme.com'}}"
+                            type="email"
+                            value="{{item.profile_email}}"
+                        />
+                    </div>
+                </div>
+
+                {{#if errors.profile_email}}
+                    <span class="help-text">{{errors.profile_email}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Email -->
+            <!-- START: Phone -->
+            <div class="form-group{{#if errors.profile_phone}} has-error{{/if}}">
+                <label>{{_ 'Phone'}}</label>
+                <div class="texts-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <input
+                            type="text"
+                            name="profile_phone"
+                            class="form-control"
+                            placeholder="{{_ '555-2424'}}"
+                            value="{{item.profile_phone}}"
+                        />
+                    </div>
+                </div>
+
+                {{#if errors.profile_phone}}
+                    <span class="help-text">{{errors.profile_phone}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Phone -->
+        </div>
+        <div class="col-sm-4">
+            <!-- START: Gender -->
+            <div class="form-group{{#if errors.profile_gender}} has-error{{/if}}">
+                <label>{{_ 'Gender'}}</label>
+                <div class="select-field">
+                    <select name="profile_gender" class="form-control">
+                        <option
+                            value="male"
+                            {{#when item.profile_gender '===' 'male'}}
+                                selected
+                            {{/when}}
+                        >
+                            {{_ 'Male'}}
+                        </option>
+                        <option
+                            value="female"
+                            {{#when item.profile_gender '===' 'female'}}
+                                selected
+                            {{/when}}
+                        >
+                            {{_ 'Female'}}
+                        </option>
+                    </select>
+                </div>
+
+                {{#if errors.profile_gender}}
+                <span class="help-text">{{errors.profile_gender}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Gender -->
+            <!-- START: Password -->
+            <div class="form-group{{#if errors.auth_password}} has-error{{/if}}">
+                <label>{{_ 'Update Password'}}</label>
+                <div class="texts-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-lock"></i>
+                        </div>
+                        <input
+                            type="password"
+                            name="auth_password"
+                            class="form-control"
+                            placeholder="{{_ 'at least 7 characters'}}"
+                            value=""
+                        />
+                    </div>
+                </div>
+
+                {{#if errors.auth_password}}
+                    <span class="help-text">{{errors.auth_password}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Password -->
+            <!-- START: Confirm Password -->
+            <div class="form-group{{#if errors.auth_password}} has-error{{/if}}">
+                <label>{{_ 'Confirm New Password'}}</label>
+                <div class="texts-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-lock"></i>
+                        </div>
+                        <input
+                            type="password"
+                            name="confirm"
+                            class="form-control"
+                            placeholder="{{_ 'at least 7 characters'}}"
+                            value=""
+                        />
+                    </div>
+                </div>
+
+                {{#if errors.auth_password}}
+                    <span class="help-text">{{errors.auth_password}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Confirm Password -->
+            <div class="form-group">
+                <button class="btn btn-primary">{{_ 'Submit'}}</button>
+            </div>
+        </div>
+    </div>
+</form>

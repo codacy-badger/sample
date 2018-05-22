@@ -1,0 +1,40 @@
+<!-- START: Experience Modal -->
+<div class="modal fade" id="experience" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- START: Modal Header -->
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" type="button">
+                    &times;
+                </button>
+                <div class="modal-title">{{_ 'Years of experience'}}</div>
+            </div>
+            <!-- END: Modal Header -->
+            <!-- START: Experience Modal Form -->
+            <form
+                class="form-horizontal"
+                data-do="tips-modal"
+                data-on="submit"
+                data-container="#experience"
+            >
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input
+                            class="form-control"
+                            name="post_experience"
+                            placeholder="0"
+                            type="number"
+                        />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">
+                        {{_ 'Save'}}
+                    </button>
+                </div>
+            </form>
+            <!-- END: Experience Modal Form -->
+        </div>
+    </div>
+</div>
+<!-- END: Experience Modal -->

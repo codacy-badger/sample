@@ -1,0 +1,12 @@
+User-agent: *
+Disallow: /upload/
+Disallow: /admin/
+Disallow: /control/
+Disallow: /profile/
+Disallow: /crawler/
+Disallow: /server/
+Disallow: /bower_components/
+Disallow: /developer/app/
+Disallow: /dialog/
+Disallow: /rest/
+Sitemap: http://jobayan.com/sitemap.xml

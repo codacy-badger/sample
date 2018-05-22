@@ -1,0 +1,155 @@
+<!-- START: Post Actions -->
+<div class="clearfix post-actions">
+    {{#session 'me'}}
+    <!-- START: I am logged in -->
+    {{#when profile_id '!==' ../profile_id}}
+    <!-- START: Not my card -->
+    {{> partial_resumedownload}}
+    <!-- END: Not my card -->
+    {{/when}}
+    <!-- END: I am logged in -->
+    {{/session}}
+</div>
+<!-- END: Post Actions -->
+
+<!-- Start: Post Interest Button -->
+<div class="row" style="">
+    <div class="col-sm-12">
+    {{#session 'me'}}
+    <!-- START: I am logged in -->
+    {{#when profile_id '!==' ../profile_id}}
+    <!-- START: Not my card -->
+    <!-- START: Interested Button -->
+    <!-- START: if logged in user is a seeker -->
+    {{#unless profile_company}}
+    <!-- START: AND job post is a poster -->
+    {{#when ../post_type '==' 'poster'}}
+    <a
+        class="interested interested-button
+        {{#is_array_key profile_id ../likers~}}
+            liked
+        {{~/is_array_key~}}"
+        {{#is_array_key profile_id ../likers}}
+    {{else}}
+        data-do="post-like"
+        data-on="click"
+    {{/is_array_key}}
+        data-id="{{../post_id}}"
+        data-type="
+    {{~#if profile_company~}}
+        poster
+    {{~else~}}
+        seeker
+    {{/if~}}"
+        data-enabled="1"
+        href="javascript:void(0)"
+        title="{{_ 'This will send your information to the Job Seeker'}}"
+    >
+    <span class="like-count">
+        {{#if ../post_like_count}}
+            {{../post_like_count}}
+        {{/if}}
+    </span>
+    {{#is_array_key profile_id ../likers}}
+    <i aria-hidden="true" class="fa fa-heart fa-fw"></i>
+    {{else}}
+    <i aria-hidden="true" class="fa fa-heart-o fa-fw"></i>
+    {{/is_array_key}}
+        {{_ 'Interested'}}
+    </a>
+
+    <!--resume download partial-->
+    <div class="post-detail-resume-download hide">
+        {{> partial_resumedownload}}
+    </div>
+
+    {{/when}}
+    <!-- END: AND job post is a poster -->
+    {{/unless}}
+    <!-- END: if logged in user is a seeker -->
+
+    <!-- START: if logged in user is a poster -->
+    {{#if profile_company}}
+    <a class="interested interested-button
+        {{#is_array_key profile_id ../likers}}
+           liked
+        {{/is_array_key}}"
+        {{#is_array_key profile_id ../likers}}
+    {{else}}
+        data-do="post-like"
+        data-on="click"
+        {{/is_array_key}}
+        data-id="{{../post_id}}"
+        data-type="
+        {{~#if profile_company~}}
+        poster
+        {{~else~}}
+        seeker
+        {{/if~}}"
+        data-enabled="1"
+        href="javascript:void(0)"
+        title="{{_ 'This will send your information to the Job Seeker'}}"
+    >
+    <span class="like-count">
+       {{#if ../post_like_count}}
+           {{../post_like_count}}
+       {{/if}}
+    </span>
+    {{#is_array_key profile_id ../likers}}
+        <i aria-hidden="true" class="fa fa-heart fa-fw"></i>
+    {{else}}
+        <i aria-hidden="true" class="fa fa-heart-o fa-fw"></i>
+    {{/is_array_key}}
+        {{_ 'Interested'}}
+    </a>
+
+    <!--resume download partial-->
+    <div class="post-detail-resume-download hide">
+        {{> partial_resumedownload}}
+    </div>
+
+    {{/if}}
+    <!-- END: if logged in user is a poster -->
+
+    {{/when}}
+    <!-- END: I am logged in -->
+    {{else}}
+    <!-- START: I am not logged in -->
+    <!-- START: Interested Button -->
+    <a
+        class="interested interested-button"
+        data-do="post-like"
+        data-enabled="0"
+        data-id="{{post_id}}"
+        data-on="click"
+        data-type="
+            {{~#if profile_company}}
+                poster
+            {{~else~}}
+                seeker
+            {{/if~}}"
+        {{#when post_type '==' 'poster'}}
+        href="javascript:void(0)"
+    {{else}}
+        href="/login?redirect_uri={{~server 'REQUEST_URI'}}"
+    {{/when}}
+        title="{{_ 'This will send your information to the Job Seeker'}}"
+    >
+    {{#if post_like_count}}
+        {{post_like_count}}
+    {{/if}}
+    <i aria-hidden="true" class="fa fa-heart-o fa-fw"></i>
+        {{_ 'Interested'}}
+    </a>
+
+    <!--resume download partial-->
+    <div class="post-detail-resume-download hide">
+        {{> partial_resumedownload}}
+    </div>
+
+    <!-- END: Interested Button -->
+    <!-- END: I am not logged in -->
+    {{/session}}
+    </div>
+</div>
+<!-- End: Post Interest Button -->

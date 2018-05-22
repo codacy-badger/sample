@@ -1,0 +1,141 @@
+<form
+    method="post"
+    {{#if action}}
+        action="{{action}}"
+    {{/if}}
+    {{#if cdn_config}}
+        data-acl="{{cdn_config.inputs.acl}}"
+        data-action="{{cdn_config.form.action}}"
+        data-algorythm="{{cdn_config.inputs.X-Amz-Algorithm}}"
+        data-cdn="{{cdn_config.form.action}}"
+        data-complete="{{_ 'Upload Complete'}}"
+        data-credential="{{cdn_config.inputs.X-Amz-Credential}}"
+        data-date="{{cdn_config.inputs.X-Amz-Date}}"
+        data-do="cdn-upload"
+        data-enctype="{{cdn_config.form.enctype}}"
+        data-method="{{cdn_config.form.method}}"
+        data-key="{{cdn_config.inputs.key}}"
+        data-on="submit"
+        data-policy="{{cdn_config.inputs.Policy}}"
+        data-progress="{{_ 'We are uploading your files. Please do not refresh page.'}}"
+        data-signature="{{cdn_config.inputs.X-Amz-Signature}}"
+    {{/if}}
+>
+    <div class="row">
+        <div class="col-xs-6">
+            <!-- START: Title -->
+            <div class="form-group{{#if errors.utm_title}} has-error{{/if}}">
+                <label>{{_ 'Title'}}</label>
+                <div class="texts-field">
+                    <input
+                        class="form-control"
+                        name="utm_title"
+                        placeholder="Enter Title"
+                        type="text"
+                        value="{{item.utm_title}}"
+                    />
+                </div>
+                {{#if errors.utm_title}}
+                    <span class="help-text">{{errors.utm_title}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Title -->
+            <!-- START: Image/Photo upload -->
+            <div class="form-group{{#if errors.utm_image}} has-error{{/if}}">
+                <label>{{_ 'Image'}}</label>
+                <div
+                    class="image-field"
+                    data-alt="Image upload"
+                    data-do="image-field"
+                    data-name="utm_image"
+                    data-width="200"
+                    data-height="200"
+                >
+                    {{#if item.utm_image}}
+                        <img width="200" src="{{item.utm_image}}" />
+                        <input
+                            name="profile_image"
+                            type="hidden"
+                            value="{{item.utm_image}}"
+                        />
+                    {{else}}
+                        <img src="/images/default-avatar.png" width="200"/>
+                    {{/if}}
+                </div>
+
+                {{#if errors.utm_image}}
+                    <span class="help-text">{{errors.utm_image}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Image/Photo upload -->
+
+            <!-- START: Description -->
+            <div class="form-group{{#if errors.utm_detail}} has-error{{/if}}">
+                <label>Description</label>
+                <div class="texts-field">
+                    <textarea class="form-control" name="utm_detail" rows="6"> 
+                        {{~item.utm_detail~}}
+                    </textarea>
+                </div>
+
+                {{#if errors.utm_detail}}
+                    <span class="help-text">{{errors.utm_detail}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Description -->
+        </div>
+        <!-- START: UTM - medium, source and campaign -->
+        <div class="col-xs-6">
+            <div class="form-group{{#if errors.utm_medium}} has-error{{/if}}">
+                <label>{{_ 'UTM Medium'}}</label>
+                <div class="texts-field">
+                    <input
+                        class="form-control"
+                        name="utm_medium"
+                        type="text"
+                        value="{{item.utm_medium}}"
+                     />
+                 </div>
+
+                {{#if errors.utm_medium}}
+                    <span class="help-text">{{errors.utm_medium}}</span>
+                {{/if}}
+            </div>
+            <div class="form-group{{#if errors.utm_source}} has-error{{/if}}">
+                <label>{{_ 'UTM Source'}}</label>
+                <div class="texts-field">
+                    <input
+                        class="form-control"
+                        name="utm_source"
+                        type="text"
+                        value="{{item.utm_source}}"
+                    />
+                </div>
+
+                {{#if errors.utm_source}}
+                    <span class="help-text">{{errors.utm_source}}</span>
+                {{/if}}
+            </div>
+            <div class="form-group{{#if errors.utm_campaign}} has-error{{/if}}">
+                <label>{{_ 'UTM Campaign'}}</label>
+                <div class="texts-field">
+                    <input
+                        class="form-control"
+                        name="utm_campaign"
+                        type="text"
+                        value="{{item.utm_campaign}}"
+                    />
+                </div>
+
+                {{#if errors.utm_campaign}}
+                    <span class="help-text">{{errors.utm_campaign}}</span>
+                {{/if}}
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary">{{_ 'Submit'}}</button>
+            </div>
+        </div>
+        <!-- END: UTM - medium, source and campaign -->
+
+    </div>
+</form>

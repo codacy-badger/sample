@@ -1,0 +1,10 @@
+tests/acceptance/05-JobSearchCept.php
+tests/acceptance/06-JobSearchFilterLocationCept.php
+tests/acceptance/07-JobSearchFilterIndustryCept.php
+tests/acceptance/15-MyPostCreateCept.php
+tests/acceptance/16-MyPostEditCept.php
+tests/acceptance/17-MyPostCopyCept.php
+tests/acceptance/19-MyPostPromoteCept.php
+tests/acceptance/20-MyPostLinkCept.php
+tests/acceptance/21-MyPostDeleteCept.php
+tests/acceptance/31-FailBuyCreditsCept.php

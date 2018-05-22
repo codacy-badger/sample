@@ -1,0 +1,127 @@
+<div class="container">
+    {{> profile_alert}}
+    <!-- START: Profile Panel -->
+    <div class="row profile-panel">
+        <!-- START: Sidebar Left -->
+        <aside class="col-md-3 left">
+            {{> profile_menu active="application"}}
+        </aside>
+        <!-- END: Sidebar Left -->
+        <!-- START: Content Left -->
+        <div class="col-md-9 right">
+            <!-- START: Head -->
+            <div class="head row">
+                <div class="col-md-6 text-left">
+                    <h1>{{_ 'Applicant Form'}}</h1>
+                </div>
+                <div class="col-md-6 text-right">
+                    <!-- START: Search -->
+                    <form class="form-inline" method="get">
+                        <div class="input-group">
+                            <input
+                                class="form-control"
+                                name="q"
+                                placeholder="Search"
+                                type="text"
+                                value="{{q}}"
+                            />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                    <!-- END: Search -->
+                </div>
+            </div>
+            <!-- END: Head -->
+            <!-- START: Main Content -->
+            <div class="content">
+                <div class="top">
+                    <span>{{_ 'Application Forms'}}</span>
+                </div>
+                    <!-- START: Detail -->
+                    <div class="detail clearfix">
+                        <div class="detail-wrapper">
+                            <!-- START: Breadcrumbs -->
+                            <div class="breadcrumbs">
+                                <ul>
+                                    <li>
+                                        {{_ 'Application Listing'}}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="scroll">
+                                <!-- END: Breadcrumbs -->
+                                <div class="detail-head clearfix">
+                                    <div class="company">
+                                        {{_ 'Company'}}
+                                    </div>
+                                    <div class="position">
+                                        {{_ 'Position'}}
+                                    </div>
+                                    <div class="form">
+                                        {{_ 'Form'}}
+                                    </div>
+                                    <div class="status">
+                                        {{_ 'Status'}}
+                                    </div>
+                                </div>
+                                {{#if rows}}
+                                    {{#each rows}}
+                                    <!-- START: Detail List -->
+                                        <div class="detail-list ">
+                                            <div class="company">
+                                                {{post_name}}
+                                            </div>
+                                            <div class="position">
+                                                {{post_position}}
+                                            </div>
+                                            <div class="form">
+                                                <a
+                                                    title="{{_ 'View Form'}}"
+                                                    href="/profile/tracking/application/seeker/update/{{post_id}}/{{profile_id}}"
+                                                >
+                                                    {{_ 'View Form'}}
+                                                </a>
+                                            </div>
+                                            <div class="status">
+                                                {{#if applicant_status}}
+                                                    <span>
+                                                        {{end applicant_status}}
+                                                    </span>
+                                                {{else}}
+                                                    <span class="no-status">No Status</span>
+                                                {{/if}}
+                                            </div>
+                                        </div>
+                                    {{/each}}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- START: Pagination -->
+                    <ul class="pagination">
+                        {{#pager total range}}
+                            <li class="{{#if active}}active{{/if}}">
+                                <a href="?{{href}}">{{page}}</a>
+                            </li>
+                        {{/pager}}
+                    </ul>
+                    <!-- END: Pagination -->
+                    <!-- END: Detail List -->
+                    {{else}}
+                        <!-- START: No Results -->
+                        <div class="no-results">
+                            {{_ 'No Results Found'}}
+                        </div>
+                    {{/if}}
+                    <!-- End: No Results -->
+                <!-- END: Detail -->
+            </div>
+            <!-- END: Main Content -->
+        </div>
+        <!-- END: Content Left -->
+    </div>
+    <!-- END: Profile Panel -->
+</div>

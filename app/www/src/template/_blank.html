@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" class="{{page.class}}">
+    <head>
+        <meta charset="utf-8" />
+        <title>{{page.title}}</title>
+        {{#environment 'production'}}
+        <!-- Google Tag Manager -->
+        <script>
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-KXRLHB4');
+        </script>
+        <!-- End Google Tag Manager -->
+        {{/environment}}
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        {{#each page.meta}}
+        <meta name="{{@key}}" content="{{this}}" />
+        {{/each}}
+
+        <link rel="canonical" href="{{page.meta.host}}{{page.meta.canonical}}{{{page.meta.querystring}}}" />
+
+        <link rel="shortcut icon" href="{{config 'cdn'}}/favicon.ico" type="image/x-icon">
+
+        <link rel="icon" type="image/png" href="{{config 'cdn'}}/favicon.png" />
+        <link rel="icon" type="image/gif" href="{{config 'cdn'}}/favicon.gif" />
+        <link rel="icon" type="image/x-icon" href="{{config 'cdn'}}/favicon.ico" />
+
+
+        <link rel="stylesheet" type="text/css" href="{{config 'cdn'}}/bower_components/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="{{config 'cdn'}}/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="{{config 'cdn'}}/bower_components/toastr/toastr.min.css" />
+        <link rel="stylesheet" type="text/css" href="{{config 'cdn'}}/styles/www.css?v={{page.version.css}}" />
+
+        <script type="text/javascript" src="{{config 'cdn'}}/bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="{{config 'cdn'}}/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="{{config 'cdn'}}/scripts/doon.js"></script>
+        <script type="text/javascript" src="{{config 'cdn'}}/scripts/pace.js"></script>
+        <script type="text/javascript" src="{{config 'cdn'}}/bower_components/toastr/toastr.min.js"></script>
+        <script type="text/javascript" src="{{config 'cdn'}}/scripts/www.js?v={{page.version.js}}"></script>
+    </head>
+    <body>
+        <div class="container">
+            {{#if page.flash}}
+                <div data-do="toastr"
+                    class="alert alert-{{#when page.flash.type '===' 'success'}}success{{/when}}
+                        {{#when page.flash.type '===' 'info'}}info{{/when}}
+                        {{#when page.flash.type '===' 'warning'}}warning{{/when}}
+                        {{#when page.flash.type '===' 'danger'}}danger{{/when}}"
+
+                    {{#when page.flash.type '===' 'success'}}
+                        data-type="success"
+                    {{/when}}
+
+                    {{#when page.flash.type '===' 'info'}}
+                        data-type="info"
+                    {{/when}}
+
+                    {{#when page.flash.type '===' 'warning'}}
+                        data-type="warning"
+                    {{/when}}
+
+                    {{#when page.flash.type '===' 'danger'}}
+                        data-type="error"
+                    {{/when}}>
+
+                    {{page.flash.message}}
+               </div>
+           {{/if}}
+           {{#if page.exp}}
+                {{#each page.exp}}
+                   <div
+                        class="alert alert-info"
+                        data-do="toastr"
+                        data-type="info"
+                    >
+                       {{this}}
+                  </div>
+              {{/each}}
+          {{/if}}
+           {{> achievement}}
+           {{> free-credits}}
+           {{{content}}}
+        </div>
+        <!-- Facebook Your customer chat code -->
+        <div 
+            class="fb-customerchat"
+            attribution="setup_tool"
+            page_id="268792740211036"
+        >
+        </div>
+    </body>
+    {{#if page.badge}}
+        <script type="text/javascript">
+            $('.achievement-modal').modal('show');
+            $('.free-credits-modal').modal('hide');
+        </script>
+    {{/if}}
+    {{#if page.rank}}
+        <script type="text/javascript">
+            //$('.free-credits-modal').modal('show');
+            $('.achievement-modal').modal('hide');
+        </script>
+    {{/if}}
+    {{#environment 'production'}}
+        {{#when page.page '==' 'signup'}}
+            <script type="text/javascript">
+                var button = document.getElementById('create-account');
+                button.addEventListener(
+                    'click',
+                    function () {
+                        fbq ('track','CompleteRegistration')
+                    }
+                );
+            </script>
+        {{/when}}
+        <!--  FB Messenger -->
+        <script>
+            (function(d, s, id) {
+                 var js, fjs = d.getElementsByTagName(s)[0];
+                 if (d.getElementById(id)) return;
+                 js = d.createElement(s); js.id = id;
+                 js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&autoLogAppEvents=1';
+                 fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
+    {{/environment}}
+</html>

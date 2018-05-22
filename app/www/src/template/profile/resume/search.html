@@ -1,0 +1,104 @@
+<div class="container">
+    {{> profile_alert}}
+    <!-- START: Profile Panel -->
+    <div class="row profile-panel">
+        <!-- START: Sidebar Left -->
+        <aside class="col-md-3 left">
+            {{> profile_menu active="resume"}}
+        </aside>
+        <!-- END: Sidebar Left -->
+        <!-- START: Content Left -->
+        <div class="col-md-9 right">
+            <!-- START: Head -->
+            <div class="head row">
+                <div class="text-left col-md-6">
+                    <h1>{{_ 'My Resumes'}}</h1>
+                </div>
+                <div class="text-right col-md-6">
+                    <a
+                        class="btn btn-default text-uppercase"
+                        data-target="#information-modal"
+                        data-toggle="modal"
+                        href="javascript:void(0)"
+                        title="{{_ 'Update Profile'}}"
+                        id="update-profile-button"
+                    >
+                        {{_ 'Update Profile'}}
+                    </a>
+                </div>
+            </div>
+            <!-- END: Head -->
+            <!-- START: Main Content -->
+            <div class="content">
+            {{#if rows}}
+                {{#each rows}}
+                <div class="detail clearfix" id="resume-{{resume_id}}">
+                    <div class="col-md-3 text-left">
+                        {{resume_position}}
+                    </div>
+                    <div class="col-md-3">
+                        {{date resume_created 'F d, Y'}}
+                    </div>
+                    <div class="col-md-3">
+                        <a
+                            class="download"
+                            href="{{resume_link}}"
+                            target="_blank"
+                        >
+                            {{_ 'Download File'}}
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        {{#when resume_active '==' 1}}
+                        <a
+                            class="btn btn-remove"
+                            data-do="confirm-modal"
+                            data-link="/profile/resume/remove/
+                                {{~resume_id~}}?redirect_uri={{../redirect_uri}}"
+                            data-on="click"
+                            data-title="Are you sure you want to remove resume?"
+                            href="javascript:void(0)"
+                        >
+                            {{_ 'Remove'}}
+                        </a>
+                        {{/when}}
+                        {{#when resume_active '==' 0}}
+                        <a
+                            class="restore"
+                            href="/profile/resume/remove/
+                                {{~resume_id~}}?redirect_uri={{../redirect_uri}}"
+                            title="Restore"
+                        >
+                            {{_ 'Restore'}}
+                        </a>
+                        {{/when}}
+                    </div>
+                </div>
+                {{/each}}
+                <!-- START: Pagination -->
+                <ul class="pagination">
+                    {{#pager total range}}
+                        <li class="{{#if active}}active{{/if}}">
+                            <a href="?{{href}}">{{page}}</a>
+                        </li>
+                    {{/pager}}
+                </ul>
+                <!-- END: Pagination -->
+            {{else}}
+                <!-- START: No Results -->
+                <div class="no-results">
+                <div class="no-results">
+                    {{_ 'No Results Found'}}
+                </div>
+                <!-- END: No Results -->
+            {{/if}}
+            </div>
+            <!-- END: Main Content -->
+        </div>
+        <!-- END: Content Left -->
+    </div>
+    <!-- END: Profile Panel -->
+</div>
+
+{{> profile_confirm}}
+{{> profile/information_information}}

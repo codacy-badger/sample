@@ -1,0 +1,1431 @@
+body, html{
+    font-family: "Open Sans", Arial;
+    font-weight: 300;
+    height: 100%;
+}
+
+h1, h2, h3, h4, h5 {
+    border-bottom: 1px solid #EEEEEE;
+    font-weight: 300;
+    padding-bottom: 20px;
+}
+
+hr { border-color: #E7E7E7; }
+
+input, select, button, a.btn {
+    border-radius: 0 !important;
+}
+
+.template-blue {
+    color: #0079BA;
+}
+
+/* Change Color of Tags
+------------------------------*/
+.label-signed-up,
+.label-claimed-a-profile,
+.label-verified-email {
+    background-color: #0DB6D5;
+}
+
+.label-buy-credits,
+.label-created-a-post {
+    background-color: #7CD4E8;
+}
+
+.label-downloaded-resume,
+.label-gained-achievement,
+.label-gained-experience {
+    background-color: #80C784;
+}
+
+.label-uploaded-profile,
+.label-update-credentials,
+.label-updated-a-post,
+.label-updated-email-on-post,
+.label-updated-phone-on-post {
+    background-color: #FFB74D;
+}
+
+.label-user-unsubscribed {
+    background-color: #474747;
+}
+
+.label-user-email-bounced,
+.label-forgot-password {
+    background-color: #DC7175;
+}
+
+.label-interested-a-post {
+    background-color: #F16292;
+}
+
+.label-viewed-a-post {
+    background-color: #F48FB1;
+}
+
+.label-notified-for-a-like {
+    background-color: #7986CB;
+}
+
+.label-notified-for-matches {
+    background-color: #BA68C8;
+}
+
+.label-notified-for-matched-via-sms {
+    background-color: #CE93D8;
+}
+
+/* Component - Buttons
+------------------------------*/
+.btn-default {
+    background-color: #E7E7E7;
+    border-color: #E7E7E7;
+    color: #8D8D8D;
+}
+
+.btn-active {
+    background-color: #A7BAC3;
+    border-color: #A7BAC3;
+    color: #FFFFFF;
+}
+
+.btn-info {
+    background-color: #51B3DD;
+    border-color: #51B3DD;
+    color: #FFFFFF;
+}
+
+.btn-primary {
+    background-color: #248BCF;
+    border-color: #248BCF;
+    color: #FFFFFF;
+}
+
+.btn-success {
+    background-color: #77B978;
+    border-color: #77B978;
+    color: #FFFFFF;
+}
+
+.btn-warning {
+    background-color: #FFB535;
+    border-color: #FFB535;
+    color: #FFFFFF;
+}
+
+.btn-danger {
+    background-color: #E1503E;
+    border-color: #E1503E;
+    color: #FFFFFF;
+}
+
+.btn-import {
+    background-color: #9A84BF;
+    border-color: #9A84BF;
+    color: #FFFFFF;
+}
+
+.btn-export {
+    background-color: #D12D6D;
+    border-color: #D12D6D;
+    color: #FFFFFF;
+}
+
+.filter-button-only {
+    margin: 20px auto;
+    width: 100px;
+    display: block;
+}
+
+a.btn-active.active {
+   background-color: #0c6aa5;
+   border-color: #A7BAC3;
+   color: #FFFFFF;
+
+}
+/* Component - Form Fields
+------------------------------*/
+.btn, .form-control {
+    border-radius: 0 !important;
+    float: right;
+}
+
+.input-group .input-group-addon {
+    background-color: transparent;
+    border-radius: 0;
+    border-right: 0;
+    padding-right: 5px;
+}
+
+.input-group .form-control {
+    border-left: 0;
+    box-shadow: none;
+}
+
+.input-group .form-control:focus {
+    border-color: #CCCCCC;
+}
+
+.date-range {
+    margin-bottom: -3px;
+}
+
+.input-range .input-from,
+.input-range .input-to {
+    display: inline-block;
+    width: 48%;
+}
+
+.input-range .input-separator {
+    display: inline-block;
+    margin: 0 -5px;
+    position: relative;
+    text-align: center;
+    top: -10px;
+    width: 4%;
+}
+
+.tag-field {
+    border: 1px solid #CCCCCC;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    cursor: text;
+    margin-bottom: 0;
+    min-height: 36px;
+}
+
+.texts-field, .select-field {
+    margin-bottom: 9px;
+    min-height: 36px;
+}
+
+.tag-field .tag {
+    background-color: #A7BAC3;
+    cursor: default;
+    display: inline-block;
+    margin: 2px 0 2px 2px;
+    padding: 5px;
+}
+
+.tag-field .tag input[type="text"] {
+    background: none;
+    border: 0;
+    box-shadow: none;
+    color: #FFFFFF;
+    outline: none;
+    padding: 0;
+    width: 24px;
+}
+
+.tag-field .tag input[type="text"]::-webkit-input-placeholder {
+    color: #FFFFFF;
+}
+
+.tag-field .tag input[type="text"]::-moz-placeholder {
+    color: #FFFFFF;
+}
+
+.tag-field .tag input[type="text"]:-ms-input-placeholder {
+    color: #FFFFFF;
+}
+
+.tag-field .tag input[type="text"]input:-moz-placeholder {
+    color: #FFFFFF;
+}
+
+.tag-field .tag .remove {
+    color: #FFFFFF;
+    padding-left: 5px;
+}
+
+.row .form-group .image-field {
+    margin: auto;
+    width: 188px;
+    height: 188px;
+}
+
+.row .form-group .image-field .image-wrapper {
+    position: relative;
+}
+
+.row .form-group .image-field .image-wrapper:hover:before {
+    content: 'Upload Photo';
+    cursor: pointer;
+    height: 26px;
+    left: 50px;
+    position: absolute;
+    top: 85px;
+    width: 116px;
+}
+
+.row .form-group .image-field img {
+    border: 1px solid #CBCBCB;
+}
+
+.row .form-group .image-field img:hover {
+    cursor: pointer;
+    opacity: .6;
+}
+
+/* Component - Bread Cumbs
+------------------------------*/
+.crumbs {
+    background-color: #EFEFEF;
+    font-size: 13px;
+    padding: 10px;
+}
+
+.crumbs .separator {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.crumbs a.active {
+    color: #222222;
+    font-weight: bold;
+}
+
+btn-primary.active{
+    color: red;
+}
+
+/* Component - Panel
+------------------------------*/
+.panel {
+    border-radius: 0;
+}
+
+.panel .panel-heading {
+    font-weight: bold;
+}
+
+.panel-default .panel-heading {
+    background-color: #E7E7E7;
+    color: #222222;
+}
+
+.panel-info .panel-heading {
+    background-color: #51B3DD;
+    color: #FFFFFF;
+}
+
+.panel-primary .panel-heading {
+    background-color: #248BCF;
+    color: #FFFFFF;
+}
+
+.panel-success .panel-heading {
+    background-color: #77B978;
+    color: #FFFFFF;
+}
+
+.panel-warning .panel-heading {
+    background-color: #FFB535;
+    color: #FFFFFF;
+}
+
+.panel-danger .panel-heading {
+    background-color: #E1503E;
+    color: #FFFFFF;
+}
+
+/* Component - Table
+------------------------------*/
+.table-overflow {
+    margin-left: -20px;
+    margin-right: -20px;
+    overflow: auto;
+    width: 100%;
+}
+
+.table-overflow td,
+.table-overflow th {
+    white-space: nowrap;
+}
+
+.table-overflow .cell-url {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    max-width: 200px;
+}
+
+/* Component - Pagination
+------------------------------*/
+.pagination > .active > a {
+    background-color: #A7BAC3;
+    border-color: #A7BAC3;
+}
+
+.pagination > .active > a:hover {
+    background-color: #A0A0A0;
+    border-color: #A0A0A0;
+}
+
+/* Widget - Notify
+------------------------------*/
+.notify {
+    background-color: #232323;
+    bottom: 0;
+    color: #EFEFEF;
+    height: auto !important;
+    left: 0;
+    opacity: .95;
+    padding: 20px;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    z-index: 10000;
+}
+
+.notify-info {
+  color: #FFFFFF;
+  background-color: #5BC0DE;
+}
+
+.notify-success {
+  color: #FFFFFF;
+  background-color: #5CB85C;
+}
+
+.notify-danger {
+  color: #FFFFFF;
+  background-color: #D9534F;
+}
+
+.notify-warning {
+  color: #FFFFFF;
+  background-color: #F0AD4E;
+}
+
+.notify .message {
+    display: block;
+    margin-top: 5px;
+    padding-right: 25px;
+}
+
+.notify > a {
+    float: right;
+    font-size: 20px;
+    color: #EFEFEF;
+}
+
+/* Partial - Search
+------------------------------*/
+.search-actions {
+    margin-bottom: 10px;
+}
+
+.search-filters .btn-primary {
+    width: 100%;
+}
+
+.search-table-actions {
+    margin-bottom: 10px;
+}
+
+.search-table-actions .tag-field {
+    width: 300px;
+}
+
+.search-table-actions .form-group {
+    vertical-align: top;
+}
+
+/* Partial - Header
+------------------------------*/
+header {
+    background-color: #0C6AA5;
+    border-color: #0C6AA5;
+    height: 50px;
+    left: 0;
+    padding: 5px 10px;
+    position: absolute;
+    right: 0;
+}
+
+header h3 {
+    border: 0;
+    color: #FFFFFF;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    left: 20px;
+    margin: 12px 0 0 0;
+    padding: 0;
+    position: relative;
+}
+
+header .logout-btn {
+    color: #fff;
+}
+
+header .menuToggle a {
+    color: #cdcdcd;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+header .menuToggle a:hover {
+    color: tomato;
+}
+
+header .menuToggle {
+    -webkit-user-select: none;
+    display: block;
+    position: relative;
+    top: 10px;
+    user-select: none;
+    z-index: 3;
+}
+
+header .menuToggle input {
+    cursor: pointer;
+    display: block;
+    height: 32px;
+    left: -5px;
+    opacity: 0; /* hide this */
+    position: absolute;
+    top: -7px;
+    width: 40px;
+    z-index: 2; /* and place it over the hamburger */
+    -webkit-touch-callout: none;
+}
+
+/*
+* Just a quick hamburger
+*/
+header .menuToggle .burger {
+    background: #cdcdcd;
+    border-radius: 3px;
+    display: block;
+    height: 4px;
+    margin-bottom: 5px;
+    position: relative;
+    transform-origin: 4px 0px;
+    transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+        background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+        opacity 0.55s ease;
+    width: 33px;
+    z-index: 1;
+}
+
+header .menuToggle .burger:first-child {
+    transform-origin: 0% 0%;
+}
+
+header .menuToggle .burger:nth-last-child(2) {
+    transform-origin: 0% 100%;
+}
+
+/*
+* Transform all the slices of hamburger
+* into a crossmark.
+*/
+header .menuToggle input:checked ~ .burger {
+    opacity: 1;
+    transform: rotate(45deg) translate(-2px, -1px);
+}
+
+/*
+* But let's hide the middle one.
+*/
+header .menuToggle input:checked ~ .burger:nth-last-child(3) {
+    opacity: 0;
+    transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+/*
+* Ohyeah and the last one should go the other direction
+*/
+header .menuToggle input:checked ~ .burger:nth-last-child(2) {
+    transform: rotate(-45deg) translate(0, -1px);
+}
+
+/*
+* Make this absolute positioned
+* at the top left of the screen
+*/
+header .menu {
+    /* to stop flickering of text in safari */
+    background: #000;
+    height: 107vh;
+    list-style-type: none;
+    margin: -100px 0 0 -50px;
+    padding: 50px;
+    padding-top: 125px;
+    position: absolute;
+    transform-origin: 0% 0%;
+    transform: translate(-100%, 0);
+    transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+    width: 300px;
+    -webkit-font-smoothing: antialiased;
+}
+
+header .menu li {
+    font-size: 19px;
+    padding: 10px 0;
+}
+
+/*
+* And let's slide it in from the left
+*/
+header .menuToggle input:checked ~ ul {
+    transform: none;
+}
+
+/* Partial - Body
+------------------------------*/
+.body .main-section {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 50px;
+}
+
+.body .main-section > .scroll {
+    bottom: 0;
+    overflow: auto;
+    padding: 0 20px;
+    position: absolute;
+    top: 38px;
+    width: 100%;
+}
+
+.body h3 .label {
+    font-size: 12px;
+}
+
+/* Partial - Main Menu
+------------------------------*/
+.main-menu {
+    background-color: #000000;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    top: 50px;
+    width: 200px;
+}
+
+.main-menu ul > li > a {
+    border-radius: 0;
+    color: #FFFFFF;
+}
+
+.main-menu ul > li > a > i {
+    width: 20px;
+}
+
+.main-menu ul > li > a:hover {
+    color: #222222;
+}
+
+.main-menu ul > li.active > a {
+    border-radius: 0;
+    background-color: transparent;
+    color: #337AB7;
+    font-weight: bold;
+}
+
+/* Select Universal Style
+------------------------------*/
+select.form-control {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -webkit-border-radius: 0px;
+    background-image: url("/images/caret-down.svg");
+    background-position: 99% 50%;
+    background-repeat: no-repeat;
+    background-size: 10px;
+}
+
+/* Page Deal Form
+------------------------------*/
+.page-sales-lead-form .auto-suggest,
+.page-sales-profile-form .auto-suggest {
+    background: #fff;
+    list-style: none;
+    padding: 0;
+    position: absolute;
+    width: 96%;
+    z-index: 9;
+}
+
+.page-sales-lead-form .auto-suggest li,
+.page-sales-profile-form .auto-suggest li {
+    padding: 5px 10px;
+}
+
+.page-sales-lead-form .auto-suggest li:hover,
+.page-sales-profile-form .auto-suggest li:hover {
+    background: #009cffc4;
+}
+
+.page-sales-lead-form .auto-suggest li:hover a,
+.page-sales-profile-form .auto-suggest li:hover a {
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+}
+
+/* Page Deal Board
+------------------------------*/
+.page-sales-pipeline-board .pipeline-dropdown {
+    background: #fff;
+}
+.page-sales-pipeline-board .pipeline-total {
+    line-height: 34px;
+    margin-left: 10px;
+}
+.page-sales-pipeline-board .filter-wrapper {
+    border: 1px solid #ccc;
+    padding: 15px;
+}
+.page-sales-pipeline-board .filter-wrapper select.form-control {
+    background-position: 95% 50%;
+}
+.page-sales-pipeline-board .filter-wrapper .filter-head {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+.page-sales-pipeline-board .filter-wrapper .form-group label {
+    font-weight: 500;
+}
+.page-sales-pipeline-board .filter-wrapper .range-group {
+    float: left;
+    width: 45%;
+}
+.page-sales-pipeline-board .filter-wrapper .range-group input {
+    padding: 5px 7px;
+}
+.page-sales-pipeline-board .filter-wrapper .range-separator {
+    float: left;
+    line-height: 34px;
+    text-align: center;
+    width: 10%;
+}
+.page-sales-pipeline-board .deal-board {
+    align-self: stretch!important;
+    display: flex;
+    margin-left: 1%;
+    min-height: 70vh;
+    padding-left: 0;
+    overflow-x: auto;
+    width: 82.33%;
+}
+.page-sales-pipeline-board .deal-board .column {
+    background: #f6f8fa;
+    border: 1px solid #d6d5d5;
+    border-left: 0;
+    flex-shrink: 0 !important;
+    height: 685px;
+    min-width: 250px;
+    overflow: hidden;
+}
+.page-sales-pipeline-board .deal-board .draggable-wrapper {
+    height: 72vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.page-sales-pipeline-board .deal-board .column:first-child {
+    border-left: 1px solid #d6d5d5;
+}
+
+.page-sales-pipeline-board .deal-board .column .column-total {
+    background: #fffdfd;
+    border-top: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+.page-sales-pipeline-board .deal-board .column .stage-label {
+    border-bottom: 1px solid #d6d5d5;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 7px;
+    text-transform: uppercase;
+}
+.page-sales-pipeline-board .deal-board .column .stage-label .progress {
+    height: 5px;
+    margin-bottom: 0;
+}
+.page-sales-pipeline-board .deal-board .column .stage-label .stage {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.page-sales-pipeline-board .deal-board .column .sortable {
+    min-height: 70vh;
+    padding: 0;
+    padding-top: 9px;
+}
+.page-sales-pipeline-board .deal-board .column .sortable .card {
+    background: #fff;
+    box-shadow: 0px 1px 3px #ccc;
+    list-style: none;
+    margin: 9px auto;
+    margin-top: 0;
+    min-height: 45px;
+    padding: 12px;
+    width: 90%;
+}
+
+.page-sales-pipeline-board .deal-board .column .sortable .card .card-name {
+    font-weight: 400;
+}
+.page-sales-pipeline-board .deal-board .column .sortable .card div {
+    margin: 5px 0;
+    max-width: 250px;
+}
+.page-sales-pipeline-board .deal-board .column .stage-label .prog {
+    height: 2px;
+    background: #000;
+    width: 20px;
+    margin-right: 10px;
+    float: left;
+}
+
+@media only screen and (max-height: 768px) {
+    .page-sales-pipeline-board .deal-board .draggable-wrapper {
+        height: 600px;
+    }
+}
+
+/* Page Deal Detail
+------------------------------*/
+.page-sales-deal-detail .deal-detail .card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    padding-bottom: 0;
+}
+
+.page-sales-deal-detail .deal-detail .list-group-item {
+    background: transparent;
+    border: none;
+    border-bottom: 1px dashed #ddd;
+}
+.page-sales-deal-detail .deal-detail .list-group-item:last-child {
+    border: 0;
+}
+.page-sales-deal-detail .deal-detail .list-group-item .title {
+    font-size: 12px;
+}
+.page-sales-deal-detail .deal-detail .list-group-item .value {
+    font-weight: 500;
+    border: 0;
+}
+
+.page-sales-deal-detail .deal-detail .list-group-item .editable:hover,
+.page-sales-deal-detail .deal-detail .list-group-item .editable:focus  {
+    border-bottom: 1.4px dashed #030367;
+    outline: none;
+}
+
+.page-sales-deal-detail .deal-detail .list-group-item .value:focus {
+    box-shadow: none;
+    font-weight: 500;
+    -webkit-box-shadow: none;
+}
+
+.page-sales-deal-detail .timeline-wrapper .nav-tabs>li > a {
+    border: 0;
+    border-bottom: 5px solid transparent;
+    color: #28355d;
+}
+
+.page-sales-deal-detail .timeline-wrapper .nav-tabs>li > a:hover {
+    background: transparent;
+    color: #7c98b6;
+}
+
+.page-sales-deal-detail .timeline-wrapper .nav-tabs>li.active>a,
+.page-sales-deal-detail .timeline-wrapper .nav-tabs>li.active>a:hover {
+    border-bottom: 5px solid #555;
+    color: #555;
+    font-weight: 600;
+}
+
+.page-sales-deal-detail .timeline-wrapper .tab-content textarea {
+    border: none;
+    box-shadow: none;
+}
+
+.page-sales-deal-detail .timeline-wrapper .tab-content .mce-panel {
+    border: 0;
+    box-shadow: none;
+}
+.page-sales-deal-detail .timeline-wrapper .tab-content .note-toolbar {
+    line-height: 31px;
+    padding: 5px;
+}
+.page-sales-deal-detail .timeline-wrapper .tab-content .note-toolbar button,
+.page-sales-deal-detail .timeline-wrapper .tab-content .note-toolbar button:focus {
+    background: #fff;
+    border: 0;
+    outline: none;
+}
+.page-sales-deal-detail .timeline-wrapper .tab-content .note-toolbar input[type="file"] {
+    display: none;
+}
+
+.page-sales-deal-detail .timeline-wrapper .feed .panel.with-nav-tabs {
+    border: 0;
+    box-shadow: none;
+}
+
+.page-sales-deal-detail .deal-progress {
+    margin-bottom: 40px;
+}
+.page-sales-deal-detail .deal-progress {
+    border-bottom: solid 1px #e0e0e0;
+    padding: 0 0 10px 0;
+}
+.page-sales-deal-detail .deal-progress > .deal-progress-step {
+    padding: 0;
+    position: relative;
+}
+.page-sales-deal-detail .deal-progress > .deal-progress-step .deal-progress-stepnum {
+    color: #595959;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+.page-sales-deal-detail .deal-progress > .deal-progress-step .deal-progress-info {
+    color: #999;
+    font-size: 14px;
+}
+.page-sales-deal-detail .deal-progress > .deal-progress-step > .deal-progress-dot {
+    background: #fff;
+    border: 2px solid #EF578A;
+    border-radius: 50%;
+    display: block;
+    height: 30px;
+    left: 50%;
+    margin-left: -15px;
+    margin-top: -15px;
+    position: absolute;
+    top: 22.5px;
+    width: 30px;
+}
+.page-sales-deal-detail .deal-progress > .deal-progress-step > .deal-progress-dot.active,
+.page-sales-deal-detail .deal-progress > .deal-progress-step > .deal-progress-dot.complete, {
+    /* background: #fff; */
+
+}
+.page-sales-deal-detail .deal-progress > .deal-progress-step > .deal-progress-dot:after {
+    content: '';
+    display: block;
+    width: 7px;
+    height: 15px;
+    border: solid #EF578A;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    margin: 4px 10px;
+}
+.page-sales-deal-detail .deal-progress > .deal-progress-step > .progress {
+    border-radius: 0px;
+    box-shadow: none;
+    height: 8px;
+    margin: 20px 0;
+    position: relative;
+}
+.page-sales-deal-detail .deal-progress > .deal-progress-step > .progress > .progress-bar {
+    box-shadow: none;
+    background: #EF578A;
+    width:0px;
+}
+.page-sales-deal-detail .deal-progress > .deal-progress-step.complete > .progress > .progress-bar {
+    width:100%;
+}
+.page-sales-deal-detail .deal-progress > .deal-progress-step.active > .progress > .progress-bar {
+    width:50%;
+}
+.page-sales-deal-detail .deal-progress > .deal-progress-step:first-child.active > .progress > .progress-bar {
+    width:0%;
+}
+.page-sales-deal-detail .deal-progress > .deal-progress-step:last-child.active > .progress > .progress-bar {
+    width: 100%;
+}
+.page-sales-deal-detail .deal-progress > .deal-progress-step.disabled > .deal-progress-dot {
+    background-color: #f5f5f5;
+    border: 2px solid #f5f5f5;
+}
+.page-sales-deal-detail .deal-progress > .deal-progress-step.disabled > .deal-progress-dot:after {
+    opacity: 0;
+}
+.page-sales-deal-detail .deal-progress > .deal-progress-step:first-child  > .progress {
+    left: 50%;
+    width: 50%;
+}
+.page-sales-deal-detail .deal-progress > .deal-progress-step:last-child  > .progress {
+    width: 50%;
+}
+.page-sales-deal-detail .deal-progress > .deal-progress-step.disabled a.deal-progress-dot {
+    pointer-events: none;
+}
+.page-sales-deal-detail .deal-progress > .deal-progress-step .current-stage {
+    color: #555;
+    font-weight: 500;
+}
+
+/* Deal Details: Timeline */
+
+.page-sales-deal-detail .timeline {
+    margin-bottom: 30px;
+    margin-top: 4px;
+    padding: 21px 0px 10px;
+    position: relative;
+}
+
+.page-sales-deal-detail .timeline .line {
+    background: currentColor;
+    bottom: 0px;
+    display: block;
+    margin-left: 30px;
+    position: absolute;
+    top: 0px;
+    width: 4px;
+}
+
+.page-sales-deal-detail .timeline .separator {
+    border-top: 1px solid currentColor;
+    font-size: .9em;
+    font-style: italic;
+    margin-left: 30px;
+    padding: 5px;
+    padding-left: 40px;
+}
+
+.page-sales-deal-detail .timeline .line::before {
+    top: -4px;
+}
+.page-sales-deal-detail .timeline .line::after {
+    bottom: -4px;
+}
+.page-sales-deal-detail .timeline .line::before,
+.page-sales-deal-detail .timeline .line::after {
+    background: currentColor;
+    border-radius: 50%;
+    content: '';
+    display: block;
+    height: 12px;
+    left: -4px;
+    position: absolute;
+    width: 12px;
+}
+
+.page-sales-deal-detail .timeline .panel {
+    clear: both;
+    margin: 10px 0px 21px 70px;
+    position: relative;
+}
+
+.page-sales-deal-detail .timeline .panel::before {
+    border: inherit;
+    border-width: 12px;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    content: '';
+    display: block;
+    left: -24px;
+    height: 0px;
+    position: absolute;
+    top: 8px;
+    width: 0px;
+}
+
+.page-sales-deal-detail .timeline .panel .panel-heading.icon * {
+    font-size: 20px;
+    vertical-align: middle;
+    line-height: 40px;
+}
+.page-sales-deal-detail .timeline .panel .panel-heading.icon {
+    border-radius: 50%;
+    display: block;
+    float: left;
+    height: 40px;
+    left: -59px;
+    position: absolute;
+    text-align: center;
+    width: 40px;
+    padding: 0px;
+}
+
+.page-sales-deal-detail .timeline .panel-outline {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.page-sales-deal-detail .timeline .panel-outline .panel-body {
+    padding: 10px 0px;
+}
+
+.page-sales-deal-detail .timeline .panel-outline .panel-heading:not(.icon),
+.page-sales-deal-detail .timeline .panel-outline .panel-footer {
+    display: none;
+}
+
+.page-sales-deal-detail .timeline-wrapper .card-datetime {
+    font-size:0.8em
+}
+
+.page-sales-deal-detail .timeline-wrapper .notes {
+    background: transparent;
+    border-color: #4FC3F7;
+    box-shadow: 5px 10px #8888881f;
+}
+
+.page-sales-deal-detail .timeline-wrapper .notes .panel-heading {
+    background: #4FC3F7;
+    border-color: #4FC3F7;
+    box-shadow: none;
+    color: white;
+}
+
+.page-sales-deal-detail .timeline-wrapper .notes .icon {
+    background: #4FC3F7;
+    border-color: #4FC3F7;
+    color: white;
+}
+
+.page-sales-deal-detail .timeline-wrapper .notes .attachments {
+    color: #555;
+    font-weight: 500;
+}
+
+.page-sales-deal-detail .timeline-wrapper .sms {
+    background: transparent;
+    border-color: #5aaa5a;
+    box-shadow: 5px 10px #8888881f;
+}
+
+.page-sales-deal-detail .timeline-wrapper .sms .panel-heading {
+    background: #5aaa5a;
+    border-color: #5aaa5a;
+    box-shadow: none;
+    color: white;
+}
+
+.page-sales-deal-detail .timeline-wrapper .sms .icon {
+    background: #5aaa5a;
+    border-color: #5aaa5a;
+    color: white;
+}
+
+.page-sales-deal-detail .timeline-wrapper .emails {
+    background: transparent;
+    border-color: #4DB6AC;
+    box-shadow: 5px 10px #8888881f;
+}
+
+.page-sales-deal-detail .timeline-wrapper .emails .panel-heading {
+    background: #4DB6AC;
+    border-color: #4DB6AC;
+    box-shadow: none;
+    color: white;
+}
+
+.page-sales-deal-detail .timeline-wrapper .emails .icon {
+    background: #4DB6AC;
+    border-color: #4DB6AC;
+    color: white;
+}
+
+.page-sales-deal-detail .timeline-wrapper .updates {
+    background: transparent;
+    border-color: #9575CD;
+    box-shadow: 5px 10px #8888881f;
+}
+
+.page-sales-deal-detail .timeline-wrapper .updates .icon {
+    background: #9575CD;
+    border-color: #9575CD;
+    color: white;
+}
+
+.page-sales-deal-detail .timeline-wrapper .creates {
+    background: transparent;
+    border-color: #4DD0E1;
+    box-shadow: 5px 10px #8888881f;
+}
+
+.page-sales-deal-detail .timeline-wrapper .creates .icon {
+    background: #4DD0E1;
+    border-color: #4DD0E1;
+    color: white;
+}
+
+.page-sales-deal-detail .timeline-wrapper .moves {
+    background: transparent;
+    border-color: #FF8A65;
+    box-shadow: 5px 10px #8888881f;
+}
+
+.page-sales-deal-detail .timeline-wrapper .moves .icon {
+    background: #FF8A65;
+    border-color: #FF8A65;
+    color: white;
+}
+
+/* END of Deal Details: Timeline */
+
+/* Deal Details: Email Tab */
+.page-sales-deal-detail .email-tab .subject,
+.page-sales-deal-detail .email-tab .tag-field {
+    border: 0;
+    border-bottom: 1.4px dashed #030367;
+    box-shadow: none;
+}
+
+/* Page Deal Detail Thread
+------------------------------*/
+.page-sales-deal-thread .email-container .email .snippet-btn {
+    border-top: 1px solid #adadad;
+    float: none;
+    text-align: left;
+    overflow: hidden;
+    width: 100%;
+}
+.page-sales-deal-thread .email-container .email .snippet-btn:hover {
+    border-top: 1px solid #adadad;
+}
+.page-sales-deal-thread .email-container .email .well {
+    background: #fff;
+    border-radius: 0;
+    border-top: 0;
+    margin-bottom: 0;
+}
+.page-sales-deal-thread .email-container .email .subject,
+.page-sales-deal-thread .email-container .email .date {
+    color: #222;
+    font-weight: 600;
+}
+
+/* Page Event Form
+------------------------------*/
+.page-sales-event-form .auto-suggest,
+.page-sales-event-search .auto-suggest {
+    background: #fff;
+    list-style: none;
+    padding: 0;
+    position: absolute;
+    width: 96%;
+    z-index: 9;
+}
+
+.page-sales-event-form .auto-suggest li,
+.page-sales-event-search .auto-suggest li {
+    padding: 5px 10px;
+}
+
+.page-sales-event-form .auto-suggest li:hover,
+.page-sales-event-search .auto-suggest li:hover {
+    background: #009cffc4;
+}
+
+.page-sales-event-form .auto-suggest li:hover a,
+.page-sales-event-search .auto-suggest li:hover a {
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+}
+
+/* Page Dashboard
+------------------------------*/
+.page-sales-dashboard .main-section > .scroll {
+    top: 0;
+}
+.page-sales-dashboard .row {
+    margin-bottom: 20px;
+}
+.page-sales-dashboard .table-block .section-block {
+    height: 335px;
+}
+.page-sales-dashboard .section-block {
+    border: 1px solid #ccc;
+    padding: 30px;
+}
+.page-sales-dashboard .section-block .block-title {
+    font-size: 17px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+.page-sales-dashboard .section-block .table th {
+    background-color: #f7f7f7;
+    font-weight: 500;
+}
+
+.page-sales-dashboard .activities .panel.sms {
+    border-color: #5aaa5a;
+}
+.page-sales-dashboard .activities .panel.note {
+    border-color: #4FC3F7;
+}
+.page-sales-dashboard .activities .panel.update {
+    border-color: #4DB6AC;
+}
+.page-sales-dashboard .activities .panel.move {
+    border-color: #FF8A65;
+}
+.page-sales-dashboard .activities .panel.email {
+    border-color: #4DB6AC;
+}
+
+.page-sales-dashboard .activities .panel .panel-heading {
+    font-size: 13px;
+    font-weight: 300;
+}
+.page-sales-dashboard .activities .panel.sms .panel-heading {
+    background: #5aaa5a;
+}
+.page-sales-dashboard .activities .panel.note .panel-heading {
+    background: #4FC3F7;
+}
+.page-sales-dashboard .activities .panel.update .panel-heading {
+    background: #4DB6AC;
+}
+.page-sales-dashboard .activities .panel.move .panel-heading {
+    background: #FF8A65;
+}
+.page-sales-dashboard .activities .panel.email .panel-heading {
+    background: #4DB6AC;
+}
+.page-sales-dashboard .activities .panel .card-datetime {
+    font-size: 11px;
+}
+
+/* Page Activity
+------------------------------*/
+.page-sales-activity-timeline h3.template-blue {
+    margin-bottom: 0;
+}
+.page-sales-activity-timeline .main-section > .scroll {
+    position: relative;
+    top: 0;
+}
+.page-sales-activity-timeline .search-actions {
+    margin-bottom: 0;
+    padding: 16px;
+}
+.page-sales-activity-timeline .search-actions select.form-control {
+    background-position: 94%;
+    padding: 2px 7px;
+    width: 110px;
+}
+.page-sales-activity-timeline .search-actions .date-range {
+    margin-bottom: 0;
+}
+.page-sales-activity-timeline .search-actions .date-range .input-separator {
+    top: 0;
+}
+
+.page-sales-activity-timeline .main-wrapper {
+    background-color: #474e5d;
+    font-family: Helvetica, sans-serif;
+}
+.page-sales-activity-timeline .timeline {
+    height: 85vh;
+    margin: 0 auto;
+    max-width: 1200px;
+    overflow: scroll;
+    position: relative;
+}
+.page-sales-activity-timeline .timeline::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    background-color: white;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -3px;
+}
+.page-sales-activity-timeline .timeline .timestamp {
+    font-size: 12px;
+    text-align: right;
+}
+.page-sales-activity-timeline .activity {
+    padding: 10px 40px;
+    position: relative;
+    background-color: inherit;
+    width: 50%;
+}
+.page-sales-activity-timeline .activity::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    right: -12px;
+    background-color: white;
+    border: 4px solid #FF9F55;
+    top: 15px;
+    border-radius: 50%;
+    z-index: 1;
+}
+.page-sales-activity-timeline .left {
+    left: 0;
+}
+.page-sales-activity-timeline .right {
+    left: 50%;
+}
+.page-sales-activity-timeline .left::before {
+    content: " ";
+    height: 0;
+    position: absolute;
+    top: 22px;
+    width: 0;
+    z-index: 1;
+    right: 30px;
+    border: medium solid white;
+    border-width: 10px 0 10px 10px;
+    border-color: transparent transparent transparent white;
+}
+.page-sales-activity-timeline .right::before {
+    content: " ";
+    height: 0;
+    position: absolute;
+    top: 22px;
+    width: 0;
+    z-index: 1;
+    left: 30px;
+    border: medium solid white;
+    border-width: 10px 10px 10px 0;
+    border-color: transparent white transparent transparent;
+}
+.page-sales-activity-timeline .right::after {
+    left: -12.5px;
+}
+.page-sales-activity-timeline .content {
+    padding: 20px 30px;
+    background-color: white;
+    position: relative;
+    border-radius: 6px;
+}
+
+/* Media queries - Responsive timeline on screens less than 600px wide */
+@media all and (max-width: 600px) {
+    .page-sales-activity-timeline .timeline::after {
+        left: 31px;
+    }
+    .page-sales-activity-timeline .activity {
+        padding-left: 70px;
+        padding-right: 25px;
+        width: 100%;
+    }
+    .page-sales-activity-timeline .activity::before {
+        border-color: transparent white transparent transparent;
+        border-width: 10px 10px 10px 0;
+        border: medium solid white;
+        left: 60px;
+    }
+    .page-sales-activity-timeline .left::after,
+    .page-sales-activity-timeline .right::after {
+        left: 15px;
+    }
+    .page-sales-activity-timeline .right {
+        left: 0%;
+    }
+}

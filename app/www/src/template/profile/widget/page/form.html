@@ -1,0 +1,215 @@
+<div class="container">
+    {{> profile_alert}}
+    <!-- START: Profile Panel -->
+    <div class="row profile-panel">
+        <!-- START: Sidebar Left -->
+        <aside class="col-md-3 left">
+            {{> profile_menu active="page"}}
+        </aside>
+        <!-- END: Sidebar Left -->
+        <!-- START: Content Right -->
+        <div class="col-md-9 right">
+            <div class="row widget-body">
+                <div class="col-md-6">
+                    <!-- START: Career Page Settings -->
+                    <h1>{{_ 'Career Page Settings'}}</h1>
+
+                    <form method="post">
+                        <hr />
+                        <div class="form-group">
+                            <label>{{_ 'School Name'}}</label>
+                            <input
+                                autocomplete="off"
+                                class="form-control"
+                                data-do="suggestion-field"
+                                data-type="school"
+                                name="widget_meta[school]"
+                                placeholder="{{_ 'School Name'}}"
+                                type="text"
+                                value="{{item.widget_meta.school}}"
+                            />
+                            <span class="help-text"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>{{_ 'Jobs to Appear on My Career Page'}}</label>
+                            
+                            <div class="checkbox all_jobs">
+                                <input 
+                                    id="all_jobs" 
+                                    name="widget_meta[filter][all_jobs]" 
+                                    type="checkbox" 
+                                    value="all_jobs"
+                                    {{#isset item.widget_meta.filter 'all_jobs'}}
+                                        checked
+                                    {{/isset}}
+                                >
+                                <label for="all_jobs">
+                                    All Jobs in Jobayan
+                                </label>
+                            </div>
+                            <div class="checkbox my_jobs">
+                                <input 
+                                    id="my_jobs" 
+                                    name="widget_meta[filter][my_jobs]" 
+                                    type="checkbox" 
+                                    value="my_jobs"
+                                    {{#isset item.widget_meta.filter 'my_jobs'}}
+                                        checked
+                                    {{/isset}}
+                                >
+                                <label for="my_jobs">
+                                    My Jobs
+                                </label>
+                            </div>
+                            <div class="checkbox by_tags">
+                                <input 
+                                    id="by_tags" 
+                                    name="widget_meta[filter][by_tags]" 
+                                    type="checkbox" 
+                                    value="by_tags"
+                                    {{#isset item.widget_meta.filter 'by_tags'}}
+                                        checked
+                                    {{/isset}}
+                                >
+                                <label for="by_tags">
+                                    By Tags
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="clearfix form-group">
+                            <label>Tags</label>
+                            <div data-do="tag-field" class="tag-field">
+                                {{#each item.post_tags}}
+                                    <div class="tag">
+                                        <input
+                                            class="tag-input text-field"
+                                            name="post_tags[]"
+                                            placeholder="{{_ 'Add Tag'}}"
+                                            type="text"
+                                            value="{{this}}"
+                                        />
+                                        <a class="remove" href="javascript:void(0)">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                {{/each}}
+                            </div>
+                            <div class="hide input-suggestion">
+                                <ul class="suggestion-list"></ul>
+                            </div>
+                            <script id="tag-translations" type="text/json">{"Tag":"Tag"}</script>
+                        </div>
+                        
+                        <div
+                            class="form-group
+                            {{#if errors.widget_domain}}
+                                has-error
+                            {{/if}}"
+                        >
+                            <label class="control-label">
+                                {{_ 'App Domain'}}
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div>
+                                <input
+                                    class="form-control"
+                                    name="widget_domain"
+                                    placeholder="http://www.mysite.com"
+                                    type="text"
+                                    value="{{item.widget_domain}}"
+                                />
+                            </div>
+                            {{#if errors.widget_domain}}
+                                <span class="help-text">
+                                    {{errors.widget_domain}}
+                                </span>
+                            {{/if}}
+                        </div>
+
+                        <br />
+                        <div class="clear form-group">
+                            <input
+                                name="widget_id"
+                                type="hidden"
+                                value="{{item.widget_id}}"
+                            />
+                            <input
+                                name="widget_key"
+                                type="hidden"
+                                value="{{item.widget_key}}"
+                            />
+                            <input
+                                type="hidden"
+                                name="csrf"
+                                value="{{csrf}}"
+                            />
+                             <input
+                                name="widget_type"
+                                type="hidden"
+                                value="{{item.widget_type}}"
+                            />
+                            <button
+                                class="btn btn-default text-uppercase"
+                                type="submit"
+                            >
+                                Save
+                            </button>
+                        </div>
+                    </form>
+                    <!-- END: Career Page Settings -->
+                </div>
+                <div class="col-md-6">
+                    <!-- START: Career Page Preview -->                    
+                    <h2>{{_ 'Career Page Preview'}}</h2>
+                    <hr />
+                    <div class="preview">
+                        {{#if item.widget_code}}
+                        <a class="btn btn-default" href="/profile/widget/preview" target="_blank">
+                            Click here to Preview Careers Page
+                        </a>
+                        {{else}}
+                        <center>Preview not Available</center>
+                        {{/if}}
+                        <hr />
+                    </div>
+                    <!-- END: Career Page Preview -->
+                    <!-- START: Career Page Code -->
+                    <div class="code">
+                        <h3>{{_ 'Career Page Code'}}</h3>
+                        <hr />
+                        <p>
+                            Create a blank page on your website. Paste this before your <code>&lt;/body&gt;</code> tag.
+                        </p>
+                        {{#if item.widget_code}}
+                            <pre>
+                                <code class="language-js">{{{item.widget_code}}}</code>
+                            </pre>
+                            
+                            <textarea 
+                                id="widgetSource" 
+                                style="bottom: -9999px; height: 0; position: fixed; width: 0;">
+                                {{{item.widget_code}}}
+                            </textarea>
+                        {{else}}
+                            There is no available widget code yet.
+                        {{/if}}
+                    </div>
+
+                    {{#if item.widget_code}}
+                        <button  
+                            class="btn btn-default text-uppercase" 
+                            data-do="copy-widget-code"
+                            data-on="click"
+                            data-target="widgetSource"
+                        >COPY CODE</button>
+                    {{/if}}
+                    <!-- END: Career Page Code -->
+                </div>
+            </div>
+        </div>
+        <!-- END: Content Right -->
+    </div>
+    <!-- END: Profile Panel -->
+</div>

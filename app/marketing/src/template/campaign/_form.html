@@ -1,0 +1,199 @@
+<form method="post">
+    <div class="row">
+        <div class="col-xs-6">
+            <!-- START: Title -->
+            <div class="form-group{{#if errors.campaign_title}} has-error{{/if}}">
+                <label>{{_ 'Title'}}</label>
+                <div class="texts-field">
+                    <input
+                        class="form-control"
+                        name="campaign_title"
+                        placeholder="{{_ 'Enter title'}}"
+                        type="text"
+                        value="{{item.campaign_title}}"
+                    />
+                </div>
+
+                {{#if errors.campaign_title}}
+                    <span class="help-text">{{errors.campaign_title}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Template -->
+            <div class="form-group">
+                <label>{{_ 'Template'}}</label>
+                <div class="select-field">
+                    <select
+                            class="form-control"
+                            data-do="pull-template"
+                            data-on="change"
+                            name="template_id"
+                    >
+                        <option value="no-campaign">
+                            {{_ 'No Sending Action'}}
+                        </option>
+                        {{#if templates.rows}}
+                            {{#each templates.rows}}
+                                <option
+                                    {{#when template_id '==' ../item.template_id}}
+                                        selected
+                                    {{/when}}
+                                    value="{{template_id}}"
+                                >
+                                    {{template_title}}
+                                </option>
+                            {{/each}}
+                        {{/if}}
+                    </select>
+                </div>
+            </div>
+            <!-- END: Template -->
+
+            <!-- START: Medium -->
+            <div class="form-group{{#if errors.campaign_medium}} has-error{{/if}}">
+                <label>{{_ 'Medium'}}</label>
+                <div class="select-field">
+                    <select
+                        class="form-control"
+                        data-do="pull-template"
+                        data-on="change"
+                        name="campaign_medium"
+                    >
+                        <option
+                            {{#when item.campaign_medium === 'email'}}
+                                selected
+                            {{/when}}
+                            value="email"
+                        >
+                            {{_ 'Email'}}
+                        </option>
+                        <option
+                            {{#when item.campaign_medium === 'sms'}}
+                                selected
+                            {{/when}}
+                            value="sms"
+                        >
+                            {{_ 'SMS'}}
+                        </option>
+                    </select>
+                </div>
+
+                {{#if errors.campaign_medium}}
+                    <span class="help-text">{{errors.campaign_medium}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Medium -->
+
+            <!-- START: Source -->
+            <div class="form-group{{#if errors.campaign_source}} has-error{{/if}}">
+                <label>{{_ 'Source'}}</label>
+                <div class="select-field">
+                    <select name="campaign_source" class="form-control">
+                        <option
+                            {{#when item.campaign_source === 'lead'}}
+                                selected
+                            {{/when}}
+                            value="lead"
+                        >
+                            {{_ 'Leads'}}
+                        </option>
+                        <option
+                            {{#when item.campaign_source === 'profile'}}
+                                selected
+                            {{/when}}
+                            value="profile"
+                        >
+                            Users
+                        </option>
+                    </select>
+                </div>
+
+                {{#if errors.campaign_source}}
+                    <span class="help-text">{{errors.campaign_source}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Source -->
+
+            <!-- START: Audience -->
+            <div class="form-group{{#if errors.campaign_audience}} has-error{{/if}}">
+                <label>{{_ 'Audience'}}</label>
+                <div class="select-field">
+                    <select name="campaign_audience" class="form-control">
+                        <option
+                            {{#when item.campaign_audience === 'seeker'}}
+                                selected
+                            {{/when}}
+                            value="seeker"
+                        >
+                            {{_ 'Seekers'}}
+                        </option>
+                        <option
+                            {{#when item.campaign_audience === 'poster'}}
+                                selected
+                            {{/when}}
+                            value="poster"
+                        >
+                            {{_ 'Posters'}}
+                        </option>
+                    </select>
+                </div>
+                
+                {{#if errors.campaign_audience}}
+                    <span class="help-text">{{errors.campaign_audience}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Audience -->
+
+            <!-- START: Labels -->
+            <div class="form-group{{#if errors.campaign_tags}} has-error{{/if}}">
+                <label>{{_ 'Match User/Lead Tags'}}</label>
+                <div
+                    class="tag-field"
+                    data-do="tag-field"
+                    data-name="campaign_tags"
+                    data-placeholder="{{_ 'Label'}}"
+                >
+                    {{#each item.campaign_tags}}
+                        <div class="tag">
+                            <input
+                                class="tag-input text-field"
+                                name="lead_tags"
+                                placeholder="{{_ 'Label'}}"
+                                value="{{this}}"
+                                type="text"
+                            />
+                            <a class="remove" href="javascript:void(0)">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    {{/each}}
+                </div>
+
+                <div class="input-suggestion hide">
+                    <ul class="suggestion-list"></ul>
+                </div>
+
+                {{#if errors.campaign_tags}}
+                <span class="help-text">{{errors.campaign_tags}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Labels -->
+
+            <div class="form-group">
+                <button class="btn btn-primary">{{_ 'Submit'}}</button>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <!-- START: Title -->
+            <div class="form-group">
+                <label>{{_ 'Preview'}}</label>
+                <div class="preview" id="preview"></div>
+                <div class="hide text-center" id="preview-loader">
+                    <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+                </div>
+            </div>
+            <!-- END: Title -->
+        </div>
+    </div>
+</form>

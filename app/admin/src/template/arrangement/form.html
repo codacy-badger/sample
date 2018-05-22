@@ -1,0 +1,41 @@
+<div class="panel panel-default clear" >
+    <div class="panel-heading brand">
+        <div class="panel-title">{{title}}</div>
+    </div>
+
+    <div class="panel-body" >
+        <form
+                        {{#if item.action}}
+                        action="{{item.action}}"
+                        {{/if}}
+                        method="post"
+        >
+           <div class="form-group{{#if errors.arrangement}} has-error{{/if}}">
+                <label class="control-label">Job Arrangement Name</label>
+                <div>
+                    <input
+                        class="form-control"
+                        data-do="arrangement"
+                        data-on="keyup"
+                        name="arrangement_val"
+                        placeholder="Job Arrangement Name "
+                        type="text"
+                        value="{{item.arrangement}}"
+                    />
+                    {{#if errors.arrangement}}
+                    <span class="help-text">{{errors.arrangement}}</span>
+                    {{/if}}
+                </div>
+            </div>
+
+            <div class="clear form-group">
+                <input name="csrf" type="hidden" value="{{csrf}}" />
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+<link rel="stylesheet" type="text/css" href="/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.css"></link>
+<script src="/bower_components/wysihtml5x/dist/wysihtml5x-toolbar.min.js"></script>
+<script src="/bower_components/handlebars/handlebars.runtime.min.js"></script>
+<script src="/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.js"></script>

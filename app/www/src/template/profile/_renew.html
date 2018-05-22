@@ -1,0 +1,135 @@
+<div id="renew-modal" class="renew-modal modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content main">
+            <div class="modal-header renew-header">
+                <div class="modal-title renew-title">
+                    Uh-oh! <br>
+                    Your post is expiring in 
+                    <span class="days-left"></span> days!
+                </div>
+            </div>
+            <div class="modal-body" style="text-align: center">
+                <span class="poster hide">
+                    Have you found the talent you are looking for?
+                </span>
+
+                <span class="seeker hide">
+                    Have you landed your desired job role yet?
+                </span>
+            </div>
+            <div class="modal-footer renew-footer">
+            <div class="row">
+            {{#when filter.post_active '!=' '0'}}
+                <div class="col-sm-6 renew" style="text-align: center">
+                        <span class="poster hide">
+                            <strong>Yes</strong>, I have found someone<br>awesome
+                            for the role
+                        </span>
+
+                        <span class="seeker hide">
+                            <strong>Yes</strong>, I have landed on this position
+                        </span>
+                    <div class="button-footer">
+                        <a
+                            class="btn btn-default"
+                            data-do="expire-post"
+                            data-action="1"
+                            data-on="click"
+                            data-title="Are you sure you want to remove post?"
+                            href="javascript:void(0)"
+                        >
+                        <input name="action" type="hidden" value="1"/>
+                            REMOVE THIS POST
+                        </a>
+                    </div>
+                </div>
+            {{/when}}
+            <div 
+                class="col-sm-{{#when filter.post_active '!=' '0'}}6{{else}}12{{/when}} renew" 
+                style="text-align: center"
+            >
+                    <span class="poster">
+                        <strong>Not yet.</strong> Still waiting<br>for a match.
+                    </span>
+                <div class="button-footer">
+                    <a
+                        class="btn btn-default"
+                        data-do="renew-confirm"
+                        data-on="click"
+                        type="submit"
+                    >
+                        RENEW THIS POST
+                    </a>
+                </div>
+            </div>
+            </div>
+                <a class="modal-close" data-dismiss="modal" data-on="click">
+                Close
+                </a>
+            </div>
+        </div>
+
+        <!-- Confirm Modal -->
+        <div class="modal-content renew" style="display: none;">
+            <div class="modal-header renew-header">
+                <div class="modal-title renew-title">
+                    Renew this Post
+                </div>
+            </div>
+            <div class="modal-body renew" style="text-align: center">
+                <div class="poster hide">
+                    <div class="poster-message">
+                        Hello! We are <strong><span class="post-name"></span></strong> from <strong><span class="post-location"></span></strong> and we are looking for a <strong><span class="post-position"></span></strong>.
+                    </div>
+                    <br>
+                    This post will be renewed for another 30 days after your<br> current post expired.
+                </div>
+
+                <div class="seeker hide">
+                    Hello! My name is <strong><span class="post-name"></span></strong>. and I am a <strong><span class="post-position"></span></strong>. looking for a job in <strong><span class="post-location"></span></strong>.
+                    <br>
+                    <br>
+                    This post will be renewed for another 60 days after your<br> current post expired.
+                </div>
+            </div>
+            <div class="modal-footer renew-footer-confirm" style="text-align: center">
+                <div class="button-footer confirm">
+                    <a
+                        class="btn btn-default"
+                        data-do="expire-post"
+                        data-count="{{post_count}}"
+                        data-on="click"
+                        data-redirect="/post/renew/{{post_id}}"
+                        data-id="{{post_id}}"
+                        data-action="0"
+                        type="submit"
+                    >  
+                        <input
+                            name="credit_pay"
+                            type="hidden"
+                            value="
+                                {{#if item.credit_pay}}
+                                    {{item.credit_pay}}
+                                {{else}}
+                                    0
+                                {{/if}}
+                            "
+                        />
+                        <input name='action' type='hidden' value='0'/>
+                        RENEW THIS POST
+                    </a>
+                    <br>
+                    <br>
+                    <a class="modal-close" data-dismiss="modal" data-on="click">
+                        Close
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="modal-content flash">
+            <div class="modal-body" style="text-align: center">
+            </div>
+        </div>
+    </div>
+</div>

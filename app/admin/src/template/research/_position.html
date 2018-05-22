@@ -1,0 +1,319 @@
+<div class="position">
+    <!-- START: Position Name-->
+    <div class="form-group{{#if errors.research_position.name}} has-error{{/if}}">
+        <label class="control-label">{{_ 'Position'}}</label>
+        <div>
+            <input
+                class="form-control"
+                data-do="generate-slug"
+                data-on="keyup"
+                data-name="research_position[slug]"
+                name="research_position[name]"
+                placeholder="{{_ 'Position'}}"
+                type="text"
+                value="{{item.research_position.name}}"
+            />
+
+            {{#if errors.research_position.name}}
+            <span class="help-text">{{errors.research_position.name}}</span>
+            {{/if}}
+        </div>
+    </div>
+    <!-- END: Position Name-->
+
+    <!-- START: Position Slug-->
+    <div class="form-group{{#if errors.research_position.slug}} has-error{{/if}}">
+        <label class="control-label">{{_ 'Slug'}}</label>
+        <div>
+            <input
+                class="form-control"
+                name="research_position[slug]"
+                placeholder="web-developer"
+                type="text"
+                value="{{item.research_position.slug}}"
+            />
+
+            {{#if errors.research_position.slug}}
+            <span class="help-text">{{errors.research_position.slug}}</span>
+            {{/if}}
+        </div>
+    </div>
+    <!-- END: Position Name-->
+
+    <!-- START: Average Salary -->
+    <div class="form-group{{#if errors.research_position.average_salary}} has-error{{/if}}">
+        <label class="control-label">{{_ 'Average Salary'}}</label>
+        <div>
+            <input
+                class="form-control"
+                name="research_position[average_salary]"
+                placeholder="{{_ 'Average Salary'}}"
+                type="text"
+                value="{{item.research_position.average_salary}}"
+            />
+
+            {{#if errors.research_position.average_salary}}
+                <span class="help-text">{{errors.research_position.average_salary}}</span>
+            {{/if}}
+        </div>
+    </div>
+    <!-- END: Average Salary -->
+
+    <!-- START: Average Employer -->
+    <div class="form-group{{#if errors.research_position.average_employer}} has-error{{/if}}">
+        <label class="control-label">{{_ 'Average Employer'}}</label>
+        <div>
+            <input
+                class="form-control"
+                name="research_position[average_employer]"
+                placeholder="{{_ 'Average Employers'}}"
+                type="text"
+                value="{{item.research_position.average_employer}}"
+            />
+
+            {{#if errors.research_position.average_employer}}
+                <span class="help-text">{{errors.research_position.average_employer}}</span>
+            {{/if}}
+        </div>
+    </div>
+    <!-- END: Average Employer -->
+
+    <!-- START: Salary Range -->
+    <div class="form-group{{#if errors.research_position.salary_range}} has-error{{/if}}">
+        <label class="control-label">{{_ 'Salary Range'}}</label>
+        <div class="row salary-range">
+            <!-- START: Salary Max -->
+            <div class="col-md-6 salary-max">
+                <div class="form-group
+                    {{#if errors.research_position.salary_range.min}}
+                        has-error
+                    {{/if}}
+                    "
+                >
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            &#8369;
+                        </span>
+                        <input
+                            class="form-control"
+                            min="0"
+                            name="research_position[salary_range][min]"
+                            placeholder="10,000"
+                            type="number"
+                            value="{{item.research_position.salary_range.min}}"
+                        />
+                    </div>
+                    {{#if errors.research_position.salary_range.min}}
+                        <span class="help-text">
+                            {{errors.research_position.salary_range.min}}
+                        </span>
+                    {{/if}}
+                </div>
+            </div>
+            <!-- END: Salary Max -->
+
+            <!-- START: Salary Max -->
+            <div class="col-md-6 salary-max">
+                <div class="form-group
+                    {{#if errors.research_position.salary_range.max}}
+                        has-error
+                    {{/if}}
+                    "
+                >
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            &#8369;
+                        </span>
+                        <input
+                            class="form-control"
+                            min="0"
+                            name="research_position[salary_range][max]"
+                            placeholder="100,000"
+                            type="number"
+                            value="{{item.research_position.salary_range.max}}"
+                        />
+                    </div>
+                    {{#if errors.research_position.salary_range.max}}
+                        <span class="help-text">
+                            {{errors.research_position.salary_range.max}}
+                        </span>
+                    {{/if}}
+                </div>
+            </div>
+            <!-- END: Salary Min -->
+        </div>
+    </div>
+    <!-- END: Salary Range -->
+
+    <div class="description-wrapper">
+        <label>{{_ 'Common'}}</label>
+        <hr/>
+        <!-- START: Common Description -->
+        <div class="form-group{{#if errors.research_position.description}} has-error{{/if}}">
+            <label class="control-label"><i class="fa fa-sticky-note"></i> {{_ 'Description'}}</label>
+            <div>
+                <textarea
+                    class="form-control wysiwyg-area"
+                    data-do="wysiwyg"
+                    name="research_position[description]"
+                    placeholder="{{_ 'Common Description'}}"
+                >{{{item.research_position.description}}}</textarea>
+                {{#if errors.research_position.description}}
+                    <span class="help-text">{{errors.research_position.description}}</span>
+                {{/if}}
+            </div>
+        </div>
+        <!-- END: Common Description -->
+
+        <!-- START: Common Qualification -->
+        <div class="form-group{{#if errors.research_position.qualification}} has-error{{/if}}">
+            <label class="control-label"><i class="fa fa-thumbs-up"></i> {{_ 'Qualification'}}</label>
+            <div>
+                <textarea
+                    class="form-control wysiwyg-area"
+                    data-do="wysiwyg"
+                    name="research_position[qualification]"
+                    placeholder="{{_ 'Common Qualification'}}"
+
+                >{{item.research_position.qualification}}</textarea>
+
+                {{#if errors.research_position.qualification}}
+                    <span class="help-text">{{errors.research_position.qualification}}</span>
+                {{/if}}
+            </div>
+        </div>
+        <!-- END: Common Qualification -->
+    </div>
+
+    <div class="description-wrapper">
+        <label>{{_ 'Payscale'}}</label>
+        <hr/>
+        <!-- START: Payscale Description -->
+        <div class="form-group{{#if errors.research_position.payscale_description}} has-error{{/if}}">
+            <label class="control-label"><i class="fa fa-sticky-note"></i> {{_ 'Description'}}</label>
+            <div>
+                <textarea
+                    class="form-control wysiwyg-area"
+                    data-do="wysiwyg"
+                    name="research_position[payscale_description]"
+                    placeholder="{{_ 'Payscale Description'}}"
+                >{{item.research_position.payscale_description}}</textarea>
+
+                {{#if errors.research_position.payscale_description}}
+                    <span class="help-text">{{errors.research_position.payscale_description}}</span>
+                {{/if}}
+            </div>
+        </div>
+        <!-- END: Payscale Description -->
+
+        <!-- START: Payscale Qualification -->
+        <div class="form-group{{#if errors.research_position.payscale_qualification}} has-error{{/if}}">
+            <label class="control-label"><i class="fa fa-thumbs-up"></i> {{_ 'Qualification'}}</label>
+            <div>
+                <textarea
+                    class="form-control wysiwyg-area"
+                    data-do="wysiwyg"
+                    name="research_position[payscale_qualification]"
+                    placeholder="{{_ 'Payscale Qualification'}}"
+
+                >{{item.research_position.payscale_qualification}}</textarea>
+
+                {{#if errors.research_position.payscale_qualification}}
+                    <span class="help-text">{{errors.research_position.payscale_qualification}}</span>
+                {{/if}}
+            </div>
+        </div>
+        <!-- END: Payscale Qualification -->
+    </div>
+
+    <!-- START: Location Description -->
+    <div class="form-group{{#if errors.research_position.location_description}} has-error{{/if}}">
+        <label class="control-label">{{_ 'Top Location Desription'}}</label>
+        <div>
+            <textarea
+                class="form-control wysiwyg-area"
+                data-do="wysiwyg"
+                name="research_position[location_description]"
+                placeholder="{{_ 'Description'}}"
+
+            >{{item.research_position.location_description}}</textarea>
+
+            {{#if errors.research_position.location_description}}
+                <span class="help-text">{{errors.research_position.location_description}}</span>
+            {{/if}}
+        </div>
+    </div>
+    <!-- END: Payscale Qualification -->
+
+    <!-- START: Top Companies -->
+    <div class="form-group{{#if errors.research_position.top_companies}} has-error{{/if}} clearfix">
+        <label class="control-label">{{_ 'Top Companies'}}</label>
+        <div>
+            <div data-do="company-field" data-field="research_position[top_companies]" class="company-field">
+                {{#each item.research_position.top_companies}}
+                    <div class="top-company">
+                        <input
+                            class="top-company-input text-field"
+                            name="research_position[top_companies]"
+                            placeholder="{{_ 'Add Company'}}"
+                            type="text"
+                            value="{{this}}"
+                        />
+                        <a
+                        class="remove"
+                        href="javascript:void(0)"
+                        >
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                {{/each}}
+            </div>
+
+            <div class="input-suggestion hide">
+                <ul class="suggestion-list"></ul>
+            </div>
+
+            {{#if errors.research_position.top_companies}}
+                <span class="help-text text-danger">{{errors.research_position.top_companies}}</span>
+            {{/if}}
+        </div>
+        <script id="top-company-translations" type="text/json">{"Company":"{{_ 'Company'}}"}</script>
+    </div>
+    <!-- END: Top Companies -->
+
+    <!-- START: Paid Companies -->
+    <div class="form-group{{#if errors.research_position.paid_companies}} has-error{{/if}} clearfix">
+        <label class="control-label">{{_ 'Paid Companies'}}</label>
+        <div>
+            <div data-do="company-field" data-field="research_position[paid_companies]" class="company-field">
+                {{#each item.research_position.paid_companies}}
+                    <div class="top-company">
+                        <input
+                            class="top-company-input text-field"
+                            name="research_position[paid_companies]"
+                            placeholder="{{_ 'Add Company'}}"
+                            type="text"
+                            value="{{this}}"
+                        />
+                        <a
+                        class="remove"
+                        href="javascript:void(0)"
+                        >
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                {{/each}}
+            </div>
+
+            <div class="input-suggestion hide">
+                <ul class="suggestion-list"></ul>
+            </div>
+
+            {{#if errors.research_position.paid_companies}}
+                <span class="help-text text-danger">{{errors.research_position.paid_companies}}</span>
+            {{/if}}
+        </div>
+        <script id="top-company-translations" type="text/json">{"Paid Companies":"{{_ 'Paid Companies'}}"}</script>
+    </div>
+    <!-- END: Paid Companies -->
+</div>

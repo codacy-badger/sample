@@ -1,0 +1,48 @@
+<!-- START: School Modal -->
+<div class="modal fade" id="school" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- START: Modal Header -->
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" type="button">
+                    &times;
+                </button>
+                <div class="modal-title">{{_ 'School'}}</div>
+            </div>
+            <!-- END: Modal Header -->
+            <!-- START: School Modal Form -->
+            <form
+                class="form-horizontal"
+                data-do="school-modal"
+                data-on="submit"
+                data-container="#school"
+            >
+                <div class="modal-body">
+                    <!-- START: School -->
+                    <div class="form-group">
+                        <label>{{_ 'School'}}</label>
+                        <input
+                            autocomplete="off"
+                            class="form-control"
+                            data-do="suggestion-field"
+                            data-type="school"
+                            name="post_school"
+                            placeholder="{{_ 'School'}}"
+                            type="text"
+                            value=""
+                        />
+                        <span class="help-text"></span>
+                    </div>
+                    <!-- END: School -->
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">
+                        {{_ 'Save'}}
+                    </button>
+                </div>
+            </form>
+            <!-- END: School Modal Form -->
+        </div>
+    </div>
+</div>
+<!-- END: School Modal -->

@@ -1,0 +1,337 @@
+<h3>{{title}}</h3>
+
+<form
+    enctype="multipart/form-data"
+    method="post"
+    {{#if cdn_config}}
+        data-do="cdn-upload"
+        data-on="submit"
+        data-progress="We are uploading your files. Please do not refresh page."
+        data-complete="Upload Complete"
+        data-enctype="{{cdn_config.form.enctype}}"
+        data-method="{{cdn_config.form.method}}"
+        data-action="{{cdn_config.form.action}}"
+        data-cdn="{{cdn_config.form.action}}"
+        data-acl="{{cdn_config.inputs.acl}}"
+        data-key="{{cdn_config.inputs.key}}"
+        data-credential="{{cdn_config.inputs.X-Amz-Credential}}"
+        data-algorythm="{{cdn_config.inputs.X-Amz-Algorithm}}"
+        data-date="{{cdn_config.inputs.X-Amz-Date}}"
+        data-policy="{{cdn_config.inputs.Policy}}"
+        data-signature="{{cdn_config.inputs.X-Amz-Signature}}"
+    {{/if}}
+>
+    <div id="fields-view-init" class="{{#if view}}view{{/if}}">
+    <div class="row">
+        <div class="col-md-8" >
+                <div class="panel-body">
+                    <div class="form-group{{#if errors.feature_title}} has-error{{/if}}">
+                        <label class="control-label">Title</label>
+                        <div>
+                            <input
+                                class="form-control"
+                                data-do="generate-slug"
+                                data-feature="feature_name"
+                                data-name="feature_slug"
+                                data-title="feature_meta_title"
+                                data-on="keyup"
+                                name="feature_title"
+                                value="{{item.feature_title}}"
+                            />
+
+                            {{#if errors.feature_title}}
+                            <span class="help-text">{{errors.feature_title}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="form-group{{#if errors.feature_name}} has-error{{/if}}">
+                        <label class="control-label">Name</label>
+                        <div>
+                            <input class="form-control" name="feature_name" value="{{item.feature_name}}" />
+                            {{#if errors.feature_name}}
+                            <span class="help-text">{{errors.feature_name}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="form-group{{#if errors.feature_keywords}} has-error{{/if}}">
+                        <label class="control-label">Keywords</label>
+                        <div>
+
+                            <div data-do="tag-field" class="tag-field" data-name="feature_keywords" data-field="feature_keywords">
+                                {{#each item.feature_keywords}}
+                                    <div class="tag">
+                                        <input type="text" class="tag-input text-field" name="feature_keywords[]" placeholder="{{_ 'Add Tag'}}" value="{{this}}" />
+                                        <a class="remove" href="javascript:void(0)"><i class="fa fa-times"></i></a>
+                                    </div>
+                                {{/each}}
+                            </div>
+
+                            {{#if errors.feature_keywords}}
+                            <span class="help-text">{{errors.feature_keywords}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="form-group{{#if errors.feature_slug}} has-error{{/if}}">
+                        <label class="control-label">Slug</label>
+                        <div>
+                            <input class="form-control" name="feature_slug" value="{{item.feature_slug}}" />
+                            {{#if errors.feature_slug}}
+                            <span class="help-text">{{errors.feature_slug}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="form-group{{#if errors.feature_detail}} has-error{{/if}}">
+                        <label class="control-label">Detail</label>
+                        <div>
+                            <textarea data-do="wysiwyg" name="feature_detail" class="form-control">{{{item.feature_detail}}}</textarea>
+
+                            {{#if errors.feature_detail}}
+                            <span class="help-text">{{errors.feature_detail}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="form-group{{#if errors.feature_links}} has-error{{/if}}">
+                        <label class="control-label">Links</label>
+
+                        <div class="link-form">
+                            <div class="link-field" data-do="link-field" data-name="feature_links" data-field="feature_links">
+                                {{#each item.feature_links}}
+                                    <div class="link">
+                                        <input type="text" class="form-control feature_links" name="feature_links[]" placeholder="{{_ 'Add Link'}}" value="{{this}}" />
+                                        <a class="remove" href="javascript:void(0)"><i class="fa fa-times"></i></a>
+                                    </div>
+                                {{/each}}
+                            </div>
+                            <button type="button" class="btn btn-default add">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+
+                            {{#if errors.feature_links}}
+                            <span class="help-text">{{errors.feature_links}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    {{#if item.feature_type '==' 'location'}}
+                    <!-- START: Geo -->
+                    <div class="form-group clearfix">
+                        <label class="control-label">Geolocation</label>
+                        <div class="row">
+                            <div class="col-md-6 latitude">
+                                <input
+                                    class="form-control"
+                                    min="0"
+                                    name="feature_meta[geo][latitude]"
+                                    type="text"
+                                    placeholder="Latitude"
+                                    value="{{item.feature_meta.geo.latitude}}"
+                                />
+                            </div>
+                            <div class="col-md-6 longhitude">
+                                <input
+                                    class="form-control"
+                                    min="0"
+                                    name="feature_meta[geo][longhitude]"
+                                    type="text"
+                                    placeholder="Longhitude"
+                                    value="{{item.feature_meta.geo.longhitude}}"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END: Geo-->
+                    {{/if}}
+
+                    <div class="clear form-group">
+                            <input type="hidden" name="csrf" value="" />
+                            {{#if view}}
+                                <a href="/control/feature/search" class="btn btn-link" type="submit"><i class="fa fa-caret-left"></i> &nbsp;Back</a>
+                            {{else}}
+                                <button class="btn btn-primary" type="submit">Submit</button>
+                            {{/if}}
+                        </div>
+                </div>
+                <!-- END panel-body -->
+            <!-- END panel -->
+        </div>
+        <!-- END col-md-8 -->
+
+        <div class="col-md-4">
+            <div class="panel panel-default clear" >
+                <div class="panel-heading brand">
+                    <div class="panel-title">General</div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="form-group{{#if errors.feature_type}} has-error{{/if}}">
+                        <label class="control-label">Type</label>
+                        <div class="feature-type-form">
+                            <label>
+                                <input data-do="check-option" data-on="change" type="radio" name="feature_type" value="position"{{#when item.feature_type '==' 'position'}} checked{{/when}} />
+                                <span>Position</span>
+                            </label>
+                            <label>
+                                <input data-do="check-option" data-on="change" type="radio" name="feature_type" value="location"{{#when item.feature_type '==' 'location'}} checked{{/when}} />
+                                <span>Location</span>
+                            </label>
+                            <label>
+                                <input data-do="check-option" data-on="change" type="radio" name="feature_type" value="industry"{{#when item.feature_type '==' 'industry'}} checked{{/when}} />
+                                <span>Industry</span>
+                            </label>
+                            <label>
+                                <input data-do="check-option" data-on="change" type="radio" name="feature_type" value="education"{{#when item.feature_type '==' 'education'}} checked{{/when}} />
+                                <span>Education</span>
+                            </label>
+
+                            {{#if errors.feature_type}}
+                            <span class="help-text">{{errors.feature_type}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="form-group{{#if errors.feature_color}} has-error{{/if}}">
+                        <label class="control-label">Color</label>
+                        <div id="colorpicker" class="input-group colorpicker-component">
+                            <input name="feature_color" value="{{item.feature_color}}" type="text" class="form-control" />
+                            <span class="input-group-addon"></span>
+
+                            {{#if errors.feature_color}}
+                            <span class="help-text">{{errors.feature_color}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="form-group{{#if errors.feature_subcolor}} has-error{{/if}}">
+                        <label class="control-label">Sub-Color</label>
+                        <div id="colorpicker" class="input-group colorpicker-component">
+                            <input name="feature_subcolor" value="{{item.feature_subcolor}}" type="text" class="form-control" />
+                            <span class="input-group-addon"></span>
+
+                            {{#if errors.feature_subcolor}}
+                            <span class="help-text">{{errors.feature_subcolor}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="form-group{{#if errors.feature_image}} has-error{{/if}}">
+                        <label class="control-label">Image</label>
+                        <div>
+                            <div data-do="image-field"
+                                data-name="feature_image"
+                                data-alt="Change this Photo"
+                                data-class="image-field-img"
+                                class="image-field">
+                                    {{#if item.feature_image}}
+                                        <input type="hidden" name="feature_image" value="{{item.feature_image}}" />
+                                        <img alt="Change this Photo" width="100%" src="{{item.feature_image}}" />
+                                    {{else}}
+                                        <img alt="Upload a Photo" width="200" class="placeholder" src="/images/default-image.png" />
+                                    {{/if}}
+                            </div>
+
+                            {{#if errors.feature_image}}
+                            <span class="help-text">{{errors.feature_image}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+
+
+                    <div class="form-group{{#if errors.feature_map}} has-error{{/if}} map-image-container" data-do="map-image-container" data-on="init">
+                        <label class="control-label">Map Image</label>
+                        <div>
+                            <div data-do="image-field"
+                                data-name="feature_map"
+                                data-alt="Change this Photo"
+                                data-class="image-field-img"
+                                class="image-field">
+                                    {{#if item.feature_map}}
+                                        <input class="zxc" type="hidden" name="feature_map" value="{{item.feature_map}}" />
+                                        <img alt="Change this Photo" width="100%" src="{{item.feature_map}}" />
+                                    {{else}}
+                                        <img alt="Upload a Photo" width="200" class="placeholder" src="/images/default-image.png" />
+                                    {{/if}}
+                            </div>
+
+                            {{#if errors.feature_map}}
+                            <span class="help-text">{{errors.feature_map}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <!-- END feature_image form -->
+                </div>
+                <!-- END panel-body -->
+            </div>
+            <!-- END panel -->
+
+            <div class="panel panel-default clear" >
+                <div class="panel-heading brand">
+                    <div class="panel-title">Meta</div>
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="form-group{{#if errors.feature_meta_title}} has-error{{/if}}">
+                        <label class="control-label">Meta Title</label>
+                        <div>
+                            <input name="feature_meta_title" value="{{item.feature_meta_title}}" type="text" class="form-control" />
+
+                            {{#if errors.feature_meta_title}}
+                            <span class="help-text">{{errors.feature_meta_title}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="form-group{{#if errors.feature_meta_description}} has-error{{/if}}">
+                        <label class="control-label">Meta Description</label>
+                        <div>
+                            <textarea name="feature_meta_description" class="form-control">{{{item.feature_meta_description}}}</textarea>
+
+                            {{#if errors.feature_meta_description}}
+                            <span class="help-text">{{errors.feature_meta_description}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- END panel -->
+        </div>
+        <!-- END col-md-4 -->
+    </div>
+    </div>
+
+</div>
+
+<link rel="stylesheet" type="text/css" href="/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.css"></link>
+<link href="{{'config' cdn}}/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+<script src="/bower_components/wysihtml5x/dist/wysihtml5x-toolbar.min.js"></script>
+<script src="/bower_components/handlebars/handlebars.runtime.min.js"></script>
+<script src="/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.js"></script>
+<script type="text/javascript" src="/scripts/cropper.js"></script>
+
+<script type="text/javascript" src="{{'config' cdn}}/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+<script type="text/javascript" src="{{'config' cdn}}/scripts/plugins/upload-banner.js"></script>
+<script type="text/javascript">
+    $(window).on('map-image-container-init', function (e, target) {
+        var attr = $('input[name="feature_type"][value="location"]');
+        if((attr).is(':checked')) {
+            $('.map-image-container').show();
+        }else {
+            $('.map-image-container').hide();
+        }
+
+    });
+
+    $(window).on('check-option-change', function(e,target) {
+        if($(target).val() == 'location') {
+            $('.map-image-container').show();
+        } else {
+            $('.map-image-container').hide();
+        }
+    });
+</script>

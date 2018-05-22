@@ -1,0 +1,1 @@
+ALTER TABLE `currency` CHANGE `currency_flag`  `currency_flag` int(1) unsigned DEFAULT NULL;

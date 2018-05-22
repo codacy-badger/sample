@@ -1,0 +1,425 @@
+<!-- START: Crumbs -->
+<div class="crumbs">
+    <a href="/control/marketing/dashboard">
+        <i class="fa fa-home"></i> {{_ 'Dashboard'}}
+    </a>
+    <span class="separator"><i class="fa fa-angle-right"></i></span>
+    <a class="active" href="/control/marketing/action/search">
+        <i class="fa fa-bullhorn"></i> {{_ 'Actions'}}
+    </a>
+</div>
+<!-- END: Crumbs -->
+<!-- START: Scroll -->
+<div class="scroll">
+    <h3 class="template-blue">
+        <i class="fa fa-bullhorn"></i> {{_ 'Actions'}}
+        <span class="badge badge-info">{{total}}</span>
+    </h3>
+    <!-- START: Search Actions -->
+    <div class="search-actions">
+        <div class="pull-right">
+            <a href="create" class="btn btn-success">
+                <i class="fa fa-plus"></i> {{_ 'Create Action'}}
+            </a>
+            <a
+                class="btn btn-export"
+                href="/control/marketing/action/search?export=true&
+                {{querystring}}"
+            >
+                <i class="fa fa-download"></i> {{_ 'Export'}}
+            </a>
+            <button
+                class="btn btn-info"
+                data-toggle="modal"
+                data-target="#import-modal"
+            >
+
+                <i class="fa fa-upload"></i> {{_ 'Import'}}
+            </button>
+        </div>
+
+        <div class="btn-group" role="group">
+            <a
+                class="btn
+                    {{#when filter.action_active '===' '0'}}
+                        btn-default
+                    {{else}}
+                        btn-active active
+                    {{/when}}
+                "
+                href="?{{~querystring}}&filter[action_active]=1"
+            >
+                {{_ 'Active'}}
+            </a>
+            <a
+                class="btn
+                    {{#when filter.action_active '===' '0'}}
+                        btn-active active
+                    {{else}}
+                        btn-default
+                    {{/when}}
+                "
+                href="?{{~querystring}}&filter[action_active]=0"
+            >
+                {{_ 'Inactive'}}
+            </a>
+        </div>
+    </div>
+    <!-- END: Search Actions -->
+    <!-- START: Search Filters -->
+    <div class="panel panel-default search-filters">
+        <div class="panel-heading">{{_ 'Filters'}}</div>
+        <div class="panel-body">
+            <form>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group{{#if errors.q}} has-error{{/if}}">
+                            <label>{{_ 'Search'}}</label>
+                            <div class="texts-field">
+                                <input
+                                    class="form-control"
+                                    name="q"
+                                    placeholder="{{_ 'Enter Keyword'}}"
+                                    type="text"
+                                    value="{{q}}"
+                                />
+                                {{#if errors.q}}
+                                    <span class="help-text">{{errors.q}}</span>
+                                {{/if}}
+                            </div>
+                        </div>
+                        <div
+                            class="form-group
+                                    {{#if errors.action_event}}
+                                        has-error
+                                    {{/if}}
+                                "
+                        >
+                            <label>Event</label>
+                            <div class="texts-field">
+                                <input
+                                    class="form-control"
+                                    name="filter[action_event]"
+                                    placeholder="{{_ 'Enter Event'}}"
+                                    value="{{filter.action_event}}"
+                                    type="text"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label>{{_ 'Template'}}</label>
+                            <div class="texts-field">
+                                <input
+                                    class="form-control"
+                                    name="template_keyword"
+                                    placeholder="{{_ 'Enter Template'}}"
+                                    type="text"
+                                    value="{{template_keyword}}"
+                                />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>{{_ 'Tags'}}</label>
+                            <div
+                                class="tag-field"
+                                data-do="tag-field"
+                                data-name="action_tags"
+                                class="tag-field"
+                            >
+                                {{#each action_tags}}
+                                    <div class="tag">
+                                        <input
+                                            class="tag-input tag-field"
+                                            name="action_tags[]"
+                                            placeholder="Tag"
+                                            type="text"
+                                            value="{{this}}"
+                                        />
+                                        <a
+                                            class="remove"
+                                            href="javascript:void(0)"
+                                        >
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                {{/each}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group filter-button-only">
+                    {{#when filter.action_active '==' '0'}}
+                        <input
+                            name="filter[action_active]"
+                            type="hidden"
+                            value="0"
+                        />
+                    {{/when}}
+                    <button class="btn btn-primary">{{_ 'Filter'}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- END: Search Filters -->
+    <!-- START: Search Table Actions -->
+    <div class="search-table-actions">
+        <div class="pull-right">
+            <div class="btn-group">
+                <button
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    class="btn btn-default dropdown-toggle"
+                    data-toggle="dropdown"
+                    type="button"
+                >
+                    {{_ 'Show %s' range}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a
+                            href="/control/marketing/action/search?
+                            {{~querystring}}&range=10"
+                        >
+                            {{_ 'Show 10'}}
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="/control/marketing/action/search?
+                            {{~querystring}}&range=25"
+                        >
+                            {{_ 'Show 25'}}
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="/control/marketing/action/search?
+                            {{~querystring}}&range=50"
+                        >
+                            {{_ 'Show 50'}}
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="/control/marketing/action/search?
+                            {{~querystring}}&range=100"
+                        >
+                            {{_ 'Show 100'}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <form
+            action="/control/marketing/action/bulk"
+            class="form-inline"
+            method="post"
+
+        >
+            <div class="form-group">
+                <select class="form-control" name="bulk_action">
+                    <option value="restore">{{_ 'Make Active'}}</option>
+                    <option value="remove">{{_ 'Make Inactive'}}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">
+                    {{_ 'Apply'}}
+                </button>
+            </div>
+            <!-- START: Search Table -->
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            <input
+                                class="checkall"
+                                id="checkAll"
+                                type="checkbox"
+                            />
+                        </th>
+                        <th>{{_ 'Actions'}}</th>
+                        <th>
+                            {{_ 'ID'}}
+                            <a href="?q={{q}}&
+                                {{#sort 'action_id'}}
+                                    {{~#unless value~}}
+                                        order[action_id]=ASC
+                                    {{~/unless}}
+                                    {{~#when value '===' 'ASC'~}}
+                                        order[action_id]=DESC
+                                    {{~/when}}
+                                {{~/sort}}"
+                            >
+                                <i class="fa fa-sort"></i>
+                            </a>
+                        </th>
+                        <th>
+                            {{_ 'Action'}}
+                            <a href="?q={{~q}}&
+                                {{#sort 'action_title'}}
+                                    {{~#unless value~}}
+                                        order[action_title]=ASC
+                                    {{~/unless}}
+                                    {{~#when value '===' 'ASC'~}}
+                                        order[action_title]=DESC
+                                    {{~/when}}
+                                {{~/sort}}"
+                            >
+                                <i class="fa fa-sort"></i>
+                            </a>
+                        </th>
+                        <th>
+                            {{_ 'Event'}}
+                            <a href="?q={{~q}}&
+                                {{#sort 'action_event'}}
+                                    {{~#unless value~}}
+                                        order[action_event]=ASC
+                                    {{~/unless}}
+                                    {{~#when value '===' 'ASC'~}}
+                                        order[action_event]=DESC
+                                    {{~/when}}
+                                {{~/sort}}"
+                            >
+                                <i class="fa fa-sort"></i>
+                            </a>
+                        </th>
+                        <th>
+                            {{_ 'Template'}}
+                            <a href="?q={{~q}}&
+                                    {{#sort 'template_title'}}
+                                        {{~#unless value~}}
+                                            order[template_title]=ASC
+                                        {{~/unless}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[template_title]=DESC
+                                        {{~/when}}
+                                    {{~/sort}}">
+                                <i class="fa fa-sort"></i>
+                            </a>
+                        </th>
+                        <th class="text-center">{{_ 'Sent'}}</th>
+                        <th class="text-center">{{_ 'Converted'}}</th>
+                        <th class="text-center">{{_ 'Negative'}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each rows}}
+                        <tr>
+                            <td>
+                                <input
+                                    name="bulk_ids[]"
+                                    type="checkbox"
+                                    value="{{action_id}}"
+                                />
+                            </td>
+                            <td>
+                                <a title="Edit" href="update/{{action_id}}">
+                                    <i class="fa fa-edit"></i>
+                                </a>&nbsp;
+                                {{#if action_active}}
+                                <a title="Remove" href="remove/{{action_id}}">
+                                    <i class="fa fa-remove text-danger"></i>
+                                </a>
+                                {{else}}
+                                <a title="Restore" href="restore/{{action_id}}">
+                                    <i class="fa fa-repeat text-success"></i>
+                                </a>
+                                {{/if}}
+                            </td>
+                            <td>{{action_id}}</td>
+                            <td>
+                                <a href="update/{{action_id}}">{{action_title}}</a>
+                            </td>
+                            <td>{{action_event}}</td>
+                            <td>
+                                {{#if template_id}}
+                                     <a href="update/{{template_id}}">
+                                        {{template_title}}
+                                    </a>
+                                {{else}}
+                                    {{_ 'No Sending Action'}}
+                                {{/if}}
+                            </td>
+                            <td class="text-center">
+                                {{#if template_id}}{{else}}0{{/if}}
+                            </td>
+                            <td class="text-center">
+                                {{#if template_id}}{{else}}0{{/if}}
+                            </td>
+                            <td class="text-center">
+                                {{#if template_id}}{{else}}0{{/if}}
+                            </td>
+                        </tr>
+                    {{/each}}
+                    {{#unless rows}}
+                        <tr>
+                            <td  class="text-center" colspan="12">
+                                No results found.
+                            </td>
+                        </tr>
+                    {{/unless}}
+                </tbody>
+            </table>
+            <!-- END: Search Table -->
+        </form>
+    </div>
+    <!-- END: Search Table Actions -->
+    <!-- START: Pagination -->
+    <nav>
+        <ul class="pagination">
+            {{#pager total range}}
+            <li{{#if active}} class="active"{{/if}}>
+                <a href="?{{href}}">{{page}}</a>
+            </li>
+            {{/pager}}
+        </ul>
+    </nav>
+    <!-- END: Pagination -->
+</div>
+<!-- END: Scroll -->
+
+<!-- START: Import Modal -->
+<div class="modal fade" id="import-modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- START: Modal Header -->
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" type="button">
+                    &times;
+                </button>
+                <div class="modal-title">{{_ 'Import Actons'}}</div>
+            </div>
+            <!-- END: Modal Header -->
+            <!-- START: Import Modal Form -->
+            <form
+                action="/control/marketing/action/import"
+                class="form-inline"
+                enctype="multipart/form-data"
+                method="post"
+            />
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input
+                            class="upload"
+                            id="file_csv"
+                            name="csv"
+                            type="file"
+                        />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-info" type="submit">
+                        {{_ 'Import'}}
+                    </button>
+                </div>
+            </form>
+            <!-- END: Import Modal Form -->
+        </div>
+    </div>
+</div>
+<!-- END: Import Modal -->

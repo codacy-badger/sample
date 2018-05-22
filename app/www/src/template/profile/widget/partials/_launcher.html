@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html 
+    id="JBWidgetFrame" 
+    data-key="{{item.widget_key}}"
+    data-type="{{item.widget_type}}"
+    data-root="{{item.widget_root}}"
+>
+    <head>
+        <link rel="stylesheet" type="text/css" href="//{{item.widget_root}}/bower_components/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="//{{item.widget_root}}/styles/plugins/career-widget.css" />
+
+        <script type="text/javascript" src="//{{item.widget_root}}/bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="//{{item.widget_root}}/scripts/doon.js"></script>
+        <script type="text/javascript" src="//{{item.widget_root}}/scripts/plugins/widget-main.js"></script>
+    </head>
+    <body>
+        <div 
+            id="JBWidgetLauncher" 
+            class="jb-widget-launcher" 
+            {{#if item.widget_header_color}}
+                style="border: 1px solid {{item.widget_header_color}}"
+            {{/if}}
+        >
+            <button 
+                class="widget-button-launcher"
+                data-do="widget-button-launcher"
+                data-on="click"
+                {{#if item.widget_button_color}}
+                    style="border: 1px solid {{item.widget_button_color}}; background: {{item.widget_button_color}}"
+                {{/if}}
+            >
+                {{#if item.widget_button_title}}
+                    {{item.widget_button_title}}
+                {{else}}
+                    We Are Hiring!
+                {{/if}}
+            </button>
+        </div>
+    </body>
+</html>

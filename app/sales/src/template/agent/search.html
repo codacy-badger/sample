@@ -1,0 +1,418 @@
+    <!-- START: Crumbs -->
+<div class="crumbs">
+    <a href="/control/business/dashboard">
+        <i class="fa fa-home"></i> {{_ 'Dashboard'}}</a>
+    <span class="separator">
+        <i class="fa fa-angle-right"></i>
+    </span>
+    <a href="/control/business/agent/search" class="active">
+        <i class="fa fa-user-secret"></i> {{_ 'Sales Agent'}}</a>
+</div>
+<!-- END: Crumbs -->
+<!-- START: Scroll -->
+<div class="scroll">
+    <h3 class="template-blue">
+        <i class="fa fa-user-secret"></i> {{_ 'Sales Agent'}}
+        <span class="badge badge-info">{{total}}</span>
+    </h3>
+    <!-- START: Search Actions -->
+    <div class="search-actions">
+        <div class="pull-right">
+            <a href="create" class="btn btn-success">
+                <i class="fa fa-plus"></i> {{_ 'Create Sales Agent'}}
+            </a>
+            <a
+                class="btn btn-export"
+                href="/control/business/agent/search?export=true&
+                {{~querystring}}"
+            >
+                <i class="fa fa-download"></i> {{_ 'Export'}}
+            </a>
+        </div>
+
+        <div class="btn-group" role="group">
+            <a
+                class="btn
+                    {{#when filter.profile_active '===' '0'}}
+                        btn-default
+                    {{else}}
+                        btn-active active
+                    {{/when}}
+                "
+                href="/control/business/agent/search?
+                    {{~querystring 'filter[profile_active]' '1'}}"
+            >
+                {{_ 'Active'}}
+            </a>
+            <a
+                class="btn
+                    {{#when filter.profile_active '===' '0'}}
+                        btn-active active
+                    {{else}}
+                        btn-default
+                    {{/when}}
+                "
+                href="/control/business/agent/search?
+                    {{~querystring 'filter[profile_active]' '0'}}"
+            >
+                {{_ 'Inactive'}}
+            </a>
+        </div>
+    </div>
+    <!-- END: Search Actions -->
+    <!-- START: Search Filters -->
+    <div class="panel panel-default search-filters">
+        <div class="panel-heading">{{_ 'Filters'}}</div>
+        <div class="panel-body">
+            <form>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div
+                            class="form-group{{#if errors.q}} has-error{{/if}}"
+                        >
+                            <label>{{_ 'Search'}}</label>
+                            <div class="texts-field">
+                                <input
+                                    name="q[]"
+                                    class="form-control"
+                                    placeholder="{{_ 'Enter Keyword'}}"
+                                    type="text"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group
+                            {{~#if errors.date_start}} has-error{{/if~}}
+                            {{~#if errors.date_end}} has-error{{/if~}}"
+                        >
+                            <label>{{_ 'Date Range'}}</label>
+                            <div class="input-range date-range">
+                                <div class="input-from">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            name="date_start"
+                                            onfocus="(this.type='date')"
+                                            placeholder="{{_ '2017-01-01'}}"
+                                            type="text"
+                                            value="{{date_start}}"
+                                        />
+                                    </div>
+                                </div>
+                                <span class="input-separator">
+                                    <i class="fa fa-minus"></i>
+                                </span>
+                                <div class="input-to">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            name="date_end"
+                                            onfocus="(this.type='date')"
+                                            placeholder="{{_ '2017-01-01'}}"
+                                            type="text"
+                                            value="{{date_end}}"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            {{#if errors.date_start}}
+                                <span class="help-text">
+                                    {{errors.date_start}}
+                                </span>
+                            {{/if}}
+
+                            {{#if errors.date_end}}
+                                <span class="help-text">
+                                    {{errors.date_end}}
+                                </span>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label>Date Type</label>
+                            <div class="select-field">
+                                <select name="date_type" class="form-control">
+                                    <option value="created"
+                                        {{#when date_type '==' 'created'}}
+                                            selected
+                                        {{/when}}
+                                    >
+                                        {{_ 'Created'}}
+                                    </option>
+                                    <option value="updated"
+                                        {{#when date_type '==' 'updated'}}
+                                            selected
+                                        {{/when}}
+                                    >
+                                        {{_ 'Updated'}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div class="form-group filter-button-only">
+                            {{#when filter.profile_active '==' '0'}}
+                                <input
+                                    type="hidden"
+                                    name="filter[profile_active]"
+                                    value="0"
+                                />
+                            {{/when}}
+                            <button class="btn btn-primary">{{_ 'Filter'}}</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- END: Search Filters -->
+    <!-- START: Search Table Actions -->
+    <div class="search-table-actions">
+        <form class="form-inline">
+            <div class="pull-right">
+                <div class="btn-group">
+                <button
+                    type="button"
+                    class="btn btn-default dropdown-toggle"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                >
+                    {{_ 'Show %s' range}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="/control/business/agent/search?
+                            {{~querystring}}&range=10">
+                            {{_ 'Show 10'}}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/control/business/agent/search?
+                            {{~querystring}}&range=25">
+                            {{_ 'Show 25'}}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/control/business/agent/search?
+                            {{~querystring}}&range=50">
+                            {{_ 'Show 50'}}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/control/business/agent/search?
+                            {{~querystring}}&range=100">
+                            {{_ 'Show 100'}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            </div>
+            <div class="form-group">
+                <select name="bulk" class="form-control">
+                    <option value="restore">{{_ 'Make Active'}}</option>
+                    <option value="remove">{{_ 'Make Inactive'}}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary">{{_ 'Apply'}}</button>
+            </div>
+            <!-- START: Search Table -->
+            <div class="table-overflow">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                <input
+                                    class="checkall"
+                                    id="checkAll"
+                                    type="checkbox"
+                                />
+                            </th>
+                            <th>{{_ 'Actions'}}</th>
+                            <th>{{_ 'ID'}}
+                                <a href="?q[]={{q.0}}&
+                                        {{#sort 'profile_id'}}
+                                            {{~#unless value~}}
+                                                order[profile_id]=ASC
+                                            {{~/unless}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                order[profile_id]=DESC
+                                            {{~/when}}
+                                        {{~/sort}}">
+                                    <i class="fa fa-sort"></i>
+                                </a>
+                            </th>
+                            <th>{{_ 'Image'}}</th>
+                            <th>{{_ 'Name'}}
+                                <a href="?q[]={{q.0}}&
+                                        {{#sort 'profile_name'}}
+                                            {{~#unless value~}}
+                                                order[profile_name]=ASC
+                                            {{~/unless}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                order[profile_name]=DESC
+                                            {{~/when}}
+                                        {{~/sort}}">
+                                    <i class="fa fa-sort"></i>
+                                </a>
+                            </th>
+                            <th>{{_ 'Email'}}
+                                <a href="?q[]={{q.0}}&
+                                        {{#sort 'profile_email'}}
+                                            {{~#unless value~}}
+                                                order[profile_email]=ASC
+                                            {{~/unless}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                order[profile_email]=DESC
+                                            {{~/when}}
+                                        {{~/sort}}">
+                                    <i class="fa fa-sort"></i>
+                                </a>
+                            </th>
+                            <th>{{_ 'Created'}}
+                                <a href="?q[]={{q.0}}&
+                                        {{#sort 'profile_created'}}
+                                            {{~#unless value~}}
+                                                order[profile_created]=ASC
+                                            {{~/unless}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                order[profile_created]=DESC
+                                            {{~/when}}
+                                        {{~/sort}}">
+                                    <i class="fa fa-sort"></i>
+                                </a>
+                            </th>
+                            <th>{{_ 'Updated'}}
+                                <a href="?q[]={{q.0}}&
+                                        {{#sort 'profile_updated'}}
+                                            {{~#unless value~}}
+                                                order[profile_updated]=ASC
+                                            {{~/unless}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                order[profile_updated]=DESC
+                                            {{~/when}}
+                                        {{~/sort}}">
+                                    <i class="fa fa-sort"></i>
+                                </a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each rows}}
+                        <tr>
+                            <td>
+                                <input
+                                    name="bulk-rows[]"
+                                    value="{{profile_id}}"
+                                    type="checkbox"
+                                />
+                            </td>
+                            <td>
+                                <a title="Edit" href="update/{{profile_id}}">
+                                    <i class="fa fa-edit"></i>
+                                </a>&nbsp;
+                                {{#if profile_active}}
+                                    <a title="Remove" href="remove/{{profile_id}}">
+                                        <i class="fa fa-remove text-danger"></i>
+                                    </a>
+                                {{else}}
+                                    <a title="Restore" href="restore/{{profile_id}}">
+                                        <i class="fa fa-repeat text-success"></i>
+                                    </a>
+                                {{/if}}
+                            </td>
+                            <td>{{profile_id}}</td>
+                            <td>
+                                {{#if profile_image}}
+                                    <img width="40" src="{{profile_image}}" />
+                                {{else}}
+                                    <img
+                                        width="40"
+                                        src="/images/default-avatar.png"
+                                    />
+                                {{/if}}
+                            </td>
+                            <td>{{profile_name}}</td>
+                            <td>
+                                <a href="mailto:{{profile_email}}">
+                                    {{profile_email}}
+                                </a>
+                            </td>
+                            <td>{{date profile_created 'F j, Y h:i:s a'}}</td>
+                            <td>{{date profile_updated 'F j, Y h:i:s a'}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            <!-- END: Search Table -->
+        </form>
+    </div>
+    <!-- END: Search Table Actions -->
+    <!-- START: Pagination -->
+    <nav>
+        <ul class="pagination">
+            {{#pager total range}}
+                <li{{#if active}} class="active"{{/if}}>
+                    <a href="?{{href}}">{{page}}</a>
+                </li>
+            {{/pager}}
+        </ul>
+    </nav>
+    <!-- END: Pagination -->
+</div>
+<!-- END: Scroll -->
+
+<!-- START: Import Modal -->
+<div class="modal fade" id="import-modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- START: Modal Header -->
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" type="button">
+                    &times;
+                </button>
+                <div class="modal-title">{{_ 'Import Sales Agent'}}</div>
+            </div>
+            <!-- END: Modal Header -->
+            <!-- START: Import Modal Form -->
+            <form
+                action="/control/business/agent/import"
+                class="form-inline"
+                enctype="multipart/form-data"
+                method="post"
+            />
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input
+                            class="upload"
+                            id="file_csv"
+                            name="csv"
+                            type="file"
+                        />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-info" type="submit">
+                        {{_ 'Import'}}
+                    </button>
+                </div>
+            </form>
+            <!-- END: Import Modal Form -->
+        </div>
+    </div>
+</div>
+<!-- END: Import Modal -->

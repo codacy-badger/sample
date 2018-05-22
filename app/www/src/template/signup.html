@@ -1,0 +1,228 @@
+<!-- START: Auth Login Page -->
+<div class="auth-signup-body auth-form">
+    <!-- START: Auth Login Panel -->
+    <div class="panel panel-default">
+        <!-- START: Website Logo -->
+        <div class="form-logo">
+            <center>
+                <a class="logo" href="/">
+                    <img
+                        alt="{{_ 'Jobayan Logo'}}"
+                        src="{{config 'cdn'}}/images/logo.png"
+                    />
+                </a>
+            </center>
+        </div>
+        <!-- END: Website Logo -->
+        <h1 class="text-center">{{_ 'Create your Account'}}</h1>
+        <!-- START: Panel Body -->
+        <div class="panel-body">
+
+             {{#if errors.profile_email}}
+                {{#when errors.profile_email '==' 'User Exists'}}
+                    <div class="alert alert-danger">User Exists! <a href="/forgot?type=reset&auth_slug={{item.profile_email}}">Reset your password?</div>
+                {{/when}}
+            {{/if}}
+
+            <p class="text-center">{{_ "I'm an"}}</p>
+            <div class="toggle-profile-type text-center">
+            <div class="text-center">
+                    <div class="switch">
+                        <a
+                            class="pull-left switch-option active btn option-seeker"
+                            data-do="make-active"
+                            data-id="seeker"
+                            data-on="click"
+                        >
+                            {{_ 'Applicant'}}
+                        </a>
+                        <a class="pull-right switch-option btn option-poster"
+                            data-do="make-active"
+                            data-id="poster"
+                            data-on="click"
+                        >
+                            {{_ 'Employer'}}
+                        </a>
+                    </div>
+              </div>
+            </div>
+
+            <!-- START: Auth Login Form -->
+            <form method="post">
+                <!-- START: Profile Type -->
+                <input type="hidden" name="signup_type" value="{{item.signup_type}}">
+                <!-- END: Profile Type -->
+
+                <!-- START: Profile Name -->
+                <div class="form-group{{#if errors.profile_name}} has-error{{/if}}">
+                    <input
+                        class="form-control"
+                        maxlength="50"
+                        name="profile_name"
+                        placeholder="{{_ 'Name'}}"
+                        type="text"
+                        value="{{item.profile_name}}"
+                    />
+                    {{#if errors.profile_name}}
+                        <span class="help-text">{{errors.profile_name}}</span>
+                    {{/if}}
+                </div>
+                <!-- END: Profile Name -->
+                <!-- START: Profile Email -->
+                <div class="form-group{{#if errors.profile_email}} has-error{{/if}}">
+                    <input
+                        class="form-control"
+                        name="profile_email"
+                        placeholder="{{_ 'Email'}}"
+                        type="email"
+                        value="{{item.profile_email}}"
+                    />
+                    {{#if errors.profile_email}}
+                        <span class="help-text">{{errors.profile_email}}</span>
+                    {{/if}}
+                </div>
+                <!-- END: Profile Email -->
+                <!-- START: Profile Company -->
+                <div class="form-group{{#if errors.profile_company}} has-error{{/if}}"
+                    id="company"
+                >
+                    <input
+                        class="form-control"
+                        maxlength="50"
+                        name="profile_company"
+                        placeholder="{{_ 'Company Name'}}"
+                        type="text"
+                        value="{{item.profile_company}}"
+                    />
+                    {{#if errors.profile_company}}
+                        <span class="help-text">{{errors.profile_company}}</span>
+                    {{/if}}
+                </div>
+                <!-- END: Profile Company -->
+                <!-- START: Auth Password -->
+                <div class="form-group{{#if errors.auth_password}} has-error{{/if}}">
+                    <input
+                        class="form-control"
+                        name="auth_password"
+                        placeholder ="{{_ 'Password'}}"
+                        type="password"
+                        value="{{item.auth_password}}"
+                    />
+                    {{#if errors.auth_password}}
+                        <span class="help-text">{{errors.auth_password}}</span>
+                    {{/if}}
+                </div>
+                <!-- END: Auth Password -->
+                <!-- START: Confirm Password -->
+                <div class="form-group{{#if errors.confirm}} has-error{{/if}}">
+                    <input
+                        class="form-control"
+                        data-do="password-strength"
+                        data-on="keyup"
+                        id="pass-strength"
+                        name="confirm"
+                        type="password"
+                        placeholder="{{_ 'Confirm'}}"
+                        value="{{item.confirm}}"
+                    />
+                    {{#if errors.confirm}}
+                        <span class="help-text">{{errors.confirm}}</span>
+                    {{/if}}
+                </div>
+                <div class="text-center divide">
+                    <div id="divider-1" class="divider"></div>
+                    <div id="divider-2" class="divider"></div>
+                    <div id="divider-3" class="divider"></div>
+                    <div id="divider-4" class="divider"></div>
+                    <div id="divider-5" class="divider"></div>
+                </div>
+                <p class="text-center">
+                    <em>
+                        {{~_ "Password must be at least 7 characters long, and
+                        can't be things like 123456 and abcdefg"~}}
+                    </em>
+                </p>
+                <!-- END: Confirm Password -->
+                {{#if captcha}}
+                    <script
+                        type="text/javascript"
+                        src="https://www.google.com/recaptcha/api.js"
+                    >
+                    </script>
+                    <!-- START: Captcha -->
+                    <div class="form-group{{#if errors.captcha}} has-error{{/if}}">
+                        <div class="g-recaptcha" data-sitekey="{{captcha}}"></div>
+                        {{#if errors.captcha}}
+                            <span class="help-text">{{errors.captcha}}</span>
+                        {{/if}}
+                    </div>
+                    <!-- END: Captcha -->
+                {{/if}}
+                <!-- START: Form Submit -->
+                <div class="form-group">
+                    <input type="hidden" name="csrf" value="{{csrf}}" />
+                    <button
+                        class="btn btn-default"
+                        id="create-account"
+                        type="submit"
+                    >
+                        {{_ 'Create Account'}}
+                    </button>
+                </div>
+                <!-- END: Form Submit -->
+            </form>
+            <!-- END: Auth Login Form -->
+            <!-- START: Other Options -->
+            <div class="panel-section panel-social">
+                <!-- START: Login With Facebook Option -->
+                <div class="form-group">
+                    <div class="text-center or-text">
+                        <div class="divider"></div>
+                        <div>{{_ 'or'}}</div>
+                        <div class="divider"></div>
+                    </div>
+
+                    <div class="text-center">
+                        <a
+                            class="btn btn-primary btn-facebook"
+                            href="/login/facebook?{{toquery}}"
+                            title="{{_ 'Log In with %s' 'Facebook'}}"
+                            id="login-facebook-button"
+                        >
+                            <span class="fa fa-facebook"></span>
+                            {{_ 'Log in with %s' 'Facebook'}}
+                        </a>
+                        <a
+                            class="btn btn-primary btn-linkedin"
+                            href="/login/linkedin?{{toquery}}"
+                            title="{{_ 'Log In with %s' 'LinkedIn'}}"
+                            id="login-linkedin-button"
+                        >
+                            <span class="fa fa-linkedin"></span>
+                            {{_ 'Log in with %s' 'LinkedIn'}}
+                        </a>
+                    </div>
+                </div>
+                <!-- END: Login With Facebook Option -->
+                <!-- START: Login Option -->
+                <div class="form-group">
+                    <p class="text-muted text-center">
+                        {{_ "Already have an account?"}}
+                        <a
+                            class="brand-text login-link"
+                            href="/login?{{toquery}}"
+                            title="{{_ 'Login'}}"
+                        >
+                            {{_ 'Login'}}
+                        </a>
+                    </p>
+                </div>
+                <!-- END: Login Option -->
+            </div>
+            <!-- END: Other Options -->
+        </div>
+        <!-- END: Panel Body -->
+    </div>
+    <!-- END: Auth Login Panel -->
+</div>
+<!-- END: Auth Login Page -->

@@ -1,0 +1,99 @@
+<!-- START : Question Item -->
+<div class="form-wrapper question-item hide">
+    <div class="form-group">
+        <!-- START : Question Header -->
+        <div class="form-action">
+            <!-- START : Question Name -->
+            <input
+                class="question-name-input"
+                name="question_name"
+                type="hidden"
+                value=""
+            >
+            <label class="question-name-display"></label>
+            <!-- END : Question Name -->
+
+            <!-- START : Actions -->
+            <div class="btn-group">
+                <button
+                    type="button"
+                    class="btn btn-default dropdown-toggle"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                >
+                    <i class="fa fa-cog"></i>
+                </button>
+                <ul class="dropdown-menu pull-right">
+                    <li>
+                        <a
+                            class="question-edit"
+                            data-do="question-edit"
+                            data-on="click"
+                            data-id=""
+                            title="{{_ 'Edit'}}"
+                            href="javascript:void(0)"
+                        >
+                            {{_ 'Edit'}}
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            class="question-delete"
+                            data-do="question-delete"
+                            data-on="click"
+                            data-id=""
+                            title="{{_ 'Delete'}}"
+                            href="javascript:void(0)"
+                        >
+                            {{_ 'Delete'}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- END : Actions -->
+        </div>
+        <!-- END : Question Header -->
+
+        <div class="form-indent">
+            <!-- START: Question Choices -->
+            <div class="question-choices hide">
+                <!-- START : Question Container -->
+                <div class="radio-container question-container hide">
+                    <input
+                        class="radio orange question-choice hide"
+                        type="radio"
+                        id=""
+                        name=""
+                    />
+                    <label
+                        class="radio-label question-label hide"
+                        for=""
+                    >
+                        
+                    </label>
+                </div>
+                <!-- END : Question Container -->
+            </div>
+            <!-- END: Question Choices -->
+
+            <!-- START: Question Custom -->
+            <input
+                type="email"
+                disabled="disabled"
+                class="form-control question-custom hide"
+                placeholder="Custom Answer"
+            />
+            <!-- END: Question Custom -->
+
+            <!-- START: Question File -->
+            <input
+                class="form-control question-file hide"
+                disabled="disabled"
+                type="file"
+            />
+            <!-- END: Question File -->
+        </div>
+    </div>
+</div>
+<!-- START : Question Item -->

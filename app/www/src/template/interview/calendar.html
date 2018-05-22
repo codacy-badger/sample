@@ -1,0 +1,490 @@
+<div class="container interview-calendar-container">
+    {{> profile_alert}}
+    <!-- START: Profile Panel -->
+    <div class="row profile-panel">
+        <!-- START: Sidebar Left -->
+        <aside class="col-md-3 left">
+            {{> profile_menu active="interview"}}
+        </aside>
+        <!-- END: Sidebar Left -->
+        <!-- START: Content Left -->
+        <div class="col-md-9 right">
+            <!-- START: Head -->
+            <div class="head row">
+                <div class="col-md-6 text-left">
+                    <h1>{{_ 'Interview Scheduler'}}</h1>
+                </div>
+            </div>
+            <!-- END: Head -->
+
+            <!-- START: Main Content -->
+            <div class="content">
+                <!-- START : Top -->
+                <div class="top">
+                    <a
+                        class="active"
+                        href="/profile/interview/calendar"
+                        title="{{_ 'Interview Calendar'}}"
+                    >
+                        {{_ 'Interview Calendar'}}
+                    </a>
+                    <a
+                        href="/profile/interview/settings"
+                        title="{{_ 'Schedule Settings'}}"
+                    >
+                        {{_ 'Schedule Settings'}}
+                    </a>
+                </div>
+                <!-- END : Top -->
+
+                <!-- START: Detail -->
+                <div class="detail clearfix">
+                    <div class="detail-wrapper">
+                        <!-- START : Detail Header -->
+                        <div class="detail-header">
+                            <!-- START : Frequency Dropdown -->
+                            <div class="dropdown frequency">
+                                <button
+                                    aria-expanded="false"
+                                    aria-haspopup="true"
+                                    class="btn dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    type="button"
+                                >
+                                    <span>{{ucwords frequency}}</span>
+                                    <i class="fa fa-angle-down"></i>
+                                </button>
+
+                                <ul class="dropdown-menu frequency-dropdown">
+                                    <li><a href="?{{toquery 'frequency' 'daily'}}">{{_ 'Daily'}}</a></li>
+                                    <li><a href="?{{toquery 'frequency' 'weekly'}}">{{_ 'Weekly'}}</a></li>
+                                    <li><a href="?{{toquery 'frequency' 'monthly'}}">{{_ 'Monthly'}}</a></li>
+                                </ul>
+                            </div>
+                            <!-- END : Frequency Dropdown -->
+
+                            <!-- START : Date Filter Container -->
+                            <div class="date-filter-container">
+                                <form
+                                    id="calendar-datepicker"
+                                    data-do="calendar-datepicker"
+                                    data-on="change"
+                                    method="get"
+                                >
+                                    {{#if frequency}}
+                                        <input type="hidden" name="frequency" value="{{frequency}}">
+                                    {{/if}}
+                                    <div class="clearfix form-group">
+                                        <div class="date-display">
+                                            <a
+                                                class="date-pagination"
+                                                href="?{{toquery 'filter[dates][start_date]' pagination.prev}}">
+                                                <i class="fa fa-caret-left"></i>
+                                            </a>
+
+                                            <!-- START : Date Display -->
+                                            <span data-do="choose-date" data-on="click">
+                                                {{#when frequency '==' 'monthly'}}
+                                                    {{_ 'Month of'}} {{date_format filter.dates.start_date 'F'}}
+                                                {{else}}
+                                                    {{date_format filter.dates.start_date 'F d, Y'}}
+                                                {{/when}}
+                                            </span>
+                                            <!-- END : Date Display -->
+
+                                            <a
+                                                class="date-pagination"
+                                                href="?{{toquery 'filter[dates][start_date]' pagination.next}}">
+                                                <i class="fa fa-caret-right"></i>
+                                            </a>
+                                        </div>
+
+                                        <input
+                                            class="datepicker form-control"
+                                            data-do="datepicker"
+                                            name="filter[dates][start_date]"
+                                            placeholder="January 01, 1990"
+                                            readonly
+                                            type="hidden"
+                                            value="{{date_format filter.dates.start_date 'F d, Y'}}"
+                                        />
+                                        <span class="help-text"></span>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- END : Date Filter Container -->
+
+                            <!-- START : Empty Div -->
+                            <div></div>
+                            <!-- END : Empty Div -->
+                        </div>
+                        <!-- END : Detail Header -->
+
+                        <!-- START : Detail Body -->
+                        <div class="detail-body">
+                            <div class="date-list">
+                                {{#if dates}}
+                                    {{#each dates}}
+                                        <!-- START : Date Detail -->
+                                        <div
+                                            class="clearfix date-detail"
+                                            id="date-detail-{{@key}}"
+                                        >
+                                            <!-- START : Detail Date -->
+                                            <div class="date-detail-date">
+                                                <span>{{date_format @key 'M'}}</span>
+                                                <span>{{date_format @key 'd'}}</span>
+                                                <span>{{date_format @key 'D'}}</span>
+                                            </div>
+                                            <!-- END : Detail Date -->
+
+                                            <!-- START : Detail Setting -->
+                                            <div class="detail-setting">
+                                                {{#if interview_setting_id}}
+                                                    <!-- START : Setting Time Slots -->
+                                                    <div class="setting-time-slot">
+                                                        <!-- START : Setting Time -->
+                                                        <div class="setting-time">
+                                                            Time :
+                                                            <span>
+                                                                {{time_format interview_setting_start_time 'g:i A'}} -
+                                                                {{time_format interview_setting_end_time 'g:i A'}}
+                                                            </span>
+                                                        </div>
+                                                        <!-- END : Setting Time -->
+
+                                                        |
+
+                                                        <!-- START : Setting Slots -->
+                                                        <div class="setting-slots">
+                                                            Slots :
+                                                            <span class="slots-taken">{{number_format slots_taken 0}}</span> /
+                                                            <span class="max-slots">{{number_format interview_setting_slots 0}}</span>
+                                                        </div>
+                                                        <!-- END : Setting Slots -->
+                                                    </div>
+                                                    <!-- END : Setting Time Slots -->
+
+                                                    <!-- START : Setting Profile Preview -->
+                                                    <div class="setting-profile-preview">
+                                                        {{#if interview_schedule}}
+                                                            {{#each interview_schedule}}
+                                                                <a
+                                                                    data-do="calendar-schedule"
+                                                                    data-id="{{../@key}}"
+                                                                    data-on="click"
+                                                                    id="profile-schedule-{{interview_schedule_id}}"
+                                                                    href="javascript:void(0);"
+                                                                >
+                                                                    <span>{{profile_name}}</span>
+                                                                </a>
+                                                            {{/each}}
+                                                        {{/if}}
+                                                    </div>
+                                                    <!-- END : Setting Profile Preview -->
+                                                {{else}}
+                                                    <span>No Interview Schedule</span>
+                                                {{/if}}
+                                            </div>
+                                            <!-- END : Detail Setting -->
+
+                                            <!-- START : Detail Action -->
+                                            <div class="detail-action">
+                                                <a
+                                                    data-do="calendar-schedule"
+                                                    data-id="{{@key}}"
+                                                    data-on="click"
+                                                    href="javascript:void(0);"
+                                                >
+                                                    <i class="fa fa-angle-down"></i>
+                                                    <i class="fa fa-angle-up"></i>
+                                                </a>
+                                            </div>
+                                            <!-- END : Detail Action -->
+                                        </div>
+                                        <!-- END : Date Detail -->
+
+                                        <!-- START : Schedule List -->
+                                        <div
+                                            class="schedule-list"
+                                            data-id="{{interview_setting_id}}"
+                                            id="schedule-list-{{@key}}"
+                                        >
+                                            {{#if interview_schedule}}
+                                                {{#each interview_schedule}}
+                                                    <!-- START: Interview Schedule Detail -->
+                                                    <div
+                                                        class="interview-schedule-detail"
+                                                        id="interview-schedule-{{interview_schedule_id}}"
+                                                    >
+                                                        <div class="schedule-detail {{#if interview_schedule_pending}}pending{{/if}}">
+                                                            <!-- START : Profile Name -->
+                                                            <div class="schedule-name">
+                                                                {{#if interview_schedule_pending}}
+                                                                    <i
+                                                                        class="fa fa-exclamation-circle"
+                                                                        data-do="tooltip"
+                                                                        data-html="true"
+                                                                        title="<strong>Pending</strong> : Please update applicant's interview status"
+                                                                        data-on="hover"
+                                                                    >
+                                                                    </i>
+                                                                {{/if}}
+
+                                                                <span>
+                                                                    {{profile_name}}
+                                                                </span>
+                                                            </div>
+                                                            <!-- END : Profile Name -->
+
+                                                            <!-- START : Post Position -->
+                                                            <div class="schedule-post">
+                                                                {{post_position}}
+                                                            </div>
+                                                            <!-- END : Profile Name -->
+
+                                                            <!-- START : Profile Phone -->
+                                                            <div class="schedule-phone">
+                                                                {{profile_phone}}
+                                                            </div>
+                                                            <!-- END : Profile Phone -->
+
+                                                            <!-- START : Profile Email -->
+                                                            <div class="schedule-email">
+                                                                {{profile_email}}
+                                                            </div>
+                                                            <!-- END : Profile Email -->
+
+                                                            <!-- START : Profile Email -->
+                                                            <div class="schedule-status">
+                                                                {{interview_schedule_status}}
+                                                                {{#if interview_schedule_pending}}
+                                                                    <span class="status-pending">Pending</span>
+                                                                {{/if}}
+                                                            </div>
+                                                            <!-- END : Profile Email -->
+                                                        </div>
+
+                                                        <!-- START : Action Group -->
+                                                        <div class="btn-group schedule-actions">
+                                                            {{#when interview_schedule_status '==' ''}}
+                                                                <button
+                                                                    aria-expanded="false"
+                                                                    aria-haspopup="true"
+                                                                    class="btn dropdown-toggle"
+                                                                    data-toggle="dropdown"
+                                                                    type="button"
+                                                                >
+                                                                    <span>{{ucwords frequency}}</span>
+                                                                    <i class="fa fa-cog"></i>
+                                                                </button>
+
+                                                                <!-- START : Schedule Dropdown -->
+                                                                <ul class="dropdown-menu schedule-dropdown">
+                                                                    <!-- START : Remove Slot -->
+                                                                    <li>
+                                                                        <a
+                                                                            data-do="interview-content"
+                                                                            data-id="{{interview_schedule_id}}"
+                                                                            data-message="{{_ 'Are you sure you want to cancel the interview for this applicant?'}}"
+                                                                            data-title="{{_ 'Remove Slot'}}"
+                                                                            data-type="interview-schedule-delete"
+                                                                            data-action="{{_ 'Remove'}}"
+                                                                            data-on="click"
+                                                                            href="javascript:void(0);"
+                                                                        >
+                                                                            {{_ 'Remove Slot'}}
+                                                                        </a>
+                                                                    </li>
+                                                                    <!-- END : Remove Slot -->
+
+                                                                    <!-- START : Reschedule -->
+                                                                    <li>
+                                                                        <a
+                                                                            data-do="calendar-reschedule"
+                                                                            data-id="{{interview_schedule_id}}"
+                                                                            data-interview="{{../interview_setting_id}}"
+                                                                            data-on="click"
+                                                                            href="javascript:void(0);"
+                                                                        >
+                                                                            {{_ 'Reschedule'}}
+                                                                        </a>
+                                                                    </li>
+                                                                    <!-- END : Reschedule -->
+
+                                                                    {{#if ../extra_option}}
+                                                                        <!-- START : Tag Interview -->
+                                                                        <li>
+                                                                            <a
+                                                                                data-action="{{_ 'Interviewed'}}"
+                                                                                data-do="interview-content"
+                                                                                data-id="{{interview_schedule_id}}"
+                                                                                data-message="{{_ 'Do you want to tag <strong>%s</strong> as <b>Interviewed?</b>' profile_name}}"
+                                                                                data-on="click"
+                                                                                data-tag="Interviewed"
+                                                                                data-title="{{_ 'Interviewed'}}"
+                                                                                data-type="interview-tag"
+                                                                                href="javascript:void(0);"
+                                                                            >
+                                                                                {{_ 'Tag as Interviewed'}}
+                                                                            </a>
+                                                                        </li>
+                                                                        <!-- END : Tag Interview -->
+
+                                                                        <!-- START : Tag No Show -->
+                                                                        <li>
+                                                                            <a
+                                                                                data-action="{{_ 'No Show'}}"
+                                                                                data-do="interview-content"
+                                                                                data-id="{{interview_schedule_id}}"
+                                                                                data-message="{{_ 'Do you want to tag <strong>%s</strong> as <b>No Show</b>?' profile_name}}"
+                                                                                data-on="click"
+                                                                                data-tag="No Show"
+                                                                                data-title="{{_ 'No Show'}}"
+                                                                                data-type="interview-tag"
+                                                                                href="javascript:void(0);"
+                                                                            >
+                                                                                {{_ 'Tag as No Show'}}
+                                                                            </a>
+                                                                        </li>
+                                                                        <!-- END : Tag No Show -->
+                                                                    {{/if}}
+                                                                </ul>
+                                                                <!-- END : Schedule Dropdown -->
+                                                            {{/when}}
+                                                        </div>
+                                                        <!-- END : Action Group -->
+                                                    </div>
+                                                    <!-- END: Interview Schedule Detail -->
+                                                {{/each}}
+                                            {{/if}}
+
+                                            <!-- START : Add Schedule Interview Button -->
+                                            <a
+                                                class="btn btn-schedule schedule-interview-button"
+                                                {{#if interview_setting_id}}
+                                                    href="/profile/interview/schedule?interview={{interview_setting_id}}"
+                                                {{else}}
+                                                    href="/profile/interview/schedule"
+                                                {{/if}}
+                                            >
+                                                <i class="fa fa-plus"></i>
+                                                Schedule an Interview
+                                            </a>
+                                            <!-- END : Add Schedule Interview Button -->
+                                        </div>
+                                        <!-- END : Schedule List -->
+                                    {{/each}}
+                                {{else}}
+                                    <!-- START : No Dates -->
+                                    <div>
+                                        No Dates
+                                    </div>
+                                    <!-- END : No Dates -->
+                                {{/if}}
+                            </div>
+                        </div>
+                        <!-- END : Detail Body -->
+                        <!-- START : Detail Footer -->
+                        <div class="detail-footer">
+                            <div class="clearfix import-export">
+                                <div class="col-md-7">
+                                    <span>{{_ 'Export Interview Schedule'}}</span>
+                                    <!-- START : Form -->
+                                    <form
+                                        class="filter-form"
+                                        data-do="check-date"
+                                        data-on="submit"
+                                        method="get"
+                                    >
+                                    {{#when filter.post_active '===' '0'}}
+                                        <input type="hidden"
+                                        name="filter[post_active]"
+                                        value = "0"
+                                        />
+                                    {{/when}}
+                                        <div>
+                                            <div class="date-wrapper">
+                                                <div class="date-icon"></div>
+                                                <input
+                                                    class="date form-control"
+                                                    id="start"
+                                                    name="date[export_start_date]"
+                                                    type="date"
+                                                    value="{{date.start_date}}"
+                                                />
+                                            </div>
+                                            <div class="date-wrapper">
+                                                <div class="date-icon"></div>
+                                                <input
+                                                    class="date form-control"
+                                                    id="end"
+                                                    name="date[export_end_date]"
+                                                    type="date"
+                                                    value="{{date.end_date}}"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <button
+                                                class="btn btn-success pull-left"
+                                                name="export"
+                                                type="submit"
+                                                value="1"
+                                            >
+                                                Export
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <!-- END : Form -->
+                                </div>
+                                <div class="col-md-5">
+                                    <span>{{_ 'Import Interview Schedule'}}</span>
+                                    <div class="import-container">
+                                        <form
+                                            action="/profile/interview/calendar/import"
+                                            class="form-inline"
+                                            enctype="multipart/form-data"
+                                            method="post"
+                                        >
+                                            <div
+                                                id="import-schedule-button"
+                                                class="btn btn-info text-uppercase"
+                                                data-do="upload-csv"
+                                                data-on="click"
+                                                title="For only 200 credits, you can manage your interview schedule even for applicants outside Jobayan."
+                                            >
+                                                <spam>import schedule</spam>
+                                            </div>
+                                            <a
+                                                class="calendar-template"
+                                                href="/csv/interview_schedule_format.csv"
+                                                title="Download CSV Template"
+                                            >
+                                                <i class="fa fa-download" aria-hidden="true"></i>
+                                                 Download CSV Template
+                                            </a>
+                                            <div class="upload-csv">
+                                                <input class="upload" id="file_csv" name="csv" type="file" />
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END : Detail Footer -->
+                    </div>
+                </div>
+                <!-- END: Detail -->
+            </div>
+            <!-- END: Main Content -->
+        </div>
+        <!-- END: Content Left -->
+    </div>
+    <!-- END: Profile Panel -->
+</div>
+
+{{> partial/interview_availabilitynone }}
+{{> partial/interview_confirmation }}
+{{> partial/interview_reschedule }}
+{{> partial_elementclone }}

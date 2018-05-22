@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<source>
+    <publisher>Jobayan</publisher>
+    <publisherurl>http://www.jobayan.com</publisherurl>
+    <lastBuildDate>{{date 'last monday' 'Y-m-d H:i:s e'}}2017-12-22 00:00:00 UTC</lastBuildDate>
+    {{#each rows}}
+        <job>
+            <title><![CDATA[{{post_position}}]]></title>
+            <url><![CDATA[{{../root}}/Company-Hiring/{{post_slug}}]]></url>
+            <referencenumber><![CDATA[{{post_slug}}]]></referencenumber>
+            <date><![CDATA[{{date post_created 'D, d M Y H:i:s e'}}]]></date>
+            <expiration_date>
+            <![CDATA[01/18/2018]]>
+            </expiration_date>
+            <updated><![CDATA[{{date post_updated 'D, d M Y H:i:s e'}}]]></updated>
+            <company><![CDATA[{{post_name}}]]></company>
+            <location><![CDATA[{{post_location}}]]></location>
+            <country>
+            <![CDATA[PH]]>
+            </country>
+            {{#if post_detail}}
+                <description><![CDATA[{{sanitize_string post_detail}}]]></description>
+            {{else}}
+                <description>
+                    <![CDATA[Hello! We are {{post_name}} from {{post_location}}
+                    and we are looking for a {{post_position}}]]>
+                </description>
+            {{/if}}
+            {{#if post_arrangement}}
+                <jobtype><![CDATA[{{post_arrangement}}]]></jobtype>
+            {{/if}}
+            {{#if profile_image}}
+                <logo>
+                    {{profile_image}}
+                </logo>
+            {{/if}}
+            {{#if post_tags}}
+                <category><![CDATA[{{implode post_tags ','}}]]></category>
+            {{/if}}
+        </job>
+    {{/each}}
+</source>

@@ -1,0 +1,101 @@
+<h3>Crawlers</h3>
+<div class="panel panel-default clear">
+    <div class="panel-body" >
+        {{#if workers}}
+        <!-- START: POST TABLE -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>ID</th>
+                    <th>Link</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                    <th>Updated</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each workers}}
+                <tr data-id="{{worker_id}}">
+                    <td>
+                        <a title="Remove" href="{{root}}/crawler/worker/remove/{{worker_id}}?redirect_uri=/crawler/log/search"
+                        class="text-danger"><i class="fa fa-times"></i></a>
+                    </td>
+                    <td>{{worker_id}}</td>
+                    <td>{{worker_link}}</td>
+                    <td>{{worker_status}}</td>
+                    <td>{{date worker_created 'M d g:iA'}}</td>
+                    <td>{{date worker_updated 'M d g:iA'}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <!-- END: POST TABLE -->
+        {{else}}
+        <!-- START: NO RESULTS -->
+        <div class="well no-results">Noone is working :(</div>
+        <!-- END: NO RESULTS -->
+        {{/if}}
+    </div>
+</div>
+
+<h3>Crawler Logs</h3>
+
+<div class="clearfix">
+    <!-- START: SEARCH FORM -->
+    <form class="pull-right search form-inline" method="get">
+        <div class="form-group">
+            <input name="q" placeholder="Search Logs" type="text"
+            value="{{q}}" class="form-control" />
+        </div>
+        <button class="btn"><i class="fa fa-search"></i></button>
+    </form>
+    <!-- END: SEARCH FORM -->
+</div>
+
+<!-- START: BULK FORM -->
+<form method="post" class="form-inline bulk-form">
+    <div class="panel panel-default clear">
+        <div class="panel-body">
+            {{#if rows}}
+            <!-- START: POST TABLE -->
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Actions</th>
+                        <th>ID</th>
+                        <th width="50">Link</th>
+                        <th>Message</th>
+                        <th>Created</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each rows}}
+                    <tr data-id="{{log_id}}">
+                        <td>
+                            <a title="Remove" href="{{root}}/crawler/log/remove/{{log_id}}"
+                            class="text-success"><i class="fa fa-check"></i></a>
+                        </td>
+                        <td>{{log_id}}</td>
+                        <td width="50"><a href="{{log_link}}" target="_blank">{{log_link}}</a></td>
+                        <td>{{log_message}}</td>
+                        <td>{{date log_created 'M d g:iA'}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            <!-- END: POST TABLE -->
+            {{else}}
+            <!-- START: NO RESULTS -->
+            <div class="well no-results">No Logs Found</div>
+            <!-- END: NO RESULTS -->
+            {{/if}}
+        </div>
+    </div>
+
+    <ul class="pagination">
+        {{#pager total 50}}
+        <li{{#if active}} class="active"{{/if}}><a href="?{{href}}">{{page}}</a></li>
+        {{/pager}}
+    </ul>
+</form>

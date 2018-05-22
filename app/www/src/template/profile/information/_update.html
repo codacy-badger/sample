@@ -1,0 +1,56 @@
+<div class="modal fade information-update-modal" id="information-update-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            {{#session 'me'}}
+                <div class="modal-header">
+                    <div class="modal-title">&nbsp;</div>
+                    <div class="image">
+                        {{#if profile_image}}
+                            <img
+                                alt="{{_ 'Profile Image'}}"
+                                src="{{profile_image}}"
+                            />
+                        {{else}}
+                            <img
+                                alt="{{_ 'Profile Image'}}"
+                                src="{{default_avatar profile_id}}"
+                            />
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="name">
+                        {{profile_name}}
+                    </div>
+                    <div class="email">
+                        {{profile_email}}
+                    </div>
+                    <div class="profile">
+                        {{_ 'Kindly update your profile'}}
+                    </div>
+                </div>
+            {{/session}}
+            <!-- START: Footer -->
+            <div class="modal-footer">
+                <a
+                    class="btn btn-default"
+                    data-do="modal-trigger"
+                    data-modal="information-modal"
+                    data-on="click"
+                    href="javascript:void(0)"
+                    title="{{_ 'Update Profile'}}"
+                >
+                    {{_ 'Update Profile'}}
+                </a>
+                <button
+                    class="btn btn-primary"
+                    data-dismiss="modal"
+                    type="button"
+                >
+                    {{_ 'Cancel'}}
+                </button>
+            </div>
+            <!-- END: Footer -->
+        </div>
+    </div>
+</div>

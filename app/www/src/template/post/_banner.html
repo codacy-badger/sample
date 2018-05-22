@@ -1,0 +1,157 @@
+<!-- START: Profile Banner -->
+<div class="profile-banner">
+    <!-- START: Profile Banner Container -->
+    <div class="profile-banner-container">
+        <!-- START: Profile Banner -->
+        {{#if profile_banner}}
+            <img
+                src="{{profile_banner}}"
+                class="original-banner"
+                alt="{{_ 'Cover Photo'}}"
+                onerror="this.src='{{settings 'cdn'}}/images/default/default-banner.jpg'"
+            />
+        {{else}}
+            {{#session 'me'}}
+                <!-- START: Profile Upload Banner -->
+                {{#when profile_id '===' ../profile_id}}
+                    <a class="add-banner btn btn-info update-banner">
+                        <input class="banner-input" type="file" />
+                        <img
+                            alt="{{_ 'Upload Banner'}}"
+                            src="/images/camera-icon.png"
+                        />
+                        <span>{{_ 'Upload Banner'}}</pan>
+                    </a>
+                {{/when}}
+                <!-- END: Profile Upload Banner -->
+                <!-- START: Profile Default Banner -->
+                <img
+                    alt="{{_ 'Cover Photo'}}"
+                    class="default-banner"
+                    src="/images/banner/
+                        {{~random 'banner-2' 'banner-4' 'banner-5' 'banner-6'~}}
+                        .jpg"
+                />
+                <!-- END: Profile Default Banner -->
+            {{/session}}
+        {{/if}}
+        <!-- END: Profile Banner -->
+
+        <!-- START: Profile Update Banner -->
+        {{#if profile_banner}}
+            {{#session 'me'}}
+                {{#when profile_id '===' ../profile_id}}
+                    <a class="btn btn-info update-banner ">
+                        <input type="file" class="banner-input" />
+                        <img
+                            alt="{{_ 'Update Banner'}}"
+                            src="/images/camera-icon.png"
+                        />
+                        <span>{{_ 'Update Banner'}}</span>
+                    </a>
+                {{/when}}
+            {{/session}}
+        {{/if}}
+        <!-- END: Profile Update Banner -->
+
+        <!-- START: Change Background Color -->
+        <button class="change-bgcolor-btn btn btn-info
+            {{#session 'me'}}
+                {{#when profile_id '===' ../profile_id}}
+                {{else}}
+                    hide
+                {{/when}}
+            {{else}}
+                hide
+            {{/session}}
+            "
+        >
+            <img
+                alt="{{_ 'Change Background Color'}}"
+                src="/images/brush-icon.png"
+            />
+            <span>{{_ 'Change Background Color'}}</span>
+        </button>
+       <div class="change-bgcolor hide">
+            <form action="/profile/background" method="POST" class="change-bgcolor-form">
+                <div id="colorpicker" class="input-group colorpicker-component">
+                    <input
+                        class="form-control"
+                        id="profile-bgc"
+                        name="profile_background_color"
+                        type="text"
+                        value="{{profile_background_color}}"
+                    />
+                    <span class="input-group-addon"></span>
+                </div>
+                <input
+                    class="btn btn-default"
+                    type="submit"
+                    value="{{_ 'Save Changes'}}"
+                />
+                <input
+                    class="cancel-bgcolor btn btn-danger"
+                    type="button"
+                    value="{{_ 'Cancel'}}"
+                />
+            </form>
+        </div>
+        <!-- END: Change Background Color -->
+
+        <div class="banner-form-container">
+            <!-- START: Profile Banner Update Form -->
+            <form
+                action="/profile/banner"
+                class="banner-form hide"
+                {{#if cdn_config}}
+                    data-acl="{{cdn_config.inputs.acl}}"
+                    data-action="{{cdn_config.form.action}}"
+                    data-algorythm="{{cdn_config.inputs.X-Amz-Algorithm}}"
+                    data-cdn="{{cdn_config.form.action}}"
+                    data-complete="Upload Complete"
+                    data-credential="{{cdn_config.inputs.X-Amz-Credential}}"
+                    data-date="{{cdn_config.inputs.X-Amz-Date}}"
+                    data-do="cdn-upload"
+                    data-enctype="{{cdn.form.enctype}}"
+                    data-key="{{cdn_config.inputs.key}}"
+                    data-method="{{cdn_config.form.method}}"
+                    data-on="submit"
+                    data-policy="{{cdn_config.inputs.Policy}}"
+                    data-progress="{{_ 'We are uploading your image. Please do not
+                        refresh page.'}}"
+                    data-signature="{{cdn_config.inputs.X-Amz-Signature}}"
+                {{/if}}
+                method="post"
+            >
+
+                <input name="profile_banner" type="hidden" />
+                <input
+                    class="btn btn-default"
+                    type="submit"
+                    value="{{_ 'Save Changes'}}"
+                />
+                <a href="javascript:void(0)" class="btn btn-danger cancel-update">
+                    {{_ 'Cancel'}}
+                </a>
+            </form>
+            <!-- START: Drag Image Span -->
+            <span class="help-text text-center hide">{{_ 'Drag image to reposition'}}</span>
+            <!-- END: Drag Image Span -->
+        </div>
+    </div>
+    <!-- END: Profile Banner Container -->
+
+</div>
+<!-- END: Profile Banner -->
+    
+<!-- END: Profile Banner Update Form -->
+
+<!-- START: Plugins -->
+<link href="{{'config' cdn}}/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+<script id="image-tpl" type="text/html">
+    <img alt="Cover Photo" class="banner-img" src="[SRC]" />
+</script>
+
+<script type="text/javascript" src="{{'config' cdn}}/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+<script type="text/javascript" src="{{'config' cdn}}/scripts/plugins/upload-banner.js"></script>
+<!-- END: Plugins -->

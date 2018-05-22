@@ -1,0 +1,116 @@
+<!-- Start: Question Modal -->
+<div class="question-modal modal fade" id="question-modal" role="dialog" tabindex="-1">
+    <!-- Start: Modal Dialog -->
+    <div class="modal-dialog">
+        <!-- Start: Modal Content -->
+        <div class="modal-content">
+            <!-- START: Modal Header -->
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" type="button">
+                    &times;
+                </button>
+                <div class="modal-title">{{_ 'Apply for this Position'}}</div>
+            </div>
+            <!-- END: Modal Header -->
+
+            <!-- Start: Modal Body -->
+            <div class="modal-body">
+                <form
+                    id="question-form"
+                >
+                    <!-- START : Form Questions -->
+                    <div class="form-questions hide">
+                        <!-- START : Form Id -->
+                        <input id="form_id" name="form_id" type="hidden">
+                        <!-- END : Form Id -->
+
+                        <!-- START : Post Id -->
+                        <input id="post_id" name="post_id" type="hidden">
+                        <!-- END : Post Id -->
+
+                        <!-- START : Profile Id -->
+                        <input id="profile_id" name="profile_id" type="hidden">
+                        <!-- END : Profile Id -->
+
+                        <!-- START : Form Question -->
+                        <div class="form-question form-group hide">
+                            <!-- START : Question Name -->
+                            <label class="question-name"></label>
+                            <!-- END : Question Name -->
+
+                            <!-- START : Question Answers -->
+                            <div class="question-answers">
+                                <!-- START : Question Answer -->
+                                <div class="question-answer hide radio-container">
+                                    <input
+                                        class="choice-answer radio orange"
+                                        data-do="choice-answer"
+                                        id=""
+                                        name=""
+                                        type="radio"
+                                        value=""
+                                    />
+                                    <label
+                                        class="radio-label"
+                                        for=""
+                                    ></label>
+                                </div>
+                                <!-- END : Question Answer -->
+
+                                <input
+                                    class="custom-answer form-control hide"
+                                    data-do="custom-answer"
+                                    name=""
+                                    placeholder="Custom Answer"
+                                    type="text"
+                                >
+
+                                <input
+                                    class="request-file form-control hide"
+                                    data-do="custom-upload"
+                                    name=""
+                                    type="file"
+                                >
+                                <input
+                                    class="request-file-hidden"
+                                    name=""
+                                    type="hidden"
+                                >
+                            </div>
+                            <!-- END : Question Answers -->
+                        </div>
+                        <!-- END : Form Question -->
+                    </div>
+                    <!-- END : Form Questions -->
+                 </form>
+            </div>
+            <!-- END: Modal BODY -->
+
+            <!-- START: Resume Modal Footer -->
+            <div class="modal-footer">
+                <!-- START : Apply Button -->
+                <div>
+                    <button
+                        class="btn btn-default btn-file-send"
+                        data-on="click"
+                        data-type="
+                            {{~#if profile_company~}}
+                                poster
+                            {{~else~}}
+                                seeker
+                            {{/if~}}"
+                        id="post-apply"
+                        type="button"
+                    >
+                        {{_ 'Apply'}}
+                    </button>
+                </div>
+                <!-- END : Apply Button -->
+            </div>
+            <!-- END: Resume Modal Footer -->
+        </div>
+        <!-- End: Modal Content-->
+    </div>
+    <!-- End: Modal Dialog-->
+</div>
+<!-- End: Send Resume-->

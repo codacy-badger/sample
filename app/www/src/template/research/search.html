@@ -1,0 +1,80 @@
+<div class="clearfix research-search-container">
+    <!-- START: Know your Worth -->
+    <div class="know-your-worth">
+        <div class="know-your-worth-wrapper">
+            <!-- START: Buttons -->
+            <div class="research-type" data-do="research-form">
+                <h1>{{_ 'Know your Worth'}}</h1>
+                <!-- START: research banner search -->
+                <div class="research-banner-text">
+                    <h4>
+                        {{_ 'Explore in-depth data to help your career research. Gain insights and'}}
+                        <br />
+                        {{_ 'statics like average salaries from job titles from different'}}
+                        <br />
+                        {{_ 'different industries, relationship of job location and salary, job seeker'}}
+                        <br />
+                        {{_ 'statics compared to their academe, and more.'}}
+                        <br />
+                        {{_ 'start a search below and discover the data you need for your career'}}
+                        <br />
+                        {{_ 'research.'}}
+                    </h4>
+                </div>
+                <!-- END: research banner search -->
+            </div>
+            <!-- END: Buttons -->
+            <!-- START: Search banner -->
+            <div class="research-banner">
+                <img alt="Research banner" src="/images/research/research-banner.png">
+            </div>
+            <!-- END: Search banner -->
+        </div>
+    </div>
+    <!-- END: Know your Worth -->
+
+     <!-- START: Tabs  -->
+    <div class="search-tabs tabs">
+        <div class="tabs-wrapper">
+            <div class="jobs-tab tab-item">
+                <a href="javascript:void(0)" class="active research-tabs">
+                    {{_ 'Search Job Salaries'}}
+                </a>
+            </div>
+            <div class="location-tab tab-item">
+                <a href="/research/location" class="research-tabs">
+                    {{_ 'Search Location'}}
+                </a>
+            </div>
+            <div class="academe-tab tab-item">
+                <a href="/research/academe" class="research-tabs">
+                    {{_ 'Search Academe'}}
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- END: Tabs -->
+
+    <!-- START: Research Search-->
+    <div class="research-search">
+        <span>{{_ 'Enter a Job title or keyword to learn and compare your salaries.'}}</span>
+
+        <!-- START: Research Search Form -->
+        <form class="clearfix research-form" method="POST">
+            <div class="form-wrapper">
+                <div class="input-wrapper research-position">
+                    <i class="position fa fa-search"></i>
+                    <input name="position" type="text" placeholder="Position" class="form-control">
+                </div>
+
+                <div class="input-wrapper research-location">
+                    <i class="location fa fa-map-marker"></i>
+                    <input name="location" type="text" placeholder="Location" class="form-control">
+                </div>
+            </div>
+            <button class="btn btn-default">{{_ 'Search'}}</button>
+        </form>
+        <!-- END: Research Search Form -->
+    </div>
+    <!-- END: Research Search-->
+</div>

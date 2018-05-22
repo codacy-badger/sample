@@ -1,0 +1,194 @@
+<div class="crumbs">
+    <a href="#" class="active"><i class="fa fa-home"></i>{{_ 'Dashboard'}}</a>
+</div>
+<div class="scroll">
+    <h3 class="template-blue"><i class="fa fa-home"></i>{{_ 'Dashboard'}}</h3>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group">
+                    <a 
+                        href="?type=poster&date[start]={{date.start}}&date[end]={{date.end}}" 
+                        class="btn btn-default {{#when type '==' 'poster'}}active{{/when}}"
+                        data-type="{{type}}"
+                    >
+                        {{_ 'Companies'}}
+                    </a>
+                    <a 
+                        href="?type=seeker&date[start]={{date.start}}&date[end]={{date.end}}" 
+                        class="btn btn-default {{#when type '==' 'seeker'}}active{{/when}}"
+                        data-type="{{type}}"
+                    >
+                        {{_ 'Seekers'}}
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <form 
+                action="" 
+                method="get" 
+                class="form-inline pull-right" 
+                role="form"
+            >
+                <div class="form-group">
+                    <input 
+                        type="date" 
+                        class="form-control" 
+                        name="date[start]" 
+                        value="{{date_format date.start 'Y-m-d'}}"
+                    >
+                </div>
+                <i class="fa fa-minus"></i>
+                <div class="form-group">
+                    <input 
+                        type="date" 
+                        class="form-control" 
+                        name="date[end]" 
+                        value="{{date_format date.end 'Y-m-d'}}"
+                    >
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    {{_ 'Submit'}}
+                </button>
+            </form>
+        </div>
+        <div class="col-sm-4">
+            <div class="pull-right">
+                <a
+                    href="/control/marketing/dashboard?export=true&
+                    {{~querystring}}"
+                    class="btn btn-export"
+                    value="{{date_format date.start 'Y-m-d'}}"
+                >
+                    <i class="fa fa-download"></i> {{_ 'Export'}}
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!--signups-->
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <h3 class="text-center">Signup</h3>
+            <canvas 
+                id="signup" 
+                height="200" 
+                data-type="signup" 
+                data-label="Signup"
+            >
+            </canvas>
+        </div>
+        <!--posted-->
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <h3 class="text-center">Posted</h3>
+            <canvas 
+                id="post" 
+                height="200" 
+                data-type="post" 
+                data-label="Post"
+            >
+            </canvas>
+        </div>
+        <!--interested-->
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <h3 class="text-center">Interested</h3>
+            <canvas 
+                id="interested" 
+                height="200" 
+                data-type="interested" 
+                data-label="Interested"
+            >
+            </canvas>
+        </div>
+        <!--active post-->
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <h3 class="text-center">Active Post</h3>
+            <canvas 
+                id="active-post" 
+                height="200" 
+                data-type="active-post" 
+                data-label="Active Post"
+            >
+            </canvas>
+        </div>
+        <!--purchased credits-->
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <h3 class="text-center">Purchase Credits</h3>
+            <canvas 
+                id="purchased-credits" 
+                height="200" 
+                data-type="purchased-credits" 
+                data-label="Purchased Credits (PHP)"
+            >
+            </canvas>
+        </div>
+        <!--sponsored post-->
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <h3 class="text-center">Sponsored Post</h3>
+            <canvas 
+                id="sponsored-post" 
+                height="200" 
+                data-type="sponsored-post" 
+                data-label="Sponsored Post"
+            >
+            </canvas>
+        </div>
+    </div>
+</div>
+
+<script src="/bower_components/chart.js/dist/Chart.js"></script>
+<script>
+    $.each($('canvas'), function (key, index) {
+        var jsonData = $.ajax({
+            url: '?chart=' + $(index).data('type') + '&type=' 
+                + $('a.btn.active').data('type') 
+                + '&date[start]={{date.start}}&date[end]={{date.end}}',
+            dataType: 'json',
+        }).done(function (results) {
+            var id = $(index).attr('id');
+            //create chart based on id
+            var ctx = document.getElementById(id);
+            //instantiate chart
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                label: id,
+                data: {
+                    labels: results.labels,
+                    datasets: [{
+                        label: results.total,
+                        data: results.data,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                autoSkip: false
+                            }
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: true
+                            }
+                        }]
+                    },
+                    elements: {
+                        line: {
+                            tension: 0, // disables bezier curves
+                        }
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function (tooltipItem, chart) {
+                                return tooltipItem.yLabel + ' ' 
+                                    + $(index).data('label');
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<source>
+    <publisher>Jobayan</publisher>
+    <publisherurl>http://www.jobayan.com</publisherurl>
+    <lastBuildDate>{{date 'last monday' 'D, d M Y H:i:s e'}}</lastBuildDate>
+{{#each rows}}
+    <job>
+        <title><![CDATA[{{post_position}}]]></title>
+        <date><![CDATA[{{date post_updated 'D, d M Y H:i:s e'}}]]></date>
+        <referencenumber><![CDATA[{{post_slug}}]]></referencenumber>
+        <url><![CDATA[{{../root}}/Company-Hiring/{{post_slug}}]]></url>
+        <company><![CDATA[{{post_name}}]]></company>
+        <city><![CDATA[{{post_location}}]]></city>
+        <country><![CDATA[PH]]></country>
+        {{#if post_detail}}
+            <description><![CDATA[{{sanitize_string post_detail}}]]></description>
+        {{else}}
+            <description>
+                <![CDATA[Hello! We are {{post_name}} from {{post_location}}
+                and we are looking for a {{post_position}}]]>
+            </description>
+        {{/if}}
+        {{#if post_salary_min}}
+            <salary><![CDATA[
+                {{~#if post_salary_max~}}
+                    {{~#when post_salary_max '==' post_salary_min~}}
+                        {{post_salary_min}}
+                    {{~else~}}
+                        {{post_salary_min}}-{{post_salary_max}}
+                    {{~/when~}}
+                {{~else~}}
+                    {{post_salary_min}}
+                {{~/if~}}]]>
+            </salary>
+        {{/if}}
+        {{#if post_arrangement}}
+            <jobtype><![CDATA[{{post_arrangement}}]]></jobtype>
+        {{/if}}
+        {{#if post_tags}}
+            <category><![CDATA[{{implode post_tags ','}}]]></category>
+        {{/if}}
+        {{#if post_experience}}
+            <experience>
+                <![CDATA[{{post_experience}} {{append_s 'year' post_experience}}]]>
+            </experience>
+        {{/if}}
+    </job>
+{{/each}}
+</source>

@@ -1,0 +1,124 @@
+<!-- START: Auth Login Page -->
+<div class="auth-login-body auth-form">
+    <!-- START: Auth Login Panel -->
+    <div class="panel panel-default">
+        <!-- START: Website Logo -->
+        <div class="form-logo">
+            <center>
+                <a class="logo" href="/">
+                    <img
+                        alt="Jobayan Logo"
+                        src="{{config 'cdn'}}/images/logo.png"
+                    />
+                </a>
+            </center>
+        </div>
+        <!-- END: Website Logo -->
+        <h1 class="text-center">{{_ 'Login'}}</h1>
+        <!-- START: Panel Body -->
+        <div class="panel-body">
+            <!-- START: Auth Login Form -->
+            <form method="post">
+                <!-- START: Auth Slug -->
+                <div class="form-group{{#if errors.auth_slug}} has-error{{/if}}">
+                    <input
+                        class="form-control border-radiused"
+                        name="auth_slug"
+                        placeholder="{{_ 'Email'}}"
+                        type="email"
+                        value="{{item.auth_slug}}"
+                    />
+                    {{#if errors.auth_slug}}
+                        <span class="help-text">{{errors.auth_slug}}</span>
+                    {{/if}}
+                </div>
+                <!-- END: Auth Slug -->
+                <!-- START: Auth Password -->
+                <div class="form-group{{#if errors.auth_password}} has-error{{/if}}">
+                    <input
+                        class="form-control"
+                        name="auth_password"
+                        placeholder ="{{_ 'Password'}}"
+                        type="password"
+                        value="{{item.auth_password}}"
+                    />
+                    {{#if errors.auth_password}}
+                        <span class="help-text">{{errors.auth_password}}</span>
+                    {{/if}}
+                </div>
+                <!-- END: Auth Password -->
+                <!-- START: Form Submit -->
+                <div class="form-group">
+                    <input name="csrf" type="hidden" value="{{csrf}}" />
+                    <button type="submit" class="btn btn-default" id="login-button">
+                        {{_ 'Login'}}
+                    </button>
+                </div>
+                <!-- END: Form Submit -->
+                <!-- START: Forgot Password -->
+                <div class="form-group text-center">
+                    <a
+                        class="forgot-link"
+                        href="/forgot?{{toquery}}"
+                        title="{{_ 'Forgot password?'}}"
+                    >
+                        {{_ 'Forgot password?'}}
+                    </a>
+                </div>
+                <!-- END: Forgot Password -->
+            </form>
+            <!-- END: Auth Login Form -->
+            <!-- START: Other Options -->
+            <div class="panel-section panel-social">
+                <!-- START: Login With Facebook Option -->
+                <div class="form-group">
+                    <div class="text-center or-text">
+                        <div class="divider"></div>
+                        <div class="or-string">{{_ 'or'}}</div>
+                        <div class="divider"></div>
+                    </div>
+
+                    <div class="text-center">
+                        <a
+                            class="btn btn-primary btn-facebook"
+                            href="/login/facebook?{{toquery}}"
+                            title="{{_ 'Log In with %s' 'Facebook'}}"
+                            id="login-facebook-button"
+                        >
+                            <span class="fa fa-facebook"></span>
+                            {{_ 'Log in with %s' 'Facebook'}}
+                        </a>
+                        <a
+                            class="btn btn-primary btn-linkedin"
+                            href="/login/linkedin?{{toquery}}"
+                            title="{{_ 'Log In with %s' 'LinkedIn'}}"
+                            id="login-linkedin-button"
+                        >
+                            <span class="fa fa-linkedin"></span>
+                            {{_ 'Log in with %s' 'LinkedIn'}}
+                        </a>
+                    </div>
+                </div>
+                <!-- END: Login With Facebook Option -->
+                <!-- START: Signup Option -->
+                <div class="form-group">
+                    <p class="text-muted text-center">
+                        {{_ "Don't have an account yet?"}}
+                        <a
+                            class="brand-text login-link"
+                            href="/signup?{{toquery}}"
+                            title="Sign Up"
+                        >
+                            {{_ 'Sign up'}}
+                        </a>
+                    </p>
+                </div>
+                <!-- END: Signup Option -->
+            </div>
+            <!-- END: Other Options -->
+        </div>
+        <!-- END: Panel Body -->
+    </div>
+    <!-- END: Auth Login Panel -->
+</div>
+<!-- END: Auth Login Page -->

@@ -1,0 +1,87 @@
+{{#if ../show_resume}}
+    {{#if profile_company}}
+        {{#if ../profile_resume}}
+            <!-- START: This seeker has resume -->
+            <!-- START: Download Resume Button -->
+            <a class="download"
+                data-do="post-download"
+                data-id="{{../profile_resume.resume_id}}"
+                data-on="click"
+                data-type="resume"
+                href="javascript:void(0)"
+                title="{{_ 'Download resume'}}"
+                id="download-resume-button"
+            >
+                <span
+                    data-do="tooltip"
+                    title="{{_ 'This represents the number of times this resume has been downloaded'}}"
+                >
+                    {{#if ../profile_resume.resume_download_count}}
+                        {{../profile_resume.resume_download_count}}
+                    {{/if}}
+                </span>
+
+                <span
+                    data-do="tooltip"
+                    data-html="true"
+                    title="
+                    {{_ 'Downloading a resume costs 10 credits' ~}}
+                    <hr style='background-color: black;
+                    height: 1px;
+                    border: 0;
+                    margin: 10px 0px 10px 0px;
+                    width: 100%;'>
+                    {{_ 'Resume - Last Updated' ~}}
+                    <br>
+                    <i>{{date_format profile_information.information_updated 'M d, Y' ~}}<i>
+                ">
+                    <i class="fa fa-download" aria-hidden="true"></i> {{_ 'Resume'}}
+                </span>
+            </a>
+            <!-- END: Download Resume Button -->
+            <!-- END: This seeker has resume -->
+        {{else}}
+            <!-- START: I am a company -->
+            {{#when ../profile_information.information_progress '>=' '40'}}
+                <!-- START: Download Resume Button -->
+                <a
+                    class="download"
+                    data-do="information-resume"
+                    data-information-id="{{../profile_information.information_id}}"
+                    data-on="click"
+                    data-profile-id="{{../profile_information.profile_id}}"
+                    href="javascript:void(0)"
+                    title="{{_ 'Download resume'}}"
+                    id="download-resume-button"
+                >
+                    <span
+                        data-do="tooltip"
+                        title="{{_ 'This represents the number of times this resume has been downloaded'}}"
+                    >
+                        {{#if ../profile_information.information_download_count}}
+                            {{../profile_information.information_download_count}}
+                        {{/if}}
+                    </span>
+                    <span
+                        data-do="tooltip"
+                        data-html="true"
+                        title="
+                        {{_ 'Downloading a resume costs 10 credits' ~}}
+                        <hr style='background-color: black;
+                        height: 1px;
+                        border: 0;
+                        margin: 10px 0px 10px 0px;
+                        width: 100%;'>
+                        {{_ 'Resume - Last Updated' ~}}
+                        <br>
+                        <i>{{date_format ../profile_information.information_updated 'M d, Y' ~}}<i>"
+                    >
+                        <i class="fa fa-download" aria-hidden="true"></i> {{_ 'Resume'}}
+                    </span>
+                </a>
+                <!-- END: Download Resume Button -->
+            {{/when}}
+            <!-- END: I am a company -->
+        {{/if}}
+    {{/if}}
+{{/if}}

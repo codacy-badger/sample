@@ -1,0 +1,8 @@
+Hello {{profile_name}},
+
+We found a match! {{post_name}} from {{post_location}} is looking for
+a {{post_position}} with {{post_experience}} years of experience. To learn
+more about this post you can visit here:
+{{link}}
+
+ - The Jobayan Team

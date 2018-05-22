@@ -1,0 +1,217 @@
+<!-- START: Crumbs -->
+<div class="crumbs">
+    <a href="/control/marketing/dashboard">
+        <i class="fa fa-home"></i> {{_ 'Dashboard'}}
+    </a>
+    <span class="separator"><i class="fa fa-angle-right"></i></span>
+		<a href="/control/marketing/campaign/search">
+			<i class="fa fa-calendar"></i> {{_ 'Campaigns'}}
+		</a>
+    <span class="separator"><i class="fa fa-angle-right"></i></span>
+    <a href="#" class="active">
+        <i class="fa fa-calendar"></i> {{_ 'Campaign Results'}}
+    </a>
+</div>
+<!-- END: Crumbs -->
+<!-- START: Scroll -->
+<div class="scroll">
+    <h3 class="template-blue">
+        <i class="fa fa-calendar"></i> {{_ 'Campaign Results'}}
+    </h3>
+    <!--START: Campaign Result - Email Body Page-->
+    <div class="panel-body">
+	    <div class="row">
+	    	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+	    		<div>
+	    		<!-- START: Information -->
+					<h4 class="no-underline-h4">{{_ 'Information'}}</h4>
+					<div class="result-box">
+						<div class="col-xs-3">
+							<label>{{_ 'Title'}}</label>
+						</div>
+						<div>
+							<p>{{item.campaign_title}}</p>
+						</div>
+						<div class="col-xs-3">
+							<label>{{_ 'Template'}}</label>
+						</div>
+						<div>
+							<p>{{item.template_title}}</p>
+						</div>
+						<div class="col-xs-3">
+							<label>{{_ 'Medium'}}</label>
+						</div>
+						<div>
+							{{#when item.campaign_medium '===' 'sms'}}
+								<p>{{_ 'SMS'}}</p>
+							{{/when}}
+							{{#when item.campaign_medium '===' 'email'}}
+								<p>{{_ 'Email'}}</p>
+							{{/when}}
+						</div>
+						<div class="col-xs-3">
+							<label>{{_ 'Source'}}</label>
+						</div>
+						<div>
+							<p>{{item.campaign_source}}</p>
+						</div>
+						<div class="col-xs-3">
+							<label>{{_ 'Audience'}}</label>
+						</div>
+						<div>
+							<p>{{item.campaign_audience}}</p>
+						</div>
+						<div class="col-xs-3">
+							<label>{{_ 'Labels'}}</label>
+						</div>
+						<div>
+							{{#each item.campaign_tags}}
+								<a href="#">
+									<span class="label label-default">
+										{{this}}
+									</span>
+								</a>
+							{{/each}}
+						</div>
+					</div>
+				</div>
+				<!-- END: Information -->
+
+				<!-- START: Activity -->
+				<div>
+					<h4 class="no-underline-h4">{{_ 'Activity'}}</h4>
+					<canvas 
+						data-label="Campaign"
+						data-type="campaign"
+						height="200"
+						id="campaign"
+					>
+					</canvas>
+				</div>
+				<!-- END: Activity -->
+				
+				<!-- START: Exports -->
+				<div>
+					<h4 class="no-underline-h4">{{_ 'Exports'}}</h4>
+					<div class="result-box">
+						<!-- START: Exports Table -->
+						<table class="table table-striped">
+							<tr>
+								<th>{{_ 'Sent'}}</th>
+								<td>{{item.campaign_sent}}</td>
+								<td>{{compute_percent item.campaign_sent 100}}%</td>
+							</tr>
+							<tr>
+								<th>{{_ 'Unopened'}}</th>
+								<td>{{item.campaign_unopened}}</td>
+								<td>{{compute_percent item.campaign_unopened 100}}%</td>
+							</tr>
+							<tr>
+								<th>{{_ 'Clicked'}}</th>
+								<td>{{item.campaign_clicked}}</td>
+								<td>{{compute_percent item.campaign_clicked 100}}%</td>
+							</tr>
+							<tr>
+								<th>{{_ 'Unsubscribed'}}</th>
+								<td>{{item.campaign_unsubscribed}}</td>
+								<td>{{compute_percent item.campaign_unsubscribed 100}}%</td>
+							</tr>
+							<tr>
+								<th>{{_ 'Bounced'}}</th>
+								<td>{{item.campaign_bounced}}</td>
+								<td>{{compute_percent item.campaign_bounced 100}}%</td>
+							</tr>
+						</table>
+						<!-- END: Exports Table -->
+					</div>
+				</div>
+				<!-- END: Exports -->
+	    	</div>
+	    	
+	    	<!-- START: Preview -->
+	    	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				<h4 class="no-underline-h4">{{_ 'Preview'}}</h4>
+				<div class="preview" id="preview">
+					<div>
+						{{{item.template_html}}}
+					</div>
+				</div>
+	    	</div>
+	    	<!-- END: Preview -->
+		</div>
+
+		<div class="row">
+			<!-- START: Link Activity -->
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<h4 class="no-underline-h4">{{_ 'Link Activity'}}</h4>
+				<div class="result-box">
+					<!-- START: Link Activity Table -->
+            		<table class="table table-striped">
+            			<thead>
+            				<tr>
+	            				<th>{{_ 'Link'}}</th>
+	            				<th>{{_ 'Unique'}}</th>
+	            				<th>{{_ 'Total'}}</th>
+            				</tr>
+            			</thead>
+            			<tbody>
+							{{#if ses.0}}
+								{{#each ses}}
+									<tr>
+										<td class="cell-url">
+											<a 
+												href="{{ses_link}}" 
+												target="_blank"
+											>
+												{{item.ses_link}}
+											</a>
+										</td>
+										<td>{{item.ses_count}}</td>
+										<td>{{item.ses_total}}</td>
+									</tr>
+								{{/each}}
+							{{/if}}
+            			</tbody>
+            		</table>
+            		<!-- END: Link Activity Table -->
+				</div>
+				<!-- END: Link Activity -->
+			</div>
+		</div>
+	</div>
+	<!--END: Campaign Result Body - Email Page-->
+	
+</div>
+<!-- END: Scroll -->
+
+<script src="/bower_components/chart.js/dist/Chart.js"></script>
+<script>
+	var activityChart = document.getElementById('campaign').getContext('2d');
+	var campaignChart = new Chart(activityChart, {
+		type: 'horizontalBar',
+		data: {
+			labels: [
+				'Sent', 
+				'Unopened', 
+				'Opened', 
+				'Clicked', 
+				'Bounced', 
+				'Unsubscribed', 
+				'Spam'],
+			datasets: [{
+				label: 'Activity',
+				data: [
+					'{{campaign_sent}}',
+					'{{campaign_unopened}}',
+					'{{campaign_opened}}',
+					'{{campaign_clicked}}',
+					'{{campaign_bounced}}',
+					'{{campaign_unsubscribed}}',
+					'{{campaign_spam}}'
+				],
+				backgroundColor: 'rgba(54, 162, 235, 0.6)'
+			}]
+		},
+		options: {}
+	});
+</script>

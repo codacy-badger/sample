@@ -1,0 +1,442 @@
+<!-- START: Post Search -->
+<div class="post-search" data-do="panel-scroll">
+    <div class="container">
+        <!-- START: Filters -->
+        <div class="search-filter">
+            <form method="get">
+                {{#if q}}
+                    <input type="hidden" name="q" value="{{q}}" />
+                {{/if}}
+                <!-- START: Filter Type -->
+                <div class="filter-type">
+                    <div>Filter by</div>
+                    <div class="filter-by-wrapper">
+                        <div class="radio-container">
+                            <input
+                                class="radio"
+                                data-do="sidebar-form"
+                                data-on="click"
+                                id="type_all"
+                                type="radio"
+                                {{#when type '==' ''}}
+                                    checked
+                                {{/when}}
+                            />
+                            <label class="radio-label" for="type_all">
+                                {{_ 'All'}}
+                            </label>
+                        </div>
+                        <div class="radio-container">
+                            <input
+                                class="radio"
+                                data-do="sidebar-form"
+                                data-on="click"
+                                id="type_poster"
+                                type="radio"
+                                {{#when type '==' 'poster'}}
+                                    checked
+                                {{/when}}
+                            />
+                            <label class="radio-label" for="type_poster">
+                                {{_ 'Companies'}}
+                            </label>
+                        </div>
+                        <div class="radio-container">
+                            <input
+                                class="radio"
+                                data-do="sidebar-form"
+                                data-on="click"
+                                id="type_seeker"
+                                type="radio"
+                                {{#when type '==' 'seeker'}}
+                                    checked
+                                {{/when}}
+                            />
+                            <label class="radio-label" for="type_seeker">
+                                {{_ 'Seekers'}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Filter Type -->
+                <!-- START: Filter Industry -->
+                <div class="filter-industry">
+                    <div>Industry</div>
+                    <div class="filter-industry-wrapper">
+                        {{#each filter_panel.industry}}
+                            <div class="checkbox">
+                                <input
+                                    data-do="sidebar-form"
+                                    data-on="click"
+                                    id="{{feature_slug}}"
+                                    name="tag[]"
+                                    type="checkbox"
+                                    value="{{feature_name}}"
+                                    {{#in feature_name ../tag}}
+                                        checked
+                                    {{/in}}
+                                />
+                                <label for="{{feature_slug}}">
+                                    {{feature_title}}
+                                </label>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+                <!-- END: Filter Industry -->
+                <!-- START: Filter Location -->
+                <div class="filter-location">
+                    <div>Locations</div>
+                    <div class="filter-location-wrapper">
+                        {{#each filter_panel.location}}
+                            <div class="checkbox">
+                                <input
+                                    data-do="sidebar-form"
+                                    data-on="click"
+                                    id="{{feature_slug}}"
+                                    name="location[]"
+                                    type="checkbox"
+                                    value="{{feature_name}}"
+                                    {{#each ../location}}
+                                        {{#in ../feature_name this}}
+                                            checked
+                                        {{/in}}
+                                    {{/each}}
+                                />
+                                <label for="{{feature_slug}}">
+                                    {{feature_name}}
+                                </label>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+                <!-- END: Filter Location -->
+                <div class="search-button">
+                    <button
+                        class="btn btn-default"
+                        type="submit"
+                    >
+                        Submit
+                    </button>
+                    <a
+                        class="btn btn-primary"
+                        href="/post/search"
+                        title="Reset"
+                    >
+                        Reset
+                    </a>
+                </div>
+            </form>
+        </div>
+        <!-- END: Filters -->
+        <div class="search-cards">
+            <div class="search-cards-head">
+                <h1>{{wall_title}}</h1>
+                <!-- <div class="search-sorts"> -->
+                {{> post_sorts}}
+                <!-- </div> -->
+            </div>
+            {{#if rows}}
+                <div data-do="post-search-ajax">
+                    <!-- START: Post Suggestions -->
+                    {{#if suggestion}}
+                    <p
+                        class="summary-suggestion"
+                        data-do="google-suggestion"
+                        data-keyword="{{keyword}}"
+                        data-query="{{toquery 'q' ''}}">
+                        Related searches: &nbsp;&nbsp;&nbsp;
+                        {{#each suggestion}}
+                        <a href="?q={{tolower this}}&location[]={{../locationImplode}}">{{this}}</a>{{#unless @last}},{{/unless}}
+                        {{/each}}
+                    </p>
+                    {{/if}}
+                    <!-- END: Post Suggestions -->
+                    {{> post_list}}
+                </div>
+                <!-- START: Loader -->
+                <button
+                    class="btn btn-info loader hide"
+                    disabled="disabled"
+                >
+                    <i class="fa fa-spinner fa-pulse"></i> {{_ 'Loading'}} ...
+                </button>
+                <!-- END: Loader -->
+            {{else}}
+                <!-- START: No Results -->
+                <div class="no-results">
+                    <div class="search">
+                        {{#_ 'Your search - %s - did not match any posts.'}}
+                            <em>{{capital wall_title}}</em>
+                        {{/_}}
+                    </div>
+                    <!-- START: Post Suggestions -->
+                    {{#if suggestion}}
+                        <p
+                            class="summary-suggestion"
+                            data-do="google-suggestion"
+                            data-keyword="{{keyword}}"
+                            data-query="{{toquery 'q' ''}}">
+                            Did you mean?&nbsp;&nbsp;&nbsp;
+                            {{#each suggestion}}
+                            <a href="?q={{tolower this}}&location[]={{../locationImplode}}">{{this}}</a>{{#unless @last}},{{/unless}}
+                            {{/each}}
+                        </p>
+                    {{/if}}
+                    <!-- END: Post Suggestions -->
+                    <div class="suggestions">{{_ 'Suggestions:'}}</div>
+                    <ul>
+                        <li> {{_ 'Make sure that all words are spelled correctly.'}}</li>
+                        <li> {{_ 'Try different keywords.'}}</li>
+                        <li> {{_ 'Try more general keywords.'}}</li>
+                    </ul>
+                </div>
+                <!-- END: No Results -->
+            {{/if}}
+        </div>
+        <div class="search-recommended">
+            {{#if recommended.all}}
+                {{#unless type}}
+                    {{#if recommended.poster}}
+                        <div>Recommended Companies</div>
+                        {{#each recommended.poster}}
+                            {{> post_poster
+                                heading_name='h2'
+                                heading_position='h3'
+                                heading_salary='h3'
+                                heading_location='h3'
+                                post_tips_hide='hide'
+                            }}
+                        {{/each}}
+                    {{/if}}
+                    {{#if recommended.seeker}}
+                        <div>Recommended Job Seekers</div>
+                        {{#each recommended.seeker}}
+                            {{> post_seeker
+                                heading_name='h2'
+                                heading_position='h3'
+                                heading_salary='h3'
+                                heading_location='h3'
+                                post_tips_hide='hide'
+                            }}
+                        {{/each}}
+                    {{/if}}
+                {{/unless}}
+                {{#when type '==' 'poster'}}
+                    {{#if recommended.poster}}
+                        <div>Recommended Companies</div>
+                        {{#each recommended.poster}}
+                            {{> post_poster
+                                heading_name='h2'
+                                heading_position='h3'
+                                heading_salary='h3'
+                                heading_location='h3'
+                                post_tips_hide='hide'
+                            }}
+                        {{/each}}
+                    {{/if}}
+                {{/when}}
+                {{#when type '==' 'seeker'}}
+                    {{#if recommended.seeker}}
+                        <div>Recommended Job Seekers</div>
+                        {{#each recommended.seeker}}
+                            {{> post_seeker
+                                heading_name='h2'
+                                heading_position='h3'
+                                heading_salary='h3'
+                                heading_location='h3'
+                                post_tips_hide='hide'
+                            }}
+                        {{/each}}
+                    {{/if}}
+                {{/when}}
+            {{/if}}
+        </div>
+    </div>
+    <!-- START: Search Panel -->
+    <div class="search-panel">
+        <a
+            class="btn btn-default search-arrow open"
+            data-do="sidebar-panel"
+            data-on="click"
+            href="javascript:void(0);"
+        >
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+        </a>
+        <form method="get">
+            {{#if q}}
+                <input type="hidden" name="q" value="{{q}}" />
+            {{/if}}
+            <div class="panel-group" id="filter-search" role="tablist" aria-multiselectable="true">
+                <!-- START: Filter Type -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab">
+                        <div class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#filter-search"     href="#filter-type" aria-expanded="true" aria-controls="filter-type">
+                            Filter By
+                            </a>
+                        </div>
+                    </div>
+                        <div id="filter-type" class="panel-collapse collapse in" role="tabpanel">
+                        <div class="panel-body">
+                            <div class="radio-container">
+                                <input
+                                    class="radio"
+                                    data-do="sidebar-form"
+                                    data-on="click"
+                                    id="type-all-panel"
+                                    name="type"
+                                    type="radio"
+                                    value=""
+                                    {{#when type '==' ''}}
+                                        checked
+                                    {{/when}}
+                                />
+                                <label class="radio-label" for="type-all-panel">
+                                    {{_ 'All'}}
+                                </label>
+                            </div>
+                            <div class="radio-container">
+                                <input
+                                    class="radio"
+                                    data-do="sidebar-form"
+                                    data-on="click"
+                                    id="type-poster-panel"
+                                    name="type"
+                                    type="radio"
+                                    value="poster"
+                                    {{#when type '==' 'poster'}}
+                                        checked
+                                    {{/when}}
+                                />
+                                <label class="radio-label" for="type-poster-panel">
+                                    {{_ 'Companies'}}
+                                </label>
+                            </div>
+                            <div class="radio-container">
+                                <input
+                                    class="radio"
+                                    data-do="sidebar-form"
+                                    data-on="click"
+                                    id="type-seeker-panel"
+                                    name="type"
+                                    type="radio"
+                                    value="seeker"
+                                    {{#when type '==' 'seeker'}}
+                                        checked
+                                    {{/when}}
+                                />
+                                <label class="radio-label" for="type-seeker-panel">
+                                    {{_ 'Seekers'}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Filter Type -->
+                <!-- START: Filter Industry -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab">
+                        <div class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#filter-search"     href="#filter-industry" aria-expanded="true" aria-controls="filter-industry">
+                            Industry
+                            </a>
+                        </div>
+                    </div>
+                    <div id="filter-industry" class="panel-collapse collapse" role="tabpanel">
+                        <div class="panel-body">
+                            {{#each filter_panel.industry}}
+                                <div class="checkbox">
+                                    <input
+                                        data-do="sidebar-form"
+                                        data-on="click"
+                                        id="{{feature_slug}}-panel"
+                                        name="tag[]"
+                                        type="checkbox"
+                                        value="{{feature_name}}"
+                                        {{#in feature_name ../tag}}
+                                            checked
+                                        {{/in}}
+                                    />
+                                    <label for="{{feature_slug}}-panel">
+                                        {{feature_title}}
+                                    </label>
+                                </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Filter Industry -->
+                <!-- START: Filter Location -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab">
+                        <div class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#filter-search"     href="#filter-location" aria-expanded="true" aria-controls="filter-location">
+                            Location
+                            </a>
+                        </div>
+                    </div>
+                    <div id="filter-location" class="panel-collapse collapse" role="tabpanel">
+                        <div class="panel-body">
+                            {{#each filter_panel.location}}
+                                <div class="checkbox">
+                                    <input
+                                        data-find='here'
+                                        data-do="sidebar-form"
+                                        data-on="click"
+                                        id="{{feature_slug}}-panel"
+                                        name="location[]"
+                                        type="checkbox"
+                                        value="{{feature_name}}"
+                                        {{#each ../location}}
+                                            {{#in ../../feature_name this}}
+                                                checked
+                                            {{/in}}
+                                        {{/each}}
+                                    />
+                                    <label for="{{feature_slug}}-panel">
+                                        {{feature_name}}
+                                    </label>
+                                </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+                <!-- End: Filter Location -->
+                <div class="search-button">
+                    <button
+                        class="btn btn-default"
+                        type="submit"
+                    >
+                        {{_ 'Submit'}}
+                    </button>
+                    <a
+                        class="btn btn-primary"
+                        href="/post/search"
+                        title="{{_ 'Reset'}}"
+                    >
+                        {{_ 'Reset'}}
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- END: Search Panel -->
+</div>
+
+{{#if rows}}
+    {{#session 'me'}}
+        {{> post/modal_arrangement}}
+        {{> post/modal_experience}}
+        {{> post/modal_industry}}
+        {{> post/modal_location}}
+        {{> post/modal_school}}
+        {{> post/modal_remove}}
+
+        {{#unless profile_company}}
+            {{> post/modal_completeness}}
+            {{> post/modal_popup}}
+        {{/unless}}
+    {{/session}}
+    {{> post/modal_question}}
+{{/if}}

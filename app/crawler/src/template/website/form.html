@@ -1,0 +1,207 @@
+<div class="panel panel-default clear" >
+    <div class="panel-heading brand">
+        <div class="panel-title">{{title}}</div>
+    </div>
+
+    <div class="panel-body" >
+        <form enctype="multipart/form-data" method="post">
+            <fieldset>
+                <legend><i class="fa fa-caret-down group-toggle"></i> Basic</legend>
+
+                <div class="form-group{{#if errors.website_name}} has-error{{/if}}">
+                    <label class="control-label">Website Name</label>
+                    <div>
+                        <input
+                            type="text"
+                            name="website_name"
+                            class="form-control"
+                            placeholder="John Doe Store"
+                            value="{{item.website_name}}" />
+
+                        {{#if errors.website_name}}
+                        <span class="help-text">{{errors.website_name}}</span>
+                        {{/if}}
+                    </div>
+                </div>
+
+                <div class="form-group{{#if errors.website_root}} has-error{{/if}}">
+                    <label class="control-label">Host</label>
+                    <div>
+                        <input
+                            type="text"
+                            name="website_root"
+                            class="form-control"
+                            placeholder="http://johndoe.com/"
+                            value="{{item.website_root}}" />
+
+                        {{#if errors.website_root}}
+                        <span class="help-text">{{errors.website_root}}</span>
+                        {{/if}}
+                    </div>
+                </div>
+
+                <div class="form-group{{#if errors.website_start}} has-error{{/if}}">
+                    <label class="control-label">Starting Point</label>
+                    <div>
+                        <input
+                            type="text"
+                            name="website_start"
+                            class="form-control"
+                            placeholder="http://johndoe.com/product/search"
+                            value="{{item.website_start}}" />
+
+                        {{#if errors.website_start}}
+                        <span class="help-text">{{errors.website_start}}</span>
+                        {{/if}}
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend><i class="fa fa-caret-down group-toggle"></i> Link Extractor</legend>
+
+                <div class="form-group{{#if errors.website_settings.link_extractor}} has-error{{/if}}">
+                    <div id="link_extractor" class="editor form-control"></div>
+                    <textarea name="website_settings[link_extractor]" class="field-extractor hide">{{item.website_settings.link_extractor}}</textarea>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend><i class="fa fa-caret-down group-toggle"></i> Data Extractor</legend>
+
+                <div class="form-group{{#if errors.website_settings.data_extractor}} has-error{{/if}}">
+                    <div id="data_extractor" class="editor form-control"></div>
+                    <textarea name="website_settings[data_extractor]" class="field-extractor hide">{{item.website_settings.data_extractor}}</textarea>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend><i class="fa fa-caret-down group-toggle"></i> Testing</legend>
+
+                <div class="form-group{{#if errors.website_settings.testing_url}} has-error{{/if}}">
+                    <label class="control-label">Testing URL</label>
+                    <div>
+                        <input
+                            type="text"
+                            name="website_settings[testing_url]"
+                            class="form-control"
+                            placeholder="http://johndoe.com/product/search"
+                            value="{{item.website_settings.testing_url}}" />
+
+                        {{#if errors.website_settings.testing_url}}
+                        <span class="help-text">{{errors.website_settings.testing_url}}</span>
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="form-group{{#if errors.website_settings.testing_url}} has-error{{/if}}">
+                    <label class="control-label">Page Type</label>
+                    <div>
+                        <label>
+                            <input
+                                type="radio"
+                                name="website_settings[testing_type]"
+                                value="detail"
+                                {{#when item.website_settings.testing_type '===' 'detail'}}
+                                    checked
+                                {{/when}} />
+                            Detail
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="website_settings[testing_type]"
+                                value="search"
+                                {{#when item.website_settings.testing_type '===' 'search'}}
+                                    checked
+                                {{/when}} />
+                            Search
+                        </label>
+                    </div>
+                </div>
+                <div class="clear form-group">
+                   <button type="submit" name="action" value="test" class="btn btn-info">Test</button>
+                </div>
+
+                {{#if test_results}}
+                <link rel="stylesheet" type="text/css" href="/styles/jsonview.css" />
+                <script type="text/javascript"></script>
+                <div class="form-group{{#if errors.website_settings.testing_url}} has-error{{/if}}">
+                    <label class="control-label">Test Results</label>
+                    {{#if test_command}}
+                    <pre>{{{test_command}}}</pre>
+                    {{/if}}
+                    <div class="json-view"></div>
+                </div>
+                <script type="text/javascript" src="/scripts/jsonview.js"></script>
+                <script id="json-results" type="text/json">{{{test_results}}}</script>
+                <script type="text/javascript">
+                $(function() {
+                    $('div.json-view').JSONView($('#json-results').text());
+                });
+                </script>
+                {{/if}}
+
+                <div class="form-group{{#if errors.website_active}} has-error{{/if}}">
+                    <label class="control-label">Activate</label>
+                    <div>
+                        <label>
+                            <input
+                                type="radio"
+                                name="website_active"
+                                value="0"
+                                {{#if item.website_active}}{{else}} checked{{/if}} /> No
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="website_active"
+                                value="1"
+                                {{#if item.website_active}} checked{{/if}} /> Yes
+                        </label>
+
+                        <span class="help-text test-status" data-message="Testing"></span>
+                        <div class="test-results"></div>
+
+                        {{#if errors.website_active}}
+                        <span class="help-text">{{errors.website_active}}</span>
+                        {{/if}}
+                    <div>
+                </div>
+            </fieldset>
+
+            <div class="clear form-group">
+               <button type="submit" name="action" value="save" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="/scripts/lib/ace.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+(function() {
+    $('i.group-toggle').click(function(e) {
+        e.preventDefault();
+        $(this)
+            .toggleClass('fa-caret-down')
+            .toggleClass('fa-caret-right')
+            .parent()
+            .parent()
+            .toggleClass('hide-groups');
+    });
+    var dataField = $('textarea[name="website_settings[data_extractor]"]');
+    var dataEditor = ace.edit('data_extractor');
+    dataEditor.session.setMode('ace/mode/javascript');
+    dataEditor.setValue(dataField.val());
+    dataEditor.getSession().on('change', function () {
+        dataField.val(dataEditor.getValue());
+    });
+    var linkField = $('textarea[name="website_settings[link_extractor]"]');
+    var linkEditor = ace.edit('link_extractor');
+    linkEditor.session.setMode('ace/mode/javascript');
+    linkEditor.setValue(linkField.val());
+    linkEditor.getSession().on('change', function () {
+        linkField.val(linkEditor.getValue());
+    });
+})();
+</script>

@@ -1,0 +1,292 @@
+{{#if filter.profile_id}}
+    {{#if rows}}
+    <h4>{{rows.0.profile_name}}</h4>
+    {{/if}}
+{{/if}}
+
+{{#when filter.service_active '===' '0'}}
+    <h3>
+        {{number_format total 0}} Inactive {{title}}
+        {{#if q.0}}
+            matching {{q.0}}
+        {{/if}}
+    </h3>
+{{else}}
+    <h3>
+        {{number_format total 0}} {{title}}
+        {{#if q.0}}
+            matching {{q.0}}
+        {{/if}}
+    </h3>
+{{/when}}
+
+<div class="clearfix">
+    <!-- START: SEARCH FORM -->
+    <form class="pull-right search form-inline" method="get">
+        <div class="form-group">
+            <input
+                    class="form-control"
+                    name="q[]"
+                    placeholder="Search"
+                    type="text"
+                    value="{{q.0}}"
+            />
+        </div>
+        <button class="btn"><i class="fa fa-search"></i></button>
+    </form>
+    <!-- END: SEARCH FORM -->
+
+    <div class="left-group">
+        <div aria-label="..."class="btn-group pull-left" role="group">
+            <a class="btn btn-primary" href="?{{toquery 'filter[service_active]' '1'}}">
+                Active
+            </a>
+            <a class="btn btn-danger" href="?{{toquery 'filter[service_active]' '0'}}">
+                Inactive
+            </a>
+        </div>
+
+        <!-- START : Form -->
+        <form class="filter-form" method="get">
+                    {{#when filter.service_active '===' '0'}}
+                   <input type="hidden"
+                   name="filter[service_active]"
+                   value = "0"
+                   />
+            {{/when}}
+            <div class="form-group pull-left">
+                <label class="pull-left">Type</label>
+
+                <!-- START : Select service_name -->
+                <select
+                    class="form-control pull-left service_name"
+                    data-do="redirect-filter"
+                    data-on="change"
+                    name="filter[service_name]"
+                >
+                    <option
+                        value=""
+                        {{#when filter.type '==' ''}}
+                            selected
+                        {{~/when~}}
+                    >
+                        {{_ 'All'}}
+                    </option>
+
+                    <option
+                        value="Attach Form"
+                        {{#when filter.service_name '==' 'Attach Form'}}selected{{/when}}
+                    >
+                        {{_ 'Attach Form'}}
+                    </option>
+
+                    <option
+                        value="Career Page"
+                        {{#when filter.service_name '==' 'Career Page'}}selected{{/when}}
+                    >
+                        {{_ 'Career Page'}}
+                    </option>
+
+                    <option
+                        value="Chatbot"
+                        {{#when filter.service_name '==' 'Chatbot'}}selected{{/when}}
+                    >
+                        Chatbot
+                    </option>
+
+                    <option
+                        value="Interview Post"
+                        {{#when filter.service_name '==' 'Interview Post'}}selected{{/when}}
+                    >
+                        {{_ 'Interview Post'}}
+                    </option>
+
+                    <option
+                        value="Post Promotion"
+                        {{#when filter.service_name '==' 'Post Promotion'}}selected{{/when}}
+                    >
+                        {{_ 'Post Promotion'}}
+                    </option>
+
+                    <option
+                        value="Resume Download"
+                        {{#when filter.service_name '==' 'Resume Download'}}selected{{/when}}
+                    >
+                        {{_ 'Resume Download'}}
+                    </option>
+
+                    <option
+                        value="Sms Interest"
+                        {{#when filter.service_name '==' 'Sms Interest'}}selected{{/when}}
+                    >
+                        {{_ 'Sms Interest'}}
+                    </option>
+
+                    <option
+                        value="Tracer Study"
+                        {{#when filter.service_name '==' 'Tracer Study'}}selected{{/when}}
+                    >
+                        {{_ 'Tracer Study'}}
+                    </option>
+
+                    <option
+                        value="Extra Post"
+                        {{#when filter.service_name '==' 'Extra Post'}}selected{{/when}}
+                    >
+                        {{_ 'Extra Post'}}
+                    </option>
+
+                </select>
+                <!-- END : Select service_name -->
+
+                <button
+                    class="btn btn-success pull-left"
+                    name="export"
+                    type="submit"
+                    value="1"
+                >
+                    Export
+                </button>
+            </div>
+        </form>
+        <!-- END : Form -->
+    </div>
+</div>
+
+<!-- START: BULK FORM -->
+<form method="post" class="form-inline bulk-form pad-vertical">
+    <div class="panel panel-default clear">
+        <div class="panel-body" >
+            {{#if rows}}
+                <div class="table-overflow">
+                    <!-- START: TABLE -->
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <!-- START : TH : Actions -->
+                                <th>Actions</th>
+                                <!-- END : TH : Actions -->
+
+                                <!-- START : TH : Name -->
+                                <th>
+                                    <a href="?q[]={{q.0}}&{{#sort 'profile_name'}}
+                                        {{~#unless value~}}
+                                            order[profile_name]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[profile_name]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[profile_name]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        Name
+                                        {{#sort 'profile_name'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- END : TH : Name -->
+
+                                <!-- START : TH : Service -->
+                                <th>
+                                    Service
+                                </th>
+                                <!-- END : TH : Service -->
+
+                                <!-- START : TH : Credits -->
+                                <th>
+                                    <a href="?q[]={{q.0}}&{{#sort 'service_credits'}}
+                                        {{~#unless value~}}
+                                            order[service_credits]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[service_credits]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[service_credits]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                        Credits
+                                        {{#sort 'service_credits'}}
+                                            {{~#when value '===' 'ASC'~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/when~}}
+                                            {{~#when value '===' 'DESC'~}}
+                                                <i class="fa fa-caret-down"></i>
+                                            {{~/when}}
+                                            {{~#unless value~}}
+                                                <i class="fa fa-caret-up"></i>
+                                            {{~/unless~}}
+                                        {{~/sort~}}
+                                    </a>
+                                </th>
+                                <!-- END : TH : Credits -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each rows}}
+                            <tr data-id="{{service_id}}">
+                                <td>
+                                    {{#when service_active '==' 1}}
+                                    <a href="/control/service/update/{{service_id}}" title="Edit">
+                                    <i class="fa fa-edit"></i></a>
+                                    &nbsp;
+                                    <a href="/control/service/detail/{{service_id}}" title="View">
+                                    <i class="fa fa-eye"></i></a>
+                                    &nbsp;
+                                    <a
+                                        class="text-danger remove"
+                                        href="/control/service/remove/{{service_id}}"
+                                        title="Remove"
+                                    >
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                    {{/when}}
+                                    {{#when service_active '==' 0}}
+                                    <a
+                                        class="text-success restore"
+                                        href="/control/service/restore/{{service_id}}"
+                                        title="Restore"
+                                    >
+                                        <i class="fa fa-external-link"></i>
+                                    </a>
+                                    {{/when}}
+                                </td>
+                                <td>
+                                    <a href="?filter[profile_name]={{profile_name}}">{{profile_name}}</a>
+                                </td>
+                                <td>
+                                    <a href="?filter[service_name]={{service_name}}">{{service_name}}</a>
+                                </td>
+                                <td>
+                                    {{number service_credits}}
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    <!-- END: TABLE -->
+                </div>
+            {{else}}
+                <!-- START: NO RESULTS -->
+                <div class="well no-results">No Results Found</div>
+                <!-- END: NO RESULTS -->
+            {{/if}}
+        </div>
+    </div>
+
+    <ul class="pagination">
+        {{#pager total range}}
+        <li{{#if active}} class="active"{{/if}}><a href="?{{href}}">{{page}}</a></li>
+        {{/pager}}
+    </ul>
+</form>

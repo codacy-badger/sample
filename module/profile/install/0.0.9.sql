@@ -1,0 +1,1 @@
+ALTER TABLE `profile` ADD `profile_interviewer` JSON NULL DEFAULT NULL AFTER `profile_story`;

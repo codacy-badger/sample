@@ -1,0 +1,119 @@
+<span class="label label-default hide">
+    <i></i>
+    <a
+        class=""
+        data-do="remove-label"
+        data-label-name=""
+        data-applicant-id=""
+        data-on="click"
+        href="javascript:void(0)"
+        title="Remove Label"
+    >
+        x
+    </a>
+</span>
+
+<!-- START : Interview Setting -->
+<div class="clearfix interview-setting-detail hide" style="display: none;">
+    <!-- START : Interview Setting Slots -->
+    <div class="interview-setting setting-slots">
+        <i class="fa fa-user"></i>
+        <span>
+        </span>
+    </div>
+    <!-- END : Interview Setting Slots -->
+
+    <!-- START : Interview Setting Date -->
+    <div class="interview-setting setting-date">
+        <span>
+        </span>
+    </div>
+    <!-- END : Interview Setting Date -->
+
+    <!-- START : Interview Setting Time -->
+    <div class="interview-setting setting-time">
+        <span>
+        </span>
+    </div>
+    <!-- END : Interview Setting Time -->
+
+    <!-- START : Interview Setting Actions -->
+    <div class="btn-group interview-setting setting-action">
+        <i class="fa fa-spinner fa-pulse hide"></i>
+
+        <button
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="btn dropdown-toggle"
+            data-toggle="dropdown" 
+            type="button"
+        >
+            <i class="fa fa-cog"></i>
+        </button>
+
+        <ul class="dropdown-menu pull-right">
+            <li>
+                <a
+                    class="availability-edit"
+                    data-do="availability-edit-modal"
+                    data-on="click"
+                    href="javascript:void(0)"
+                    title="{{_ 'Edit'}}" 
+                >
+                    {{_ 'Edit'}}
+                </a>
+            </li>
+
+            <li>
+                <a
+                    class="availability-delete"
+                    data-action="{{_ 'Delete'}}"
+                    data-do="interview-content"
+                    data-on="click"
+                    data-title="{{_ 'Deleting Availability'}}"
+                    data-type="interview-setting-delete"
+                    href="javascript:void(0)"
+                    title="{{_ 'Delete'}}" 
+                >
+                    {{_ 'Delete'}}
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- END : Interview Setting Actions -->
+</div>
+<!-- END : Interview Setting -->
+
+<li class="date-option hide">
+    <a
+        data-do="select-interview-setting"
+        data-id=""
+        data-on="click"
+        href="javascript:void(0);"
+    >
+        <div class="clearfix setting-detail">
+            <!-- START : Interview Setting Date -->
+            <div class="interview-setting setting-date pull-left">
+                <input
+                    name="slots_taken"
+                    type="hidden"
+                >
+
+                <input
+                    name="max_slots"
+                    type="hidden"
+                >
+
+                <span class="slots"></span>
+                <span class="date"></span>
+            </div>
+            <!-- END : Interview Setting Date -->
+
+            <!-- START : Interview Setting Time -->
+            <div class="interview-setting setting-time pull-right">
+                <span></span>
+            </div>
+            <!-- END : Interview Setting Time -->
+        </div>
+    </a> 
+</li>

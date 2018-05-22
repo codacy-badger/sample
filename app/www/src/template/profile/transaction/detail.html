@@ -1,0 +1,73 @@
+<div class="container">
+    {{> profile_alert}}
+    <!-- START: Profile Panel -->
+    <div class="row profile-panel">
+        <!-- START: Sidebar Left -->
+        <aside class="col-md-3 left">
+            {{> profile_menu active="billing"}}
+        </aside>
+        <!-- END: Sidebar Left -->
+        <!-- START: Content Right -->
+        <div class="col-md-9 right">
+            <div class="pull-right credit-link">
+                <a
+                    class="btn btn-link-primary"
+                    href="/profile/credit/search"
+                    title="{{_ 'View Credit History'}}"
+                >
+                    {{_ 'View Credit History'}}
+                </a>
+            </div>
+            <h1>{{_ 'Billing Detail'}}</h1>
+            <!-- START: Transaction Detail -->
+            <div class="transaction-detail">
+                <div class="row">
+                    <div class="col-md-6 text-right">
+                        <div>{{_ 'Reference'}}</div>
+                        <div>{{_ 'Statement'}}</div>
+                        <div>{{_ 'Status'}}</div>
+                        <div>{{_ 'Total'}}</div>
+                        <div>{{_ 'Credits'}}</div>
+                        <div>{{_ 'Purchased'}}</div>
+                    </div>
+                    <div class="col-md-6 text-left">
+                        <div>
+                            {{transaction.transaction_payment_reference}}
+                        </div>
+                        <div>
+                            {{transaction.transaction_statement}}
+                        </div>
+                        <div class="
+                            {{#when transaction.transaction_status '==' 'complete'}}
+                                complete
+                            {{/when}}
+                            {{#when transaction.transaction_status '==' 'verified'}}
+                                verified
+                            {{/when}}
+                            {{#when transaction.transaction_status '==' 'pending'}}
+                                pending
+                            {{/when}}"
+                        >
+                            <strong>
+                                {{toupper transaction.transaction_status}}
+                            </strong>
+                        </div>
+                        <div>
+                            {{transaction.transaction_currency}}
+                            {{number transaction.transaction_total}}
+                        </div>
+                        <div>
+                            {{number transaction.transaction_credits}}
+                        </div>
+                        <div>
+                            {{date transaction.transaction_created 'F d, Y'}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Transaction Detail -->
+        </div>
+        <!-- END: Content Right -->
+    </div>
+    <!-- END: Profile Panel -->
+</div>

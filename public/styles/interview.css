@@ -1,0 +1,806 @@
+/* Interview Scheduler
+------------------------------*/
+/*
+    NOTES 
+    blue - #03B6D5;
+    light blue - #12BAD7;
+    blackish - #909090
+    grayish - #C6C6C6
+    hover gray - #F1F1F1;
+    pink/danger - #DC7275
+    pink/danger bg - #FFEBED
+    orange - #F99462;
+
+    Font Awesome notes
+    location - fa fa-map-marker
+    envelope - fa fa-enevelope
+    person - fa fa-user
+    phone - fa fa-phone
+    pencil - fa fa-pencil
+*/
+
+.page-interview-scheduler .datepicker {
+    color: #FFFFFF;
+    padding-right: 0;
+}
+.page-interview-scheduler .landing-datepicker {
+    background: none;
+}
+.page-interview-scheduler .datepicker:focus,
+.page-interview-scheduler .datepicker:active {
+    color: #909090;
+    box-shadow: none;
+}
+.page-interview-scheduler .ui-datepicker {
+    padding: 0;
+}
+.page-interview-scheduler .ui-datepicker table {
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+.page-interview-scheduler .ui-datepicker-title {
+    color: #FFFFFF;
+    font-weight: normal;
+}
+.page-interview-scheduler .ui-datepicker-header {
+    background-color: #03B6D5;    
+}
+.page-interview-scheduler table thead {
+    background-color: #03B6D5;
+    border-top: 1px solid #FFFFFF;
+    color: #FFFFFF;
+}
+.page-interview-scheduler table tbody tr span,
+.page-interview-scheduler table tbody tr a {
+    border: none;
+    border-radius: 0;
+    width: 100%;
+}
+.page-interview-scheduler .ui-datepicker-calendar .ui-state-hover,
+.page-interview-scheduler .ui-datepicker-calendar .ui-state-active,
+.page-interview-scheduler .ui-datepicker-calendar .ui-datepicker-unselectable .ui-state-default {
+    background-color: #909090;
+}
+.page-interview-scheduler .ui-datepicker-month,
+.page-interview-scheduler .ui-datepicker-year {
+    background: #03B6D5;
+    border: none;
+}
+.page-interview-scheduler .ui-datepicker-month:active,
+.page-interview-scheduler .ui-datepicker-year:active {
+    background: #909090;
+    border-radius: 0;
+    border: none;
+    color: #FFFFFF;
+}
+.page-interview-scheduler .ui-datepicker-prev,
+.page-interview-scheduler .ui-datepicker-next {
+    background: none;
+}
+.page-interview-scheduler .landing-datepicker {
+    color: #FFFFFF;
+}
+.page-interview-scheduler .landing-datepicker:focus,
+.page-interview-scheduler .landing-datepicker:active {
+    color: #909090;
+    box-shadow: none;
+}
+.page-interview-scheduler .landing-datepicker .ui-datepicker {
+    width: 100%;
+}
+
+.page-interview-scheduler .head .text-left h1 {
+    color: #4B4B4B;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: normal;
+}
+.page-interview-scheduler .head .text-right form {
+    margin-top: 10px;
+}
+.page-interview-scheduler .head .text-right input {
+    box-shadow: none;
+    border: 1px solid #E3E3E3;
+    border-right: 0;
+    float: right;
+    width: 220px;
+}
+.page-interview-scheduler .head .text-right button,
+.page-interview-scheduler .head .text-right button:hover {
+    background: transparent;
+    color: #737373;
+    border: 1px solid #E3E3E3;
+    border-left: 0;
+    font-size: 16px;
+    height: 33.5px;
+    padding: 5px 10px;
+}
+.page-interview-scheduler .content {
+    border: 1px solid #CBCBCB;
+    border-radius: 5px;
+}
+.page-interview-scheduler .content .top {
+    border-bottom: 1px solid #CBCBCB;
+}
+.page-interview-scheduler .content .tooltip.top {
+    border-bottom: 0;
+}
+.page-interview-scheduler .content .top a {
+    background: transparent;
+    color: #F99462;
+    display: inline-block;
+    padding: 15px 20px;
+}
+.page-interview-scheduler .content .top a.active {
+    background: #F2F2F2;
+    color: #12BAD7;
+}
+.page-interview-scheduler .content .top a:hover,
+.page-interview-scheduler .content .top a:focus {
+    text-decoration: none;
+}
+.page-interview-scheduler .content .top a:first-of-type {
+    border-top-left-radius: 5px;
+}
+.page-interview-scheduler .content .detail .detail-wrapper {
+    color: #909090;
+    padding: 20px;
+}
+.page-interview-scheduler .content .detail .detail-wrapper .dropdown-menu {
+    border-radius: 0;
+    max-height: 280px;
+    overflow-y: auto;
+    padding: 0;
+    width: 100%;
+}
+.page-interview-scheduler .content .detail .detail-wrapper .breadcrumbs ul {
+    margin-bottom: 20px;
+}
+.page-interview-scheduler .content .detail .detail-wrapper .breadcrumbs ul li {
+    color: #909090;
+    display: inline-block;
+}
+.page-interview-scheduler .content .detail .detail-wrapper .breadcrumbs ul li a {
+    color: #03B6D5;
+}
+.page-interview-scheduler .content .detail .detail-wrapper .breadcrumbs ul li a:hover,
+.page-interview-scheduler .content .detail .detail-wrapper .breadcrumbs ul li a:focus {
+    text-decoration: none;
+}
+.page-interview-scheduler .content .detail .detail-wrapper h2 {
+    color: #474747;
+    font-size: 18px;
+    margin: 0 0 5px 0;
+}
+.page-interview-scheduler .content .detail .detail-wrapper .empty-list {
+    font-size: 18px;
+    text-align: center;
+}
+.page-interview-scheduler .content span.placeholder-italic {
+    font-style: italic;
+}
+
+/* Interview Settings */
+.page-interview-scheduler .interview-availability .modal-dialog {
+    width: 600px;
+}
+.page-interview-scheduler .interview-availability .modal-body {
+    padding: 0 40px;
+}
+.page-interview-scheduler .interview-availability .modal-body .row {
+    margin: 10px 0 0;
+}
+.page-interview-scheduler .interview-availability .modal-body span {
+    display: block;
+    font-weight: 500;
+    text-align: left;
+}
+.page-interview-scheduler .interview-availability .modal-body .message {
+    display: block;
+    margin: 10px 0px;
+    text-align: center;
+}
+.page-interview-scheduler .interview-availability .modal-body .message a, 
+.page-interview-scheduler .interview-availability .modal-body .message a:hover {
+    color: #F99462;
+    font-weight: bolder;
+    text-decoration: none;
+}
+.page-interview-scheduler .interview-availability .form-group {
+    border: 1px solid #C6C6C6;
+    border-radius: 5px;
+    padding: 1px;
+}
+.page-interview-scheduler .interview-availability .form-group div {
+    content: " ";
+    display: inline-block;
+    float: left;
+    width: 20%;
+}
+.page-interview-scheduler .interview-availability .form-group div:before {
+    content: " ";
+}
+.page-interview-scheduler .interview-availability .form-group div i.fa {
+    color: #909090;
+    font-size: 20px;
+    padding-top: 15px;
+}
+.page-interview-scheduler .interview-availability .form-group input {
+    background: #FFFFFF;
+    border: none;
+    color: #909090;
+    display: inline-block;
+    float: right;
+    padding-left: 6px;
+    width: 80%;
+}
+.page-interview-scheduler .interview-availability .form-group input:placeholder {
+    color: #C6C6C6;
+}
+.page-interview-scheduler .interview-availability .col-md-2 span {
+    padding-top: 10px;
+    text-align: center;
+}
+
+.page-interview-scheduler .interview-setting-container .interview-setting-detail .dropdown-menu {
+    top: -100%;
+}
+.page-interview-scheduler .interview-setting-container .interview-setting-detail:first-of-type .dropdown-menu {
+    top: 100%;
+}
+.page-interview-scheduler .interview-setting-container .interview-setting-detail {
+    border: 1px solid #909090;
+    border-left: 10px solid #03B6D5;
+    margin-bottom: 5px;
+}
+.page-interview-scheduler .interview-setting-container .interview-setting-list {
+    overflow-y: overlay;
+}
+.page-interview-scheduler .interview-setting-container .interview-setting-detail.disabled,
+.page-interview-scheduler .interview-setting-container .interview-setting-detail:focus,
+.page-interview-scheduler .interview-setting-container .interview-setting-detail:hover {
+    background: #C6C6C6;
+}
+.page-interview-scheduler .interview-setting-container .interview-setting-detail .interview-setting {
+    display: inline-block;
+    line-height: 35px;
+    padding: 5px;
+}
+.page-interview-scheduler .interview-setting-container .interview-setting-detail .interview-setting:nth-child(1) {
+    border-right: 1px solid #909090;
+    padding-left: 5px;
+    width: 10%;
+}
+.page-interview-scheduler .interview-setting-container .interview-setting-detail .interview-setting:nth-child(2) {
+    width: 40%;
+}
+.page-interview-scheduler .interview-setting-container .interview-setting-detail .interview-setting:nth-child(3) {
+    width: 35%
+}
+.page-interview-scheduler .interview-setting-container .interview-setting-detail .interview-setting:nth-child(4) {
+    float: right;
+    width: 10%;
+}
+.page-interview-scheduler .interview-setting-container .interview-setting-detail .interview-setting button {
+    background: none;
+    right: 10px;
+}
+.page-interview-scheduler .interview-setting-container .interview-setting-detail .interview-setting button:focus i,
+.page-interview-scheduler .interview-setting-container .interview-setting-detail .interview-setting button:hover i,
+.page-interview-scheduler .interview-setting-container .interview-setting-detail .interview-setting button:active i {
+    color: #F1F1F1;
+}
+.page-interview-scheduler .interview-setting-container .contact-details .contact-display {
+    border: 1px solid #909090;
+    padding: 10px;
+}
+.page-interview-scheduler .interview-setting-container .contact-details .contact-body i {
+    color: #03B6D5;
+    width: 18px;
+}
+.page-interview-scheduler .interview-setting-container .contact-details .contact-header {
+    font-weight: 500;
+}
+.page-interview-scheduler .interview-setting-container .contact-details .contact-header i {
+    color: #909090;
+}
+.page-interview-scheduler .interview-setting-container .contact-details .contact-edit {
+    border: 1px solid #909090;
+    padding: 12px;
+    display: none;
+}
+.page-interview-scheduler .interview-setting-container .contact-details .contact-edit .contact-actions {
+    text-align: center;
+}
+.page-interview-scheduler .interview-setting-container .contact-details .contact-edit .contact-actions a:hover:nth-child(2) {
+    text-decoration: none;
+}
+.page-interview-scheduler .interview-setting-container .contact-details .contact-edit .contact-actions a:nth-child(2) {
+    color: #474747;
+}
+
+.page-interview-scheduler .interview-setting-container .actions {
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Interview Scheduler */
+.page-interview-scheduler .interview-scheduler-container .form-group input, .form-group select {
+    border: 1px solid #C6C6C6;
+}
+.page-interview-scheduler .interview-scheduler-container .form-group input, .form-group select[disabled] {
+    background: #909090;
+}
+.page-interview-scheduler .interview-scheduler-container .scheduler-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
+.page-interview-scheduler .interview-scheduler-container .scheduler-wrapper .empty-list {
+    margin: 50px 0;
+}
+.page-interview-scheduler .interview-scheduler-container .scheduler-wrapper .empty-list span {
+    display: block;
+}
+.page-interview-scheduler .interview-scheduler-container .scheduler-wrapper .empty-list a {
+    background: #7CD4E8 !important;
+    border-color: #7CD4E8;
+    color: #FFFFFF !important;
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 10px;
+    padding: 10px 30px !important;
+    text-transform: uppercase;
+}
+.page-interview-scheduler .interview-scheduler-container .scheduler-wrapper select {
+    color: #333333;
+}
+.page-interview-scheduler .interview-scheduler-container .schedule-list {
+    position: relative;
+}
+.page-interview-scheduler .interview-scheduler-container .schedule-list .dropdown-menu {
+    width: 535px;
+}
+.page-interview-scheduler .interview-scheduler-container .schedule-list .dropdown-menu li a:hover,
+.page-interview-scheduler .interview-scheduler-container .schedule-list .dropdown-menu li a:focus,
+.page-interview-scheduler .interview-scheduler-container .schedule-list .dropdown-menu li a.active {
+    background: #909090;
+}
+.page-interview-scheduler .interview-scheduler-container .schedule-list .dropdown-menu li a.last-option {
+    text-align: center;
+}
+.page-interview-scheduler .interview-scheduler-container .interview-settings {
+    background: #FFFFFF;
+    border: 1px solid #97B0BD;
+    border-radius: 5px;
+    box-shadow: none;
+    font-size: 15px;
+    font-weight: 400;
+    height: 47px;
+    text-transform: capitalize;
+}
+.page-interview-scheduler .interview-scheduler-container .list-selector {
+    border: 1px solid #C6C6C6;
+    border-radius: 5px;
+    box-shadow: none;
+    color: #333333;
+    font-size: 15px;
+    font-weight: 400;
+    height: auto;
+    padding: 6px 12px;
+    text-transform: capitalize;
+}
+.page-interview-scheduler .interview-scheduler-container .list-selector:hover,
+.page-interview-scheduler .interview-scheduler-container .list-selector:focus {
+    cursor: pointer;
+}
+.page-interview-scheduler .interview-scheduler-container .list-selector[disabled] {
+    background: #909090;
+}
+.page-interview-scheduler .interview-scheduler-container .list-selector[disabled]:hover,
+.page-interview-scheduler .interview-scheduler-container .list-selector[disabled]:focus {
+    cursor: not-allowed;
+}
+.page-interview-scheduler .interview-scheduler-container .interview-setting {
+    display: inline-block;
+    vertical-align: middle;
+}
+.page-interview-scheduler .interview-scheduler-container .interview-setting.setting-date,
+.page-interview-scheduler .interview-scheduler-container .interview-setting.setting-time {
+    line-height: 35px;
+    width: 45%;
+}
+.page-interview-scheduler .interview-scheduler-container .interview-setting.setting-time {
+    text-align: right;
+}
+.page-interview-scheduler .interview-scheduler-container .setting-selected {
+    width: 90%
+}
+.page-interview-scheduler .interview-scheduler-container .setting-dropdown {
+    font-size: 18px;
+    line-height: 35px;
+    text-align: right;
+    width: 9%;
+}
+.page-interview-scheduler .interview-scheduler-container .setting-dropdown button {
+    background: none;
+    border: none;
+    padding-right: 3px;
+}
+.page-interview-scheduler .interview-scheduler-container .setting-dropdown button i {
+    color: #474747;
+}
+.page-interview-scheduler .interview-scheduler-container .actions {
+    text-align: center;
+}
+
+/* Interview Calendar */
+.page-interview-scheduler .interview-reschedule .modal-dialog {
+    width: 550px;
+}
+.page-interview-scheduler .interview-reschedule .interview-schedules {
+    text-align: left;
+}
+.page-interview-scheduler .interview-reschedule .interview-schedules .sub-label {
+    display: block;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+.page-interview-scheduler .interview-reschedule .interview-schedules .list-selector {
+    border-radius: 5px;
+    border: 1px solid #C6C6C6;
+    box-shadow: none;
+    color: #333333;
+    font-size: 15px;
+    font-weight: 400;
+    height: 47px;
+    line-height: 35px;
+    padding: 6px 12px;
+}
+.page-interview-scheduler .interview-reschedule .interview-schedules .list-selector .setting-selected {
+    width: 95%;
+}
+.page-interview-scheduler .interview-reschedule .interview-schedules .list-selector .setting-dropdown a {
+    color: #909090;
+}
+.page-interview-scheduler .interview-reschedule .message {
+    font-style: italic;
+    margin-top: 10px;
+    text-align: center;
+}
+.page-interview-scheduler .interview-reschedule .dropdown-menu {
+    left: 80px;
+    top: 65%;
+    width: 71%;
+}
+.page-interview-scheduler .interview-reschedule .dropdown-menu li a.active {
+    background: #909090;
+}
+
+.page-interview-scheduler .interview-calendar-container {
+    color: #474747;
+}
+.page-interview-scheduler .interview-calendar-container .detail .detail-wrapper {
+    padding: 0;
+}
+.page-interview-scheduler .interview-calendar-container .detail-header {
+    border-bottom: 1px solid #CCCCCC;
+    color: #909090;
+    display: flex;
+    justify-content: space-around;
+}
+.page-interview-scheduler .interview-calendar-container .detail-header > div {
+    width: 33%;
+}
+.page-interview-scheduler .interview-calendar-container .detail-header .frequency {
+    padding-top: 6px;
+}
+.page-interview-scheduler .interview-calendar-container .detail-header .frequency button {
+    background: none;
+}
+.page-interview-scheduler .interview-calendar-container .detail-header .frequency button:active,
+.page-interview-scheduler .interview-calendar-container .detail-header .frequency button:focus,
+.page-interview-scheduler .interview-calendar-container .detail-header .frequency button:hover {
+    color: #909090;
+}
+.page-interview-scheduler .interview-calendar-container .detail-header .frequency ul.frequency-dropdown {
+    top: 35px;
+}
+.page-interview-scheduler .interview-calendar-container .detail-header .date-filter-container {
+    padding-top: 12px;
+    text-align: center;
+    width: 100%;
+}
+.page-interview-scheduler .interview-calendar-container .detail-header .date-filter-container .date-display span {
+    color: #F99462;
+    font-weight: 800;
+}
+.page-interview-scheduler .interview-calendar-container .detail-header .date-filter-container .date-display span:hover {
+    cursor: pointer;
+}
+.page-interview-scheduler .interview-calendar-container .detail-header .date-filter-container .date-pagination {
+    color: #909090;
+    margin: 5px;
+}
+.page-interview-scheduler .interview-calendar-container .detail-body {
+    padding: 10px;
+}
+.page-interview-scheduler .interview-calendar-container .date-detail {
+    border: 1px solid #C6C6C6;
+    display: flex;
+    margin-bottom: 5px;
+    height: 80px;
+}
+.page-interview-scheduler .interview-calendar-container .date-detail > div {
+    height: 100%;
+    padding: 5px 10px;
+}
+.page-interview-scheduler .interview-calendar-container .date-detail > div:nth-child(1),
+.page-interview-scheduler .interview-calendar-container .date-detail > div:nth-child(3) {
+    width: 10%;
+}
+.page-interview-scheduler .interview-calendar-container .date-detail .date-detail-date {
+    border-left: 15px solid #F99462;
+    border-right: 1px solid #C6C6C6;
+    text-align: center;
+}
+.page-interview-scheduler .interview-calendar-container .date-detail .date-detail-date span {
+    color: #000000;
+    display: block;
+    font-size: 14px;
+}
+.page-interview-scheduler .interview-calendar-container .date-detail .date-detail-date span:nth-child(2) {
+    font-size: 18px;
+}
+.page-interview-scheduler .interview-calendar-container .date-detail .detail-setting {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 80%;
+}
+.page-interview-scheduler .interview-calendar-container .date-detail .detail-setting .setting-time-slot > div {
+    display: inline;
+}
+.page-interview-scheduler .interview-calendar-container .date-detail .detail-setting .setting-time-slot > div > span {
+    color: #000000;
+}
+.page-interview-scheduler .interview-calendar-container .date-detail .detail-setting .setting-profile-preview {
+    overflow-x: hidden;
+}
+.page-interview-scheduler .interview-calendar-container .date-detail .detail-setting .setting-profile-preview a {
+    padding-right: 10px;
+    text-decoration: none;
+}
+.page-interview-scheduler .interview-calendar-container .date-detail .detail-setting .setting-profile-preview a span {
+    color: #12BAD7;
+}
+.page-interview-scheduler .interview-calendar-container .date-detail .detail-action {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.page-interview-scheduler .interview-calendar-container .date-detail .detail-action a {
+    color: #C6C6C6;
+}
+.page-interview-scheduler .interview-calendar-container .date-detail .detail-action a:hover,
+.page-interview-scheduler .interview-calendar-container .date-detail .detail-action a:focus {
+    text-decoration: none;
+}
+.page-interview-scheduler .interview-calendar-container .date-detail .detail-action a i {
+    font-size: 28px;
+    font-weight: 800;
+}
+.page-interview-scheduler .interview-calendar-container .date-detail .detail-action a i.fa-angle-up {
+    display: none;
+}
+.page-interview-scheduler .interview-calendar-container .schedule-list {
+    display: none;
+    margin-bottom: 10px;
+}
+.page-interview-scheduler .interview-calendar-container .schedule-list .interview-schedule-detail {
+    border-bottom: 1px solid #C6C6C6;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 5px 15px;
+}
+.page-interview-scheduler .interview-calendar-container .schedule-list .interview-schedule-detail:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+.page-interview-scheduler .interview-calendar-container .schedule-list .interview-schedule-detail .schedule-actions {
+    height: 100%;
+}
+.page-interview-scheduler .interview-calendar-container .schedule-detail {
+    display: flex;
+    line-height: 35px;
+    width: 90%;
+}
+.page-interview-scheduler .interview-calendar-container .schedule-detail.pending {
+    color: #DC7275;
+}
+.page-interview-scheduler .interview-calendar-container .schedule-detail > div {
+    padding-right: 10px;
+    width: 20%;
+    word-break: break-all;
+}
+.page-interview-scheduler .interview-calendar-container .schedule-detail > div:last-of-type {
+    text-align: right;
+}
+.page-interview-scheduler .interview-calendar-container .schedule-detail .schedule-name i {
+    color: #DC7275;
+}
+.page-interview-scheduler .interview-calendar-container .schedule-detail .schedule-name span {
+    color: #000000;
+}
+.page-interview-scheduler .interview-calendar-container .schedule-actions .btn {
+    background: none;
+}
+.page-interview-scheduler .interview-calendar-container .schedule-actions .btn:hover,
+.page-interview-scheduler .interview-calendar-container .schedule-actions .btn:focus {
+    color: #909090;
+}
+.page-interview-scheduler .interview-calendar-container .schedule-actions .schedule-dropdown {
+    left: -120px;
+}
+.page-interview-scheduler .interview-calendar-container .schedule-list .btn-schedule {
+    background: #909090;
+    border-radius: 0;
+    border: 1px solid #C6C6C6;
+    color: #C6C6C6;
+    font-size: 12px;
+    padding: 12px;
+    width: 100%;
+}
+.page-interview-scheduler .interview-calendar-container .detail-footer {
+    border-top: 1px solid #CBCBCB;
+    font-size: 12px;
+    margin-top: 20px;
+}
+.page-interview-scheduler .interview-calendar-container .detail-footer .col-md-8 {
+    margin-top: 10px;
+}
+.page-interview-scheduler .interview-calendar-container .detail-footer .upload-csv {
+    opacity: 0;
+    pointer-events: none;
+}
+.page-interview-scheduler .interview-calendar-container .detail-footer .calendar-template {
+    color: #369658;
+    margin-left: 10px;
+}
+.page-interview-scheduler .interview-calendar-container .import-export form {
+    margin-top: 10px;
+}
+.page-interview-scheduler .interview-calendar-container .import-export form .tooltip .tooltip-inner {
+    background-color: #D5F2FF;
+    color: #2D2D2D;
+}
+.page-interview-scheduler .interview-calendar-container .import-export form .btn,
+.page-interview-scheduler .interview-calendar-container .import-export form button {
+    background-color: #909090;
+    border: 1px solid #909090;
+    color: #FFFFFF;
+    padding: 6px 10px;
+}
+.page-interview-scheduler .interview-calendar-container .import-export form .btn:hover,
+.page-interview-scheduler .interview-calendar-container .import-export form button:hover {
+    background-color: #F99462;
+    border: 1px solid #F99462;
+}
+.page-interview-scheduler .interview-calendar-container .import-export form .date {
+    float: left;
+    margin-right: 10px;
+    width: 170px;
+    padding: 0 0 0 30px;
+}
+/* Component - Tooltip
+------------------------------*/
+.page-interview-scheduler .tooltip {
+    opacity: 1 !important;
+}
+.page-interview-scheduler .tooltip .tooltip-inner {
+    color: #DC7275;
+    background-color: #FFEBED;
+    font-family: 'Open Sans';
+    font-size: 11px;
+    padding: 12px 20px 12px 40px;
+    text-align: left;
+}
+.page-interview-scheduler .tooltip .tooltip-inner:before {
+    content: '\f05a';
+    font-family: FontAwesome;
+    font-size: 20px;
+    font-style: normal;
+    left: 13px;
+    position: absolute;
+    top: 12px;
+}
+.page-interview-scheduler .tooltip.top .tooltip-arrow {
+    border-top-color: #FFEBED;
+}
+/* Mobile responsive */
+@media(max-width: 990px) {
+    .page-interview-scheduler .interview-setting-container .contact-details .contact-display {
+        margin-bottom: 10px;
+    }
+    .page-interview-scheduler .interview-calendar-container .detail-footer .import-export > div {
+        overflow: hidden;
+    }
+    .page-interview-scheduler .interview-scheduler-container .interview-setting.setting-date {
+        width: 50%;
+    }
+    .page-interview-scheduler .interview-scheduler-container .scheduler-wrapper {
+        width: 70%;
+    }
+    .page-interview-scheduler .interview-calendar-container .schedule-detail {
+        display: block;
+        position: relative;
+    }
+    .page-interview-scheduler .interview-calendar-container .schedule-detail > div {
+        width: 100%;
+    }
+    .page-interview-scheduler .interview-calendar-container .schedule-detail div.schedule-status {
+        position: absolute;
+        top: 0;
+    }
+}
+@media(max-width: 620px) {
+    .page-interview-scheduler .interview-availability .modal-dialog {
+        width: 90%; 
+    }
+    .page-interview-scheduler .interview-scheduler-container .scheduler-wrapper {
+        width: 100%;
+    }
+}
+@media(max-width: 600px) {
+    .page-interview-scheduler .interview-calendar-container .date-detail > div:nth-child(1),
+    .page-interview-scheduler .interview-calendar-container .date-detail > div:nth-child(3) {
+        width: 64px;
+    }
+    .page-interview-scheduler .interview-availability .clearfix .col-md-5 {
+        width: 100%;
+    }
+    .page-interview-scheduler .interview-availability .clearfix .col-md-2 {
+        display: none;
+    }
+}
+@media(max-width: 500px) {
+    .page-interview-scheduler .content .detail .detail-wrapper,
+    .page-interview-scheduler .interview-calendar-container .detail-body {
+        overflow-y: scroll;
+    }
+    .page-interview-scheduler .content .detail .detail-wrapper .setting-wrapper,
+    .page-interview-scheduler .interview-calendar-container .detail-body .date-list {
+        width: 448px;
+    }
+}
+@media(max-width: 450px) {
+    .page-interview-scheduler .interview-scheduler-container .interview-setting.setting-date,
+    .page-interview-scheduler .interview-scheduler-container .interview-setting.setting-time {
+        width: 100%;
+    }
+    .page-interview-scheduler .interview-scheduler-container .interview-setting.setting-time {
+        text-align: left;
+        padding-left: 22px;
+    }
+}
+@media(max-width: 446px) {
+    .page-interview-scheduler .interview-calendar-container .detail-footer .import-export .form-group.pull-left {
+        margin-top: 10px;
+    }
+}
+@media(max-width: 380px) {
+    .page-interview-scheduler .interview-calendar-container .import-export form > div {
+        margin: 0 auto;
+        overflow: hidden;
+        width: 150px;
+    }
+    .page-interview-scheduler .interview-calendar-container .import-export form .btn,
+    .page-interview-scheduler .interview-calendar-container .detail-footer .import-export .form-group.pull-left {
+        width: 100%;
+    }
+    .page-interview-scheduler .interview-calendar-container .import-export form .date {
+        margin-bottom: 10px;
+    }
+}

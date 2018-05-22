@@ -1,0 +1,989 @@
+<!-- START: Home Job Match -->
+<div class="home-jobs-match">
+    <div class="container">
+        <div class="row">
+            <!-- START: Left Row -->
+            <div class="col-md-6 left">
+                <div class="logo{{#session 'me'}} user-logged{{else}}{{/session}}">
+                    <img
+                        alt="Jobayan Logo"
+                        src="{{config 'cdn'}}/images/home/logo-white-orange.png"
+                        width="200"
+                    />
+                </div>
+                <!-- START: HEADING 1 -->
+                <h1>{{_ 'The new millennial way to find jobs and hire job seekers'}}</h1>
+                <!-- END HEADING 1 -->
+                <!-- START: Free to connect -->
+                <span>
+                    <b>
+                        {{_ 'Free'}}
+                    </b>
+                        {{_ 'to connect.'}}
+                    <b>
+                        {{_ 'Free'}}
+                    </b>
+                        {{_ 'to post.'}}
+                </span>
+                <!-- END: Free to connect -->
+                {{#session 'me'}}
+                {{else}}
+                <div class="post-type">
+                    <!-- START: Looking for a new job -->
+                    <h2>
+                        <a
+                            class="btn madlibs-seeker-trigger
+                                {{#session 'me'}}
+                                    {{#if profile_company}}
+                                        btn-poster
+                                    {{else}}
+                                        btn-seeker{{/if}}
+                                    {{else}}
+                                    btn-seeker
+                                {{/session}}"
+                            data-do="madlibs-seeker"
+                            data-on="click"
+                            href="javascript:void(0)"
+                            title="{{_ 'Looking for a new job?'}}"
+                        >
+                            {{_ 'Looking for a new job?'}}
+                        </a>
+                    </h2>
+                    <!-- END: Looking for a new job -->
+                    <!-- START: Looking for employees -->
+                    <h2>
+                        <a
+                            class="btn madlibs-poster-trigger
+                                {{#session 'me'}}
+                                    {{#if profile_company}}
+                                        btn-seeker
+                                    {{else}}
+                                        btn-poster
+                                    {{/if}}
+                                    {{else}}
+                                        btn-poster
+                                {{/session}}"
+                            data-do="madlibs-poster"
+                            data-on="click"
+                            href="javascript:void(0)"
+                            title="{{_ 'Looking for employees?'}}"
+                        >
+                            {{_ 'Looking for employees?'}}
+                        </a>
+                    </h2>
+                    <!-- END: Looking for employees -->
+                </div>
+                {{/session}}
+            </div>
+            <!-- END: Left Row -->
+            <!-- START: Right Row -->
+            <div class="right col-md-6">
+                <!-- START: Seeker Form -->
+                <form class="madlibs-seeker-form
+                    {{#session 'me'}}
+                        {{#if profile_company}}
+                            hide
+                        {{/if}}
+                    {{/session}}"
+                    data-do="madlibs-form"
+                    data-on="submit"
+                    method="post"
+                >
+                    <div class="form-wrapper">
+                        <label>{{_ 'Hello, my name is'}}</label>
+                        <input
+                            class="{{#if errors.post_name}} has-error{{/if}}"
+                            maxlength="50"
+                            minlength="2"
+                            name="post_name"
+                            placeholder="{{_ 'ex: John Doe'}}"
+                            type="text"
+                            value="{{#session 'me'}}{{profile_name}}{{/session}}"
+                        />
+                    </div>
+                     <div class="form-wrapper">
+                        <label>{{_ 'And I am a/an'}}</label>
+                        <input
+                            autocomplete="off"
+                            class="{{#if errors.post_position}} has-error{{/if}}"
+                            data-do="suggestion-field"
+                            data-type="position"
+                            maxlength="50"
+                            minlength="2"
+                            name="post_position"
+                            placeholder="{{_ 'ex: Programmer'}}"
+                            type="text"
+                            value="{{item.post_position}}"
+                        />
+                    </div>
+                    <div class="form-wrapper">
+                        <label>{{_ 'Looking for a job in'}}</label>
+                        <input
+                            autocomplete="off"
+                            class="{{#if errors.post_location}} has-error{{/if}}"
+                            data-do="suggestion-field"
+                            data-type="location"
+                            maxlength="50"
+                            minlength="2"
+                            name="post_location"
+                            placeholder="{{_ 'ex: Metro Manila'}}"
+                            type="text"
+                            value="{{item.post_location}}"
+                        />
+                    </div>
+                    <input type="hidden" name="post_type" value="seeker">
+                    <button class="btn btn-default" id="match-me-up-button">{{_ 'Match me up'}}</button>
+                </form>
+                <!-- END: Seeker Form -->
+                <!-- START: Poster Form -->
+                <form class="madlibs-poster-form
+                    {{#session 'me'}}
+                        {{#unless profile_company}}
+                            hide
+                        {{/unless}}
+                        {{else}}
+                            hide
+                    {{/session}}"
+                    data-do="madlibs-form"
+                    data-on="submit"
+                    method="post"
+                >
+                    <div class="form-wrapper">
+                        <label>{{_ 'Hello, we are'}}</label>
+                        <input
+                            class="{{#if errors.post_name}} has-error{{/if}}"
+                            maxlength="50"
+                            minlength="2"
+                            name="post_name"
+                            placeholder="{{_ 'ex: Acme Inc.'}}"
+                            type="text"
+                            value="{{#session 'me'}}{{profile_company}}{{/session}}"
+                        />
+                    </div>
+                    <div class="form-wrapper">
+                        <label>{{_ 'From'}}</label>
+                        <input
+                            autocomplete="off"
+                            class="{{#if errors.post_location}} has-error{{/if}}"
+                            data-do="suggestion-field"
+                            data-type="location"
+                            maxlength="50"
+                            minlength="2"
+                            name="post_location"
+                            placeholder="{{_ 'ex: Manila'}}"
+                            type="text"
+                            value="{{item.post_location}}"
+                        />
+                    </div>
+                    <div class="form-wrapper">
+                        <label>{{_ 'And we are looking for a/an'}}</label>
+                        <input
+                            autocomplete="off"
+                            class="{{#if errors.post_position}} has-error{{/if}}"
+                            data-do="suggestion-field"
+                            data-type="position"
+                            maxlength="50"
+                            minlength="2"
+                            name="post_position"
+                            placeholder="{{_ 'ex: Programmer'}}"
+                            type="text"
+                            value="{{item.post_position}}"
+                        />
+                    </div>
+                    <div class="experience form-wrapper">
+                        <label>{{_ 'With at least'}}</label>
+                        <input
+                            class="short{{#if errors.post_experience}} has-error{{/if}}"
+                            maxlength="2"
+                            name="post_experience"
+                            pattern="^([1-5]?[0-9]|60)$"
+                            placeholder="0"
+                            type="text"
+                            value="{{item.post_experience}}"
+                            data-do="prevent-letter-input"
+                            data-on="keypress"
+                        />
+                        <label>{{_ 'year(s) of experience'}}</label>
+                    </div>
+                    <input type="hidden" name="post_type" value="poster">
+                    <button class="btn btn-default">{{_ 'Match me up'}}</button>
+                </form>
+                <!-- END: Poster Form -->
+            </div>
+            <!-- END: Right Row -->
+        </div>
+    </div>
+</div>
+<!-- END: Home Job Match -->
+<!-- START: Home Jobs Search -->
+<div class="home-jobs-search">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 location">
+                <div class="location-image">
+                    <img
+                        alt="{{_ 'Location Image'}}"
+                        src="{{config 'cdn'}}/images/home/sec2-2.png"
+                    />
+                </div>
+                <!-- START: Location -->
+                <h3>{{_ 'Search for Jobs by Location'}}</h3>
+                <ul>
+
+                    <li>
+                        <a
+                            href="/Job-Locations/Jobs-In-Bicol"
+                            title="Bicol Region"
+                        >
+                            Bicol Region
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="/Job-Locations/Jobs-In-Cagayan-Valley"
+                            title="Cagayan Valley"
+                        >
+                            Cagayan Valley
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="/Job-Locations/Jobs-In-Calabarzon"
+                            title="Calabarzon Region"
+                        >
+                            Calabarzon Region
+                        </a>
+                    </li>
+                    <li class="hide">
+                        <a
+                            href="/Job-Locations/Jobs-In-Cdo"
+                            title="Cagayan De Oro"
+                        >
+                            Cagayan De Oro
+                        </a>
+                    </li>
+                    <li class="hide">
+                        <a
+                            href="/Job-Locations/Jobs-In-Cebu-City"
+                            title="Cebu City"
+                        >
+                            Cebu City
+                        </a>
+                    </li>
+                    <li class="hide">
+                        <a
+                            href="/Job-Locations/Jobs-In-Central-Luzon"
+                            title="Central Luzon"
+                        >
+                            Central Luzon
+                        </a>
+                    </li>
+                    <li class="hide">
+                        <a
+                            href="/Job-Locations/Jobs-In-Central-Visayas"
+                            title="Central Visayas"
+                        >
+                            Central Visayas
+                        </a>
+                    </li>
+                    <li class="hide">
+                        <a
+                            href="/Job-Locations/Jobs-In-Cordillera"
+                            title="Cordillera Region"
+                        >
+                            Cordillera Region
+                        </a>
+                    </li>
+                    <li class="hide">
+                        <a
+                            href="/Job-Locations/Jobs-In-Davao"
+                            title="Davao Region"
+                        >
+                            Davao Region
+                        </a>
+                    </li>
+                    <li class="hide">
+                        <a
+                            href="/Job-Locations/Jobs-In-Eastern-Visayas"
+                            title="Eastern Visayas"
+                        >
+                            Eastern Visayas
+                        </a>
+                    </li>
+                    <li class="hide">
+                        <a
+                            href="/Job-Locations/Jobs-In-Ilocos"
+                            title="Ilocos Region"
+                        >
+                            Ilocos Region
+                        </a>
+                    </li>
+                    <li class="hide">
+                        <a
+                            href="/Job-Locations/Jobs-In-Manila"
+                            title="Metro Manila"
+                        >
+                            Metro Manila
+                        </a>
+                    </li>
+                    <li class="hide">
+                        <a
+                            href="/Job-Locations/Jobs-In-Mindanao"
+                            title="Mindanao Region"
+                        >
+                            Mindanao Region
+                        </a>
+                    </li>
+                    <li class="hide">
+                        <a
+                            href="/Job-Locations/Jobs-In-Western-Visayas"
+                            title="Western Visayas"
+                        >
+                            Western Visayas
+                        </a>
+                    </li>
+                    <li class="arrow-down">
+                        <a
+                            data-do="expand-more"
+                            data-on="click"
+                            href="javascript:void(0)"
+                            title="{{_ 'More Location'}}"
+                        >
+                            <div class="see-more">
+                                {{_ 'See more'}}
+                            </div>
+                            <div class="circle">
+                                <i class="fa fa-caret-down" aria-hidden="true"></i>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- END: Location -->
+            </div>
+            <div class="col-md-4">
+                <div class="industry-image">
+                    <img
+                        alt="{{_ 'Industry Image'}}"
+                        src="{{config 'cdn'}}/images/home/sec2-3.png"
+                    />
+                </div>
+                <!-- START: Industry -->
+                <h3>{{_ 'Search for Jobs by Industry'}}</h3>
+                <ul>
+
+                    <li>
+                        <a
+                            href="/Job-Industries/Jobs-In-Agriculture-Mining"
+                            title="{{_ 'Agriculture'}}"
+                        >
+                            {{_ 'Agriculture'}}
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="/Job-Industries/Jobs-In-Bpo"
+                            title="{{_ 'Call Center'}}"
+                        >
+                            {{_ 'Call Center'}}
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="/Job-Industries/Jobs-In-Construction"
+                            title="{{_ 'Construction'}}"
+                        >
+                            {{_ 'Construction'}}
+                        </a>
+                    </li>
+                    <li class="hide">
+                        <a
+                            href="/Job-Industries/Jobs-In-Finance-Insurance"
+                            title="{{_ 'Finance and Insurance'}}"
+                        >
+                            {{_ 'Finance and Insurance'}}
+                        </a>
+                    </li>
+                    <li class="hide">
+                        <a
+                            href="/Job-Industries/Jobs-In-Healthcare"
+                            title="{{_ 'Health Care'}}"
+                        >
+                            {{_ 'Health Care'}}
+                        </a>
+                    </li>
+                    <li class="hide">
+                        <a
+                            href="/Job-Industries/Jobs-In-Hospitality"
+                            title="{{_ 'Hospitality'}}"
+                        >
+                            {{_ 'Hospitality'}}
+                        </a>
+                    </li>
+                    <li class="hide">
+                        <a
+                            href="/Job-Industries/Jobs-In-Human-Resources"
+                            title="{{_ 'Human Resources'}}"
+                        >
+                            {{_ 'Human Resources'}}
+                        </a>
+                    </li>
+                    <li class="hide">
+                        <a
+                            href="/Job-Industries/Jobs-In-Logistics"
+                            title="{{_ 'Logistics'}}"
+                        >
+                            {{_ 'Logistics'}}
+                        </a>
+                    </li>
+                    <li class="hide">
+                        <a
+                            href="/Job-Industries/Jobs-In-Real-Estate"
+                            title="{{_ 'Real Estate'}}"
+                        >
+                            {{_ 'Real Estate'}}
+                        </a>
+                    </li>
+                    <li class="hide">
+                        <a
+                            href="/Job-Industries/Jobs-In-Restaurant"
+                            title="{{_ 'Restaurant'}}"
+                        >
+                            {{_ 'Restaurant'}}
+                        </a>
+                    </li>
+                    <li class="hide">
+                        <a
+                            href="/Job-Industries/Jobs-In-Retail"
+                            title="{{_ 'Retail'}}"
+                        >
+                            {{_ 'Retail'}}
+                        </a>
+                    </li>
+                    <li class="hide">
+                        <a
+                            href="/Job-Industries/Jobs-In-Startup"
+                            title="{{_ 'Start Ups'}}"
+                        >
+                            {{_ 'Start Ups'}}
+                        </a>
+                    </li>
+                    <li class="hide">
+                        <a
+                            href="/Job-Industries/Jobs-In-Tech"
+                            title="{{_ 'Technology'}}"
+                        >
+                            {{_ 'Technology'}}
+                        </a>
+                    </li>
+                    <li class="hide">
+                        <a
+                            href="/Job-Industries/Jobs-In-Poea"
+                            title="{{_ 'Work Abroad and POEA'}}"
+                        >
+                            {{_ 'Work Abroad and POEA'}}
+                        </a>
+                    </li>
+                    <li class="arrow-down">
+                        <a
+                            data-do="expand-more"
+                            data-on="click"
+                            href="javascript:void(0)"
+                            title="{{_ 'More Location'}}"
+                        >
+                            <div class="see-more">
+                                 {{_ 'See more'}}
+                            </div>
+                            <div class="circle">
+                                <i class="fa fa-caret-down" aria-hidden="true"></i>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- END: Indusrty -->
+            </div>
+            <div class="col-md-4 arrangement">
+                <div class="arrangement-image">
+                    <img
+                        alt="{{_ 'Arrangement Image'}}"
+                        src="{{config 'cdn'}}/images/home/sec2-5.png"
+                    />
+                </div>
+                <!-- START: Position -->
+                <h3>{{_ 'Search for Jobs by Position'}}</h3>
+                <ul>
+                    <li>
+                      <a
+                          href="/Job-Positions/Accounting-Finance-Jobs"
+                          title="{{_ 'Accounting and Finance'}}"
+                      >
+                          {{_ 'Accounting and finance'}}
+                      </a>
+                  </li>
+                  <li>
+                      <a
+                          href="/Job-Positions/Administration-Coordination-Jobs"
+                          title="{{_ 'Administration'}}"
+                      >
+                          {{_ 'Administration'}}
+                      </a>
+                  </li>
+                  <li>
+                      <a
+                          href="/Job-Positions/Architecture-Engineering-Jobs"
+                          title="{{_ 'Architecture and Engineering'}}"
+                      >
+                          {{_ 'Architecture and Engineering'}}
+                      </a>
+                  </li>
+                  <li class="hide">
+                      <a
+                          href="/Job-Positions/Customer-Service-Jobs"
+                          title="{{_ 'Customer Service'}}"
+                      >
+                          {{_ 'Customer Service'}}
+                      </a>
+                  </li>
+                  <li class="hide">
+                       <a
+                           href="/Job-Positions/Sales-Marketing-Jobs"
+                           title="{{_ 'Sales and Marketing'}}"
+                       >
+                           {{_ 'Sales and Marketing'}}
+                       </a>
+                  </a>
+                  </li>
+                  <li class="hide">
+                      <a
+                      http://jobayan.dev/Job-Positions/general-service-Jobs
+                          href="/Job-Positions/General-Services-Jobs"
+                          title="{{_ 'General Services'}}"
+                      >
+                          {{_ 'General Services'}}
+                      </a>
+                  </li>
+                  <li class="hide">
+                      <a
+                          href="/Job-Positions/Health-Medical-Jobs"
+                          title="{{_ 'Health and Medical'}}"
+                      >
+                          {{_ 'Health and Medical'}}
+                      </a>
+                  </li>
+                  <li class="hide">
+                      <a
+                          href="/Job-Positions/Hospitality-Tourism-Jobs"
+                          title="{{_ 'Hospitality and Tourism'}}"
+                      >
+                          {{_ 'Hospitality and Tourism'}}
+                      </a>
+                  </li>
+                  <li class="hide">
+                      <a
+                          href="/Job-Positions/Human-Resources-Jobs"
+                          title="{{_ 'Human Resources'}}"
+                      >
+                          {{_ 'Human Resources'}}
+                      </a>
+                  </li>
+                  <li class="hide">
+                      <a
+                          href="/Job-Positions/It-Software-Jobs"
+                          title="{{_ 'IT and Programming'}}"
+                      >
+                          {{_ 'IT and Programming'}}
+                      </a>
+                  </li>
+                  <li class="hide">
+                      <a
+                          href="/Job-Positions/Legal-Services-Jobs"
+                          title="{{_ 'Legal Services'}}"
+                      >
+                          {{_ 'Legal Services'}}
+                      </a>
+                  </li>
+                  <li class="hide">
+                      <a
+                          href="/Job-Positions/Management-Consultancy-Jobs"
+                          title="{{_ 'Management Consultancy'}}"
+                      >
+                          {{_ 'Management Consultancy'}}
+                      </a>
+                  </li>
+                  <li class="hide">
+                      <a
+                          href="/Job-Positions/Manufacturing-Production-Jobs"
+                          title="{{_ 'Manufacturing and Production'}}"
+                      >
+                          {{_ 'Manufacturing and Production'}}
+                      </a>
+                  </li>
+                  <li class="hide">
+                        <a
+                            href="/Job-Positions/Media-Creatives-Jobs"
+                            title="{{_ 'Media and Creatives'}}"
+                        >
+                            {{_ 'Media and Creatives'}}
+                        </a>
+                    </li>
+                    <li class="arrow-down">
+                        <a
+                            data-do="expand-more"
+                            data-on="click"
+                            href="javascript:void(0)"
+                            title="{{_ 'More Location'}}"
+                        >
+                            <div class="see-more">
+                                 {{_ 'See more'}}
+                            </div>
+                            <div class="circle">
+                                <i class="fa fa-caret-down" aria-hidden="true"></i>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- END: Arrangement -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Home Jobs Search -->
+<!-- START: Home Jobs Post -->
+<div class="home-jobs-post">
+    <div class="container">
+        <!-- END: Home Job Post Head -->
+        <!-- START: Popular Job Seekers -->
+        <div class="popular-seekers
+            {{#session 'me'}}
+                {{#unless profile_company}}
+                    hide
+                {{/unless}}
+                {{else}}
+                    hide
+            {{/session}}">
+            <div class="head">
+                <h3>{{_ 'Popular Job Seekers'}}</h3>
+                <h4>
+                    <a
+                        href="/Job-Seekers-Search"
+                        title="{{_'see more job seekers'}}"
+                    >
+                        {{_ 'see more job seekers'}}
+                    </a>
+                </h4>
+            </div>
+            <div class="flex-container">
+                <div class="flex-item">
+                    <!-- START: 1st Column post cards -->
+                    {{#each popular_seekers}}
+                        {{#when ../popular_seekers.length '>' 1}}
+                            {{#mod @index 2 1}}
+                                {{> post_seeker
+                                    heading_name='h2'
+                                    heading_position='h3'
+                                    heading_salary='h3'
+                                    heading_location='h3' }}
+                            {{/mod}}
+                        {{else}}
+                            {{> post_seeker
+                                heading_name='h2'
+                                heading_position='h3'
+                                heading_salary='h3'
+                                heading_location='h3' }}
+                        {{/when}}
+                    {{/each}}
+                    <!-- END: 1st Column post cards -->
+                </div>
+                <div class="flex-item">
+                    <!-- START: 2nd Column post cards -->
+                    {{#each popular_seekers}}
+                        {{#when ../popular_seekers.length '>' 1}}
+                            {{#mod @index 2 0}}
+                                {{> post_seeker
+                                    heading_name='h2'
+                                    heading_position='h3'
+                                    heading_salary='h3'
+                                    heading_location='h3' }}
+                            {{/mod}}
+                        {{/when}}
+                    {{/each}}
+                    <!-- START: 2nd Column post cards -->
+                </div>
+            </div>
+        </div>
+        <!-- END: Popular Job Seekers -->
+        <!-- START: Featured Jobs -->
+        <div class="featured-jobs
+            {{#session 'me'}}
+                {{#if profile_company}}
+                hide
+                {{/if}}
+            {{/session}}">
+            <div class="head">
+                <h3>{{_ 'Featured Job Opportunities'}}</h3>
+                <h4>
+                    <a
+                        href="/Job-Search-Companies"
+                        title="{{_ 'see more jobs'}}"
+                    >
+                        {{_ 'see more jobs'}}
+                    </a>
+                </h4>
+            </div>
+            <div class="flex-container">
+                <div class="flex-item">
+                    <!-- START: 1st Column post cards -->
+                    {{#each featured_jobs}}
+                        {{#when ../featured_jobs.length '>' 1}}
+                            {{#mod @index 2 1}}
+                                {{> post_poster
+                                    heading_name='h2'
+                                    heading_position='h3'
+                                    heading_salary='h3'
+                                    heading_location='h3' }}
+                            {{/mod}}
+                        {{else}}
+                            {{> post_poster
+                                heading_name='h2'
+                                heading_position='h3'
+                                heading_salary='h3'
+                                heading_location='h3' }}
+                        {{/when}}
+                    {{/each}}
+                    <!-- END: 1st Column post cards -->
+                </div>
+                <div class="flex-item">
+                    <!-- START: 2nd Column post cards -->
+                    {{#each featured_jobs}}
+                        {{#when ../featured_jobs.length '>' 1}}
+                            {{#mod @index 2 0}}
+                                {{> post_poster
+                                    heading_name='h2'
+                                    heading_position='h3'
+                                    heading_salary='h3'
+                                    heading_location='h3' }}
+                            {{/mod}}
+                        {{/when}}
+                    {{/each}}
+                    <!-- START: 2nd Column post cards -->
+                </div>
+            </div>
+        </div>
+        <!-- END: Featured Jobs -->
+    </div>
+</div>
+<!-- START: How It Works -->
+{{> 'partial_howitworks' head='h2' heading='h3'}}
+<!-- END: How It Works -->
+<!-- END: Home Jobs Post -->
+<!-- START: Home Statictics -->
+<div class="home-statistics">
+    <div class="container">
+        <div class="col-md-3">
+            <img
+                alt="{{_ 'Companies Image'}}"
+                src="{{config 'cdn'}}/images/home/sec4-1.png"
+            />
+            <div class="companies-number">
+                {{number totals.companies}}
+            </div>
+            <div class="companies-type">
+                companies
+            </div>
+        </div>
+        <div class="col-md-3">
+            <img
+                alt="{{_ 'Applicants Image'}}"
+                src="{{config 'cdn'}}/images/home/sec4-2.png"
+            />
+            <div class="applicants-number">
+                {{number totals.applicants}}
+            </div>
+            <div class="applicants-type">
+                applicants
+            </div>
+        </div>
+        <div class="col-md-3">
+            <img
+                alt="{{_ 'Posts Image'}}"
+                src="{{config 'cdn'}}/images/home/sec4-3.png"
+            />
+            <div class="posts-number">
+                {{number totals.posts}}
+            </div>
+            <div class="posts-type">
+                posts
+            </div>
+        </div>
+        <div class="col-md-3">
+            <img
+                alt="{{_ 'Connections Image'}}"
+                src="{{config 'cdn'}}/images/home/sec4-4.png"
+            />
+            <div class="connections-number">
+            {{number totals.connections}}
+            </div>
+            <div class="connections-type">
+                connections
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Home Statictics  -->
+<!-- START: Home Article -->
+{{#if blogs}}
+    <div class="home-article">
+        <div class="container">
+            <div class="head">
+                <h2>Latest Articles</h2>
+                <h4>
+                    <a
+                        href="/Articles"
+                        title="{{_ 'see all articles'}}"
+                    >
+                        {{_ 'see all articles'}}
+                    </a>
+                </h4>
+            </div>
+            <div class="row">
+                {{#each blogs}}
+                    <div class="col-md-{{#when ../blog_total '==' '1'}}12{{else}}6{{/when}}">
+                        <div class="article clearfix">
+                            <div class="image">
+                                <a
+                                    href="/Article/{{blog_slug}}"
+                                    title="{{capital blog_title}}"
+                                >
+                                    <img
+                                        alt="{{blog_title}} Image"
+                                        class="img-responsive"
+                                        src="{{blog_image}}"
+                                    />
+                                </a>
+                            </div>
+                            <div class="content">
+                                <h5>
+                                    <a
+                                        href="/Article/{{blog_slug}}"
+                                        title="{{capital blog_title}}"
+                                    >
+                                        {{capital blog_title}}
+                                    </a>
+                                </h5>
+                                <div class="detail">
+                                    {{#when ../blog_total '==' '1'}}
+                                        {{{desc blog_article '300'}}}
+                                    {{else}}
+                                        {{{desc blog_article '80'}}}
+                                    {{/when}}<a href="/Article/{{blog_slug}}">Read More</a>
+                                </div>
+                                <div class="date">
+                                    <span>Date Published</span> <br/>
+                                    {{date blog_published 'M d, Y'}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+{{/if}}
+<!-- START: Home Article -->
+<!-- START: Create Post Partial -->
+{{> partial_createpost head='h2' heading='h3'}}
+<!-- END: Create Post Partial -->
+
+{{#session 'me'}}
+    {{> post/modal_popup}}
+    {{#unless profile_company}}
+        {{> post/modal_completeness}}
+    {{/unless}}
+{{/session}}
+{{> post/modal_question}}
+
+<!-- Website Schema -->
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "url": "https://www.jobayan.com",
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.jobayan.com/post/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+    }
+}
+</script>
+<!-- Organization Schema -->
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Organization",
+    "name": "Jobayan",
+    "url": "https://www.jobayan.com",
+    "logo": "https://www.jobayan.com/images/logo.png",
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Shaw Blvd, Pleasant Hills",
+        "addressLocality": "Mandaluyong City",
+        "addressRegion": "Metro Manila",
+        "postalCode": "1552",
+        "addressCountry": "PH"
+    },
+    "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "telephone": "(+632) 897 2296",
+        "email": "business@jobayan.com"
+    },
+    "sameAs": [
+        "https://www.facebook.com/jobayancom",
+        "https://twitter.com/jobayancom",
+        "https://www.linkedin.com/company/13271950"
+    ]
+}
+</script>
+<!-- Person Schema -->
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Person",
+    "name": "Jobayan",
+    "url": "https://www.jobayan.com",
+    "sameAs": [
+        "https://www.facebook.com/jobayancom",
+        "https://twitter.com/jobayancom",
+        "https://www.linkedin.com/company/13271950"
+    ]
+}
+</script>
+<!-- Local Business Schema -->
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "LocalBusiness",
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Shaw Blvd, Pleasant Hills",
+        "addressLocality": "Mandaluyong City",
+        "addressRegion": "Metro Manila",
+        "postalCode": "1552",
+        "addressCountry": "PH"
+    },
+    "description": "Search for thousands of jobs in Philippines with Jobayan, the fastest growing job community! Finds jobs. Hire Talent.",
+    "name": "Jobayan",
+    "telephone": "(+632) 897 2296",
+    "openingHours": "Mo,Tu,We,Th,Fr 10:00-19:00",
+    "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "14.588438",
+        "longitude": "121.04259790000003"
+    },
+    "sameAs" : [
+        "https://www.facebook.com/jobayancom",
+        "https://twitter.com/jobayancom",
+        "https://www.linkedin.com/company/13271950"
+    ],
+    "image": "https://www.jobayan.com/images/logo.png"
+}
+</script>

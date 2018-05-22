@@ -1,0 +1,194 @@
+<div class="container">
+    {{> profile_alert}}
+    <!-- START: Profile Panel -->
+    <div class="row profile-panel">
+        <!-- START: Sidebar Left -->
+        <aside class="col-md-3 left">
+            {{> profile_menu active="tracking"}}
+        </aside>
+        <!-- END: Sidebar Left -->
+        <!-- START: Content Left -->
+        <div class="col-md-9 right">
+            <!-- START: Head -->
+            <div class="head">
+                <h1>{{_ 'Applicant Tracking System'}}</h1>
+            </div>
+            <!-- END: Head -->
+            <!-- START: Main Content -->
+            <div class="content">
+                <div class="top">
+                    <a
+                        class="active"
+                        href="/profile/tracking/post/search"
+                        title="{{_ 'Job Posts'}}"
+                    >
+                        {{_ 'Job Posts'}}
+                    </a>
+                    <a
+                        href="/profile/tracking/application/poster/search"
+                        title="{{_ 'Application Forms'}}"
+                    >
+                        {{_ 'Application Forms'}}
+                    </a>
+                </div>
+                <!-- START: Detail -->
+                <div class="detail clearfix">
+                    <div class="detail-wrapper">
+                        <!-- START: Breadcrumbs -->
+                        <div class="breadcrumbs">
+                            <ul>
+                                <li>
+                                    <a href="/profile/tracking/post/search">
+                                        {{_ 'Job Post Listing'}}
+                                    </a>
+                                </li>
+                                <li>
+                                    > <a href="/profile/tracking/post/detail/{{post_id}}">
+                                        {{post_position}}
+                                    </a>
+                                </li>
+                                <li>
+                                    > {{profile_name}}
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- END: Breadcrumbs -->
+                        <div class="form-print" id="form-print">
+                            <div class="form-title">
+                                {{form_name}}
+                            </div>
+                            <div class="form-content">
+                                <div class="applicant">
+                                    {{_ 'Applicant'}}
+                                </div>
+                                <div class="name-status">
+                                    <div class="name">
+                                        {{profile_name}}
+                                    </div>
+                                    <div class="status">
+                                        {{#if applicant_status}}
+                                            {{#each applicant_status}}
+                                                <span class="label label-default">{{this}}</span>
+                                            {{/each}}
+                                        {{/if}}
+                                    </div>
+                                </div>
+                                <div class="detail">
+                                    <div class="detail-left">
+                                        {{#if profile_email}}
+                                            <div>
+                                                <i class="fa fa-envelope fa-fw"></i> {{profile_email}}
+                                            </div>
+                                        {{/if}}
+                                        {{#if profile_phone}}
+                                            <div>
+                                                <i class="fa fa-phone fa-fw"></i> {{profile_phone}}
+                                            </div>
+                                        {{/if}}
+                                    </div>
+                                    <div class="detail-right">
+                                        {{#if profile_address}}
+                                            <div>
+                                                <i class="fa fa-map-marker fa-fw"></i>
+                                                {{#if profile_address_street}}
+                                                    {{profile_address_street}},
+                                                {{/if}}
+                                                {{#if profile_address_city}}
+                                                    {{profile_address_city}},
+                                                {{/if}}
+                                                {{#if profile_address_state}}
+                                                    {{profile_address_state}},
+                                                {{/if}}
+                                                {{#if profile_address_country}}
+                                                    {{profile_address_country}}
+                                                {{/if}}
+                                                {{#if profile_address_postal}}
+                                                    {{profile_address_postal}}
+                                                {{/if}}
+                                            </div>
+                                        {{/if}}
+                                    </div>
+                                </div>
+                                <div class="detail-form">
+                                {{#each questions}}
+                                    <div class="form-group">
+                                        <label>{{question_name}}</label>
+                                        <div class="form-indent">
+                                            {{#if question_custom}}
+                                            <!-- START: Question Custom -->
+                                                {{answer_name}}
+                                            <!-- END: Question Custom -->
+                                            {{else}}
+                                                <!-- START: Question Choices -->
+                                                {{#if question_choices}}
+                                                    {{#each question_choices}}
+                                                        <!-- START : Question Container -->
+                                                        <div class="radio-container">
+                                                            <input
+                                                                class="radio orange"
+                                                                type="radio"
+                                                                name="answer_choices[{{../@index}}]"
+                                                                {{#in ../answer_name this}}
+                                                                    checked
+                                                                {{/in}}
+                                                            />
+                                                            <label
+                                                                class="radio-label question-label"
+                                                            >
+                                                                {{this}}
+                                                            </label>
+                                                        </div>
+                                                        <!-- END : Question Container -->
+                                                    {{/each}}
+                                                {{/if}}
+                                                <!-- END: Question Choices -->
+                                            {{/if}}
+                                            <!-- START: Question File -->
+                                            {{#if question_file}}
+                                                <a
+                                                    href="{{answer_name}}"
+                                                    target="_blank"
+                                                    title="{{_ 'File Link'}}"
+                                                >
+                                                    {{_ 'File Link'}}
+                                                </a>
+                                            {{/if}}
+                                            <!-- END: Question File -->
+                                        </div>
+                                    </div>
+                                {{/each}}
+                                </div>
+                            </div>
+                        </div>
+                        {{#if questions}}
+                            <div class="detail-download">
+                                <a
+                                    class="btn btn-default"
+                                    href="/profile/tracking/post/form/{{post_id}}/{{profile_id}}?download"
+                                    target="_blank"
+                                    title="{{_ 'Download Form'}}"
+                                >
+                                    {{_ 'Download Form'}}
+                                </a>
+                            </div>
+                        {{else}}
+                            <div class="pending-application">
+                                <a
+                                    class="btn btn-default text-uppercase"
+                                    href="javascript:void(0)"
+                                    title="{{_ 'Pending Application Form'}}"
+                                >
+                                    {{_ 'Pending Application Form'}}
+                                </a>
+                            </div>
+                        {{/if}}
+                    </div>
+                </div>
+                <!-- END: Detail -->
+            </div>
+            <!-- END: Main Content -->
+        </div>
+        <!-- END: Content Left -->
+    </div>
+    <!-- END: Profile Panel -->
+</div>

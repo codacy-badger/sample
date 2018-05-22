@@ -1,0 +1,1 @@
+ALTER TABLE `post` ADD `post_sms_match_count` INT(10) UNSIGNED NULL DEFAULT '0' AFTER `post_email_count`;

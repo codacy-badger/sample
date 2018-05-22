@@ -1,0 +1,164 @@
+<?php //-->
+/**
+ * This file is part of a Custom Project
+ * (c) 2017-2019 Acme Inc
+ *
+ * Copyright and license information can be found at LICENSE.txt
+ * distributed with this package.
+ */
+
+use Cradle\Http\Request;
+use Cradle\Http\Response;
+
+/**
+ * Event test
+ *
+ * @vendor   Acme
+ * @package  Position
+ * @author   John Doe <john@acme.com>
+ */
+class Cradle_Module_Position_EventsTest extends PHPUnit_Framework_TestCase
+{
+    /**
+     * @var Request $request
+     */
+    protected $request;
+
+    /**
+     * @var Request $response
+     */
+    protected $response;
+
+    /**
+     * @var int $id
+     */
+    protected static $id;
+
+    /**
+     * Sets up the fixture, for example, opens a network connection.
+     * This method is called before a test is executed.
+     */
+    protected function setUp()
+    {
+        $this->request = new Request();
+        $this->response = new Response();
+
+        $this->request->load();
+        $this->response->load();
+    }
+
+    /**
+     * position-create
+     *
+     * @covers Cradle\Module\Position\Validator::getCreateErrors
+     * @covers Cradle\Module\Position\Validator::getOptionalErrors
+     * @covers Cradle\Module\Position\Service\SqlService::create
+     * @covers Cradle\Module\Utility\Service\AbstractElasticService::create
+     * @covers Cradle\Module\Utility\Service\AbstractRedisService::createDetail
+     */
+    public function testPositionCreate()
+    {
+        $this->request->setStage([
+            'position_name' => 'John Doe',
+            'position_description' => 'One Two Three Four Five Six Seven Eight Nine Ten Eleven',
+        ]);
+
+        cradle()->trigger('position-create', $this->request, $this->response);
+        $this->assertEquals('John Doe', $this->response->getResults('position_name'));
+        $this->assertEquals('One Two Three Four Five Six Seven Eight Nine Ten Eleven', $this->response->getResults('position_description'));
+        self::$id = $this->response->getResults('position_id');
+        $this->assertTrue(is_numeric(self::$id));
+    }
+
+    /**
+     * position-detail
+     *
+     * @covers Cradle\Module\Position\Service\SqlService::get
+     * @covers Cradle\Module\Utility\Service\AbstractElasticService::get
+     * @covers Cradle\Module\Utility\Service\AbstractRedisService::getDetail
+     */
+    public function testPositionDetail()
+    {
+        $this->request->setStage('position_id', 1);
+
+        cradle()->trigger('position-detail', $this->request, $this->response);
+        $this->assertEquals(1, $this->response->getResults('position_id'));
+    }
+
+    /**
+     * position-remove
+     *
+     * @covers Cradle\Module\Position\Service\SqlService::get
+     * @covers Cradle\Module\Utility\Service\AbstractElasticService::get
+     * @covers Cradle\Module\Utility\Service\AbstractRedisService::getDetail
+     * @covers Cradle\Module\Position\Service\SqlService::update
+     * @covers Cradle\Module\Utility\Service\AbstractElasticService::update
+     * @covers Cradle\Module\Utility\Service\AbstractRedisService::removeDetail
+     * @covers Cradle\Module\Utility\Service\AbstractRedisService::removeSearch
+     */
+    public function testPositionRemove()
+    {
+        $this->request->setStage('position_id', self::$id);
+
+        cradle()->trigger('position-remove', $this->request, $this->response);
+        $this->assertEquals(self::$id, $this->response->getResults('position_id'));
+    }
+
+    /**
+     * position-restore
+     *
+     * @covers Cradle\Module\Position\Service\SqlService::get
+     * @covers Cradle\Module\Utility\Service\AbstractElasticService::get
+     * @covers Cradle\Module\Utility\Service\AbstractRedisService::getDetail
+     * @covers Cradle\Module\Position\Service\SqlService::update
+     * @covers Cradle\Module\Utility\Service\AbstractElasticService::update
+     * @covers Cradle\Module\Utility\Service\AbstractRedisService::removeDetail
+     * @covers Cradle\Module\Utility\Service\AbstractRedisService::removeSearch
+     */
+    public function testPositionRestore()
+    {
+        $this->request->setStage('position_id', 581);
+
+        cradle()->trigger('position-restore', $this->request, $this->response);
+        $this->assertEquals(self::$id, $this->response->getResults('position_id'));
+        $this->assertEquals(1, $this->response->getResults('position_active'));
+    }
+
+    /**
+     * position-search
+     *
+     * @covers Cradle\Module\Position\Service\SqlService::search
+     * @covers Cradle\Module\Position\Service\ElasticService::search
+     * @covers Cradle\Module\Utility\Service\AbstractRedisService::getSearch
+     */
+    public function testPositionSearch()
+    {
+        cradle()->trigger('position-search', $this->request, $this->response);
+        $this->assertEquals(1, $this->response->getResults('rows', 0, 'position_id'));
+    }
+
+    /**
+     * position-update
+     *
+     * @covers Cradle\Module\Position\Service\SqlService::get
+     * @covers Cradle\Module\Utility\Service\AbstractElasticService::get
+     * @covers Cradle\Module\Utility\Service\AbstractRedisService::getDetail
+     * @covers Cradle\Module\Position\Service\SqlService::update
+     * @covers Cradle\Module\Utility\Service\AbstractElasticService::update
+     * @covers Cradle\Module\Utility\Service\AbstractRedisService::removeDetail
+     * @covers Cradle\Module\Utility\Service\AbstractRedisService::removeSearch
+     */
+    public function testPositionUpdate()
+    {
+        $this->request->setStage([
+            'position_id' => self::$id,
+            'position_name' => 'John Doe',
+            'position_description' => 'One Two Three Four Five Six Seven Eight Nine Ten Eleven',
+        ]);
+
+        cradle()->trigger('position-update', $this->request, $this->response);
+        $this->assertEquals('John Doe', $this->response->getResults('position_name'));
+        $this->assertEquals('One Two Three Four Five Six Seven Eight Nine Ten Eleven', $this->response->getResults('position_description'));
+        $this->assertEquals(self::$id, $this->response->getResults('position_id'));
+    }
+}

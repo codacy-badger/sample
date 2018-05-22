@@ -1,0 +1,167 @@
+<style type="text/css">
+    .form-title {
+        background: #03B6D5;
+        color: #FFFFFF;
+        font-size: 20px;
+        font-weight: 500;
+        margin-bottom: 25px;
+        padding: 10px 10px;
+        text-align: center;
+        width: 100%;
+    }
+    .form-content .applicant {
+        color: #909090;
+        font-size: 14px;
+        font-weight: 500;
+    }
+    .form-content .name-status {
+        border-bottom: 1px solid #CBCBCB;
+        margin-bottom: 10px;
+        margin-top: 5px;
+        padding-bottom: 10px;
+    }
+    .form-content .name-status .name {
+        font-size: 16px;
+        color: #03B6D5;
+        font-weight: 500;
+    }
+    .form-content .name-status .status {
+        text-align: right;
+    }
+    .form-content .name-status .status span {
+        background: #F2F2F2;
+        color: #909090;
+        font-weight: 400;
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+    .form-content .detail {
+        border-bottom: 1px solid #CBCBCB;
+        color: #909090;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+    }
+    .form-content .detail div {
+        font-size: 13px;
+    }
+    .form-content .detail-form {
+        margin: 20px 50px;
+    }
+    .form-content .detail-form .radio-container {
+        display: block;
+    }
+    .form-content .detail-form .form-indent {
+        font-size: 12px;
+        margin: 0 20px;
+    }
+    .form-content .detail-form .form-group {
+        margin-bottom: 25px;
+    }
+    .form-content .detail-form .form-group .question-name {
+        font-size: 13px;
+    }
+</style>
+<page style="font-size: 12pt">
+    <div class="form-title">
+        {{form_name}}
+    </div>
+    <div class="form-content">
+        <div class="applicant">
+            {{_ 'Applicant'}}
+        </div>
+        <div class="name-status">
+            <div class="name">
+                {{profile_name}}
+            </div>
+            <div class="status">
+                {{#if applicant_status}}
+                    {{#each applicant_status}}
+                        <span class="label label-default">{{this}}</span>
+                    {{/each}}
+                {{/if}}
+            </div>
+        </div>
+        <div class="detail">
+            {{#if profile_email}}
+                <div>
+                    {{profile_email}}
+                </div>
+            {{/if}}
+            {{#if profile_phone}}
+                <div>
+                    {{profile_phone}}
+                </div>
+            {{/if}}
+            {{#if profile_address}}
+                <div>
+                    {{#if profile_address_street}}
+                        {{profile_address_street}},
+                    {{/if}}
+                    {{#if profile_address_city}}
+                        {{profile_address_city}},
+                    {{/if}}
+                    {{#if profile_address_state}}
+                        {{profile_address_state}},
+                    {{/if}}
+                    {{#if profile_address_country}}
+                        {{profile_address_country}}
+                    {{/if}}
+                    {{#if profile_address_postal}}
+                        {{profile_address_postal}}
+                    {{/if}}
+                </div>
+            {{/if}}
+        </div>
+        <div class="detail-form">
+        {{#each questions}}
+            <div class="form-group">
+                <div class="question-name">
+                    {{question_name}}
+                </div>
+                <div class="form-indent">
+                    <!-- START: Question Choices -->
+                    {{#if question_choices}}
+                        {{#each question_choices}}
+                            <!-- START : Question Container -->
+                            <div class="radio-container">
+                                <input
+                                    class="radio orange"
+                                    type="radio"
+                                    id="{{../question_id}}"
+                                    name="answer_choices[{{../@index}}]"
+                                    {{#in ../answer_name this}}
+                                        checked="checked"
+                                    {{/in}}
+                                />
+                                <label
+                                    class="radio-label question-label"
+                                    for="{{../question_id}}"
+                                >
+                                    {{this}}
+                                </label>
+                            </div>
+                            <!-- END : Question Container -->
+                        {{/each}}
+                    {{/if}}
+                    <!-- END: Question Choices -->
+                    <!-- START: Question Custom -->
+                    {{#if question_custom}}
+                        {{answer_name}}
+                    {{/if}}
+                    <!-- END: Question Custom -->
+                    <!-- START: Question File -->
+                    {{#if question_file}}
+                        <a
+                            href="{{answer_name}}"
+                            title="File Link"
+                        >
+                            File Link
+                        </a>
+                    {{/if}}
+                    <!-- END: Question File -->
+                </div>
+            </div>
+        {{/each}}
+        </div>
+    </div>
+</page>

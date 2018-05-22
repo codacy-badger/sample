@@ -1,0 +1,363 @@
+<div class="container interview-setting-container">
+    {{> profile_alert}}
+    <!-- START: Profile Panel -->
+    <div class="row profile-panel">
+        <!-- START: Sidebar Left -->
+        <aside class="col-md-3 left">
+            {{> profile_menu active="interview"}}
+        </aside>
+        <!-- END: Sidebar Left -->
+        <!-- START: Content Left -->
+        <div class="col-md-9 right">
+            <!-- START: Head -->
+            <div class="head row">
+                <div class="col-md-6 text-left">
+                    <h1>{{_ 'Interview Scheduler'}}</h1>
+                </div>
+            </div>
+            <!-- END: Head -->
+
+            <!-- START: Main Content -->
+            <div class="content">
+                <!-- START : Top -->
+                <div class="top">
+                    <a
+                        href="/profile/interview/calendar"
+                        title="{{_ 'Interview Calendar'}}"
+                    >
+                        {{_ 'Interview Calendar'}}
+                    </a>
+                    <a
+                        class="active"
+                        href="/profile/interview/settings"
+                        title="{{_ 'Schedule Settings'}}"
+                    >
+                        {{_ 'Schedule Settings'}}
+                    </a>
+                </div>
+                <!-- END : Top -->
+
+                <!-- START: Detail -->
+                <div class="detail clearfix">
+                    <div class="detail-wrapper">
+                        <!-- START: Breadcrumbs -->
+                        <div class="breadcrumbs">
+                            <ul>
+                                <li>
+                                    {{_ 'Schedule Settings'}}
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- END: Breadcrumbs -->
+
+                        <!-- START : Settings Wrapper -->
+                        <div class="row setting-wrapper">
+                            <!-- START : Left Column -->
+                            <div class="col-md-6 left">
+                                <!-- START : Landing Datepicker -->
+                                <div class="form-group">
+                                    <div
+                                        class="landing-datepicker datepicker"
+                                        data-do="landing-datepicker"
+                                    >
+                                    </div>
+                                </div>
+
+                                <!-- START : Contact Details -->
+                                <div class="contact-details">
+                                    <!-- START : Contact Form -->
+                                    <div class="contact-edit">
+                                        <form>
+                                            <!-- START : Contact Person -->
+                                            <div class="form-group contact-person">
+                                                <i class="fa fa-user"></i>
+                                                <label class="control-label">Contact Person</label>
+                                                <input
+                                                    class="form-control"
+                                                    maxlength="140"
+                                                    name="contact_person"
+                                                    placeholder="John Doe"
+                                                    type="text"
+                                                    {{#if profile.profile_interviewer.contact_person}}
+                                                        value="{{profile.profile_interviewer.contact_person}}"
+                                                    {{else}}
+                                                        value="{{profile.profile_name}}""
+                                                    {{/if}}
+                                                />
+                                            </div>
+                                            <!-- END : Contact Person -->
+
+                                            <!-- START : Contact Number -->
+                                            <div class="form-group contact-number">
+                                                <i class="fa fa-phone"></i>
+                                                <label class="control-label">Contact Number</label>
+                                                <input
+                                                    class="form-control"
+                                                    maxlength="14"
+                                                    name="contact_number"
+                                                    placeholder="{{_ '9123 456 789'}}"
+                                                    type="text"
+                                                    {{#if profile.profile_interviewer.contact_number}}
+                                                        value="{{profile.profile_interviewer.contact_number}}"
+                                                    {{else}}
+                                                        value="{{profile.profile_phone}}"
+                                                    {{/if}}
+                                                />
+                                            </div>
+                                            <!-- END : Contact Number -->
+
+                                            <!-- START : Contact Email -->
+                                            <div class="form-group contact-email">
+                                                <i class="fa fa-envelope"></i>
+                                                <label class="control-label">Contact Email</label>
+                                                <input
+                                                    class="form-control"
+                                                    maxlength="140"
+                                                    name="contact_email"
+                                                    placeholder="{{_ 'john@doe.com'}}"
+                                                    type="text"
+                                                    {{#if profile.profile_interviewer.contact_email}}
+                                                        value="{{profile.profile_interviewer.contact_email}}"
+                                                    {{else}}
+                                                        value="{{profile.profile_email}}"
+                                                    {{/if}}
+                                                />
+                                            </div>
+                                            <!-- END : Contact Email -->
+
+                                            <!-- START : Contact Address -->
+                                            <div class="form-group contact-address">
+                                                <i class="fa fa-map-marker"></i>
+                                                <label class="control-label">Office Address</label>
+                                                <textarea
+                                                    class="form-control"
+                                                    name="contact_address"
+                                                    placeholder="{{_ 'Please update your office address'}}"
+                                                >{{profile.profile_interviewer.contact_address}}</textarea>
+                                            </div>
+                                            <!-- END : Contact Address -->
+
+                                            <!-- START: Update and cancel buttons for edit -->
+                                            <div class="contact-actions">
+                                                <a
+                                                    class="btn btn-default"
+                                                    data-do="contact-detail-update"
+                                                    data-on="click"
+                                                    href="javascript:void(0);"
+                                                >
+                                                    Update
+                                                </a>
+                                                
+                                                <a
+                                                    data-do="contact-detail-cancel"
+                                                    data-on="click"
+                                                    href="javascript:void(0);"
+                                                >Cancel</a>
+                                            </div>
+                                            <!-- END: Update and cancel buttons for edit -->
+                                        </form>
+                                    </div>
+                                    <!-- END : Contact Form -->
+
+                                    <!-- START : Details Display -->
+                                    <div class="contact-display">
+                                        <!-- START : Contact Header -->
+                                        <div class="clearfix contact-header">
+                                            <div class="pull-left">
+                                                {{_ 'Contact Details'}}
+                                            </div>
+
+                                            <div class="pull-right">
+                                                <a
+                                                    data-do="contact-detail-change"
+                                                    data-on="click"
+                                                    href="javascript:void(0);"
+                                                >
+                                                    <i class="fa fa-pencil"></i>    
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <!-- END : Contact Header -->
+                                        <div class="contact-body">
+                                            <div class="contact-person">
+                                                <i class="fa fa-user"></i>
+                                                <span>
+                                                    {{#if profile.profile_interviewer.contact_person}}
+                                                        {{profile.profile_interviewer.contact_person}}
+                                                    {{else}}
+                                                        {{profile.profile_name}}
+                                                    {{/if}}
+                                                </span>
+                                            </div>
+                                            <div class="contact-number">
+                                                <i class="fa fa-phone"></i>
+                                                {{#if profile.profile_interviewer.contact_number}}
+                                                    <span>{{profile.profile_interviewer.contact_number}}</span>
+                                                {{else}}
+                                                    {{#if profile.profile_phone}}
+                                                        <span>{{profile.profile_phone}}</span>
+                                                    {{else}}
+                                                        <span class="placeholder-italic">
+                                                            {{_ 'Please update your contact number'}}
+                                                        </span>
+                                                    {{/if}}
+                                                {{/if}}
+                                            </div>
+                                            <div class="contact-email">
+                                                <i class="fa fa-envelope"></i>
+                                                <span>
+                                                    {{#if profile.profile_interviewer.contact_email}}
+                                                        {{profile.profile_interviewer.contact_email}}
+                                                    {{else}}
+                                                        {{#if profile.profile_email}}
+                                                            {{profile.profile_email}}
+                                                        {{else}}
+                                                            {{_ 'Please update your email address'}}
+                                                        {{/if}}
+                                                    {{/if}}
+                                                </span>
+                                            </div>
+                                            <div class="contact-address">
+                                                <i class="fa fa-map-marker"></i>
+                                                    {{#if profile.profile_interviewer.contact_address}}
+                                                        <span>{{profile.profile_interviewer.contact_address}}</span>
+                                                    {{else}}
+                                                        <span class="placeholder-italic">
+                                                            {{_ 'Please update your office address'}}
+                                                        </span>
+                                                    {{/if}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- END : Details Display -->
+                                </div>
+                                <!-- END : Contact Details -->
+                            </div>
+                            <!-- END : Left Column -->
+
+                            <!-- START : Right Column -->
+                            <div class="col-md-6 right">
+                                <div class="interview-setting-list" data-do="availability-list">
+                                    {{#if settings}}
+                                        {{#each settings}}
+                                            <!-- START : Interview Setting -->
+                                            <div 
+                                                class="clearfix interview-setting-detail"
+                                                id="interview-detail-{{interview_setting_id}}"
+                                            >
+                                                <!-- START : Interview Setting Slots -->
+                                                <div class="interview-setting setting-slots">
+                                                    <i class="fa fa-user"></i>
+                                                    <span>
+                                                        {{number_format interview_setting_slots 0}}
+                                                    </span>
+                                                </div>
+                                                <!-- END : Interview Setting Slots -->
+
+                                                <!-- START : Interview Setting Date -->
+                                                <div class="interview-setting setting-date">
+                                                    <span>
+                                                        {{date_format interview_setting_date 'F d, Y'}}
+                                                    </span>
+                                                </div>
+                                                <!-- END : Interview Setting Date -->
+
+                                                <!-- START : Interview Setting Time -->
+                                                <div class="interview-setting setting-time">
+                                                    <span>
+                                                        {{time_format interview_setting_start_time 'g:i A'}} - 
+                                                        {{time_format interview_setting_end_time 'g:i A'}}
+                                                    </span>
+                                                </div>
+                                                <!-- END : Interview Setting Time -->
+
+                                                <!-- START : Interview Setting Actions -->
+                                                <div class="btn-group interview-setting setting-action">
+                                                    <i class="fa fa-spinner fa-pulse hide"></i>
+
+                                                    <button
+                                                        aria-expanded="false"
+                                                        aria-haspopup="true"
+                                                        class="btn dropdown-toggle"
+                                                        data-toggle="dropdown" 
+                                                        type="button"
+                                                    >
+                                                        <i class="fa fa-cog"></i>
+                                                    </button>
+
+                                                    <ul class="dropdown-menu pull-right">
+                                                        <li>
+                                                            <a
+                                                                class="availability-edit"
+                                                                data-do="availability-edit-modal"
+                                                                data-id="{{interview_setting_id}}"
+                                                                data-on="click"
+                                                                data-setting-date="{{date_format interview_setting_date 'F d, Y'}}"
+                                                                data-setting-end="{{interview_setting_end_time}}"
+                                                                data-setting-slots="{{interview_setting_slots}}"
+                                                                data-setting-start="{{interview_setting_start_time}}""
+                                                                href="javascript:void(0)"
+                                                                title="{{_ 'Edit'}}" 
+                                                            >
+                                                                {{_ 'Edit'}}
+                                                            </a>
+                                                        </li>
+
+                                                        <li>
+                                                            <a
+                                                                class="availability-delete"
+                                                                data-action="{{_ 'Delete'}}"
+                                                                data-do="interview-content"
+                                                                data-id="{{interview_setting_id}}"
+                                                                data-message="{{_ 'Are you sure you want to delete this date <br/> %s?' interview_setting_date_format}}"
+                                                                data-on="click"
+                                                                data-title="{{_ 'Deleting Availability'}}"
+                                                                data-type="interview-setting-delete"
+                                                                href="javascript:void(0)"
+                                                                title="{{_ 'Delete'}}" 
+                                                            >
+                                                                {{_ 'Delete'}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <!-- END : Interview Setting Actions -->
+                                            </div>
+                                            <!-- END : Interview Setting -->
+                                        {{/each}}
+                                    {{else}}
+                                        <div class="empty-list">
+                                            <span>No Schedules Yet</span>
+                                        </div>
+                                    {{/if}}
+                                </div>
+
+                                <div class="actions">
+                                    <a
+                                        class="btn btn-default"
+                                        data-do="availability-add-modal"
+                                        data-on="click"
+                                        href="javascript:void(0);"
+                                    >
+                                        <i class="fa fa-plus"></i> Add Availability
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- END : Right Column -->
+                        </div>
+                        <!-- END : Settings Wrapper -->
+                    </div>
+                </div>
+                <!-- END: Detail -->
+            </div>
+            <!-- END: Main Content -->
+        </div>
+        <!-- END: Content Left -->
+    </div>
+    <!-- END: Profile Panel -->
+</div>
+
+{{> partial/interview_confirmation }}
+{{> partial/interview_availabilityadd }}
+{{> partial/interview_availabilityedit }}
+{{> partial_elementclone}}

@@ -1,0 +1,279 @@
+<div class="container">
+    <!-- START: Profile Panel -->
+    <div class="row profile-panel">
+        <!-- START: Sidebar Left -->
+        <aside class="col-md-3 left">
+            {{> profile_menu active="account"}}
+        </aside>
+        <!-- END: Sidebar Left -->
+        <!-- START: Content Right -->
+        <div class="col-md-9 right">
+            <div class="head">
+                <h1>
+                    {{_ 'Account Settings'}} |
+                    <span>{{_ 'Contact Information'}}</span>
+                </h1>
+            </div>
+            <!-- START: Contact Information -->
+            <div class="contact-info">
+                <div class="head">
+                    <h2>{{_ 'Contact Information'}}</h2>
+                </div>
+                <!-- START: Form -->
+                <form
+                    action="/profile/account"
+                    method="post"
+                    {{#if cdn_config}}
+                        data-do="cdn-upload"
+                        data-on="submit"
+                        data-progress="{{_ 'We are uploading your files. Please do not refresh page.'}}"
+                        data-complete="{{_ 'Upload Complete'}}"
+                        data-enctype="{{cdn_config.form.enctype}}"
+                        data-method="{{cdn_config.form.method}}"
+                        data-action="{{cdn_config.form.action}}"
+                        data-cdn="{{cdn_config.form.action}}"
+                        data-acl="{{cdn_config.inputs.acl}}"
+                        data-key="{{cdn_config.inputs.key}}"
+                        data-credential="{{cdn_config.inputs.X-Amz-Credential}}"
+                        data-algorythm="{{cdn_config.inputs.X-Amz-Algorithm}}"
+                        data-date="{{cdn_config.inputs.X-Amz-Date}}"
+                        data-policy="{{cdn_config.inputs.Policy}}"
+                        data-signature="{{cdn_config.inputs.X-Amz-Signature}}"
+                    {{/if}}
+                >
+                    <div class="col-md-12">
+                        <!-- START: Profile Image -->
+                        <div class="form-group{{#if errors.profile_image}} has-error{{/if}}">
+                            <div
+                                class="image-field"
+                                data-alt="Change this Photo"
+                                data-do="image-field"
+                                data-height="200"
+                                data-name="profile_image"
+                                data-width="200"
+                            >
+                                <div class="image-wrapper profile-image-div">
+                                {{#if item.profile_image}}
+                                    <img
+                                        alt="{{_ 'Profile Image'}}"
+                                        src="{{item.profile_image}}"
+                                        width="200"
+                                    />
+                                    <input
+                                        name="profile_image"
+                                        type="hidden"
+                                        value="{{item.profile_image}}"
+                                    />
+                                {{else}}
+                                    <img
+                                        alt="{{_ 'Profile Image'}}"
+                                        src="{{default_avatar item.profile_id}}"
+                                        width="200"
+                                    />
+                                {{/if}}
+                                </div>
+
+                                {{#if errors.profile_image}}
+                                <center class="help-text">
+                                    {{errors.profile_image}}
+                                </center>
+                                {{/if}}
+
+                                <div
+                                    class="profile-image-tooltip"
+                                    data-do="profile-image-tooltip"
+                                    data-on="hover"
+                                >
+                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                     Suggested Profile photo:
+                                    <br/>
+                                    &nbsp; &nbsp; 155px x 155px
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: Profile Image -->
+                    </div>
+                    <div class="contact-wrapper">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- START: Profile Name -->
+                                <div class="form-group{{#if errors.profile_name}} has-error{{/if}}">
+                                    <label>{{_ 'Name'}}</label>
+                                    <input
+                                        class="form-control"
+                                        maxlength="50"
+                                        name="profile_name"
+                                        placeholder="{{_ 'Name'}}"
+                                        type="text"
+                                        value="{{item.profile_name}}"
+                                    />
+                                    {{#if errors.profile_name}}
+                                        <span class="help-text">
+                                            {{errors.profile_name}}
+                                        </span>
+                                    {{/if}}
+                                </div>
+                                <!-- END: Profile Name -->
+                            </div>
+                            <div class="col-md-6">
+                                <!-- START: Company Name -->
+                                <div class="form-group{{#if errors.profile_company}} has-error{{/if}}">
+                                    <label>{{_ 'Company Name'}}</label>
+                                    <input
+                                        class="form-control"
+                                        maxlength="50"
+                                        name="profile_company"
+                                        placeholder="{{_ 'Company Name'}}"
+                                        type="text"
+                                        value="{{item.profile_company}}"
+                                    />
+                                    <em>{{_ 'Leave this blank if you are a jobseeker'}}</em>
+                                    {{#if errors.profile_company}}
+                                        <span class="help-text">
+                                            {{errors.profile_company}}
+                                        </span>
+                                    {{/if}}
+                                </div>
+                                <!-- END: Company Name -->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- START: Email -->
+                                <div class="form-group{{#if errors.profile_email}} has-error{{/if}}">
+                                    <label>{{_ 'Email'}}</label>
+                                    <input
+                                        class="form-control"
+                                        name="profile_email"
+                                        placeholder="{{_ 'Email Address'}}"
+                                        type="email"
+                                        value="{{item.profile_email}}"
+                                    />
+                                    {{#if errors.profile_email}}
+                                        <span class="help-text">
+                                            {{errors.profile_email}}
+                                        </span>
+                                    {{/if}}
+                                </div>
+                                <!-- END: Email -->
+                            </div>
+                            <div class="col-md-6">
+                                <!-- START: Contact Number -->
+                                <div class="form-group{{#if errors.profile_phone}} has-error{{/if}}">
+                                    <label>{{_ 'Contact Number'}}</label>
+                                    <input
+                                        class="form-control"
+                                        name="profile_phone"
+                                        placeholder="{{_ 'Contact Number'}}"
+                                        value="{{item.profile_phone}}"
+                                        type="text"
+                                        data-do="prevent-letter-input"
+                                        data-on="keypress"
+                                    />
+                                    {{#if errors.profile_phone}}
+                                        <span class="help-text">
+                                            {{errors.profile_phone}}
+                                        </span>
+                                    {{/if}}
+                                </div>
+                                <!-- END: Contact Number -->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- START: Website -->
+                                <div class="form-group{{#if errors.profile_website}} has-error{{/if}}">
+                                    <label>
+                                        {{#if item.profile_company}}
+                                            {{_ 'Company'}}
+                                        {{/if}}
+                                            {{_ 'Website'}}
+                                    </label>
+                                    <input
+                                        class="form-control"
+                                        name="profile_website"
+                                        placeholder="{{#if item.profile_company}}{{_ 'Company'}}{{/if}} {{_ 'Website'}}"
+                                        type="text"
+                                        value="{{item.profile_website}}"
+                                    />
+                                    {{#if errors.profile_website}}
+                                        <span class="help-text">
+                                            {{errors.profile_website}}
+                                        </span>
+                                    {{/if}}
+                                </div>
+                                <!-- END: Website -->
+                            </div>
+                            <div class="col-md-6"></div>
+                        </div>
+                    </div>
+                    <div class="head">
+                        <h2>{{_ 'Additional Information'}}</h2>
+                    </div>
+                    <div class="additional-wrapper">
+                        <!-- START: Description -->
+                        <div class="form-group">
+                            <label>
+                                {{#if item.profile_company}}
+                                    Company
+                                {{/if}}
+                                    Description
+                                </label>
+                            <textarea
+                                class="form-control"
+                                data-do="wysiwyg"
+                                name="profile_detail"
+                                rows="8"
+                            >
+                                {{item.profile_detail}}
+                            </textarea>
+                            {{#if errors.profile_detail}}
+                                <span class="help-text">
+                                    {{errors.profile_detail}}
+                                </span>
+                            {{/if}}
+                        </div>
+                        <!-- END: Description -->
+                        <!-- START: Submit Button -->
+                        <div class="form-group text-right">
+                            <input
+                                name="csrf"
+                                type="hidden"
+                                value="{{csrf}}"
+                            />
+                            <input
+                                name="redirect"
+                                type="hidden"
+                                value="/profile/account/information"
+                            />
+                            <button
+                                class="btn btn-default text-uppercase"
+                                type="submit"
+                            >
+                                {{_ 'Save'}}
+                            </button>
+                            <a
+                                class="btn btn-warning text-uppercase"
+                                href="/profile/account"
+                                title="{{_ 'Cancel'}}"
+                            >
+                                {{_ 'Cancel'}}
+                            </a>
+                        </div>
+                        <!-- END: Submit Button -->
+                    </div>
+                </form>
+                <!-- END: Form -->
+            </div>
+            <!-- END: Contact Information -->
+        </div>
+        <!-- END: Content Right -->
+    </div>
+    <!-- END: Profile Panel -->
+</div>
+
+<script type="text/javascript" src="/scripts/cropper.js"></script>
+<link rel="stylesheet" type="text/css" href="/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.css"></link>
+<script src="/bower_components/wysihtml5x/dist/wysihtml5x-toolbar.min.js"></script>
+<script src="/bower_components/handlebars/handlebars.runtime.min.js"></script>
+<script src="/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.js"></script>

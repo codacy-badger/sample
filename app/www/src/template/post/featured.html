@@ -1,0 +1,608 @@
+{{#if featured_location}}
+    <header
+        class="featured-head"
+        data-do="featured-location"
+        data-on="init"
+    >
+        {{> feature-head }}
+    </header>
+{{/if}}
+<div class="container-fluid">
+    <div class="row">
+        <!-- START: Featured Header  -->
+        <!-- END: Featured Header  -->
+        {{#if featured_location}}
+        <div class="col-md-8 no-padding feature-content" data-do="feature-content" data-on="init">
+        {{/if}}
+            <!--  START: Featured Banner -->
+            <div class="featured-banner">
+                <img
+                    alt="{{featured_title}} Image"
+                    src="{{featured_image}}"
+                />
+            </div>
+            <!-- END: Featured Banner -->
+            <!-- START: Featured Content -->
+            <div
+                class="featured-content"
+                style="
+                {{#if featured_location}}
+                    background-color: #fafafa; color:{{featured_color}};
+                {{else}}
+                    background-color: {{featured_color}};
+                    {{/if}}
+                ">
+                <div class="container">
+                    <!-- START: Breadcrumbs -->
+                    <div class="breadcrumbs">
+                       <!--  <strong> -->
+                            <ul>
+                                <li>
+                                    <a
+                                        href="/"
+                                        style="
+                                        {{#if featured_location}}
+                                        color:{{featured_color}};
+                                        {{/if}}
+                                    ">
+                                        Home
+                                    </a>/
+                                    {{#if featured_location}}
+                                    <a
+                                        href="#"
+                                        style="color:{{featured_color}}"
+                                    >
+                                        Featured Location
+                                    </a>/
+                                    <a
+                                        href="#"
+                                        style="color:{{featured_color}}"
+                                    >
+                                        {{featured_title}}
+                                    </a>/
+                                    {{/if}}
+                                </li>
+                            </ul>
+                       <!--  </strong> -->
+                        <h1
+                            style="
+                            color:{{#if featured_location}}
+                            {{featured_color}};
+                            {{/if}}
+                        ">
+                           <!--  <strong>{{featured_heading}}</strong> -->
+                            {{featured_heading}}
+                        </h1>
+                    </div>
+
+                    <!-- END: Breadcrumbs -->
+                    <div class="clearfix featured-description-head">
+                        <!-- START: Title -->
+                        <div class="featured-title">
+                            {{#if featured_location}}
+                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            {{/if}}
+                            {{featured_title}}
+                            <!-- START: Total Job Posts -->
+                           <!--  {{#if featured_location total}}
+                                <div class="featured-number" style="color:{{featured_color}};">
+                                    {{#_ '%s'}}
+                                        {{number total}} {{append_s 'Job Post' total~}}
+                                    {{/_~}}
+                                </div>
+                            {{/if}} -->
+                            <!-- END: Total Job Posts -->
+                        </div>
+                        <!-- END: Title -->
+                        <div
+                            class="
+                            {{#if featured_location}}
+                            custom-select-location pull-right
+                            {{else}}
+                            custom-select
+                            {{/if}}"
+                        >
+                            <select
+                                class="form-control featured-locations"
+                                data-do="featured-select"
+                                data-on="change"
+                                style="
+                                {{#if featured_location}}
+                                    border-color: {{featured_color}};
+                                    color: {{featured_color}};
+                                    background-color: #fafafa;
+                                {{else}}
+                                    background-color: {{featured_color}}
+                                {{/if}}
+                                "
+                            >
+                                <!-- START: Change Location -->
+                                {{#if featured_location}}
+                                    <option value="" selected>{{_ 'Change Location'}}</option>
+                                    {{#each feature_location}}
+                                        <option value="{{this.feature_slug}}" >
+                                            {{this.feature_name}}
+                                        </option>
+                                    {{/each}}
+                                    <option value="/post/search">{{_ 'See All'}}</option>
+                                {{/if}}
+                                <!-- END: Change Location -->
+                                <!-- START: Change Industry -->
+                                {{#if featured_industry}}
+                                    <option value="">{{_ 'Change Industry'}}</option>
+                                    {{#each feature_industry}}
+                                        <option value="{{this.feature_slug}}">
+                                            {{this.feature_title}}
+                                        </option>
+                                    {{/each}}
+                                    <option value="/post/search">{{_ 'See All'}}</option>
+                                {{/if}}
+                                <!-- END: Change Industry -->
+                                <!-- START: Change Position -->
+                                {{#if featured_position}}
+                                    <option value="">{{_ 'Change Position'}}</option>
+                                    {{#each feature_position}}
+                                        <option value="{{this.feature_slug}}">
+                                            {{this.feature_name}}
+                                        </option>
+                                    {{/each}}
+                                    <option value="/post/search">{{_ 'See All'}}</option>
+                                {{/if}}
+                                <!-- END: Change Position -->
+                                <!-- START: Change Education -->
+                                {{#if featured_education}}
+                                    <option value="">{{_ 'Change Education'}}</option>
+                                    {{#each feature_education}}
+                                        <option value="{{this.feature_slug}}">
+                                            {{this.feature_name}}
+                                        </option>
+                                    {{/each}}
+                                    <option value="/post/search">{{_ 'See All'}}</option>
+                                {{/if}}
+                                <!-- END: Change Position -->
+                            </select>
+                        </div>
+                    </div>
+                    <!-- START: Featured Detail -->
+
+
+                    <div id="module-featured-details" class="featured-copy container">
+                        <p class="collapse" id="collapseFeatureDetail" aria-expanded="false">
+                            {{{featured_detail}}}
+                        </p>
+                        <a role="button" class="collapsed" data-toggle="collapse" href="#collapseFeatureDetail" aria-expanded="false" aria-controls="collapseFeatureDetail">
+                        </a>
+                    </div>
+
+
+<!--                     <div class="featured-copy">
+                        {{{featured_detail}}}
+                    </div>
+ -->                    <!-- END: Featured Detail -->
+                    <!-- START: Source -->
+                    {{#if featured_link}}
+                        <div class="featured-source">
+                            <p>Source</p>
+                            <ul>
+                                {{#each featured_link}}
+                                    <li>
+                                        <a
+                                            alt="{{../featured_heading}} Source"
+                                            href="{{single_line this}}"
+                                            rel="nofollow"
+                                            style="{{#if ../featured_location}}color:{{../featured_color}};{{/if}}"
+                                            target="_blank"
+                                        >
+                                            {{{substr_desc this '60' '...'}}}
+                                            <i class="fa fa-external-link fa-fw" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                    {{/if}}
+                    <!-- END: Source -->
+                    <!-- Start: View Salary and Employment Rate -->
+                    <!-- {{#if featured_location }}
+                        <div class="featured-salary">
+                            <a
+                                class="feature-salary-btn"
+                                href="javascript:void(0)"
+                                style="
+                                border-color:{{featured_color}};
+                                color:{{featured_color}};
+                            ">
+                                View Salary &amp; Employment Rate
+                            </a>
+                        </div>
+                    {{/if}} -->
+                    <!-- END: View Salary and Employment Rate -->
+            </div>
+            <!-- END: Featured Content -->
+            </div>
+        {{#if featured_location}}
+        </div>
+        {{/if}}
+        {{#if featured_location}}
+        <div class="col-md-4 no-padding">
+            <div class="featured-map">
+                <img alt="{{featured_title}} Image" class="map-style" src="{{featured_map}}">
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</div>
+
+<!-- START: Featured Main -->
+<div class="featured-main">
+    <div class="container clearfix">
+        <!-- START: Featured Sidebar -->
+        <aside class="
+        {{#unless featured_sidebar.position}}
+             {{#unless featured_sidebar.location}}
+                 {{#unless featured_sidebar.industry}}
+                    hide
+                 {{/unless}}
+             {{/unless}}
+         {{/unless }}
+        featured-sidebar">
+            <!-- START: Featured Accordion -->
+            <div
+                aria-multiselectable="true"
+                class="featured-accordion panel-group"
+                id="featured-accordion"
+                role="tablist"
+            >
+                <!-- START: Featured Positions -->
+                <div
+                    class="panel{{#unless featured_sidebar.position}} hide{{/unless}}"
+                    id="post-panel"
+                 >
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <div class="panel-title">
+                            {{#unless featured_sidebar.position}}
+                                Positions
+                            {{else}}
+                                Positions
+                            {{/unless}}
+                        </div>
+                    </div>
+                    <div
+                        aria-labelledby="headingOne"
+                        class="panel"
+                        id="collapse-positions"
+                        role="tabpanel"
+                    >
+                        <div class="panel-body">
+                            {{#if featured_sidebar.position}}
+                                <ul>
+                                    {{#each featured_sidebar.position}}
+                                        <li>
+                                            <a href="?position={{@key}}">{{@key}}</a>
+                                        </li>
+                                    {{/each}}
+                                </ul>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Featured Positions -->
+                <!-- START: Featured Locations -->
+                {{#unless featured_location}}
+                    <div
+                        class="panel{{#unless featured_sidebar.location}} hide{{/unless}}"
+                        id="location-panel"
+                    >
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <div class="panel-title">
+                               {{#unless featured_sidebar.location}}
+                                    Locations
+                                {{else}}
+                                    Locations
+                                {{/unless}}
+                            </div>
+                        </div>
+                        <div
+                            aria-labelledby="headingOne"
+                            class="panel"
+                            id="collapse-locations"
+                            role="tabpanel"
+                        >
+                            <div class="panel-body">
+                                {{#if featured_sidebar.location}}
+                                    <ul>
+                                        {{#each featured_sidebar.location}}
+                                            <li>
+                                                <a href="?location={{@key}}">{{@key}}</a>
+                                            </li>
+                                        {{/each}}
+                                    </ul>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                {{/unless}}
+                <!-- END: Featured Locations -->
+                <!-- START: Featured Industries -->
+                {{#unless featured_industry}}
+                    <div class="panel{{#unless featured_sidebar.industry}} hide{{/unless}}">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <div class="panel-title">
+                                {{#unless featured_sidebar.industry}}
+                                    Industries
+                                {{else}}
+                                    Industries
+                                {{/unless}}
+                            </div>
+                        </div>
+                        <div
+                            aria-labelledby="headingOne"
+                            class="panel"
+                            id="collapse-industries"
+                            role="tabpanel"
+                        >
+                            <div class="panel-body">
+                                {{#if featured_sidebar.industry}}
+                                    <ul>
+                                        {{#each featured_sidebar.industry}}
+                                            <li>
+                                                <a href="?tag={{@key}}">{{@key}}</a>
+                                            </li>
+                                        {{/each}}
+                                    </ul>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                {{/unless}}
+                <!-- END: Featured Industries -->
+            </div>
+            <!-- END: Featured Accordion -->
+            <!-- START: Featured ADS -->
+            {{#if featured_ads}}
+                <div class="featured-paid-ads">
+                    {{#each featured_ads}}
+                        <div class="featured-ads-image">
+                            <img
+                                alt="Ads"
+                                src="{{this}}"
+                            />
+                        </div>
+                    {{/each}}
+                </div>
+            {{/if}}
+            <!-- END: Featured ADS -->
+        </aside>
+        <!-- END: Featured Sidebar -->
+        <!-- START: Featured Post -->
+        <div class="
+        {{#unless featured_sidebar.position}}
+             {{#unless featured_sidebar.location}}
+                 {{#unless featured_sidebar.industry}}
+                    none
+                 {{/unless}}
+             {{/unless}}
+         {{/unless }}
+        featured-post">
+            <!-- START: Featured Post Head -->
+            <div class="
+            {{#unless featured_sidebar.position}}
+                 {{#unless featured_sidebar.location}}
+                     {{#unless featured_sidebar.industry}}
+                        hide
+                     {{/unless}}
+                 {{/unless}}
+             {{/unless }}
+            clearfix featured-post-head">
+                <div class="featured-post-all pull-left">
+                    All Posts <!-- ({{number total}}) -->
+                </div>
+                <div class="featured-post-sort pull-right">
+                    {{> post_sorts}}
+                </div>
+            </div>
+            <!-- END: Featured Post Head -->
+            <!-- START: Featured Post List -->
+            <div class="featured-post-list">
+                {{#if rows}}
+                    {{#each rows}}
+                        {{#when post_type '===' 'poster'}}
+                            {{> post_poster
+                                heading_name='h2'
+                                heading_position='h3'
+                                heading_salary='h3'
+                                heading_location='h3' }}
+                        {{/when}}
+                        {{#when post_type '===' 'seeker'}}
+                            {{> post_seeker
+                                heading_name='h2'
+                                heading_position='h3'
+                                heading_salary='h3'
+                                heading_location='h3' }}
+                        {{/when}}
+                    {{/each}}
+                    <!-- START: Pagination -->
+                    <ul class="pagination">
+                        {{#pager_sponsored total range start_sponsored}}
+                            <li class="{{#if active}}active{{/if}}">
+                                <a href="?{{href}}">{{page}}</a>
+                            </li>
+                        {{/pager_sponsored}}
+                    </ul>
+                    <!-- END: Pagination -->
+                {{else}}
+                    <!-- START: Post List No Results -->
+                    <div class="{{#unless total}}no-results-notice{{/unless }} no-results">
+                        <div class="search">
+                            {{#if featured_industry}}
+                            {{_ 'Sorry, there are no job openings related to ''}}
+                            <br/> <em>"{{featured_title}}"</em> <br />
+                            {{_ 'to show at this time.'}}
+                            <div>
+                                <button
+                                    class="btn btn-default first-post"
+                                    data-do="match-search"
+                                    data-on="click"
+                                    href="javascript:void(0);"
+                                    title="Create Post"
+                                >
+                                    Be the first one to post
+                                </button>
+                            </div>
+                            {{else}}
+
+                            {{_ 'Sorry, there are no job openings related to ''}}
+                            <br/> <em>"{{featured_title}}"</em> <br />
+                            {{_ 'to show at this time.'}}
+                            <div>
+                                <button
+                                    class="btn btn-default first-post"
+                                    data-do="match-search"
+                                    data-on="click"
+                                    href="javascript:void(0);"
+                                    title="Create Post"
+                                >
+                                    Be the first one to post
+                                </button>
+                            </div>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <!-- END: Post List No Results -->
+                {{/if}}
+            </div>
+            <!-- END: Featured Post List -->
+        </div>
+        <!-- END: Featured Post -->
+    </div>
+</div>
+<!-- END: Featured Main -->
+
+<!-- START: Featured Blog -->
+{{#if blogs}}
+    <div class="featured-blog">
+        <div class="container">
+            <h4>News and Features</h4>
+            <div class="row">
+                {{#each blogs}}
+                <div class="col-md-4">
+                    <div class="article">
+                        <div class="image">
+                            <img alt="{{blog_title}} Image" src="{{blog_image}}" />
+                        </div>
+                        <div class="content">
+                            <h5>
+                                <a
+                                    href="/Article/{{blog_slug}}"
+                                    title="{{blog_title}}"
+                                >
+                                    {{capital blog_title}}
+                                </a>
+                            </h5>
+                            <div class="detail">
+                               {{#when ../blog_total '==' '1'}}
+                                    {{{desc blog_article '300'}}}
+                                {{else}}
+                                    {{{desc blog_article '80'}}}
+                                {{/when}}<a href="/Article/{{blog_slug}}">Read More</a>
+                            </div>
+                            <div class="date">
+                                {{date blog_created 'M d, Y'}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+{{/if}}
+<!-- END: Featured Blog -->
+
+{{#if rows}}
+    {{> post/modal_arrangement}}
+    {{> post/modal_experience}}
+    {{> post/modal_industry}}
+    {{> post/modal_location}}
+    {{> post/modal_resume}}
+    {{> post/modal_popup}}
+{{/if}}
+
+{{#if featured_location.feature_meta.geo}}
+<!-- START: Structured Data for location -->
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Place",
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "{{featured_location.feature_meta.geo.latitude}}",
+    "longitude": "{{featured_location.feature_meta.geo.longhitude}}"
+  },
+  "name": "{{featured_location.feature_name}}"
+}
+</script>
+<!-- END: Structured Data for location -->
+{{/if}}
+
+{{#if feature_position}}
+<!-- START: Structured Data for featured position -->
+<script type="application/ld+json">
+    {
+    "@context": "http://schema.org",
+    "@type": "JobPosting",
+    "datePosted": "{{feature_updated}}",
+    "description": "{{featured_detail}}",
+    "hiringOrganization": {
+        "@type": "Organization",
+        "name":  "Jobayan",
+        "sameAs": "https://www.jobayan.com/"
+    },
+    "employmentType": "Full-time",
+    "jobLocation" : {
+        "@type": "Place",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Metro Manila",
+            "addressLocality": "Metro Manila",
+            "addressRegion": "NCR",
+            "addressCountry":  "Philippines"
+        }
+    },
+    "salaryCurrency": "PHP",
+    "title": "{{featured_title}}"
+    }
+</script>
+<!-- END: Structured Data for featured position -->
+{{/if}}
+
+{{#if feature_industry}}
+<!-- START: Structured Data for featured industry -->
+<script type="application/ld+json">
+    {
+    "@context": "http://schema.org",
+    "@type": "JobPosting",
+    "datePosted": "{{feature_updated}}",
+    "description": "{{featured_detail}}",
+    "hiringOrganization": {
+        "@type": "Organization",
+        "name":  "Jobayan",
+        "sameAs": "https://www.jobayan.com/"
+    },
+    "employmentType": "Full-time",
+    "jobLocation" : {
+        "@type": "Place",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Metro Manila",
+            "addressLocality": "Metro Manila",
+            "addressRegion": "NCR",
+            "addressCountry":  "Philippines"
+        }
+    },
+    "salaryCurrency": "PHP",
+    "title": "{{featured_title}}"
+    }
+</script>
+<!-- END: Structured Data for featured industry -->
+{{/if}}

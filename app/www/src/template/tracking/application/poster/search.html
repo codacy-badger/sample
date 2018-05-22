@@ -1,0 +1,314 @@
+<div class="container">
+    {{> profile_alert}}
+    <!-- START: Profile Panel -->
+    <div class="row profile-panel">
+        <!-- START: Sidebar Left -->
+        <aside class="col-md-3 left">
+            {{> profile_menu active="tracking"}}
+        </aside>
+        <!-- END: Sidebar Left -->
+        <!-- START: Content Left -->
+        <div class="col-md-9 right">
+            <!-- START: Head -->
+            <div class="head row">
+                <div class="col-md-6 text-left">
+                    <h1>{{_ 'Applicant Tracking System'}}</h1>
+                </div>
+                <div class="col-md-6 text-right">
+                    <!-- START: Search -->
+                    <form class="form-inline" method="get">
+                        <div class="input-group">
+                            <input
+                                class="form-control"
+                                name="q"
+                                placeholder="Search"
+                                type="text"
+                                value="{{q}}"
+                            />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                    <!-- END: Search -->
+                </div>
+            </div>
+            <!-- END: Head -->
+            <!-- START: Main Content -->
+            <div class="content">
+                <div class="top">
+                    <a
+                        href="/profile/tracking/post/search"
+                        title="{{_ 'Job Posts'}}"
+                    >
+                        {{_ 'Job Posts'}}
+                    </a>
+                    <a
+                        class="active"
+                        href="/profile/tracking/application/poster/search"
+                        title="{{_ 'Application Forms'}}"
+                    >
+                        {{_ 'Application Forms'}}
+                    </a>
+                </div>
+                <!-- START: Detail -->
+                <div class="detail clearfix">
+                    <div class="detail-wrapper">
+                        <!-- START: Breadcrumbs -->
+                        <div class="breadcrumbs">
+                            <ul>
+                                <li>
+                                    {{_ 'Application Forms List'}}
+                                    /
+                                    <a class="hide" href="?filter[form_active]=1" title="{{_ 'Active' }}">
+                                        {{_ 'Active' }}
+                                    </a>
+                                    <a class="hide" href="?filter[form_active]=0" title="{{_ 'Inactive' }}">
+                                        {{_ 'Inactive' }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- END: Breadcrumbs -->
+
+                        <!-- START : Primary Header -->
+                        <div class="clearfix">
+                            <h2 class="pull-left">{{_ 'Application Forms Created'}}</h2>
+                            <div class="pull-right">
+                                <!-- START: Active Forms -->
+                                    <a
+                                        class="
+                                            {{~#unless filter.form_active~}}
+                                                {{~#when filter.form_active '!=' '0'~}}
+                                                    active
+                                                {{~/when~}}
+                                            {{~else~}}
+                                                {{~#when filter.form_active '===' '1'~}}
+                                                    active
+                                                {{~/when~}}
+                                            {{~/unless~}}"
+                                        href="?filter[form_active]=1"
+                                        title="{{_ 'Active'}}">
+                                        {{_ 'Active'}}
+                                    </a>
+                                    <a
+                                        class="
+                                            {{~#when filter.form_active '===' '0'~}}
+                                                active
+                                            {{~/when~}}"
+                                        data-do="restore-button"
+                                        data-on="click"
+                                        href="?filter[form_active]=0"
+                                        title="{{_ 'Inactive'}}">
+                                        {{_ 'Inactive'}}
+                                    </a>
+                                <!-- END: Active Forms -->
+                                <!-- START : Create New Form -->
+                                <button
+                                    class="btn btn-default"
+                                    data-action="Create"
+                                    data-do="confirm-content"
+                                    data-message="Please enter your Application Form title"
+                                    data-title="Create an Application Form"
+                                    data-type="create-form"
+                                    data-on="click"
+                                    id="create-form-button"
+                                >
+                                    {{_ 'Create Form'}}
+                                </button>
+                                <!-- END : Create New Form -->
+                            </div>
+                        </div>
+                        <!-- END : Primary Header -->
+
+                        <!-- START: Remove -->
+                        <div class="remove">
+                            <a
+                                class="btn btn-default remove"
+                                data-do="form-bulk-delete"
+                                data-on="click"
+                                href="javascript:void(0)">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                            <a
+                                class="btn btn-default restore hide"
+                                data-do="form-bulk-restore"
+                                data-on="click"
+                                 href="javascript:void(0)">
+                                <i class="fa fa-external-link"></i>
+                            </a>
+                        </div>
+                        <!-- END: Remove -->
+                <div class="scroll">
+                    <div>
+                        <!-- START : Header -->
+                        <div class="detail-head clearfix">
+                            <div class="bulk-action checkbox">
+                                <input
+                                    class="checkbox-all"
+                                    id="bulk_all"
+                                    name="form_ids"
+                                    type="checkbox"
+                                />
+                                <label for="bulk_all">&nbsp;</label>
+                            </div>
+                            <div class="applicants">
+                                {{_ 'Application Forms'}}
+                                <div class="sort">
+                                    <a
+                                        href="?order[form_name]=ASC&q={{q}}"
+                                        title="Sort Ascending"
+                                    >
+                                        <i class="fa fa-caret-up"></i>
+                                    </a>
+                                    <a
+                                        href="?order[form_name]=DESC&q={{q}}"
+                                        title="Sort Descending"
+                                    >
+                                        <i class="fa fa-caret-down"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="date-created">
+                                {{_ 'Date Created'}}
+                            </div>
+
+                            <div class="form-status">
+                                {{_ 'Status'}}
+                            </div>
+
+                            <div class="actions">
+                                {{_ 'Actions'}}
+                            </div>
+
+                            <div></div>
+                        </div>
+                        <!-- END : Header -->
+
+                        <!-- START: Detail List -->
+                        {{#if rows}}
+                            {{#each rows}}
+                                <div class="detail-list" id="form-{{form_id}}">
+                                    <!-- START : Individual Checkbox -->
+                                    <div class="bulk-action checkbox">
+                                        <input
+                                            class="checkbox-single"
+                                            id="form-check-{{form_id}}"
+                                            name="form_id"
+                                            type="checkbox"
+                                            value="{{form_id}}"
+                                        />
+                                        <label for="form-check-{{form_id}}">&nbsp;</label>
+                                    </div>
+                                    <!-- END : Individual Checkbox -->
+
+                                    <!-- START : Form Name -->
+                                    <div class="form-name">
+                                        <a
+                                            href="/profile/tracking/application/poster/update/{{form_id}}"
+                                            title="{{form_name}}"
+                                        >
+                                            {{form_name}}
+                                        </a>
+                                    </div>
+                                    <!-- END : Form Name -->
+
+                                    <!-- START : Form Created -->
+                                    <div class="form-created">
+                                        {{date form_created 'M d, Y'}}
+                                    </div>
+                                    <!-- END : Form Created -->
+
+                                    <!-- START : Form Created -->
+                                    <div class="form-status">
+                                        {{#when form_flag '==' 1}}
+                                            {{_ 'Published'}}
+                                        {{else}}
+                                            {{_ 'Draft'}}
+                                        {{/when}}
+                                    </div>
+                                    <!-- END : Form Created -->
+
+                                    <div class="actions">
+                                        <div class="actions-wrapper">
+                                            {{#when form_active '==' 1}}
+                                                <a
+                                                    href="/profile/tracking/application/poster/update/{{form_id}}"
+                                                    title="Edit"
+                                                >
+                                                <i class="fa fa-pencil"></i></a>
+                                                &nbsp;
+                                                <a
+                                                    class="text-danger copy"
+                                                    data-do="form-duplicate"
+                                                    data-id="{{form_id}}"
+                                                    data-on="click"
+                                                    data-title="{{form_name}}"
+                                                    href="javascript:void(0);"
+                                                    title="Duplicate"
+                                                >
+                                                    <i class="fa fa-copy"></i>
+                                                </a>
+                                                &nbsp;
+                                                <a
+                                                    class="text-danger remove"
+                                                    data-do="form-delete"
+                                                    data-id="{{form_id}}"
+                                                    data-on="click"
+                                                    data-title="{{form_name}}"
+                                                    href="javascript:void(0);"
+                                                    title="Remove"
+                                                >
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            &nbsp;
+                                            {{/when}}
+                                            {{#when form_active '==' 0}}
+                                                <a
+                                                    class="text-success restore"
+                                                    href="/profile/tracking/application/restore/{{form_id}}"
+                                                    title="Restore"
+                                                >
+                                                    <i class="fa fa-external-link"></i>
+                                                </a>
+                                            {{/when}}
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/each}}
+                    </div>
+                </div>
+                            <!-- START: Pagination -->
+                            <ul class="pagination">
+                                {{#pager total range}}
+                                    <li class="{{#if active}}active{{/if}}">
+                                        <a href="?{{href}}">{{page}}</a>
+                                    </li>
+                                {{/pager}}
+                            </ul>
+
+
+                            <!-- END: Pagination -->
+                        <!-- END: Detail List -->
+                        {{else}}
+                            <!-- START: No Results -->
+                            <div class="no-results">
+                                {{_ 'No Results Found'}}
+                            </div>
+                        <!-- End: No Results -->
+                        {{/if}}
+                    </div>
+                </div>
+                <!-- END: Detail -->
+            </div>
+            <!-- END: Main Content -->
+        </div>
+        <!-- END: Content Left -->
+    </div>
+    <!-- END: Profile Panel -->
+</div>
+
+{{> partial/form_confirmation}}

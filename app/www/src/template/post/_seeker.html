@@ -1,0 +1,327 @@
+<!-- START: Seeker Post Card -->
+<article class="post-item" id="post-{{post_id}}">
+    <div class="post-details">
+        <!-- START: Post Profile -->
+        <div class="clearfix post-profile">
+            <div class="post-image">
+                {{#if profile_image}}
+                    {{#when profile_image '!=' '/images/default-avatar.png'}}
+                        <img
+                            alt="{{post_name}} {{_ 'logo'}}"
+                            class="image-lazy"
+
+                            src="{{profile_image}}"
+                            onerror="this.parentNode.parentNode.removeChild(this.parentNode)"
+                        />
+                    {{else}}
+                        {{#if post_image}}
+                            <img
+                                alt="{{post_name}} {{_ 'logo'}}"
+                                class="image-lazy"
+
+                                src="{{post_image}}"
+                                onerror="this.parentNode.parentNode.removeChild(this.parentNode)"
+                            />
+                        {{else}}
+                            <img
+                                alt="{{post_name}}"
+                                class="image-lazy"
+
+                                src="{{default_avatar post_id}}"
+                                onerror="this.parentNode.parentNode.removeChild(this.parentNode)"
+                            />
+                        {{/if}}
+                    {{/when}}
+                {{else}}
+                    {{#if post_image}}
+                        <img
+                            alt="{{post_name}} {{_ 'logo'}}"
+                            class="image-lazy"
+
+                            src="{{post_image}}"
+                            onerror="this.parentNode.parentNode.removeChild(this.parentNode)"
+                        />
+                    {{else}}
+                        <img
+                            alt="{{post_name}}"
+                            class="image-lazy"
+
+                            src="{{default_avatar profile_id}}"
+                            onerror="this.parentNode.parentNode.removeChild(this.parentNode)"
+                        />
+                    {{/if}}
+                {{/if}}
+            </div>
+            <!-- START: Post Summary -->
+            <div class="post-summary">
+                <div class="clearfix post-name">
+                        <{{heading_name}} class="post-head pull-left">
+                            {{#when profile_name '!=' 'Anonymous'}}
+                                <a
+                                    href="/Job-Seekers/{{profile_slug}}"
+                                    title="{{_ 'See more of %s' post_name}}"
+                                >
+                                    {{post_name}}
+                                </a>
+                            {{else}}
+                                {{post_name}}
+                            {{/when}}
+                        </{{heading_name}}>
+                    <i class="pull-right">{{highlight post_created post_updated post_expires}}</i>
+                </div>
+                <div class="post-job-detail">
+                    <!-- START: Short Post Description -->
+                    <div class="post-short-description">
+                        {{#_ 'Hello! My name is %s and I am %s %s %s looking for a job in %s %s'}}
+                            {{#when profile_name '!=' 'Anonymous'}}
+                                <a
+                                        href="/Job-Seekers/{{profile_slug}}"
+                                        title="{{_ 'See more jobs from %s' post_name}}"
+                                    >
+                                    <strong class="text-capitalize">{{trim post_name}}</strong>
+                                </a>
+                            {{else}}
+                                <strong class="post-name text-capitalize">{{trim post_name}}</strong>
+                            {{/when}}
+                            __
+                            {{a_an_article post_position}}
+                            __
+                            <{{heading_position}} class="post-heading">
+                                <a
+                                    class="text-info"
+                                    href="/post/search?q={{post_position}}"
+                                    title="{{_ 'See more %s jobs' post_position}}"
+                                >
+                                    <strong class="text-capitalize">{{trim post_position}}</strong>
+                                </a>
+                            </{{heading_position}}>
+                            __
+                            {{#if post_experience}}
+                                {{#_ 'with %s of experience'}}
+                                    <strong class="post-experience">
+                                        {{trim post_experience}} {{append_s 'year' post_experience}}
+                                    </strong>
+                                {{/_}}
+                            {{/if}}
+                            __
+                            <{{heading_location}} class="post-heading">
+                                <a
+                                    class="text-info"
+                                    href="/post/search?q={{post_location}}"
+                                    title="{{_ 'See more jobs from %s' post_location}}"
+                                >
+                                    <strong class="text-capitalize">{{trim post_location}}</strong>
+                                {{~#if 1~}}
+                                    </a>.
+                                {{~/if}}
+                            </{{heading_location}}>
+                            __
+                            <a
+                                class="text-info"
+                                href="/Seeking-Job/{{post_slug}}"
+                                target="_blank"
+                                title="see more"
+                            >
+                                <em>{{_ 'See more'}}</em>
+                            </a>
+                        {{/_}}
+                    </div>
+                    <!-- END: Short Post Description -->
+                </div>
+            </div>
+            <!-- END: Post Summary -->
+        </div>
+        <!-- END: Post Profile -->
+        <div class="clearfix">
+            <!-- START: Post Tags -->
+            <div class="post-tags">
+                {{#each post_tags}}
+                    {{#when @index '<=' 4}}
+                        <a
+                            class="tag"
+                            href="/post/search?{{toquery 'tag' this}}"
+                            title="{{_ 'Search jobs with'}} {{this}}"
+                        >
+                            {{this}}
+                        </a>
+                    {{/when}}
+                {{/each}}
+            </div>
+            <!-- END: Post Tags -->
+            {{> post_actions show_resume='1'}}
+        </div>
+        {{#session 'me'}}
+            <!-- START: I am logged in -->
+            {{#when profile_id '==' ../profile_id}}
+                <!-- START: My Card -->
+                <div class="{{../post_tips_hide}}">
+                    {{> post_seeker-tips}}
+                </div>
+                <!-- START: My Post Actions -->
+                <div class="my-post-actions">
+                    <a
+                        class="btn btn-info"
+                        href="/post/update/poster/{{../post_id}}?redirect_uri=
+                            {{~server 'REQUEST_URI'}}"
+                        title="Edit post"
+                    >
+                        {{_ 'Edit post'}}
+                    </a>
+                    <a
+                        class="btn btn-danger"
+                        data-do="confirm-modal"
+                        data-on="click"
+                        data-title="Are you sure you want to remove this post?"
+                        data-link="/post/remove/{{../post_id}}?redirect_uri=
+                            {{~server 'REQUEST_URI'}}"
+                        href="javascript:void(0)"
+                        title="Remove post"
+                    >
+                        {{_ 'Remove post'}}
+                    </a>
+                </div>
+                <!-- END: My Post Actions -->
+                <!-- END: My Card -->
+            {{/when}}
+        {{/session}}
+        {{#if post_related}}
+            <hr />
+            <div class="post-related">
+                <div class="post-related-head">
+                    {{capital post_name}} is also looking for these positions
+                </div>
+                <!-- START: Post Related Accordion -->
+                <div
+                    aria-multiselectable="true"
+                    class="related-accordion panel-group"
+                    id="related-accordion-{{post_id}}"
+                    role="tablist"
+                >
+                    {{#each post_related}}
+                        <div class="panel" id="post-{{post_id}}">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                <div class="panel-title">
+                                    <a
+                                        aria-controls="collapse-positions"
+                                        aria-expanded="true"
+                                        class="collapsed"
+                                        data-parent="#related-accordion-{{../post_id}}"
+                                        data-toggle="collapse"
+                                        href="#post-accordion-{{post_id}}"
+                                        role="button"
+                                        title="{{capital post_position}} in {{capital post_location}}"
+                                    >
+                                        <div class="panel-title-head">
+                                            <div class="post-name">
+                                                {{capital post_position}} in {{capital post_location}}
+                                            </div>
+                                            <div class="post-ago">
+                                                <em>
+                                                    {{highlight post_created post_updated post_expires}}
+                                                </em>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div
+                                aria-labelledby="headingOne"
+                                class="panel-collapse collapse"
+                                id="post-accordion-{{post_id}}"
+                                role="tabpanel"
+                            >
+                                <div class="panel-body">
+                                    <div class="post-short-description">
+                                        {{#_ 'Hello! My name is %s and I am %s %s %s looking for a job in %s %s'}}
+                                            <a
+                                                {{#when profile_name '!=' 'Anonymous'}}
+                                                    href="/Job-Seekers/{{profile_slug}}"
+                                                {{/when}}
+                                                title="{{_ 'See more jobs from %s' post_name}}"
+                                            >
+                                                <strong class="text-capitalize">{{post_name}}</strong>
+                                            </a>
+                                            __
+                                            {{a_an_article post_position}}
+                                            __
+                                            <{{../heading_position}} class="post-heading">
+                                                <a
+                                                    class="text-info"
+                                                    href="/post/search?q={{post_position}}"
+                                                    title="{{_ 'See more %s jobs' post_position}}"
+                                                >
+                                                    <strong class="text-capitalize">{{post_position}}</strong>
+                                                </a>
+                                            </{{../heading_position}}>
+                                            __
+                                            {{#if post_experience}}
+                                                {{#_ 'with %s of experience'}}
+                                                    <strong>
+                                                        {{post_experience}} {{append_s 'year' post_experience}}
+                                                    </strong>
+                                                {{/_}}
+                                            {{/if}}
+                                            __
+                                            <{{../heading_location}} class="post-heading">
+                                                <a
+                                                    class="text-info"
+                                                    href="/post/search?q={{post_location}}"
+                                                    title="{{_ 'See more jobs from %s' post_location}}"
+                                                >
+                                                    <strong class="text-capitalize">{{post_location}}</strong>
+                                                {{~#if 1~}}
+                                                    </a>.
+                                                {{~/if}}
+                                            </{{../heading_location}}>
+                                            __
+                                            <a
+                                                class="text-info"
+                                                href="/Seeking-Job/{{post_slug}}"
+                                                target="_blank"
+                                                title="see more"
+                                            >
+                                                <em>{{_ 'See more'}}</em>
+                                            </a>
+                                        {{/_}}
+                                    </div>
+                                    <!-- START: Post Related Actions -->
+                                    <div class="clearfix post-related-actions">
+                                        <!-- START: Post Tags -->
+                                        <div class="post-tags">
+                                            {{#each post_tags}}
+                                                {{#when @index '<=' 4}}
+                                                    <a
+                                                        class="tag"
+                                                        href="/post/search?{{toquery 'tag' this}}"
+                                                        title="{{_ 'Search jobs with'}} {{this}}"
+                                                    >
+                                                        {{this}}
+                                                    </a>
+                                                {{/when}}
+                                            {{/each}}
+                                        </div>
+                                        <!-- END: Post Tags -->
+                                        <!-- START: Post Actionss -->
+                                        {{> post_actions show_resume='1'}}
+                                        <!-- END: Post Actionss -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+                <!-- END: Post Related Accordion -->
+                <div class="post-related-view">
+                    <a
+                        href="/Job-Seekers/{{profile_slug}}"
+                        target="_blank"
+                        title="{{_ 'View all positions'}}"
+                    >
+                        {{_ 'View all positions'}}
+                    </a>
+                </div>
+            </div>
+        {{/if}}
+    </div>
+</article>
+<!-- END: Seeker Post Card -->

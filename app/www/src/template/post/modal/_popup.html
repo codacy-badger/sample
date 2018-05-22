@@ -1,0 +1,31 @@
+<!-- START: Popup Modal -->
+<div class="modal fade" id="popup-blocker" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- START: Modal Header -->
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" type="button">
+                    &times;
+                </button>
+                <div class="modal-title">{{_ 'Popup Blocker is Enabled!'}}</div>
+            </div>
+            <!-- END: Modal Header -->
+            <!-- START: Popup Modal Form -->
+            <form
+                class="form-horizontal"
+                data-container="#arrangement"
+                data-do="tips-modal"
+                data-on="submit"
+            >
+                <div class="modal-body">
+                    {{_ 'Popup Blocker is enabled! Please add Jobayan website to your exception list.'}}
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal">{{_ 'Okay'}}</button>
+                </div>
+            </form>
+            <!-- END: Popup Modal Form -->
+        </div>
+    </div>
+</div>
+<!-- END: Popup Modal -->

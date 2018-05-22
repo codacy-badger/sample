@@ -1,0 +1,62 @@
+<div id="sendResume" class="modal fade send-resume" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <form method="post"
+                id="resumeUpload"
+                {{#if cdn_config}}
+                    data-do="cdn-upload"
+                    data-on="submit"
+                    data-progress="{{_ 'We are uploading your files. Please do not refresh page.'}}"
+                    data-complete="{{_ 'Upload Complete'}}"
+                    data-enctype="{{cdn.form.enctype}}"
+                    data-method="{{cdn_config.form.method}}"
+                    data-action="{{cdn_config.form.action}}"
+                    data-cdn="{{cdn_config.form.action}}"
+                    data-acl="{{cdn_config.inputs.acl}}"
+                    data-key="{{cdn_config.inputs.key}}"
+                    data-credential="{{cdn_config.inputs.X-Amz-Credential}}"
+                    data-algorythm="{{cdn_config.inputs.X-Amz-Algorithm}}"
+                    data-date="{{cdn_config.inputs.X-Amz-Date}}"
+                    data-policy="{{cdn_config.inputs.Policy}}"
+                    data-signature="{{cdn_config.inputs.X-Amz-Signature}}"
+                {{/if}}>
+                <div class="modal-body">
+                    <div class="file-upload" data-do="file-upload" data-on="init">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <input type="hidden" id="uploaded_files" data-files="">
+                        <p class="file-count"></p>
+                        <div class="resume-content text-center">
+                            <h2></h2>
+                            <span class="drop">Drop your resume here</span>
+                            <div>or</div>
+                            <span class="btn btn-blue choose-file">CHOOSE A FILE</span>
+                        </div>
+                        <input type="file" class="hide"/>
+                     </div>
+                     <div class="form-group">
+                         <label class="control-label">Position</label>
+                         <input
+                             class="form-control"
+                             data-do="trigger-upload"
+                             name="resume_position"
+                             placeholder="Programmer"
+                             type="text"
+                         />
+                         <span class="help-text">{{errors.resume_position}}</span>
+                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button
+                        class="btn btn-default"
+                        data-do="file-upload"
+                        data-on="click"
+                        type="button"
+                    >
+                        UPLOAD
+                   </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

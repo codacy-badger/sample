@@ -1,0 +1,51 @@
+<!-- Coming Soon Modal -->
+<div id="coming-soon-modal" class="coming-soon modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    {{_ 'Stick With Us!'}}
+                </div>
+            </div>
+            <form
+                action="https://docs.google.com/forms/u/1/d/e/1FAIpQLSdHnRFHtmSD-Ep8w0x-K2tIcV-f-2KlYW8QfPwgG5sbYOtrbg/formResponse"
+                id="widget-subscribe-form"
+                method="get"
+                role="form"
+                target="gdocs-frame"
+            >
+            <div class="modal-body">
+                <p>
+                    {{{_ 'We are currently working on this feature. <br />
+                    Enter your email address to get the latest updates.'}}}
+                </p>
+                <div class="form-group">
+                    <input type="hidden" name="fvv" value="1" />
+                    <input
+                        type="hidden"
+                        name="draftResponse"
+                        value="[null,null,&quot;-5310195544633818584&quot;]" />
+                    <input type="hidden" name="pageHistory" value="0" />
+                    <input type="hidden" name="fbzx" value="-5310195544633818584" />
+                    <input
+                        class="form-control"
+                        name="entry.1160409630"
+                        placeholder="{{_ 'Email Address'}}"
+                        required
+                        type="email"
+                    />
+                </div>
+            </div>
+                <div class="modal-footer">
+                    <button
+                        class="btn btn-default"
+                        type="submit"
+                    >
+                        {{_ 'Notify Me'}}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

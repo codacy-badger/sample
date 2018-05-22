@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html 
+    id="JBWidgetFrame" 
+    data-key="{{item.widget_key}}"
+    data-type="{{item.widget_type}}"
+    data-root="{{item.widget_root}}"
+>
+    <head>
+        <link rel="stylesheet" type="text/css" href="//{{item.widget_root}}/bower_components/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="//{{item.widget_root}}/styles/plugins/career-widget.css" />
+
+        <script type="text/javascript" src="//{{item.widget_root}}/bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="//{{item.widget_root}}/scripts/doon.js"></script>
+        <script type="text/javascript" src="//{{item.widget_root}}/scripts/plugins/widget-main.js"></script>
+    </head>
+    <body>
+        {{#when item.widget_type '===' 'career_widget'}}
+            {{{> profile/widget/partials_widget}}}
+        {{/when}}
+
+        {{#when item.widget_type '===' 'career_launcher'}}
+            {{{> profile/widget/partials_launcher}}}
+        {{/when}}
+
+        {{#when item.widget_type '===' 'career_page'}}
+            {{{> profile/widget/partials_page}}}
+        {{/when}}
+
+        {{#when item.widget_type '===' 'career_modal'}}
+            {{{> profile/widget/partials_modal}}}
+        {{/when}}
+
+        {{#if flash}}
+            <div 
+                class="{{flash.type}}"
+                data-do="widget-flash" 
+                id="JBFlash" 
+            >
+                <div class="flash-header clearfix">
+                    <div class="flash-title">
+                        {{#when flash.type '==' 'error'}}
+                            <p>Error</p>
+                        {{/when}}
+
+                        {{#when flash.type '==' 'success'}}
+                            <p>Success</p>
+                        {{/when}}
+                    </div>
+                    <div class="flash-close">
+                        <i 
+                            class="fa fa-times"
+                            data-do="widget-flash-close" 
+                            data-on="click" 
+                        >
+                        </i>
+                    </div>
+                </div>
+                <div class="flash-message">
+                    <p>{{flash.message}}</p>
+                </div>
+            </div>
+        {{/if}}
+    </body>
+</html>

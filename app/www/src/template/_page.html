@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" class="{{page.class}}">
+    <head>
+        <meta charset="utf-8" />
+        <title>{{page.title}}</title>
+        {{#environment 'production'}}
+        <!-- Google Tag Manager -->
+        <script>
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-KXRLHB4');
+        </script>
+        <!-- End Google Tag Manager -->
+        {{/environment}}
+        <!-- MOBILE TAGS -->
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, height=device-height, width=device-width" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+        <!-- GOOGLE TAGS -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        {{#if page.meta.robots}}
+        <meta name="robots" content="{{page.meta.robots}}" />
+        {{else}}
+        <meta name="robots" content="index,follow" />
+        {{/if}}
+        <link rel="icon" href="{{config 'cdn'}}/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="{{config 'cdn'}}/favicon.png" type="image/png" />
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" href="{{config 'cdn'}}/favicon-32x32.png" sizes="32x32" />
+        <link rel="icon" type="image/png" href="{{config 'cdn'}}/favicon-16x16.png" sizes="16x16" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+        <meta name="theme-color" content="#ffffff" />
+
+        {{#if page.meta.description}}
+            <meta name="description" content="{{page.meta.description}}" />
+        {{/if}}
+
+        {{#if page.meta.keywords}}
+            <meta name="keywords" content="{{page.meta.keywords}}" />
+        {{/if}}
+
+        <link rel="canonical" href="{{page.meta.host}}{{page.meta.canonical}}{{{page.meta.querystring}}}" />
+
+        <!-- FACEBOOK TAGS -->
+        <meta property="fb:app_id" content="{{page.meta.fb_app_id}}" />
+        <meta property="fb:admins" content="{{page.meta.fb_admin_id}}" />
+
+        {{#if page.meta.facebook.image}}
+            <meta property="og:image" content="{{page.meta.facebook.image}}" />
+        {{else}}
+            {{#if page.meta.image}}
+                <meta property="og:image" content="{{page.meta.image}}" />
+            {{/if}}
+        {{/if}}
+
+        {{#if page.meta.facebook.title}}
+            <meta property="og:title" content="{{page.meta.facebook.title}}" />
+        {{else}}
+            {{#if page.meta.title}}
+                <meta property="og:title" content="{{page.meta.title}}" />
+            {{/if}}
+        {{/if}}
+
+        {{#if page.meta.facebook.description}}
+            <meta property="og:description" content="{{page.meta.facebook.description}}" />
+        {{else}}
+            {{#if page.meta.description}}
+                <meta property="og:description" content="{{page.meta.description}}" />
+            {{/if}}
+        {{/if}}
+
+        {{#if page.meta.type}}
+            <meta property="og:type" content="{{page.meta.type}}" />
+        {{/if}}
+
+        {{#if page.meta.url}}
+            <meta property="og:url" content="{{page.meta.url}}" />
+        {{/if}}
+
+        <!-- TWITTER TAGS -->
+        <meta name="twitter:card" content="summary" />
+
+        {{#if page.meta.twitter.image}}
+            <meta property="twitter:image" content="{{page.meta.twitter.image}}" />
+        {{else}}
+            {{#if page.meta.image}}
+                <meta property="twitter:image" content="{{page.meta.image}}" />
+            {{/if}}
+        {{/if}}
+
+        {{#if page.meta.twitter.title}}
+            <meta property="twitter:title" content="{{page.meta.twitter.title}}" />
+        {{else}}
+            {{#if page.meta.title}}
+                <meta property="twitter:title" content="{{page.meta.title}}" />
+            {{/if}}
+        {{/if}}
+
+        {{#if page.meta.twitter.description}}
+            <meta property="twitter:description" content="{{page.meta.twitter.description}}" />
+        {{else}}
+            {{#if page.meta.description}}
+                <meta property="twitter:description" content="{{page.meta.description}}" />
+            {{/if}}
+        {{/if}}
+
+        {{#if page.meta.url}}
+            <meta name="twitter:url" content="{{page.meta.url}}" />
+        {{/if}}
+
+        <!-- GOOGLE SITE VERIFICATION -->
+        <meta name="google-site-verification" content="bW71c0W5xZbtXO6myVztDCm91lW9g1KhBRSMly0n15Q" />
+
+        <!-- SCHEMA.ORG TAGS -->
+        <meta itemprop="name" content="{{page.meta.company}}" />
+        <meta itemprop="openingHours" content="Mo,Tu,We,Th,Fr 10:00-20:00" />
+
+        <!-- JOBTOME META -->
+        <meta name="jobtome-site-verification" content="4593ecf5bcdf86db1db7" />
+
+        <link itemprop="url" content="{{root}}" />
+        <link itemprop="logo" content="{{config 'cdn'}}/favicon.png" />
+        <link itemprop="image" content="{{config 'cdn'}}/images/logo.png" />
+
+        <link rel="shortcut icon" href="{{config 'cdn'}}/favicon.ico" type="image/x-icon">
+
+        <link rel="icon" type="image/png" href="{{config 'cdn'}}/favicon.png" />
+        <link rel="icon" type="image/gif" href="{{config 'cdn'}}/favicon.gif" />
+        <link rel="icon" type="image/x-icon" href="{{config 'cdn'}}/favicon.ico" />
+
+        <link rel="stylesheet" type="text/css" href="{{config 'cdn'}}/bower_components/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="{{config 'cdn'}}/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="{{config 'cdn'}}/bower_components/toastr/toastr.min.css" />
+        <link rel="stylesheet" type="text/css" href="{{config 'cdn'}}/styles/prism.css" />
+        <link rel="stylesheet" type="text/css" href="{{config 'cdn'}}/bower_components/chosen/chosen.min.css" />
+        <link rel="stylesheet" type="text/css" href="{{config 'cdn'}}/styles/www.css?v={{page.version.css}}" />
+        <link rel="stylesheet" type="text/css" href="{{config 'cdn'}}/styles/interview.css?v={{page.version.css}}" />
+
+        <script type="text/javascript" src="{{config 'cdn'}}/bower_components/jquery/dist/jquery.min.js"></script>
+    </head>
+    <body data-do="page-body">
+        {{#environment 'production'}}
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXRLHB4"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+        {{/environment}}
+
+        <header class="head">{{> head}}</header>
+        <div class="wrapper">
+            {{#if page.flash}}
+                <div data-do="toastr"
+                    class="alert alert-{{#when page.flash.type '===' 'success'}}success{{/when}}
+                        {{#when page.flash.type '===' 'info'}}info{{/when}}
+                        {{#when page.flash.type '===' 'warning'}}warning{{/when}}
+                        {{#when page.flash.type '===' 'danger'}}danger{{/when}}"
+
+                    {{#when page.flash.type '===' 'success'}}
+                        data-type="success"
+                    {{/when}}
+
+                    {{#when page.flash.type '===' 'info'}}
+                        data-type="info"
+                    {{/when}}
+
+                    {{#when page.flash.type '===' 'warning'}}
+                        data-type="warning"
+                    {{/when}}
+
+                    {{#when page.flash.type '===' 'danger'}}
+                        data-type="error"
+                    {{/when}}>
+
+                    {{page.flash.message}}
+               </div>
+            {{/if}}
+            <!-- Insufficient Credits Modal -->
+        {{#if page.credits}}
+            {{> partial/modal_credits}}
+        {{/if}}
+            {{#if page.exp}}
+                {{#each page.exp}}
+                   <div
+                        class="alert alert-info"
+                        data-do="toastr"
+                        data-type="info"
+                    >
+                       {{this}}
+                  </div>
+              {{/each}}
+            {{/if}}
+            <section id="wrapper" class="body">
+                {{{content}}}
+            </section>
+        </div>
+        <!-- Facebook Your customer chat code -->
+        <div
+            class="fb-customerchat"
+            attribution="setup_tool"
+            page_id="268792740211036"
+        >
+        </div>
+        <footer class="foot">{{> foot}}</footer>
+        {{#environment 'production'}}
+        <!-- TWITTER -->
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        {{/environment}}
+
+        <!-- Load Facebook SDK for JavaScript -->
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js#xfbml=1&version=v2.12&autoLogAppEvents=1';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+
+        <!-- Your customer chat code -->
+        <div class="fb-customerchat"
+             attribution="setup_tool"
+             page_id="268792740211036">
+        </div>
+
+        <!--Start: js scripts-->
+        <script type="text/javascript" src="{{'config' cdn}}/bower_components/jquery-ui/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="{{config 'cdn'}}/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="{{config 'cdn'}}/scripts/doon.js"></script>
+        <script type="text/javascript" src="{{config 'cdn'}}/scripts/pace.js"></script>
+        <script type="text/javascript" src="{{config 'cdn'}}/bower_components/jquery-lazy/jquery.lazy.min.js"></script>
+        <script type="text/javascript" src="{{config 'cdn'}}/scripts/prism.js"></script>
+        <script type="text/javascript" src="{{config 'cdn'}}/bower_components/toastr/toastr.min.js"></script>
+        <script type="text/javascript" src="{{config 'cdn'}}/bower_components/chosen/chosen.jquery.min.js"></script>
+        <script type="text/javascript" src="{{config 'cdn'}}/scripts/form.js"></script>
+        <script type="text/javascript" src="{{config 'cdn'}}/scripts/www.js?v={{page.version.js}}"></script>
+        <!--End: js scripts-->
+
+        {{#session 'me'}}
+            {{#if ../page.badge}}
+                {{> achievement}}
+                <script type="text/javascript">
+                    $('.achievement-modal').modal('show');
+                </script>
+            {{/if}}
+            {{#if ../page.rank}}
+                {{> free-credits}}
+                <script type="text/javascript">
+                     //$('.free-credits-modal').modal('show');
+                </script>
+            {{/if}}
+            {{> ats-restrict}}
+            {{#when profile_information.information_progress '!=' '100'}}
+                {{#when profile_company '==' ''}}
+                   {{#when modal_flag '==' 'poster'}}
+                        {{#when modal_flag_remove '==' '1'}}
+                            {{> _modal-profile-completeness}}
+                            <script type="text/javascript">
+                                $('#profile-completeness-modal').modal('show');
+                            </script>
+                        {{/when}}
+                   {{/when}}
+                {{/when}}
+            {{/when}}
+        {{/session}}
+    </body>
+</html>

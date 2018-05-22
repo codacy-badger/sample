@@ -1,0 +1,11 @@
+May 3, 2018
++ new column in table blog 'blog tags'
+- career widget for motorcentral
+- Cosmetic : Career page sample view image not responsive
+- Company side: Toast message display in my Jobs "No available interview schedule!" #2131
+- Company - Import/Export Functionality #1665
+- Cosmetic Issue: Jobayan website on fb page #2049
+- Featured Pages - Locations - New Headers #1065
+- Cosmetic Issue: Location Icon should always be aligned with the Location Text #2041
+- Research Section - Search Position Enhancements & Search Location (new page) #1904
+- Articles - Enhancements & Fixes #1175

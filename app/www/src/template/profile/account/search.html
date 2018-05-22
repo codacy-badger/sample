@@ -1,0 +1,159 @@
+<div class="container">
+    {{> profile_alert}}
+    <!-- START: Profile Panel -->
+    <div class="row profile-panel">
+        <!-- START: Sidebar Left -->
+        <aside class="col-md-3 left">
+            {{> profile_menu active="account"}}
+        </aside>
+        <!-- END: Sidebar Left -->
+        <!-- START: Content Right -->
+        <div class="col-md-9 right">
+            <div class="head">
+                <h1>{{_ 'Account Settings'}}</h1>
+            </div>
+            <!-- START: Main Content -->
+            <div class="content">
+                <!-- START: Account -->
+                <div class="account">
+                    <div class="row">
+                        {{#if item.profile_company}}
+                        <div class="col-md-3">
+                            <div class="image">
+                                {{#if item.profile_image}}
+                                <img
+                                    alt="{{_ 'Profile Image'}}"
+                                    src="{{item.profile_image}}"
+                                    onerror="this.src='/images/default-avatar.png';"
+                                />
+                                {{else}}
+                                <img
+                                    alt="{{_ 'Profile Image'}}"
+                                    src="{{default_avatar item.profile_id}}"
+                                />
+                                {{/if}}
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="company">
+                                <h2>{{item.profile_company}}</h2>
+                                <div class="description">
+                                    {{{item.profile_detail}}}
+                                </div>
+                            </div>
+                        </div>
+                        {{else}}
+                        <div class="col-md-12 text-center">
+                            <div class="image">
+                                {{#if item.profile_image}}
+                                    <img
+                                        alt="{{_ 'Profile Image'}}"
+                                        src="{{item.profile_image}}"
+                                    />
+                                {{else}}
+                                    <img
+                                        src="{{default_avatar item.profile_id}}"
+                                        alt="{{_ 'Profile Image'}}"
+                                    />
+                                {{/if}}
+                            </div>
+                        </div>
+                        {{/if}}
+                    </div>
+                </div>
+                <!-- END: Account -->
+                <!-- START: Information -->
+                <div class="info">
+                    <!-- START: Information Head -->
+                    <div class="head">
+                        {{_ 'Contact Information'}}
+                        <a
+                            href="/profile/account/information"
+                            title="{{_ 'Contact Information Update'}}"
+                        />
+                            <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <!-- END: Information Head -->
+                    <div class="clearfix">
+                        <div class="row">
+                            <div class="col-md-6 text-right">
+                                <div>{{_ 'Name'}}</div>
+                            </div>
+                            <div class="col-md-6 text-left">
+                                <div>&nbsp;{{item.profile_name}}</div>
+                            </div>
+                        </div>
+                        {{#if item.profile_company}}
+                            <div class="row">
+                                <div class="col-md-6 text-right">
+                                    <div>{{_ 'Company Name'}}</div>
+                                </div>
+                                <div class="col-md-6 text-left">
+                                    <div class="profile_email">
+                                        &nbsp;{{item.profile_company}}
+                                    </div>
+                                </div>
+                            </div>
+                        {{/if}}
+                        {{#if item.profile_website}}
+                            <div class="row">
+                                <div class="col-md-6 text-right">
+                                    <div>{{_ 'Company Website'}}</div>
+                                </div>
+                                <div class="col-md-6 text-left">
+                                    <div>&nbsp;{{item.profile_website}}</div>
+                                </div>
+                            </div>
+                        {{/if}}
+                        {{#if item.profile_email}}
+                            <div class="row">
+                                <div class="col-md-6 text-right">
+                                    <div>{{_ 'Email Address'}}</div>
+                                </div>
+                                <div class="col-md-6 text-left">
+                                    <div>&nbsp;{{item.profile_email}}</div>
+                                </div>
+                            </div>
+                        {{/if}}
+                        {{#if item.profile_phone}}
+                            <div class="row">
+                                <div class="col-md-6 text-right">
+                                    <div>{{_ 'Contact Number'}}</div>
+                                </div>
+                                <div class="col-md-6 text-left">
+                                        <div>&nbsp;{{item.profile_phone}}</div>
+                                </div>
+                            </div>
+                        {{/if}}
+                    </div>
+                </div>
+                <!-- END: Information -->
+                <!-- START: Password -->
+                <div class="password">
+                    <div class="head">
+                        {{_ 'Password'}}
+                        <a
+                            href="/profile/account/password"
+                            title="Password Update"
+                        >
+                            <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="clearfix">
+                        <div class="col-md-6 text-right">
+                            <div>{{_ 'Password'}}</div>
+                        </div>
+                        <div class="col-md-6 text-left">
+                            <div>*********</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Password -->
+            </div>
+            <!-- END: Main Content -->
+        </div>
+        <!-- END: Content Right -->
+    </div>
+    <!-- END: Profile Panel -->
+</div>

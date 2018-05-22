@@ -1,0 +1,27 @@
+{
+  "name": "flagstrap",
+  "homepage": "http://www.blazeworx.com/flagstrap",
+  "authors": [
+    "Alex Carter <alex@blazeworx.com>"
+  ],
+  "description": "A lightwieght jQuery plugin for creating Bootstrap 3 compatible country select boxes with flags.",
+  "main": "src/jquery.flagstrap.js",
+  "keywords": [
+    "jquery",
+    "bootstrap",
+    "country",
+    "flag",
+    "flagstrap",
+    "jquery-flagstrap"
+  ],
+  "license": "MIT",
+  "_release": "e2f02223b6",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "e2f02223b68063502044635e378e9d1cee649464"
+  },
+  "_source": "https://github.com/blazeworx/flagstrap.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/blazeworx/flagstrap.git"
+}

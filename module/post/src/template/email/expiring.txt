@@ -1,0 +1,7 @@
+Hello {{post.post_name}},
+
+Your {{post.post_position}} post on Jobayan is expiring on {{date post.post_expires 'F j, Y'}}.
+If you wish to make a copy of this post, please go to this link:
+{{link}}
+
+ - The Jobayan Team

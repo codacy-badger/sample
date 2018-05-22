@@ -1,0 +1,59 @@
+<!-- START: Blog Search Body -->
+<div class="blog-category-search-body" >
+    <!-- START: Blog Wrapper -->
+    <div class="wrapper">
+        <!-- START: Blog Breacrumbs-->
+        <div class="container">
+            <div class="row-fluid header">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/Articles">Blog</a></li>
+                    <li class="breadcrumb-item active">Category</li>
+                </ol>
+            </div>
+        </div>
+        <!-- END: Blog Breacrumbs-->
+        <!-- START: Container-->
+        <div class="container">
+            <!-- START: Row-->
+                <!-- START: Content-->
+                <div class="col-md-12 content">
+                    {{#if keywords}}
+                        <!-- START: Each Blog-->
+                        {{#each keywords}}
+                            <div class="col-sm-3">
+                                <!-- START: Blog Image-->
+                                <div class="blog-image-container">
+                                    <a href="/Article/{{blog_slug}}">
+                                        <img class="img-responsive" src="{{blog_image}}">
+                                    </a>
+                                </div>
+                                <!-- END: Blog Image-->
+                                <!-- START: Blog Content-->
+                                <div class=" blog-content">
+                                    <!-- START: Blog Title-->
+                                    <h3 class="blog-title">
+                                        <a href="/Article/{{blog_slug}}">
+                                            {{blog_title}}
+                                        </a>
+                                    </h3>
+                                    <!-- END: Blog Title-->
+                                </div>
+                                <!-- END: Blog Content-->
+                              </div>
+                          {{/each}}
+                        <!-- END: Each Blog-->
+                    {{else}}
+                        <!-- START: NO RESULTS -->
+                        <div class="well no-results">Generating something awesome soon!</div>
+                        <!-- END: NO RESULTS -->
+                    {{/if}}
+                </div>
+                <!-- END: Content-->
+            <!-- END: Row-->
+        </div>
+        <!-- END: Container-->
+    </div>
+    <!-- END: Wrapper -->
+</div>
+<!-- END: Blog Search Body -->

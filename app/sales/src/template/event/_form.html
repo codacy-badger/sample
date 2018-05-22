@@ -1,0 +1,207 @@
+<form
+    method="post"
+    {{#if action}}
+        action="{{action}}"
+    {{/if}}
+>
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <!-- START: Name -->
+            <div class="form-group{{#if errors.event_title}} has-error{{/if}}">
+                <label>{{_ 'Name'}}</label>
+                <div class="texts-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-flag-o"></i>
+                        </div>
+                        <input
+                            type="text"
+                            name="event_title"
+                            class="form-control"
+                            placeholder="{{_ 'Event Title'}}"
+                            value="{{item.event_title}}"
+                        />
+                    </div>
+                </div>
+
+                {{#if errors.event_title}}
+                    <span class="help-text">{{errors.event_title}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Name -->
+            <!-- START: Type -->
+            <div class="form-group{{#if errors.event_type}} has-error{{/if}}">
+                <label>{{_ 'Type'}}</label>
+                <div class="select-field">
+                    <select name="event_type" class="form-control">
+                        <option
+                            value="meeting"
+                            {{#when item.profile_gender '===' 'meeting'}}
+                                selected
+                            {{/when}}
+                        >
+                            {{_ 'Meeting'}}
+                        </option>
+                        <option
+                            value="demo"
+                            {{#when item.profile_gender '===' 'demo'}}
+                                selected
+                            {{/when}}
+                        >
+                            {{_ 'Demo/Presentation'}}
+                        </option>
+                        <option
+                            value="others"
+                            {{#when item.profile_gender '===' 'others'}}
+                                selected
+                            {{/when}}
+                        >
+                            {{_ 'Others'}}
+                        </option>
+                    </select>
+                </div>
+
+                {{#if errors.profile_gender}}
+                <span class="help-text">{{errors.profile_gender}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Type -->
+            <!-- START: Location -->
+            <div class="form-group{{#if errors.event_location}} has-error{{/if}}">
+                <label>{{_ 'Location'}}</label>
+                <div class="texts-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-map-marker"></i>
+                        </div>
+                        <input
+                            type="text"
+                            name="event_location"
+                            class="form-control"
+                            placeholder="{{_ 'Event Location'}}"
+                            value="{{item.event_location}}"
+                        />
+                    </div>
+                </div>
+
+                {{#if errors.event_location}}
+                    <span class="help-text">{{errors.event_location}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Location -->
+            <!-- START: Start Datetime -->
+            <div class="form-group{{#if errors.event_start}} has-error{{/if}}">
+                <label>{{_ 'Start Datetime'}}</label>
+                <div class="texts-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input
+                            type="text"
+                            name="event_start"
+                            class="form-control datetimepicker"
+                            placeholder="{{_ 'Start schedule'}}"
+                            value="{{date item.event_start 'm/d/Y h:i a'}}"
+                        />
+                    </div>
+                </div>
+
+                {{#if errors.event_start}}
+                    <span class="help-text">{{errors.event_start}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Start Datetime -->
+            <!-- START: End Datetime -->
+            <div class="form-group{{#if errors.event_end}} has-error{{/if}}">
+                <label>{{_ 'End Datetime'}}</label>
+                <div class="texts-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input
+                            type="text"
+                            name="event_end"
+                            class="form-control datetimepicker"
+                            placeholder="{{_ 'End schedule'}}"
+                            value="{{date item.event_end 'm/d/Y h:i a'}}"
+                        />
+                    </div>
+                </div>
+
+                {{#if errors.event_end}}
+                    <span class="help-text">{{errors.event_end}}</span>
+                {{/if}}
+            </div>
+            <!-- END: End Datetime -->
+            <!-- START: Details -->
+            <div class="form-group{{#if errors.event_details}} has-error{{/if}}">
+                <label>{{_ 'Details'}}</label>
+                <div class="texts-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-file-text-o"></i>
+                        </div>
+                        <textarea
+                            type="text"
+                            name="event_details"
+                            class="form-control"
+                            placeholder="{{_ 'Event Details'}}"
+                            value="{{item.event_details}}"
+                        >{{{item.event_details}}}</textarea>
+                    </div>
+                </div>
+
+                {{#if errors.event_details}}
+                    <span class="help-text">{{errors.event_details}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Details -->
+            {{#session 'app_session'}}
+                {{#when results.profile_type '!=' 'agent'}}
+                    <!-- START: Agent -->
+                    <div class="form-group{{#if errors.deal_agent}} has-error{{/if}}">
+                        <label>{{_ 'Agent'}}</label>
+                        <div class="texts-field">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-user-secret" aria-hidden="true"></i>
+                                </div>
+                                <input
+                                    autocomplete="off"
+                                    class="form-control select-keyup"
+                                    data-do="select-agent"
+                                    data-on="keyup"
+                                    data-field="profile_id"
+                                    id="select-agent"
+                                    name="profile_name"
+                                    placeholder="{{_ 'Agent (optional)'}}"
+                                    type="text"
+                                    value="{{../item.profile_name}}"
+                                />
+                                <input
+                                    name="profile_id"
+                                    type="hidden"
+                                    value="{{../item.profile_id}}"
+                                />
+                            </div>
+                            <ul class="auto-suggest"></ul>
+                        </div>
+
+                        {{#if errors.deal_agent}}
+                            <span class="help-text">{{errors.deal_agent}}</span>
+                        {{/if}}
+                    </div>
+                    <!-- END: Agent -->
+                {{/when}}
+            {{/session}}
+
+            <div class="form-group">
+                <button class="btn btn-primary">{{_ 'Submit'}}</button>
+            </div>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+</form>

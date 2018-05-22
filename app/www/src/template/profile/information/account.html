@@ -1,0 +1,671 @@
+<div class="container">
+    {{> profile_alert}}
+    <!-- START: Profile Panel -->
+    <div class="row profile-panel">
+        <!-- START: Sidebar Left -->
+        <aside class="col-md-3 left">
+            {{> profile_menu active="information"}}
+        </aside>
+        <!-- END: Sidebar Left -->
+        <!-- START: Content Right -->
+        <div class="col-md-9 right">
+            <div class="head">
+                <h1>{{_ 'My Profile'}}</h1>
+            </div>
+            <!-- START: Main Content -->
+            <div class="content">
+                <!-- START: Content Head -->
+                <div class="head">
+                    <div class="top"></div>
+                    <!-- START: Content Detail -->
+                    <div class="detail">
+                        {{#if information.information_heading}}
+                            <div class="image">
+                                {{#if information.profile_image}}
+                                    <img
+                                        alt="{{_ 'Profile Image'}}"
+                                        src="{{information.profile_image}}"
+                                    />
+                                {{else}}
+                                    <img
+                                        alt="{{_ 'Profile Image'}}"
+                                        src="{{default_avatar profile_id}}"
+                                    />
+                                {{/if}}
+                            </div>
+                            <div class="name">
+                                {{information.profile_name}}
+                            </div>
+                            <div class="position">
+                                {{information.information_heading}}
+                            </div>
+                            {{#if information.information_education}}
+                                <div class="education">
+                                    {{#education information.information_education}}
+                                        <div>{{education_school}}</div>
+                                    {{/education}}
+                                </div>
+                            {{/if}}
+                            <div class="address">
+                                {{information.profile_address_city}},
+                                {{information.profile_address_state}}
+                            </div>
+                            <div class="phone">
+                                {{information_phone}}
+                            </div>
+                        {{else}}
+                            {{#session 'me'}}
+                                <div class="image">
+                                    {{#if profile_image}}
+                                        <img
+                                            alt="{{_ 'Profile Image'}}"
+                                            src="{{profile_image}}"
+                                        />
+                                    {{else}}
+                                        <img
+                                            alt="{{_ 'Profile Image'}}"
+                                            src="{{default_avatar profile_id}}"
+                                        />
+                                    {{/if}}
+                                </div>
+                                <div class="name">
+                                    {{profile_name}}
+                                </div>
+                            {{/session}}
+                            <a
+                                class="update-status"
+                                data-target="#information-modal"
+                                data-toggle="modal"
+                                href="javascript:void(0)"
+                                title="{{_ 'Update your status'}}"
+                            >
+                                {{_ 'Update your status'}}
+                            </a>
+                        {{/if}}
+                        <a
+                            class="update-information"
+                            data-target="#information-modal"
+                            data-toggle="modal"
+                            href="javascript:void(0)"
+                            title="{{_ 'Update information'}}"
+                        >
+                            <i class="fa fa-pencil fa-fw" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <!-- END: Content Detail -->
+                </div>
+                <!-- END: Content Head -->
+                <!-- START: Completeness -->
+                <div class="completeness">
+                    <div class="completeness-head">
+                        <h2>{{_ 'Profile Completeness'}}</h2>
+                        <div class="completeness-status">
+                            {{#if information}}
+                                {{information.information_progress}}%
+                            {{else}}
+                                0%
+                            {{/if}}
+                            Complete
+                        </div>
+                    </div>
+                    <div class="progress-wrapper">
+                        <ul class="progress-custom">
+                            <li data-step="1" class="
+                                {{~#unless information~}}
+                                    is-active
+                                {{~else~}}
+                                    {{~#when information.information_progress '==' '0'~}}
+                                        is-active
+                                    {{~/when~}}
+                                    {{~#when information.information_progress '>' '0'~}}
+                                        is-complete
+                                    {{~/when~}}
+                                {{~/unless~}}
+                            ">
+                            </li>
+                            <li data-step="2" class="
+                                {{~#when information.information_progress '==' '20'~}}
+                                    is-active
+                                {{~/when~}}
+                                {{~#when information.information_progress '>' '20'~}}
+                                    is-complete
+                                {{~/when~}}
+                            ">
+                            </li>
+                            <li data-step="3" class="
+                                {{~#when information.information_progress '==' '40'~}}
+                                    is-active
+                                {{~/when~}}
+                                {{~#when information.information_progress '>' '40'~}}
+                                    is-complete
+                                {{~/when~}}
+                            ">
+                            </li>
+                            <li data-step="4" class="
+                                {{~#when information.information_progress '==' '60'~}}
+                                    is-active
+                                {{~/when~}}
+                                {{~#when information.information_progress '>' '60'~}}
+                                    is-complete
+                                {{~/when~}}
+                            ">
+                            </li>
+                            <li data-step="5" class="
+                                {{~#when information.information_progress '==' '80'~}}
+                                    is-active
+                                {{~/when~}}
+                                {{~#when information.information_progress '>' '80'~}}
+                                    is-complete
+                                {{~/when~}}
+                            ">
+                            </li>
+                            <li data-step="6" class="
+                                {{~#when information.information_progress '==' '100'~}}
+                                    is-active
+                                {{~/when}}
+                                progress-last
+                            ">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- END: Completeness -->
+                <!-- START: Experience -->
+                <div class="experience">
+                    <!-- START: Experience Head -->
+                    <div class="experience-head">
+                        <h2>{{_ 'Work Experience'}}</h2>
+                        <a
+                            data-do="information-create"
+                            data-modal="#experience-modal"
+                            data-on="click"
+                            data-title="{{_ 'Add Work Experience'}}"
+                            href="javascript:void(0)"
+                            title="{{_ 'Add Experience'}}"
+                        >
+                            <i class="fa fa-plus fa-fw"></i>
+                        </a>
+                    </div>
+                    <!-- END: Experience Head -->
+                    <div class="experience-wrapper">
+                        <!-- START: Experience List -->
+                        {{#if information.information_experience}}
+                            {{#each information.information_experience}}
+                                <div class="experience-list">
+                                    <div class="left">
+                                        {{~#if experience_from~}}
+                                            {{~date experience_from 'F Y'}} -
+                                        {{/if}}
+                                        {{date_information experience_to}}
+                                    </div>
+                                    <div class="right">
+                                        <div class="position">
+                                            {{experience_title}}
+                                        </div>
+                                        <div class="company">
+                                            {{experience_company}}
+                                        </div>
+                                        <div class="industry">
+                                            {{experience_industry}}
+                                        </div>
+                                        <div class="related">
+                                            {{_ 'Related to college degree'}}:
+                                            {{capital experience_related}}
+                                        </div>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button
+                                            aria-expanded="false"
+                                            aria-haspopup="true"
+                                            class="btn btn-default dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            type="button"
+                                        >
+                                            <i class="fa fa-cog fa-fw"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right">
+                                            <li>Settings</li>
+                                            <li>
+                                                <a
+                                                    class="experience-edit"
+                                                    data-detail="/ajax/experience/detail/{{experience_id}}"
+                                                    data-do="information-edit"
+                                                    data-modal="#experience-modal"
+                                                    data-on="click"
+                                                    data-title="{{_ 'Edit Work Experience'}}"
+                                                    data-update="/ajax/experience/update/{{experience_id}}"
+                                                    href="javascript:void(0)"
+                                                    title="{{_ 'Edit'}}"
+                                                >
+                                                    {{_ 'Edit'}}
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    class="experience-delete"
+                                                    data-action="/ajax/experience/remove/{{experience_id}}"
+                                                    data-do="information-confirm"
+                                                    data-id="{{experience_id}}"
+                                                    data-modal="#information-confirm-modal"
+                                                    data-on="click"
+                                                    data-title="{{_ 'Remove Experience'}}?"
+                                                    href="javascript:void(0)"
+                                                    title="{{_ 'Delete'}}"
+                                                >
+                                                    {{_ 'Delete'}}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            {{/each}}
+                        {{/if}}
+                        <!-- END: Experience List -->
+                        <!-- START: Add Experience -->
+                        <div class="add-experience">
+                            <a
+                                data-do="information-create"
+                                data-modal="#experience-modal"
+                                data-on="click"
+                                data-title="{{_ 'Add Work Experience'}}"
+                                href="javascript:void(0)"
+                                title="{{_ 'Add Experience'}}"
+                            >
+                                <i class="fa fa-plus fa-fw"></i>
+                                {{_ 'Add Experience'}}
+                            </a>
+                        </div>
+                        <!-- END: Add Experience -->
+                    </div>
+                </div>
+                <!-- END: Experience -->
+                <!-- START: Education -->
+                <div class="education">
+                    <!-- START: Education Head -->
+                    <div class="education-head">
+                        <h2>{{_ 'Education'}}</h2>
+                        <a
+                            data-do="information-create"
+                            data-modal="#education-modal"
+                            data-on="click"
+                            data-title="{{_ 'Add Education'}}"
+                            href="javascript:void(0)"
+                            title="{{_ 'Add Education'}}"
+                        >
+                            <i class="fa fa-plus fa-fw"></i>
+                        </a>
+                    </div>
+                    <!-- END: Education Head -->
+                    <div class="education-wrapper">
+                        <!-- START: Education List -->
+                        {{#if information.information_education}}
+                            {{#each information.information_education}}
+                                <div class="education-list">
+                                    <div class="left">
+                                        {{~#if education_from~}}
+                                            {{~date education_from 'F Y'}} -
+                                        {{/if}}
+                                        {{date_information education_to}}
+                                    </div>
+                                    <div class="right">
+                                        <div class="school">
+                                            {{education_school}}
+                                        </div>
+                                        <div class="degree">
+                                            {{education_degree}}
+                                        </div>
+                                        <div class="activity">
+                                            {{education_activity}}
+                                        </div>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button
+                                            aria-expanded="false"
+                                            aria-haspopup="true"
+                                            class="btn btn-default dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            type="button"
+                                        >
+                                            <i class="fa fa-cog fa-fw"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right">
+                                            <li>Settings</li>
+                                            <li>
+                                                <a
+                                                    class="education-edit"
+                                                    data-detail="/ajax/education/detail/{{education_id}}"
+                                                    data-do="information-edit"
+                                                    data-modal="#education-modal"
+                                                    data-on="click"
+                                                    data-title="{{_ 'Edit Education'}}"
+                                                    data-update="/ajax/education/update/{{education_id}}"
+                                                    href="javascript:void(0)"
+                                                    title="{{_ 'Edit'}}"
+                                                >
+                                                    {{_ 'Edit'}}
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    class="education-delete"
+                                                    data-action="/ajax/education/remove/{{education_id}}"
+                                                    data-do="information-confirm"
+                                                    data-id="{{education_id}}"
+                                                    data-modal="#information-confirm-modal"
+                                                    data-on="click"
+                                                    data-title="{{_ 'Remove Education'}}?"
+                                                    href="javascript:void(0)"
+                                                    title="{{_ 'Delete'}}"
+                                                >
+                                                    {{_ 'Delete'}}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            {{/each}}
+                        {{/if}}
+                        <!-- END: Education List -->
+                        <!-- START: Add Education -->
+                        <div class="add-education">
+                            <a
+                                data-do="information-create"
+                                data-modal="#education-modal"
+                                data-on="click"
+                                data-title="{{_ 'Add Education'}}"
+                                href="javascript:void(0)"
+                                title="{{_ 'Add Education'}}"
+                            >
+                                <i class="fa fa-plus fa-fw"></i>
+                                {{_ 'Add Education'}}
+                            </a>
+                        </div>
+                        <!-- END: Add Education -->
+                    </div>
+                </div>
+                <!-- END: Education -->
+                <!-- START: Skills and Accomplishment -->
+                <div class="skills-accomplishment">
+                    <!-- START: Accomplishment Head -->
+                    <div class="accomplishment-head">
+                        <h2>{{_ 'Skills and Accomplishments'}}</h2>
+                        <a
+                            data-do="information-create"
+                            data-modal="#accomplishment-modal"
+                            data-on="click"
+                            data-title="{{_ 'Add Accomplishment'}}"
+                            href="javascript:void(0)"
+                            title="{{_ 'Add Accomplishment'}}"
+                        >
+                            <i class="fa fa-plus fa-fw"></i>
+                        </a>
+                    </div>
+                    <!-- END: Accomplishment Head -->
+                    <!-- START: Accomplishment -->
+                    <div class="accomplishment">
+                        <!-- START: Accomplishment List -->
+                        {{#if information.information_accomplishment}}
+                            {{#each information.information_accomplishment}}
+                                <div class="accomplishment-list">
+                                    <div class="left">
+                                        {{~#if accomplishment_from~}}
+                                            {{~date accomplishment_from 'F Y'}} -
+                                        {{/if}}
+                                        {{#if accomplishment_to~}}
+                                            {{~date accomplishment_to 'F Y'}}
+                                        {{~/if~}}
+                                    </div>
+                                    <div class="right">
+                                        <div class="event">
+                                            {{accomplishment_name}}
+                                        </div>
+                                        <div class="description">
+                                            {{accomplishment_description}}
+                                        </div>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button
+                                            aria-expanded="false"
+                                            aria-haspopup="true"
+                                            class="btn btn-default dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            type="button"
+                                        >
+                                            <i class="fa fa-cog fa-fw"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right">
+                                            <li>Settings</li>
+                                            <li>
+                                                <a
+                                                    class="accomplishment-edit"
+                                                    data-detail="/ajax/accomplishment/detail/{{accomplishment_id}}"
+                                                    data-do="information-edit"
+                                                    data-modal="#accomplishment-modal"
+                                                    data-on="click"
+                                                    data-title="{{_ 'Edit Accomplishment'}}"
+                                                    data-update="/ajax/accomplishment/update/{{accomplishment_id}}"
+                                                    href="javascript:void(0)"
+                                                    title="{{_ 'Edit'}}"
+                                                >
+                                                    {{_ 'Edit'}}
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a
+                                                    class="accomplishment-delete"
+                                                    data-action="/ajax/accomplishment/remove/{{accomplishment_id}}"
+                                                    data-do="information-confirm"
+                                                    data-id="{{accomplishment_id}}"
+                                                    data-modal="#information-confirm-modal"
+                                                    data-on="click"
+                                                    data-title="{{_ 'Remove Accomplishment'}}?"
+                                                    href="javascript:void(0)"
+                                                    title="{{_ 'Delete'}}"
+                                                >
+                                                    {{_ 'Delete'}}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            {{/each}}
+                        {{/if}}
+                        <!-- END: Accomplishment List -->
+                        <!-- START: Add Accomplishment -->
+                        <div class="add-accomplishment">
+                            <a
+                                data-do="information-create"
+                                data-modal="#accomplishment-modal"
+                                data-on="click"
+                                data-title="{{_ 'Add Accomplishment'}}"
+                                href="javascript:void(0)"
+                                title="{{_ 'Add Accomplishment'}}"
+                            >
+                                <i class="fa fa-plus fa-fw"></i>
+                                {{_ 'Add Accomplishment'}}
+                            </a>
+                        </div>
+                        <!-- END: Add Accomplishment -->
+                        <!-- START: Skills -->
+                        <div class="skills">
+                            <!-- START: Skills Head -->
+                            <div class="skills-head">
+                                <h2>{{_ 'Your Featured Skills'}}</h2>
+                                <a
+                                    data-do="information-create"
+                                    data-modal="#skills-modal"
+                                    data-on="click"
+                                    data-title="{{_ 'Add Skills'}}"
+                                    href="javascript:void(0)"
+                                    title="{{_ 'Add a new skill'}}"
+                                >
+                                    <i class="fa fa-plus fa-fw"></i>
+                                    {{_ 'Add a new skill'}}
+                                </a>
+                            </div>
+                            <!-- END: Skills Head -->
+                            <!-- START: Skills List -->
+                            <div class="skills-list">
+                                {{#if information.information_skills}}
+                                    {{#each information.information_skills}}
+                                        <div>
+                                            {{this}}
+                                            <a
+                                                data-action="/ajax/skills/remove/{{this}}/{{../information.information_id}}"
+                                                data-do="information-confirm"
+                                                data-id="{{../information.information_id}}"
+                                                data-modal="#information-confirm-modal"
+                                                data-on="click"
+                                                data-title="{{_ 'Remove'}} {{this}}?"
+                                                href="javascript:void(0)"
+                                                title="{{_ 'Remove'}} {{this}}"
+                                            >
+                                                <i class="fa fa-times fa-fw"></i>
+                                            </a>
+                                        </div>
+                                    {{/each}}
+                                {{/if}}
+                            </div>
+                            <!-- END: Skills List -->
+                        </div>
+                        <!-- END: Skills -->
+                    </div>
+                    <!-- END: Accomplishment -->
+                </div>
+                <!-- END: Skills and Accomplishment -->
+                <!-- START: Download View -->
+                <div class="download-view">
+                    <a
+                        class="btn btn-primary"
+                        href="/profile/information/resume/download"
+                        target="_blank"
+                        title="{{_ 'Download'}}"
+                        id="download-resume-button"
+                    >
+                        <i class="fa fa-download fa-fw"></i>
+                        {{_ 'Download'}}
+                    </a>
+                    <a
+                        class="btn btn-default"
+                        data-target="#information-view-modal"
+                        data-toggle="modal"
+                        href="javascript:void(0)"
+                        title="{{_ 'View'}}"
+                        id="view-resume-button"
+                    >
+                        <i class="fa fa-eye fa-fw"></i>
+                        {{_ 'View'}}
+                    </a>
+                </div>
+            </div>
+            <!-- END: Main Content -->
+            {{#unless resume}}
+                <!-- START: Content Upload -->
+                <div class="content-upload">
+                    <h2>{{_ 'Create Your Profile Easily'}}!</h2>
+                    <!-- <div class="connect-linkedin">
+                        <p>{{_ 'Already have a profile in LinkedIn'}}?</p>
+                        <a
+                            class="btn btn-default"
+                            href="javascript:void(0)"
+                            title="{{_ 'Connect to LinkedIn'}}"
+                        >
+                            <i class="fa fa-linkedin-square fa-fw"></i>
+                            {{_ 'Connect to LinkedIn'}}
+                        </a>
+                    </div> -->
+                    <div class="upload-resume">
+                        <div class="already-resume">
+                            {{_ 'Already have a complete resume'}}?
+                        </div>
+                        <form
+                            action="/ajax/resume/upload"
+                            data-do="resume-upload"
+                            id="resume-upload"
+                            enctype="multipart/form-data"
+                            method="post"
+                        >
+                            <div class="choose">
+                                <i class="fa fa-cloud-upload"></i>
+                                <input
+                                    accept=".doc, .docx, .pdf"
+                                    class="hide"
+                                    id="resume-file"
+                                    name="profile_resume"
+                                    type="file"
+                                />
+                                <span>
+                                    {{#_ 'Drop your resume or click %s to choose a file'}}
+                                        <label for="resume-file">here</label>
+                                    {{/_}}
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- END: Content Upload -->
+            {{else}}
+                <!-- START: Update Resume -->
+                <div class="update-resume">
+                    <div class="update-resume-row">
+                        <div class="left">
+                            <h2>{{_ 'Your Resume'}}</h2>
+                            <a
+                                href="{{resume.resume_link}}"
+                                target="_blank"
+                                title="{{capital resume.profile_name}}"
+                            >
+                                {{capital resume.profile_name}}
+                            </a>
+                        </div>
+                        <div class="right">
+                            <form
+                                action="/ajax/resume/upload"
+                                data-do="resume-upload"
+                                id="resume-upload"
+                                enctype="multipart/form-data"
+                                method="post"
+                            >
+                                <div class="choose">
+                                    <input
+                                        accept=".doc, .docx, .pdf"
+                                        class="hide"
+                                        id="resume-file"
+                                        name="profile_resume"
+                                        type="file"
+                                    />
+                                    <label
+                                        class="btn btn-info"
+                                        for="resume-file"
+                                    >
+                                        {{_ 'Upload New Resume'}}
+                                    </label>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Update Resume -->
+            {{/unless}}
+        </div>
+        <!-- END: Content Right -->
+    </div>
+    <!-- END: Profile Panel -->
+</div>
+
+{{> profile/information_accomplishment}}
+{{> profile/information_confirm}}
+{{> profile/information_education}}
+{{> profile/information_experience}}
+{{> profile/information_information}}
+{{> profile/information_skills}}
+{{> profile/information_update}}
+{{> profile/information_view}}
+
+{{#unless information}}
+    <script type="text/javascript">
+        $('#information-update-modal').modal('show');
+    </script>
+{{/unless}}
+
+<script type="text/javascript" src="{{config 'cdn'}}/scripts/cropper.js"></script>

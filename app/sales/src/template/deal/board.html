@@ -1,0 +1,180 @@
+<!-- START: Crumbs -->
+<div class="crumbs">
+    <a href="/control/business/dashboard">
+        <i class="fa fa-home"></i> {{_ 'Dashboard'}}</a>
+    <span class="separator">
+        <i class="fa fa-angle-right"></i>
+    </span>
+    <a href="/control/business/pipeline/1/table" class="active">
+        <i class="fa fa-user"></i> {{_ 'Deal'}}</a>
+</div>
+<!-- END: Crumbs -->
+<!-- START: Scroll -->
+<div class="scroll">
+    <h3 class="template-blue">
+        <i class="fa fa-briefcase"></i> {{_ 'Deal'}}
+        <span class="badge badge-info">{{total}}</span>
+    </h3>
+
+    <!-- START: Board Actions -->
+    <div class="search-actions">
+        <div class="pull-right">
+            <a href="/control/business/deal/create" class="btn btn-success">
+                <i class="fa fa-plus"></i> {{_ 'Create Deal'}}
+            </a>
+            <a
+                class="btn btn-export"
+                href="/control/business/deal/search?export=true&
+                {{~querystring}}"
+            >
+                <i class="fa fa-download"></i> {{_ 'Export'}}
+            </a>
+            <button
+                class="btn btn-info"
+                data-toggle="modal"
+                data-target="#import-modal"
+            >
+                <i class="fa fa-upload"></i> {{_ 'Import'}}
+            </button>
+        </div>
+
+        <div class="btn-group" role="group">
+            <a
+                class="btn btn-default"
+                href="/control/business/deal/search"
+            >
+                {{_ 'Table'}}
+            </a>
+            <a
+                href="/control/business/pipeline/{{pipeline_id}}/deal/board"
+                class="btn btn-active active"
+            >
+                {{_ 'Board'}}
+            </a>
+        </div>
+        <div class="btn-group" role="group">
+            <!-- START: Pipeline Dropdown -->
+            <div class="btn-group">
+                <button
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    class="btn btn-default pipeline-dropdown dropdown-toggle"
+                    data-toggle="dropdown"
+                    type="button"
+                >
+                    {{pipeline.pipeline_name}} Board
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    {{#each pipelines}}
+                        <li>
+                            <a
+                                href="/control/business/pipeline/
+                                {{~pipeline_id~}}/deal/board"
+                            >
+                                {{~_ '%s Board' pipeline_name~}}
+                            </a>
+                        </li>
+                    {{/each}}
+                </ul>
+            </div>
+            <!-- END: Pipeline Dropdown -->
+            <!-- START: Pipeline Total -->
+            <div class="pull-left pipeline-total">
+                {{_ 'Total:'}} &#8369; {{number pipeline_total}}
+            </div>
+            <!-- END: Pipeline Total -->
+        </div>
+    </div>
+    <!-- END: Board Actions -->
+    <!-- START: Deal Board -->
+    <div class="clearfix deal-board">
+        {{#each pipeline.pipeline_stages}}
+            <div class="column">
+                <div class="stage-label">
+                    <div class="stage">
+                        {{@key}}
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress">
+                            <div
+                                class="progress-bar progress-bar-info"
+                                role="progressbar"
+                                aria-valuenow="{{compute_percent @index ../total_stage}}"
+                                aria-valuemin="0"
+                                aria-valuemax="100"
+                                style="width: {{compute_percent @index ../total_stage}}%"
+                            >
+                                <span class="sr-only">
+                                    {{compute_percent @index ../total_stage}}%
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ul
+                    class="sortable connectedSortable ui-sortable"
+                    id="{{@key}}"
+                >
+                    {{#each deals}}
+                        <li class="card" id="{{deal_id}}">
+                            <div class="card-name">
+                                <a
+                                    href="/control/business/deal/detail/{{deal_id}}"
+                                >
+                                    <span class="price">
+                                        &#8369; {{number deal_amount}}
+                                    </span>
+                                    <span class="name">{{deal_name}}</span>
+                                </a>
+                            </div>
+                            <div>
+                                <i
+                                    class="fa fa-calendar-times-o"
+                                    aria-hidden="true"
+                                >
+                                </i> {{date deal_close 'F j'}}
+                            </div>
+                        </li>
+                    {{/each}}
+                </ul>
+                <div class="column-total">
+                    <strong>{{_ 'Total'}}:</strong> &#8369; {{number total}}
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>
+<!-- END: Scroll -->
+<script src="/scripts/jquery-ui.js"></script>
+<script>
+    $(function() {
+        $( ".sortable" ).sortable({
+            connectWith: ".connectedSortable",
+            receive: function(event, target) {
+                // upon receive task
+                var deal_id = $(target.item).attr('id');
+                var deal_name = $(target.item)
+                    .find('.card-name span.name')
+                    .text();
+                var from = $(target.sender).attr('id');
+                var to = $(this).attr('id');
+
+                var history = '<strong>' + deal_name +
+                    '</strong> was moved from <strong>' + from +
+                    '</strong> to <strong>' + to + '</strong>.';
+                console.log(history);
+                $.post('/ajax/sales/deal/update/status', {
+                    'deal_id': deal_id,
+                    'deal_status': to,
+                    'history': history
+                }, function (response) {
+                    if (response.error) {
+                        $(this).find('#'+deal_id).remove();
+                        $(target.sender).append($(target.item));
+                    }
+                });
+            }
+        }).disableSelection();
+    });
+</script>

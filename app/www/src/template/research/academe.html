@@ -1,0 +1,750 @@
+<div class="clearfix research-academe-container">
+    <!-- START: Know your Worth -->
+    <div class="know-your-worth">
+        <div class="know-your-worth-wrapper">
+            <!-- START: Buttons -->
+            <div class="research-type text-center" data-do="research-form">
+                <h1>Know your Worth</h1>
+                <!-- START: research banner search -->
+                <div class="research-banner-text">
+                    <h4>
+                        Explore in-depth data to help your career research. Gain insights and
+                        <br />
+                        statics like average salaries from job titles from different
+                        <br />
+                        different industries, relationship of job location and salary, job seeker
+                        <br />
+                        statics compared to their academe, and more.
+                        <br />
+                        start a search below and discover the data you need for your career
+                        <br />
+                        research.
+                    </h4>
+                </div>
+                <!-- END: research banner search -->
+            </div>
+            <!-- END: Buttons -->
+            <!-- START: Search banner -->
+            <div class="research-banner">
+                <img alt="Research banner" src="/images/research/research-banner.png">
+            </div>
+            <!-- END: Search banner -->
+        </div>
+    </div>
+    <!-- END: Know your Worth -->
+    <!-- START: Tabs  -->
+   <div class="search-tabs tabs">
+       <div class="tabs-wrapper">
+           <div class="jobs-tab tab-item">
+               <a href="/research" class="research-tabs">
+                   Search Job Salaries
+               </a>
+           </div>
+           <div class="location-tab tab-item">
+               <a href="/research/location" class="research-tabs">
+                   Search Location
+               </a>
+           </div>
+           <div class="academe-tab tab-item">
+               <a href="javascript:void(0)" class="active research-tabs">
+                   Search Academe
+               </a>
+           </div>
+       </div>
+   </div>
+   <!-- END: Tabs -->
+    <!-- START: academe main body -->
+    <div class="academe-main-body">
+        <!-- START: academe Container -->
+        <div class="academe-container">
+            <!-- START: Breadcrumbs-->
+            <a class="breadcrumbs" href="/research">&lt; Back</a>
+            <!-- END: Breadcrumbs-->
+            <!-- START: Research Search-->
+            <div class="academe-body">
+                <div class="academe-header col-md-12">
+                    <!-- START: academe title -->
+                    <h1 class="academe-title">Tracer Study</h1>
+                    <!-- END: academe title -->
+                    <!-- START: academe form post -->
+                    {{#session 'me'}}
+                        {{#in 'tracer-study' profile_package}}
+                        <div class="academe-school-year col-md-8">
+                            <form class="tracer-study-form">
+                                <!-- START: School -->
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                        <input
+                                            autocomplete="off"
+                                            class="form-control"
+                                            data-do="suggestion-field"
+                                            data-type="school"
+                                            name="school"
+                                            placeholder="{{_ 'School'}}"
+                                            type="text"
+                                            value="{{../school}}"
+                                        />
+                                        <span class="help-text"></span>
+                                    </div>
+                                </div>
+                                <!-- END: School -->
+                                <!-- START: academe year dropdown -->
+                                <div class="col-md-3">
+                                    <div class="academe-year form-group">
+                                        <select
+                                            class="form-control"
+                                            name="year"
+                                        >
+                                           <option {{#when ../year '==' '2018'}}selected{{/when}} value="2018">2018</option>
+                                            <option  {{#when ../year '==' '2017'}}selected{{/when}} value="2017">2017</option>
+                                            <option  {{#when ../year '==' '2016'}}selected{{/when}} value="2016">2016</option>
+                                            <option  {{#when ../year '==' '2015'}}selected{{/when}} value="2015">2015</option>
+                                            <option  {{#when ../year '==' '2014'}}selected{{/when}} value="2014">2014</option>
+                                            <option  {{#when ../year '==' '2013'}}selected{{/when}} value="2013">2013</option>
+                                            <option  {{#when ../year '==' '2012'}}selected{{/when}} value="2012">2012</option>
+                                            <option  {{#when ../year '==' '2011'}}selected{{/when}} value="2011">2011</option>
+                                            <option  {{#when ../year '==' '2010'}}selected{{/when}} value="2010">2010</option>
+                                            <option  {{#when ../year '==' '2009'}}selected{{/when}} value="2009">2009</option>
+
+                                        </select>
+                                        <span class="help-text"></span>
+                                    </div>
+                                </div>
+                                <!-- END: academe year dropdown -->
+                                <div class="col-sm-2">
+                                    <button class="btn btn-default">
+                                        Search
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- END: academe form post -->
+                        <!-- START: academe University -->
+                        <div class="academe-school col-md-12">
+                            <h2>{{../school}}</h2>
+                            <a class="tracer-download-button" href="/research/academe?{{toquery 'export' 'true'}}">
+                                <i class="fa fa-download" aria-hidden="true"></i>
+                                Download CSV
+                            </a>
+                        </div>
+                        {{/in}}
+                    {{/session}}
+                    <!-- END: academe University -->
+                </div>
+                <!-- START: academe year graduate -->
+                <div class="academe-year-graduate">
+                    <!-- START: Chart heading -->
+                    <div class="chart-heading">
+                        <div class="col-md-12">
+                            <h3>What percent of {{year}} graduates are employed?</h3>
+                        </div>
+                        <hr />
+                    </div>
+                    <!-- END: Chart heading -->
+                    <!-- START: Chart container -->
+                    <div class="charts-container">
+                        <div class="col-md-6 donut">
+                            <div id="donut-1" ></div>
+                        </div>
+                        <div class="col-md-6 chart">
+                            <div id="column-1"></div>
+                        </div>
+                    </div>
+                    <!-- END: Chart container -->
+                    {{#session 'me'}}
+                        {{#in 'tracer-study' profile_package}}
+                        {{else}}
+                            {{#when profile_company '!=' ''}}
+                            <!-- START: View More Button -->
+                            <div class="view-more">
+                                <a href="javascript:void(0);" data-do="enable-tracer" data-on="click">
+                                    <div class="btn btn-default view-more"
+                                         data-do="tooltip"
+                                         data-placement="top"
+                                         title="Get access to filtered data per school or year and have the ability to download the data for only 200 credits."
+                                    >
+                                        <div>View More</div>
+                                        <div>(200 credits)</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- END: View More Button -->
+                            {{/when}}
+                        {{/in}}
+                    {{else}}
+                    <!-- START: View More Button -->
+                        <div class="view-more">
+                            <a href="/login?redirect_uri={{server 'REQUEST_URI'}}" data-do="enable-tracer" data-on="click">
+                                <div class="btn btn-default view-more"
+                                     data-do="tooltip"
+                                     data-placement="top"
+                                     title="Get access to filtered data per school or year and have the ability to download the data for only 200 credits."
+                                >
+                                    <div>View More</div>
+                                    <div>(200 credits)</div>
+                                </div>
+                            </a>
+                        </div>
+                    <!-- END: View More Button -->
+                    {{/session}}
+                </div>
+                <!-- END: academe year graduate -->
+                <!-- START: academe status graduate -->
+                <div class="academe-status-graduate">
+                    <!-- START: Chart heading -->
+                    <div class="chart-heading">
+                        <div class="col-md-12">
+                            <h3>Civil Status of {{year}} Graduates</h3>
+                        </div>
+                        <hr />
+                    </div>
+                    <!-- END: Chart heading -->
+                    <!-- START: Chart container -->
+                    <div class="charts-container">
+                        <div class="col-md-6 donut">
+                            <div id="donut-2" ></div>
+                        </div>
+                        <div class="col-md-6 chart">
+                            <div id="column-2"></div>
+                        </div>
+                     </div>
+                    <!-- START: Chart container -->
+                    {{#session 'me'}}
+                        {{#in 'tracer-study' profile_package}}
+                        {{else}}
+                            {{#when profile_company '!=' ''}}
+                            <!-- START: View More Button -->
+                            <div class="view-more">
+                                <a href="javascript:void(0);" data-do="enable-tracer" data-on="click">
+                                    <div class="btn btn-default view-more"
+                                         data-do="tooltip"
+                                         data-placement="top"
+                                         title="Get access to filtered data per school or year and have the ability to download the data for only 200 credits."
+                                    >
+                                        <div>View More</div>
+                                        <div>(200 credits)</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- END: View More Button -->
+                            {{/when}}
+                        {{/in}}
+                    {{else}}
+                    <!-- START: View More Button -->
+                        <div class="view-more">
+                            <a href="/login?redirect_uri={{server 'REQUEST_URI'}}" data-do="enable-tracer" data-on="click">
+                                <div class="btn btn-default view-more"
+                                     data-do="tooltip"
+                                     data-placement="top"
+                                     title="Get access to filtered data per school or year and have the ability to download the data for only 200 credits."
+                                >
+                                    <div>View More</div>
+                                    <div>(200 credits)</div>
+                                </div>
+                            </a>
+                        </div>
+                    <!-- END: View More Button -->
+                    {{/session}}
+                </div>
+                <!-- END: academe status graduate -->
+                <!-- START: job related to degree -->
+                <div class="academe-job-related">
+                    <!-- START: Chart heading -->
+                    <div class="chart-heading">
+                        <div class="col-md-12">
+                            <h3>
+                                What percent of {{year}} graduates have jobs related to <br>the degree they finished in the university
+                            </h3>
+                            <hr />
+                        </div>
+                    </div>
+                    <!-- END: Chart heading -->
+                    <!-- START: Chart container -->
+                    <div class="charts-container">
+                        <div class="col-md-6 donut">
+                            <div id="donut-3" ></div>
+                        </div>
+                        <div class="col-md-6 chart">
+                            <div id="column-3"></div>
+                        </div>
+                    </div>
+                    <!-- END: Chart container -->
+                    {{#session 'me'}}
+                        {{#in 'tracer-study' profile_package}}
+                        {{else}}
+                            {{#when profile_company '!=' ''}}
+                            <!-- START: View More Button -->
+                            <div class="view-more">
+                                <a href="javascript:void(0);" data-do="enable-tracer" data-on="click">
+                                    <div class="btn btn-default view-more"
+                                         data-do="tooltip"
+                                         data-placement="top"
+                                         title="Get access to filtered data per school or year and have the ability to download the data for only 200 credits."
+                                    >
+                                        <div>View More</div>
+                                        <div>(200 credits)</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- END: View More Button -->
+                            {{/when}}
+                        {{/in}}
+                    {{else}}
+                    <!-- START: View More Button -->
+                        <div class="view-more">
+                            <a href="/login?redirect_uri={{server 'REQUEST_URI'}}" data-do="enable-tracer" data-on="click">
+                                <div class="btn btn-default view-more"
+                                     data-do="tooltip"
+                                     data-placement="top"
+                                     title="Get access to filtered data per school or year and have the ability to download the data for only 200 credits."
+                                >
+                                    <div>View More</div>
+                                    <div>(200 credits)</div>
+                                </div>
+                            </a>
+                        </div>
+                    <!-- END: View More Button -->
+                    {{/session}}
+
+                    {{#session 'me'}}
+                        {{#in 'tracer-study' profile_package}}
+                            <div class="text-center">
+                                <a class="btn btn-default text-uppercase" href="/research/academe?{{toquery 'export' 'true'}}">
+                                    Download CSV
+                                </a>
+                            </div>
+                        {{/in}}
+                    {{/session}}
+
+                </div>
+                <!-- END: job related to degree -->
+                <br/>
+            </div>
+            <!-- END: Research Search-->
+        </div>
+        <!-- END: academe Container -->
+        <!-- START: AD Companies Container -->
+        <div class="ad-companies-container">
+        {{> research_companies}}
+
+        {{> research_ads}}
+        </div>
+        <!-- END: AD Companies Container -->
+    </div>
+    <!-- START: academe main body -->
+</div>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script>
+    // Build the chart
+    Highcharts.chart('donut-1', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Employment Rate'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                colors: ["#B868C7", "#592062"],
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b><br>{point.percentage:.1f} %',
+                    distance: -50,
+                    filter: {
+                        property: 'percentage',
+                        operator: '>',
+                        value: 4
+                    }
+                }
+            }
+        },
+        credits: {
+            enabled: false
+        },
+
+        series: [{
+            name: 'Share',
+            data: [
+                { name: 'Employed', y: {{#if employment_rate_current.employed_percentage}}{{employment_rate_current.employed_percentage}}{{else}}0{{/if}} },
+                { name: 'Unemployed', y: {{#if employment_rate_current.not_employed_percentage}}{{employment_rate_current.not_employed_percentage}}{{else}}0{{/if}} },
+            ]
+        }]
+    });
+</script>
+
+<script>
+    Highcharts.chart('column-1', {
+        legend: {
+        enabled: false
+    },
+    chart: {
+        type: 'column',
+        spacingBottom: 0
+    },
+    colors:['#B868C7', '#592062'],
+    exporting: {
+        buttons: {
+            contextButton: {
+                enabled: false
+            }
+        }
+    },
+    title: {
+        text: null
+    },
+    subtitle: {
+        text: null
+    },
+    xAxis: {
+        categories: [
+           {{#each years}}
+                '{{this}}',
+            {{/each}}
+        ],
+        labels: {
+            enabled: true,
+            style: {
+            fontSize: '16px'
+            }
+        },
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        max: 100,
+        title: {
+            text: null
+        },
+        labels: {
+            enabled: false
+        }
+    },
+
+    tooltip: {
+            valueSuffix: '%',
+            enabled: true
+        },
+    plotOptions: {
+
+        column: {
+            pointPadding: 0.1,
+            borderWidth: 0,
+        }
+    },
+    credits: {
+        enabled: false
+    },
+    series:
+        [
+            {
+        name: 'Employed',
+        data: [
+            {{#if employment_rate}}
+                {{#each employment_rate}}
+                    {{employed_percentage}},
+                {{/each}}
+            {{else}}
+                0,0,0
+            {{/if}}
+        ]
+            },
+        {
+        name: 'Unemployed',
+        data: [
+            {{#if employment_rate}}
+            {{#each employment_rate}}
+                {{not_employed_percentage}},
+            {{/each}}
+            {{else}}
+                0,0,0
+            {{/if}}
+        ]
+        }
+    ]
+    });
+</script>
+
+<script>
+    // Build the chart
+    Highcharts.chart('donut-2', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Civil Status'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                colors: ["#01B7D2", "#063c3e"],
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b><br>{point.percentage:.1f} %',
+                    distance: -50,
+                    filter: {
+                        property: 'percentage',
+                        operator: '>',
+                        value: 4
+                    }
+                }
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        series: [{
+            name: 'Share',
+            data: [
+                { name: 'Single', y: {{#if civil_status_current.single_percentage}}{{civil_status_current.single_percentage}}{{else}}0{{/if}} },
+                { name: 'Married', y: {{#if civil_status_current.married_percentage}}{{civil_status_current.married_percentage}}{{else}}0{{/if}} },
+            ]
+        }]
+    });
+</script>
+
+<script>
+    Highcharts.chart('column-2', {
+        legend: {
+        enabled: false,
+
+    },
+
+    chart: {
+        type: 'column',
+    },
+    colors:['#01B7D3', '#063C3E'],
+    exporting: {
+        buttons: {
+            contextButton: {
+                enabled: false
+            }
+        }
+    },
+    title: {
+        text: null
+    },
+    subtitle: {
+        text: null
+    },
+    xAxis: {
+        categories: [
+            {{#each years}}
+                '{{this}}',
+            {{/each}}
+        ],
+        labels: {
+            enabled: true,
+            style: {
+            fontSize: '16px'
+            }
+        },
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        max: 100,
+        title: {
+            text: null
+        },
+        labels: {
+            enabled: false
+        }
+    },
+
+    tooltip: {
+            valueSuffix: '%',
+            enabled: true
+        },
+    plotOptions: {
+
+        column: {
+            pointPadding: 0.1,
+            borderWidth: 0,
+        }
+    },
+    credits: {
+            enabled: false
+        },
+    series:
+        [
+            {
+        name: 'Single',
+        data: [
+            {{#if civil_status}}
+                {{#each civil_status}}
+                    {{single_percentage}},
+                {{/each}}
+            {{else}}
+            0,0,0
+            {{/if}}
+        ]
+            },
+        {
+        name: 'Married',
+        data: [
+            {{#if civil_status}}
+            {{#each civil_status}}
+                {{married_percentage}},
+            {{/each}}
+            {{else}}
+            0,0,0
+            {{/if}}
+        ]
+            }
+    ]
+    });
+</script>
+
+
+<script>
+
+    // Build the chart
+    Highcharts.chart('donut-3', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Jobs Related'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                colors: ["#87C583", "#135B18"],
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b><br>{point.percentage:.1f} %',
+                    distance: -50,
+                    filter: {
+                        property: 'percentage',
+                        operator: '>',
+                        value: 4
+                    }
+                }
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        series: [{
+            name: 'Share',
+            data: [
+                { name: 'Related', y: {{#if job_related_current.yes_percentage}}{{job_related_current.yes_percentage}}{{else}}0{{/if}} },
+                { name: 'Not Related', y: {{#if job_related_current.no_percentage}}{{job_related_current.no_percentage}}{{else}}0{{/if}} },
+            ]
+        }]
+    });
+</script>
+
+<script>
+    Highcharts.chart('column-3', {
+        legend: {
+        enabled: false
+    },
+    chart: {
+        type: 'column'
+    },
+    colors:['#87C583', '#135B18'],
+    exporting: {
+        buttons: {
+            contextButton: {
+                enabled: false
+            }
+        }
+    },
+    title: {
+        text: null
+    },
+    subtitle: {
+        text: null
+    },
+    xAxis: {
+        categories: [
+            {{#each years}}
+                '{{this}}',
+            {{/each}}
+        ],
+        labels: {
+            enabled: true,
+            style: {
+            fontSize: '16px'
+            }
+        },
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        max: 100,
+        title: {
+            text: null
+        },
+        labels: {
+            enabled: false
+        }
+    },
+
+    tooltip: {
+            valueSuffix: '%',
+            enabled: true
+        },
+    plotOptions: {
+
+        column: {
+            pointPadding: 0.1,
+            borderWidth: 0,
+        }
+    },
+    credits: {
+            enabled: false
+    },
+     series:
+        [
+            {
+        name: 'Related',
+        data: [
+            {{#if job_related}}
+                {{#each job_related}}
+                    {{yes_percentage}},
+                {{/each}}
+            {{else}}
+                0,0,0
+            {{/if}}
+        ]
+            },
+        {
+        name: 'Not Related',
+        data: [
+            {{#if job_related}}
+                {{#each job_related}}
+                    {{no_percentage}},
+                {{/each}}
+            {{else}}
+                0,0,0
+            {{/if}}
+        ]
+        }
+    ]
+    });
+</script>

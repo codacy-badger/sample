@@ -1,0 +1,657 @@
+<!-- START: Poster Post Card -->
+<article
+    class="post-item{{#if post_flag '==' 1}} sponsored{{/if}}"
+    id="post-{{post_id}}"
+>
+    {{#if post_flag '==' 1}}
+        <!-- START: Sponsored Flag -->
+        <div class="ribbon">
+            <span>{{_ 'Sponsored'}}</span>
+        </div>
+        <!-- END: Sponsored Flag -->
+    {{/if}}
+    {{#if post_banner}}
+        <!-- START: Post Banner -->
+        <div class="post-banner">
+            <a
+                href="/Company-Hiring/{{post_slug}}"
+                title="{{_ '%s is looking for a %s' post_name post_position}}">
+                <img
+                    alt="{{post_position}} {{_ 'from'}} {{post_name}}"
+                    class="image-lazy"
+                    src="{{post_banner}}"
+                    onerror="this.parentNode.parentNode.removeChild(this.parentNode)"
+                />
+            </a>
+        </div>
+        <!-- END: Post Banner -->
+    {{/if}}
+    <!-- START: Post Details -->
+    <div class="post-details">
+        <!-- START: Post Profile -->
+        <div class="clearfix post-profile">
+            {{#if profile_image}}
+                {{#when profile_image '!=' '/images/default-avatar.png'}}
+                    <div class="post-image">
+                        <div class="image-wrapper">
+                            <img
+                                alt="{{post_name}} {{_ 'logo'}}"
+                                class="image-lazy"
+                                src="{{profile_image}}"
+                                onerror="this.parentNode.parentNode.removeChild(this.parentNode)"
+                            />
+                            <span class="level-badge">
+                                {{level profile_experience}}
+                            </span>
+                        </div>
+                    </div>
+                {{else}}
+                    {{#if post_image}}
+                        <div class="post-image">
+                            <div class="image-wrapper">
+                                <img
+                                    alt="{{post_name}} {{_ 'logo'}}"
+                                    class="image-lazy"
+                                    src="{{post_image}}"
+                                    onerror="this.parentNode.parentNode.removeChild(this.parentNode)"
+                                />
+                                <span class="level-badge">
+                                    {{level profile_experience}}
+                                </span>
+                            </div>
+                        </div>
+                    {{else}}
+                        <div class="post-image">
+                            <div class="image-wrapper">
+                                <img
+                                    alt="{{post_name}} {{_ 'logo'}}"
+                                    class="image-lazy"
+                                    src="{{default_avatar profile_id}}"
+                                    onerror="this.parentNode.parentNode.removeChild(this.parentNode)"
+                                />
+                                <span class="level-badge">
+                                    {{level profile_experience}}
+                                </span>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/when}}
+            {{/if}}
+            <!-- START: Post Summary -->
+            <div class="post-summary{{#unless profile_image}} no-image{{/unless}}">
+                <div class="clearfix post-name">
+                    <em class="pull-right post-date-time {{#if post_banner}}with-banner{{/if}}">
+                        {{highlight post_created post_updated post_expires}}
+                    </em>
+                    <div class="pull-left">
+                        <{{heading_name}} class="post-head">
+                            <a
+                                {{#when profile_name '!=' 'Anonymous'}}
+                                    href="/Companies/{{profile_slug}}"
+                                {{/when}}
+                                title="{{_ 'See more jobs from'}} {{post_name}}"
+                            >
+                            {{post_name}}
+                            </a>
+                        </{{heading_name}}>
+                        {{#when profile_verified '===' '1'}}
+                            <img
+                                alt="{{_ 'Verified Company'}}"
+                                class="verified"
+                                data-do="tooltip"
+                                src="{{config 'cdn'}}/images/badge/badge-verified-direct.png"
+                                title="{{_ 'Jobayan confirmed this as an authentic
+                                    direct hiring company'}}"
+                            />
+                        {{/when}}
+                        {{#when profile_verified '===' '2'}}
+                            <img
+                                alt="{{_ 'Verified Recruiter'}}"
+                                class="verified"
+                                data-do="tooltip"
+                                src="/images/badge/badge-verified-recruit.png"
+                                title="{{_ 'Jobayan confirmed this as an authentic
+                                    recruitment company'}}"
+                            />
+                        {{/when}}
+                    </div>
+                </div>
+                <div class="post-job-detail">
+                    <div class="poster-rank text-info">
+                        <em class="{{#if profile_image}}imaged-em{{/if}}">
+                            {{rank profile_experience}}
+                            <i
+                                aria-hidden="true"
+                                class="fa fa-question-circle"
+                                data-do="tooltip"
+                                title="{{_ 'This is the current rank of %s' post_name}}"
+                            >
+                            </i>
+                        </em>
+                    </div>
+                    <div class="post-position text-capitalize">
+                        {{_ 'Hiring %s' post_position}}
+                    </div>
+                    <div class="post-short-detail">
+                        <!-- START: SALARY -->
+                        {{#if post_salary_max}}
+                            <!-- START: RANGE -->
+                            <{{heading_salary}} class="post-salary">
+                                {{#when post_salary_min '==' post_salary_max}}
+                                {{#if post_currency}}
+                                    {{post_currency}}
+                                {{else}}
+                                    &#8369;
+                                {{/if}}
+                                    {{~number post_salary_max~}}
+                                {{~else~}}
+                                    {{#if post_currency}}
+                                        {{post_currency}}
+                                    {{else}}
+                                        &#8369;
+                                    {{/if}}
+                                    {{number post_salary_min}} -
+                                    {{number post_salary_max}}
+                                {{~/when~}}
+                            </{{heading_salary}}>
+                            <!-- END: RANGE -->
+                        {{else}}
+                            {{#if post_salary_min}}
+                                <!-- START: FIXED -->
+                                <{{heading_salary}} class="post-salary">
+                                    {{#if post_currency}}
+                                        {{post_currency}}
+                                    {{else}}
+                                        &#8369;
+                                    {{/if}}
+                                    {{number post_salary_min}}
+                                </{{heading_salary}}>
+                                <!-- END: FIXED -->
+                            {{/if}}
+                        {{/if}}
+                        <!-- END: SALARY -->
+
+                        {{#if post_arrangement}}
+                        <span class="post-arrangement">
+                            <i class="fa fa-clock-o"></i>
+                             {{ucwords post_arrangement}}
+                        </span>
+                        {{/if}}
+                        <span class="location text-capitalize">
+                            <i class="fa fa-map-marker"></i>
+                             {{post_location}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Post Summary -->
+        </div>
+        <!-- END: Post Profile -->
+        <!-- START: Short Post Description -->
+        <div class="post-short-description">
+            {{#_ 'Hello! We are %s from %s and we are looking for %s %s %s %s'}}
+                <a
+                    {{#when profile_name '!=' 'Anonymous'}}
+                        href="/Companies/{{profile_slug}}"
+                    {{/when}}
+                    title="{{_ 'See more jobs from %s' post_name}}"
+                >
+                    <strong class="text-capitalize">{{trim post_name}}</strong>
+                </a>
+                __
+                <{{heading_location}} class="post-heading">
+                    <a
+                        class="text-info"
+                        href="/post/search?q={{post_location}}"
+                        title="{{_ 'See more jobs from %s' post_location}}"
+                    >
+                        <strong class="text-capitalize">{{trim post_location}}</strong>
+                    </a>
+                </{{heading_location}}>
+                __
+                {{a_an_article post_position}}
+                __
+                <{{heading_position}} class="post-heading">
+                    <a
+                        class="text-info"
+                        href="/post/search?q={{post_position}}"
+                        title="{{_ 'See more %s jobs' post_position}}"
+                    >
+                        <strong class="text-capitalize">{{trim post_position}}</strong>
+                    {{~#unless post_experience~}}
+                        </a>.
+                    {{~else}}
+                        </a>
+                    {{~/unless}}
+                </{{heading_position}}>
+                __
+                {{#if post_experience}}
+                    {{#_ 'with %s of experience.'}}
+                        <strong class="post-experience">
+                            {{trim post_experience}} {{append_s 'year' post_experience~}}
+                        </strong>
+                    {{/_~}}
+                {{/if}}
+                __
+                <a
+                    class="see-more-inline text-info "
+                    href="/Company-Hiring/{{post_slug}}"
+                    target="_blank"
+                    title="{{_ 'see more'}}"
+                >
+                    <em>{{_ 'See more'}}</em>
+                </a>
+            {{/_}}
+        </div>
+        <!-- END: Short Post Description -->
+
+        <a
+            class="see-more-block text-info "
+            href="/Company-Hiring/{{post_slug}}"
+            target="_blank"
+            title="{{_ 'see more'}}"
+        >
+            <em>{{_ 'See more'}}</em>
+        </a>
+
+        <!-- START: TAGS -->
+        <div class="clearfix">
+            <!-- START: Post Tags -->
+            <div class="post-tags">
+                {{#each post_tags}}
+                    {{#when @index '<=' 4}}
+                        <a
+                            class="tag"
+                            href="/post/search?{{toquery 'tag' this}}"
+                            title="{{_ 'Search jobs with'}} {{this}}"
+                        >
+                            {{this}}
+                        </a>
+                    {{/when}}
+                {{/each}}
+            </div>
+            <!-- END: Post Tags -->
+            {{> post_actions}}
+        </div>
+        <!-- END: TAGS & Interested Button -->
+        {{#session 'me'}}
+            <!-- START: I am logged in -->
+            {{#when profile_id '==' ../profile_id}}
+                <!-- START: My Card -->
+                {{#if ../post_like_count}}
+                    <!-- START: There are interested -->
+                    <a
+                        class="btn btn-primary btn-interested-applicants"
+                        href="/Company-Hiring/{{../post_slug}}"
+                        title="{{_ 'View all interested applicants'}}">
+                        {{_ 'View all %d interested applicants' ../post_like_count}}
+                    </a>
+                    <!-- END: There are interested  -->
+                {{/if}}
+                <div class="{{../post_tips_hide}}">
+                    {{> post_poster-tips}}
+                </div>
+                <!-- START: My Post Actions -->
+                <div class="my-post-actions">
+                    <a
+                        class="btn btn-info"
+                        href="/post/update/poster/{{../post_id}}?redirect_uri=
+                            {{~server 'REQUEST_URI'}}"
+                        title="{{_ 'Edit post'}}"
+                    >
+                        {{_ 'Edit post'}}
+                    </a>
+                    <a
+                        class="btn btn-danger"
+                        data-do="confirm-modal"
+                        data-on="click"
+                        data-title="Are you sure you want to remove this post?"
+                        data-link="/post/remove/{{../post_id}}?redirect_uri=
+                            {{~server 'REQUEST_URI'}}"
+                        href="javascript:void(0)"
+                        title="{{_ 'Remove post'}}"
+                    >
+                        {{_ 'Remove post'}}
+                    </a>
+                </div>
+                <!-- END: My Post Actions -->
+            {{/when}}
+            {{else}}
+                <!-- START: Not Logged In Form -->
+                <div class="not-logged-in hide">
+                    <div class="separator"></div>
+                    <p>
+                        {{#_ '%s %s.'}}
+                            <strong>Oops ...</strong> You are not
+                            <a href="/login" title="login">logged in</a>. Please
+                            fill out the following in order for us to notify
+                            __
+                            {{post_name}}
+                        {{/_}}
+                    </p>
+                    <form
+                        action="/ajax/interested/claim"
+                        class="clearfix"
+                        data-id="{{../post_id}}"
+                        data-do="interested-claim"
+                        data-on="submit"
+                    >
+                        <!-- START: Not Logged In Form Name -->
+                        <div class="form-group">
+                            <strong>{{_ 'Name'}}</strong>
+                            <em class="pull-right">{{_ 'Required'}}</em>
+                            <input
+                                class="form-control"
+                                name="profile_name"
+                                placeholder="John Doe"
+                                required="required"
+                                type="text"
+                            />
+                            <span class="help-text"></span>
+                        </div>
+                        <!-- END: Not Logged In Form Name -->
+                        <!-- START: Not Logged In Form Email -->
+                        <div class="form-group">
+                            <strong>{{_ 'E-mail'}}</strong>
+                            <em class="pull-right">{{_ 'Required'}}</em>
+                            <input
+                                class="form-control"
+                                name="profile_email"
+                                placeholder="john@doe.com"
+                                required="required"
+                                type="email"
+                            />
+                            <span class="help-text"></span>
+                        </div>
+                        <!-- END: Not Logged In Form Email -->
+                        <!-- START: Not Logged In Form Phone -->
+                        <div class="form-group">
+                            <strong>{{_ 'Phone'}}</strong>
+                            <em class="pull-right">{{_ 'Optional'}}</em>
+                            <input
+                                class="form-control"
+                                name="profile_phone"
+                                placeholder="555-2424"
+                                type="text"
+                            />
+                            <span class="help-text"></span>
+                        </div>
+                        <!-- Phone: Not Logged In Form Phone -->
+                        <input type="hidden" name="post_id" value="{{../post_id}}" />
+                        <!-- START : Notify Button -->
+                        <button
+                            class="btn btn-notify btn-primary pull-right"
+                            type="submit"
+                        >
+                            {{_ 'Notify'}}
+                        </button>
+                        <!-- END : Notify Button -->
+                    </form>
+                </div>
+                <!-- END: Not Logged In Form -->
+        {{/session}}
+        {{#if post_related}}
+            <hr />
+            <div class="post-related">
+                <div class="post-related-head">
+                    More positions from {{capital profile_company}}
+                </div>
+                <!-- START: Post Related Accordion -->
+                <div
+                    aria-multiselectable="true"
+                    class="related-accordion panel-group"
+                    id="related-accordion-{{post_id}}"
+                    role="tablist"
+                >
+                    {{#each post_related}}
+                        <div class="panel" id="post-{{post_id}}">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                <div class="panel-title">
+                                    <a
+                                        aria-controls="collapse-positions"
+                                        aria-expanded="true"
+                                        class="collapsed"
+                                        data-parent="#related-accordion-{{../post_id}}"
+                                        data-toggle="collapse"
+                                        href="#post-accordion-{{post_id}}"
+                                        role="button"
+                                        title="{{capital post_position}} in {{capital post_location}}"
+                                    >
+                                        <div class="panel-title-head">
+                                            <div class="post-name">
+                                                {{capital post_position}} in {{capital post_location}}
+                                            </div>
+                                            <div class="post-ago">
+                                                <em>
+                                                    {{highlight post_created post_updated post_expires}}
+                                                </em>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div
+                                aria-labelledby="headingOne"
+                                class="panel-collapse collapse"
+                                id="post-accordion-{{post_id}}"
+                                role="tabpanel"
+                            >
+                                <div class="panel-body">
+                                    {{#if post_banner}}
+                                        <!-- START: Post Banner -->
+                                        <div class="post-banner">
+                                            <a
+                                                href="/Company-Hiring/{{post_slug}}"
+                                                title="{{_ '%s is looking for a %s' post_name post_position}}">
+                                                <img
+                                                    alt="{{post_position}} {{_ 'from'}} {{post_name}}"
+                                                    class="image-lazy"
+
+                                                    src="{{post_banner}}"
+                                                    onerror="this.parentNode.parentNode.removeChild(this.parentNode)"
+                                                />
+                                            </a>
+                                        </div>
+                                        <!-- END: Post Banner -->
+                                    {{/if}}
+                                    <div class="post-short-description">
+                                        {{#_ 'Hello! We are %s from %s and we are looking for %s %s %s %s'}}
+                                            <a
+                                                {{#when profile_name '!=' 'Anonymous'}}
+                                                    href="/Companies/{{profile_slug}}"
+                                                {{/when}}
+                                                title="{{_ 'See more jobs from %s' post_name}}"
+                                            >
+                                                <strong class="text-capitalize">{{trim post_name}}</strong>
+                                            </a>
+                                            __
+                                            <{{../heading_location}} class="post-heading">
+                                                <a
+                                                    class="text-info"
+                                                    href="/post/search?q={{post_location}}"
+                                                    title="{{_ 'See more jobs from %s' post_location}}"
+                                                >
+                                                    <strong class="text-capitalize">{{trim post_location}}</strong>
+                                                </a>
+                                            </{{../heading_location}}>
+                                            __
+                                            {{a_an_article post_position}}
+                                            __
+                                            <{{../heading_position}} class="post-heading">
+                                                <a
+                                                    class="text-info"
+                                                    href="/post/search?q={{post_position}}"
+                                                    title="{{_ 'See more %s jobs' post_position}}"
+                                                >
+                                                    <strong class="text-capitalize">{{trim post_position}}</strong>
+                                                {{~#unless post_experience~}}
+                                                    </a>.
+                                                {{~else}}
+                                                    </a>
+                                                {{~/unless}}
+                                            </{{../heading_position}}>
+                                            __
+                                            {{#if post_experience}}
+                                                {{#_ 'with %s of experience.'}}
+                                                    <strong>
+                                                        {{post_experience}} {{append_s 'year' post_experience~}}
+                                                    </strong>
+                                                {{/_~}}
+                                            {{/if}}
+                                            __
+                                            <a
+                                                class="see-more-inline text-info "
+                                                href="/Company-Hiring/{{post_slug}}"
+                                                target="_blank"
+                                                title="{{_ 'see more'}}"
+                                            >
+                                                <em>{{_ 'See more'}}</em>
+                                            </a>
+                                        {{/_}}
+                                    </div>
+                                    <!-- START: Post Related Actions -->
+                                    <div class="clearfix post-related-actions">
+                                        <!-- START: Post Tags -->
+                                        <div class="post-tags">
+                                            {{#each post_tags}}
+                                                {{#when @index '<=' 4}}
+                                                    <a
+                                                        class="tag"
+                                                        href="/post/search?{{toquery 'tag' this}}"
+                                                        title="{{_ 'Search jobs with'}} {{this}}"
+                                                    >
+                                                        {{this}}
+                                                    </a>
+                                                {{/when}}
+                                            {{/each}}
+                                        </div>
+                                        <!-- END: Post Tags -->
+                                        <!-- START: Post Actionss -->
+                                        {{> post_actions}}
+                                        <!-- END: Post Actionss -->
+                                    </div>
+                                    <!-- END: Post Related Actions -->
+                                    {{#session 'me'}}
+                                        <!-- START: I am logged in -->
+                                        {{#when profile_id '==' ../profile_id}}
+                                            {{> post_poster-tips}}
+                                            <!-- START: My Post Actions -->
+                                            <div class="my-post-actions">
+                                                <a
+                                                    class="btn btn-info"
+                                                    href="/post/update/poster/{{../post_id}}?redirect_uri=
+                                                        {{~server 'REQUEST_URI'}}"
+                                                    title="{{_ 'Edit post'}}"
+                                                >
+                                                    {{_ 'Edit post'}}
+                                                </a>
+                                                <a
+                                                    class="btn btn-danger"
+                                                    href="/post/remove/{{../post_id}}?redirect_uri=
+                                                        {{~server 'REQUEST_URI'}}"
+                                                    title="{{_ 'Remove post'}}"
+                                                >
+                                                    {{_ 'Remove post'}}
+                                                </a>
+                                            </div>
+                                            <!-- END: My Post Actions -->
+                                        {{/when}}
+                                        {{else}}
+                                            <!-- START: Not Logged In Form -->
+                                            <div class="not-logged-in hide">
+                                                <div class="separator"></div>
+                                                <p>
+                                                    {{#_ '%s %s.'}}
+                                                        <strong>Oops ...</strong> You are not
+                                                        <a href="/login" title="login">logged in</a>. Please
+                                                        fill out the following in order for us to notify
+                                                        __
+                                                        {{post_name}}
+                                                    {{/_}}
+                                                </p>
+                                                <form
+                                                    action="/ajax/interested/claim"
+                                                    class="clearfix"
+                                                    data-id="{{../post_id}}"
+                                                    data-do="interested-claim"
+                                                    data-on="submit"
+                                                >
+                                                    <!-- START: Not Logged In Form Name -->
+                                                    <div class="form-group">
+                                                        <strong>{{_ 'Name'}}</strong>
+                                                        <em class="pull-right">{{_ 'Required'}}</em>
+                                                        <input
+                                                            class="form-control"
+                                                            name="profile_name"
+                                                            placeholder="John Doe"
+                                                            required="required"
+                                                            type="text"
+                                                        />
+                                                        <span class="help-text"></span>
+                                                    </div>
+                                                    <!-- END: Not Logged In Form Name -->
+                                                    <!-- START: Not Logged In Form Email -->
+                                                    <div class="form-group">
+                                                        <strong>{{_ 'E-mail'}}</strong>
+                                                        <em class="pull-right">{{_ 'Required'}}</em>
+                                                        <input
+                                                            class="form-control"
+                                                            name="profile_email"
+                                                            placeholder="john@doe.com"
+                                                            required="required"
+                                                            type="email"
+                                                        />
+                                                        <span class="help-text"></span>
+                                                    </div>
+                                                    <!-- END: Not Logged In Form Email -->
+                                                    <!-- START: Not Logged In Form Phone -->
+                                                    <div class="form-group">
+                                                        <strong>{{_ 'Phone'}}</strong>
+                                                        <em class="pull-right">{{_ 'Optional'}}</em>
+                                                        <input
+                                                            class="form-control"
+                                                            name="profile_phone"
+                                                            placeholder="555-2424"
+                                                            type="text"
+                                                        />
+                                                        <span class="help-text"></span>
+                                                    </div>
+                                                    <!-- Phone: Not Logged In Form Phone -->
+                                                    <input type="hidden" name="post_id" value="{{../post_id}}" />
+                                                    <!-- START : Notify Button -->
+                                                    <button
+                                                        class="btn btn-notify btn-primary pull-right"
+                                                        type="submit"
+                                                    >
+                                                        {{_ 'Notify'}}
+                                                    </button>
+                                                    <!-- END : Notify Button -->
+                                                </form>
+                                            </div>
+                                            <!-- END: Not Logged In Form -->
+                                        {{/session}}
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+                <!-- END: Post Related Accordion -->
+                <div class="post-related-view">
+                    <a
+                        {{#when post_type '==' 'poster'}}
+                            href="/Companies/{{profile_slug}}"
+                        {{else}}
+                            href="/Job-Seekers/{{profile_slug}}"
+                        {{/when}}
+                        target="_blank"
+                        title="{{_ 'View all positions'}}"
+                    >
+                        {{_ 'View all positions'}}
+                    </a>
+                </div>
+            </div>
+        {{/if}}
+    </div>
+    <!-- END: Post Details -->
+</article>
+<!-- END: Poster Post Card -->

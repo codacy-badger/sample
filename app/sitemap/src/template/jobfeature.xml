@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    {{#each features.rows}}
+    <url>
+        <loc>{{../root}}/{{feature_url}}</loc>
+        <lastmod>{{date feature_updated 'Y-m-d'}}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    {{/each}}
+</urlset>

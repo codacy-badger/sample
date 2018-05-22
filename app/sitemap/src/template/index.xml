@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    {{#sitemappager products 5000}}
+        <sitemap>
+            <loc>{{../root}}/urlset-posts-{{page}}.xml</loc>
+            <lastmod>{{date 'last monday' 'Y-m-d'}}</lastmod>
+        </sitemap>
+    {{else}}
+        <sitemap>
+            <loc>{{root}}/urlset-posts-1.xml</loc>
+            <lastmod>{{date 'last monday' 'Y-m-d'}}</lastmod>
+        </sitemap>
+    {{/sitemappager}}
+
+    {{#sitemappager blog 5000}}
+    <sitemap>
+        <loc>{{../root}}/urlset-articles-{{page}}.xml</loc>
+        <lastmod>{{date 'last monday' 'Y-m-d'}}</lastmod>
+    </sitemap>
+    {{else}}
+    <sitemap>
+        <loc>{{root}}/urlset-articles-1.xml</loc>
+        <lastmod>{{date 'last monday' 'Y-m-d'}}</lastmod>
+    </sitemap>
+    {{/sitemappager}}
+
+    {{#sitemappager job-locations 5000}}
+    <sitemap>
+        <loc>{{../root}}/urlset-job-locations-{{page}}.xml</loc>
+        <lastmod>{{date 'last monday' 'Y-m-d'}}</lastmod>
+    </sitemap>
+    {{else}}
+    <sitemap>
+        <loc>{{root}}/urlset-job-locations-1.xml</loc>
+        <lastmod>{{date 'last monday' 'Y-m-d'}}</lastmod>
+    </sitemap>
+    {{/sitemappager}}
+
+    {{#sitemappager job-industry 5000}}
+    <sitemap>
+        <loc>{{../root}}/urlset-job-industry-{{page}}.xml</loc>
+        <lastmod>{{date 'last monday' 'Y-m-d'}}</lastmod>
+    </sitemap>
+    {{else}}
+    <sitemap>
+        <loc>{{root}}/urlset-job-industry-1.xml</loc>
+        <lastmod>{{date 'last monday' 'Y-m-d'}}</lastmod>
+    </sitemap>
+    {{/sitemappager}}
+
+    {{#sitemappager job-positions 5000}}
+    <sitemap>
+        <loc>{{../root}}/urlset-job-positions-{{page}}.xml</loc>
+        <lastmod>{{date 'last monday' 'Y-m-d'}}</lastmod>
+    </sitemap>
+    {{else}}
+    <sitemap>
+        <loc>{{root}}/urlset-job-positions-1.xml</loc>
+        <lastmod>{{date 'last monday' 'Y-m-d'}}</lastmod>
+    </sitemap>
+    {{/sitemappager}}
+</sitemapindex>

@@ -1,0 +1,22 @@
+<!-- START: Crumbs -->
+<div class="crumbs">
+    <a href="/control/business/dashboard">
+        <i class="fa fa-home"></i> {{_ 'Dashboard'}}
+    </a>
+    <span class="separator"><i class="fa fa-angle-right"></i></span>
+    <a href="/control/business/event/search">
+        <i class="fa fa-calendar"></i> {{_ 'Events'}}
+    </a>
+    <span class="separator"><i class="fa fa-angle-right"></i></span>
+    <a href="#" class="active">
+        <i class="fa fa-edit"></i> {{_ 'Update Event'}}
+    </a>
+</div>
+<!-- END: Crumbs -->
+<!-- START: Scroll -->
+<div class="scroll">
+    <h3 class="template-blue">
+        <i class="fa fa-edit"></i> {{_ 'Update Event'}}
+    </h3>
+    {{> event_form}}
+</div>

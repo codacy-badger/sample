@@ -1,0 +1,548 @@
+<!-- START: Crumbs -->
+<div class="crumbs">
+    <a href="/control/business/dashboard">
+        <i class="fa fa-home"></i> {{_ 'Dashboard'}}</a>
+    <span class="separator">
+        <i class="fa fa-angle-right"></i>
+    </span>
+    <a href="/control/business/pipeline/1/table" class="active">
+        <i class="fa fa-user"></i> {{_ 'Clients'}}</a>
+</div>
+<!-- END: Crumbs -->
+<!-- START: Scroll -->
+<div class="scroll">
+    <h3 class="template-blue">
+        <i class="fa fa-user"></i> {{_ 'Clients'}}
+        <span class="badge badge-info">{{total}}</span>
+    </h3>
+
+    <!-- START: Search Actions -->
+    <div class="search-actions">
+        <div class="pull-right">
+            <a
+                class="btn btn-export"
+                href="/control/business/pipeline/1/table?export=true&
+                {{~querystring}}"
+            >
+                <i class="fa fa-download"></i> {{_ 'Export'}}
+            </a>
+            <button
+                class="btn btn-info"
+                data-toggle="modal"
+                data-target="#import-modal"
+            >
+                <i class="fa fa-upload"></i> {{_ 'Import'}}
+            </button>
+        </div>
+
+        <div class="btn-group" role="group">
+            <a
+                class="btn btn-active active"
+                href="/control/business/pipeline/{{pipeline_id}}/table"
+            >
+                {{_ 'Table'}}
+            </a>
+            <a
+                class="btn btn-default"
+                href="/control/business/pipeline/{{pipeline_id}}/board"
+            >
+                {{_ 'Board'}}
+            </a>
+        </div>
+
+        <div class="btn-group" role="group">
+            <a
+                class="btn
+                    {{~#unless filter.deal_active}}
+                        {{~#when filter.deal_active '==' '0'}}
+                            btn-default
+                        {{else}}
+                            btn-active active
+                        {{~/when}}
+                    {{else}}
+                        {{~#when filter.deal_active '==' '1'}}
+                            btn-active active
+                        {{/when}}
+                        {{~#when filter.deal_active '==' '0'}}
+                            btn-default
+                        {{~/when}}
+                    {{/unless}}"
+                href="/control/business/pipeline/{{pipeline_id}}/table?{{querystring 'filter[deal_active]' '1'}}"
+            >
+                {{_ 'Active'}}
+            </a>
+            <a
+                href="/control/business/pipeline/{{pipeline_id}}/table?{{querystring 'filter[deal_active]' '0'}}"
+                class="btn
+                    {{~#when filter.deal_active '==' '0'}}
+                        btn-active active
+                    {{~else}}
+                        btn-default
+                    {{~/when}}"
+            >
+                {{_ 'Inactive'}}
+            </a>
+        </div>
+    </div>
+    <!-- END: Search Actions -->
+    <!-- START: Search Filters -->
+    <div class="panel panel-default search-filters">
+        <div class="panel-heading">{{_ 'Filters'}}</div>
+        <div class="panel-body">
+            <form>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group{{#if errors.q}} has-error{{/if}}">
+                            <label>{{_ 'Search'}}</label>
+                            <div class="texts-field">
+                                <input type="text"
+                                    class="form-control"
+                                    name="q"
+                                    placeholder="{{_ 'Enter Keyword'}}"
+                                    type="text"
+                                    value="{{q}}"
+                                />
+                            </div>
+                            {{#if errors.q}}
+                                <span class="help-text">{{errors.q}}</span>
+                            {{/if}}
+                        </div>
+                        <div
+                            class="form-group
+                                {{#if errors.deal_type}} has-error{{/if}}"
+                        >
+                            <label>{{_ 'Client Type'}}</label>
+                            <div class="select-field">
+                                <select name="filter[deal_type]" class="form-control">
+                                    <option
+                                        value="all"
+                                        {{#when filter.deal_type '==' 'all'}}
+                                            selected
+                                        {{/when}}
+                                    >
+                                        All
+                                    </option>
+                                    <option
+                                        value="lead"
+                                        {{#when filter.deal_type '==' 'lead'}}
+                                            selected
+                                        {{/when}}
+                                    >
+                                        Lead
+                                    </option>
+                                    <option
+                                        value="profile"
+                                        {{#when filter.deal_type '==' 'profile'}}
+                                            selected
+                                        {{/when}}
+                                    >
+                                        Existing
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div
+                            class="form-group
+                                {{#if errors.deal_type}} has-error{{/if}}"
+                        >
+                            <label>{{_ 'Assignment'}}</label>
+                            <div class="select-field">
+                                <select name="assignment" class="form-control">
+                                    <option
+                                        value="all"
+                                        {{#when assignment '==' 'all'}}
+                                            selected
+                                        {{/when}}
+                                    >
+                                        All
+                                    </option>
+                                    <option
+                                        value="assigned"
+                                        {{#when assignment '==' 'assigned'}}
+                                            selected
+                                        {{/when}}
+                                    >
+                                        Assigned
+                                    </option>
+                                    <option
+                                        value="unassigned"
+                                        {{#when assignment '==' 'unassigned'}}
+                                            selected
+                                        {{/when}}
+                                    >
+                                        UnAssigned
+                                    </option>
+                                    <option
+                                        value="own"
+                                        {{#when assignment '==' 'own'}}
+                                            selected
+                                        {{/when}}
+                                    >
+                                        My deals
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label>{{_ 'Amount'}}</label>
+                            <div class="input-range date-range">
+                                <div class="input-from">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-money"></i>
+                                        </div>
+                                        <input
+                                            class="form-control"
+                                            name="filter_range[deal_amount][start]"
+                                            placeholder="min"
+                                            type="text"
+                                            value="{{filter_range.deal_amount.start}}"
+                                        />
+                                    </div>
+                                </div>
+                                <span class="input-separator">
+                                    <i class="fa fa-minus"></i>
+                                </span>
+                                <div class="input-to">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-money"></i>
+                                        </div>
+                                        <input
+                                            class="form-control"
+                                            name="filter_range[deal_amount][end]"
+                                            placeholder="max"
+                                            type="text"
+                                            value="{{filter_range.deal_amount.end}}"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>{{_ 'Date Created'}}</label>
+                            <div class="input-range date-range">
+                                <div class="input-from">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input
+                                            class="form-control"
+                                            name="filter_range[deal_created][start]"
+                                            onfocus="(this.type='date')"
+                                            placeholder="{{_ '2017-01-01'}}"
+                                            type="text"
+                                            value="{{filter_range.deal_created.start}}"
+                                        />
+                                    </div>
+                                </div>
+                                <span class="input-separator">
+                                    <i class="fa fa-minus"></i>
+                                </span>
+                                <div class="input-to">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input
+                                            class="form-control"
+                                            name="filter_range[deal_created][end]"
+                                            onfocus="(this.type='date')"
+                                            placeholder="{{_ '2017-01-01'}}"
+                                            type="text"
+                                            value="{{filter_range.deal_created.end}}"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>{{_ 'Date Updated'}}</label>
+                            <div class="input-range date-range">
+                                <div class="input-from">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input
+                                            class="form-control"
+                                            name="filter_range[deal_updated][start]"
+                                            onfocus="(this.type='date')"
+                                            placeholder="{{_ '2017-01-01'}}"
+                                            type="text"
+                                            value="{{filter_range.deal_updated.start}}"
+                                        />
+                                    </div>
+                                </div>
+                                <span class="input-separator">
+                                    <i class="fa fa-minus"></i>
+                                </span>
+                                <div class="input-to">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input
+                                            class="form-control"
+                                            name="filter_range[deal_updated][end]"
+                                            onfocus="(this.type='date')"
+                                            placeholder="{{_ '2017-01-01'}}"
+                                            type="text"
+                                            value="{{filter_range.deal_updated.end}}"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group filter-button-only">
+                    {{#when filter.lead_active '==' '0'}}
+                        <input
+                            type="hidden"
+                            name="filter[lead_active]"
+                            value="0"
+                        />
+                    {{/when}}
+                    <button class="btn btn-primary">{{_ 'Filter'}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- END: Search Filters -->
+    <!-- START: Search Table Actions -->
+    <div class="search-table-actions">
+        <form class="form-inline">
+            <div class="pull-right">
+                <div class="btn-group">
+                    <button
+                        type="button"
+                        class="btn btn-default dropdown-toggle"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                    >
+                        {{_ 'Show %s' range}} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a
+                                href="/control/business/deal/search?
+                                {{~querystring}}&range=10"
+                            >
+                                {{_ 'Show 10'}}
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="/control/business/deal/search?
+                                {{~querystring}}&range=25"
+                            >
+                                {{_ 'Show 25'}}
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="/control/business/deal/search?
+                                {{~querystring}}&range=50"
+                            >
+                                {{_ 'Show 50'}}
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="/control/business/deal/search?
+                                {{~querystring}}&range=100"
+                            >
+                                {{_ 'Show 100'}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group">
+                <select name="bulk" class="form-control">
+                    <option value="restore">{{_ 'Make Active'}}</option>
+                    <option value="remove">{{_ 'Make Inactive'}}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary">{{_ 'Apply'}}</button>
+            </div>
+            <!-- START: Search Table -->
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            <input
+                                class="checkall"
+                                id="checkAll"
+                                type="checkbox"
+                            />
+                        </th>
+                        <th>{{_ 'Actions'}}</th>
+                        <th>{{_ 'Company'}}</th>
+                        <th>{{_ 'Contact'}}</th>
+                        <th>{{_ 'Type'}}</th>
+                        <th>{{_ 'Amount'}}</th>
+                        <th>{{_ 'Close Date'}}</th>
+                        <th>{{_ 'Status'}}</th>
+                        <th>{{_ 'Agent'}}</th>
+                        <th>{{_ 'Created'}}
+                            <a href="?q={{q}}&
+                                {{~#sort 'deal_created'~}}
+                                    {{~#unless value~}}
+                                        order[deal_created]=ASC
+                                    {{~/unless}}
+                                    {{~#when value '===' 'ASC'~}}
+                                        order[deal_created]=DESC
+                                    {{~/when}}
+                                {{~/sort~}}"
+                            >
+                                <i class="fa fa-sort"></i>
+                            </a>
+                        </th>
+                        <th>{{_ 'Updated'}}
+                            <a href="?q={{q}}&
+                                {{~#sort 'deal_updated'~}}
+                                    {{~#unless value~}}
+                                        order[deal_updated]=ASC
+                                    {{~/unless}}
+                                    {{~#when value '===' 'ASC'~}}
+                                        order[deal_updated]=DESC
+                                    {{~/when}}
+                                {{/sort~}}"
+                            >
+                                <i class="fa fa-sort"></i>
+                            </a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each rows}}
+                    <tr>
+                        <td>
+                            <input
+                                name="bulk_rows[]"
+                                value="{{deal_id}}"
+                                type="checkbox"
+                            />
+                        </td>
+                        <td>
+                            <a title="View Deal Details" href="/control/business/deal/overview/{{deal_id}}">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            <a title="Edit" href="/control/business/{{deal_type}}/update/{{deal_id}}">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            {{#if deal_active}}
+                                <a title="Remove" href="/control/business/deal/remove/{{deal_id}}">
+                                    <i class="fa fa-remove text-danger"></i>
+                                </a>
+                            {{else}}
+                                <a title="Restore" href="/control/business/deal/restore/{{deal_id}}">
+                                    <i class="fa fa-repeat text-success"></i>
+                                </a>
+                            {{/if}}
+                        </td>
+                        <td>
+                            <a title="View Deal Details" href="/control/business/deal/overview/{{deal_id}}">
+                                {{company.profile_company}}{{company.lead_company}}
+                            </a>
+                        </td>
+                        <td>
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            {{company.profile_name}}{{company.lead_name}} <br />
+                            <i class="fa fa-envelope-o"></i>
+                            {{company.lead_email}}{{company.profile_email}} <br />
+                            {{#if company.lead_phone}}
+                                <i class="fa fa-phone" aria-hidden="true"></i>
+                                {{company.lead_phone}}
+                            {{/if}}
+                            {{#if company.profile_phone}}
+                                <i class="fa fa-phone" aria-hidden="true"></i>
+                                {{company.profile_phone}}
+                            {{/if}}
+
+                        </td>
+                        <td>{{deal_type}}</td>
+                        <td>{{number deal_amount}}</td>
+                        <td>{{date deal_close 'F j, Y'}}</td>
+                        <td>{{deal_status}}</td>
+                        <td>{{agent.profile_name}}{{#unless agent.profile_name}}unassigned{{/unless}}</td>
+                        <td>{{date deal_created 'F j, Y'}}</td>
+                        <td>{{date deal_updated 'F j, Y'}}</td>
+                    </tr>
+                    {{/each}}
+                    {{#unless rows}}
+                        <tr>
+                            <td  class="text-center" colspan="12">
+                                {{_ 'No results found'}}.
+                            </td>
+                        </tr>
+                    {{/unless}}
+                </tbody>
+            </table>
+            <!-- END: Search Table -->
+        </form>
+    </div>
+    <!-- END: Search Table Actions -->
+    <!-- START: Pagination -->
+    <nav>
+        <ul class="pagination">
+            {{#pager total range}}
+                <li{{#if active}} class="active"{{/if}}>
+                    <a href="?{{href}}">{{page}}</a>
+                </li>
+            {{/pager}}
+        </ul>
+    </nav>
+    <!-- END: Pagination -->
+</div>
+<!-- END: Scroll -->
+
+<!-- START: Import Modal -->
+<div class="modal fade" id="import-modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- START: Modal Header -->
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" type="button">
+                    &times;
+                </button>
+                <div class="modal-title">{{_ 'Import Deal'}}</div>
+            </div>
+            <!-- END: Modal Header -->
+            <!-- START: Import Modal Form -->
+            <form
+                action="/control/business/deal/import"
+                class="form-inline"
+                enctype="multipart/form-data"
+                method="post"
+            />
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input
+                            class="upload"
+                            id="file_csv"
+                            name="csv"
+                            type="file"
+                        />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-info" type="submit">
+                        {{_ 'Import'}}
+                    </button>
+                </div>
+            </form>
+            <!-- END: Import Modal Form -->
+        </div>
+    </div>
+</div>
+<!-- END: Import Modal -->

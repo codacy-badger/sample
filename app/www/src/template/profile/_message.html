@@ -1,0 +1,81 @@
+<div
+    class="message-modal modal fade"
+    id="message-modal"
+    data-profile-id=""
+    role="dialog"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title text-uppercase">
+                </div>
+                <div class="modal-image-container">
+                    <div class="modal-image">
+                        <div class="modal-image-circle">
+                            <img
+                                class="profile-image"
+                                alt="{{_ '%s logo' profile_name}}"
+                                src="{{profile_image}}"
+                                onerror=""
+                            />
+                        </div>
+                        <span>{{profile_name}}</span>
+                    </div>
+                </div>
+            </div>
+            <form
+                id="conpany-form"
+                method="post"
+                data-do="textarea-data-upload"
+                data-profile-id=""
+                data-on="submit"
+            >
+                <div class="modal-body">
+                    <div class="form-group{{#if errors.blog_article}} has-error{{/if}}">
+                        <label class="control-label">Message</label>
+                        <input
+                            name="post_slug"
+                            value="{{post_slug}}"
+                            type="hidden"
+                        >
+                        <input
+                            name="post_type"
+                            value="{{post_type}}"
+                            type="hidden"
+                        >
+                        <div>
+                            <textarea
+                                class="form-control text-value"
+                                data-do="wysiwyg"
+                                data-profile-id="{{profile_id}}"
+                                name="post_detail"
+                                placeholder="Type your message"
+                            >
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div>
+                        <button
+                            class="btn btn-primary"
+                            data-profile-id="{{profile_id}}"
+                        >
+                            Send
+                        </button>
+                    </div>
+                    <div>
+                        <button
+                            aria-label="Close"
+                            class="close"
+                            data-dismiss="modal"
+                            type="button">
+                            <span aria-hidden="true">Cancel</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

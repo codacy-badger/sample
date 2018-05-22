@@ -1,0 +1,500 @@
+<h3>{{title}}</h3>
+<form method="post"
+{{#if item.action}}
+    action="{{item.action}}"
+{{/if}}
+{{#if cdn_config}}
+    data-do="cdn-upload"
+    data-on="submit"
+    data-progress="{{_ 'We are uploading your files. Please do not refresh page.'}}"
+    data-complete="{{_ 'Upload Complete'}}"
+    data-enctype="{{cdn.form.enctype}}"
+    data-method="{{cdn_config.form.method}}"
+    data-action="{{cdn_config.form.action}}"
+    data-cdn="{{cdn_config.form.action}}"
+    data-acl="{{cdn_config.inputs.acl}}"
+    data-key="{{cdn_config.inputs.key}}"
+    data-credential="{{cdn_config.inputs.X-Amz-Credential}}"
+    data-algorythm="{{cdn_config.inputs.X-Amz-Algorithm}}"
+    data-date="{{cdn_config.inputs.X-Amz-Date}}"
+    data-policy="{{cdn_config.inputs.Policy}}"
+    data-signature="{{cdn_config.inputs.X-Amz-Signature}}"
+{{/if}}
+>
+    <div id="fields-view-init" class="{{#if view}}view{{/if}}">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group{{#if errors.blog_title}} has-error{{/if}}">
+                <label class="control-label">Title</label>
+                <div>
+                    <input
+                        class="form-control"
+                        data-do="generate-slug"
+                        data-on="keyup"
+                        data-name="blog_slug"
+                        name="blog_title"
+                        placeholder="Sample Article Title"
+                        type="text"
+                        value="{{item.blog_title}}"
+                    />
+                    {{#if errors.blog_title}}
+                    <span class="help-text">{{errors.blog_title}}</span>
+                    {{/if}}
+                </div>
+            </div>
+
+            <div class="form-group{{#if errors.blog_slug}} has-error{{/if}}">
+                <label class="control-label">Slug</label>
+                <div>
+                    <input
+                        class="form-control"
+                        name="blog_slug"
+                        placeholder="sample-article-title"
+                        type="text"
+                        value="{{item.blog_slug}}"
+                    />
+                    {{#if errors.blog_slug}}
+                    <span class="help-text">{{errors.blog_slug}}</span>
+                    <br>
+                    {{/if}}
+
+                    <em>The blog will look like this: https://jobayan.com/blog/sample-article-title</em>
+
+                </div>
+            </div>
+
+            <div class="form-group{{#if errors.blog_article}} has-error{{/if}}">
+                <label class="control-label">Article</label>
+                <div>
+                    <textarea data-do="wysiwyg" name="blog_article" placeholder="Start writing ..." class="form-control wysiwyg-area">{{{item.blog_article}}}</textarea>
+
+                    {{#if errors.blog_article}}
+                    <span class="help-text">{{errors.blog_article}}</span>
+                    {{/if}}
+                </div>
+            </div>
+
+            <div class="clear form-group">
+                <input type="hidden" name="csrf" value="{{csrf}}" />
+                {{#if view}}
+                    <a href="/control/blog/search" class="btn btn-link" type="submit"><i class="fa fa-caret-left"></i> &nbsp;Back</a>
+                {{else}}
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                {{/if}}
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-default clear" >
+                <div class="panel-heading brand">
+                    <div class="panel-title">General</div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="form-group{{#if errors.blog_type}} has-error{{/if}}">
+                        <label class="control-label">Type</label>
+                        <div>
+                            <select
+                                class="form-control"
+                                data-do="blog-type"
+                                data-on="change"
+                                name="blog_type"
+                            >
+                                <option
+                                    value="post" {{#when item.blog_type '==' 'post'}}
+                                    selected{{/when}}
+                                >Post</option>
+                                <option
+                                    value="keyword" {{#when item.blog_type '==' 'keyword'}}
+                                    selected{{/when}}
+                                >Category</option>
+                            </select>
+                            {{#if errors.blog_type}}
+                            <span class="help-text">{{errors.blog_type}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="form-group{{#if errors.blog_image}} has-error{{/if}}">
+                        <label class="control-label">Banner</label>
+                        <div>
+                            <input name="blog_image" value="{{item.blog_image}}" type="hidden" />
+                            <div data-do="file-field" data-name="blog_image">
+                                <input
+                                    accept="image/*"
+                                    class="form-control"
+                                    type="file"
+                                    value="{{item.blog_image}}"
+                                />
+                            </div>
+                            {{#if item.blog_image}}
+                                <br>
+                                <em>
+                                    <a
+                                        href="{{item.blog_image}}"
+                                        target="_blank"
+                                    >
+                                    See your current blog image
+                                    </a>
+                                </em>
+                            {{/if}}
+                            {{#if errors.blog_image}}
+                            <span class="help-text">{{errors.blog_image}}</span>
+                            {{/if}}
+                             <em>The size of the photo is 1280x720</em>
+                        </div>
+                    </div>
+
+                    <div class="blog-type-post form-group{{#if errors.blog_published}} has-error{{/if}}">
+                        <label class="control-label">Publish Date</label>
+                        <div>
+                            <input name="blog_published" value="{{#if item.blog_published}}{{item.blog_published}}{{else}}{{date 'now' 'Y-m-d'}}{{/if}}" type="date" class="form-control" />
+                            {{#if errors.blog_published}}
+                            <span class="help-text">{{errors.blog_published}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="form-group{{#if errors.blog_description}} has-error{{/if}}">
+                        <label class="control-label">Summary</label>
+                        <div>
+                            <input
+                                class="form-control"
+                                name="blog_description"
+                                placeholder="160 Characters Max"
+                                type="text"
+                                value="{{item.blog_description}}"
+                            />
+                            {{#if errors.blog_description}}
+                            <span class="help-text">{{errors.blog_description}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="form-group{{#if errors.blog_keywords}} has-error{{/if}} clearfix">
+                        <label class="control-label">{{_ 'Keywords'}}</label>
+                        <div>
+                            <div data-do="keyword-field" class="keyword-field">
+                                {{#each item.blog_keywords}}
+                                    <div class="keyword">
+                                        <input
+                                            class="keyword-input text-field"
+                                            name="blog_keywords[]"
+                                            placeholder="{{_ 'Add Keyword'}}"
+                                            type="text"
+                                            value="{{this}}"
+                                        />
+                                        <a class="remove" href="javascript:void(0)">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                {{/each}}
+                            </div>
+
+                            <em class="blog-type-post">Only the first 5 keywords will be displayed.</em>
+
+                            {{#if errors.blog_keywords}}
+                                <span class="help-text text-danger">{{errors.blog_keywords}}</span>
+                            {{/if}}
+                        </div>
+                        <script id="keyword-translations" type="text/json">
+                            {"Keyword":"{{_ 'Keyword'}}"}
+                        </script>
+                    </div>
+
+                    <div class="form-group{{#if errors.blog_tags.location}} has-error{{/if}}">
+                        <label class="control-label">Location</label>
+                        <div>
+                            <div data-do="tag-field" class="tag-field" data-name="blog_tags" data-field="blog_tags[location]">
+                                {{#each item.blog_tags.location}}
+                                    <div class="tag">
+                                        <input
+                                            class="tag-input text-field"
+                                            name="blog_tags[location][]"
+                                            placeholder="{{_ 'Add Tag'}}"
+                                            type="text"
+                                            value="{{this}}" 
+                                        />
+                                        <a class="remove" href="javascript:void(0)">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                {{/each}}
+                            </div>
+
+                            {{#if errors.blog_tags.location}}
+                            <span class="help-text">{{errors.blog_tags.location}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="form-group{{#if errors.blog_tags.position}} has-error{{/if}}">
+                        <label class="control-label">Position</label>
+                        <div>
+                            <div data-do="tag-field" class="tag-field" data-name="blog_tags" data-field="blog_tags[position]">
+                                {{#each item.blog_tags.position}}
+                                    <div class="tag">
+                                        <input 
+                                            class="tag-input text-field"
+                                            name="blog_tags[position][]"
+                                            placeholder="{{_ 'Add Tag'}}"
+                                            type="text"
+                                            value="{{this}}"
+                                        />
+                                        <a class="remove" href="javascript:void(0)">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                {{/each}}
+                            </div>
+
+                            {{#if errors.blog_tags.position}}
+                            <span class="help-text">{{errors.blog_tags.position}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="form-group{{#if errors.blog_tags.industry}} has-error{{/if}}">
+                        <label class="control-label">Industry</label>
+                        <div>
+                            <div data-do="tag-field" class="tag-field" data-name="blog_tags" data-field="blog_tags[industry]">
+                                {{#each item.blog_tags.industry}}
+                                    <div class="tag">
+                                        <input 
+                                            class="tag-input text-field"
+                                            name="blog_tags[industry][]"
+                                            placeholder="{{_ 'Add Tag'}}"
+                                            type="text"
+                                            value="{{this}}"
+                                        />
+                                        <a class="remove" href="javascript:void(0)">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                {{/each}}
+                            </div>
+
+                            {{#if errors.blog_tags.industry}}
+                            <span class="help-text">{{errors.blog_tags.industry}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="panel panel-default clear" >
+                <div class="panel-heading brand">
+                    <div class="panel-title">Files</div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="form-group{{#if errors.blog_image}} has-error{{/if}}">
+                        <label class="control-label">Upload Files</label>
+                        <div>
+
+                            <div data-do="s3-file-upload">
+                                <input
+                                    accept="image/*"
+                                    class="form-control"
+                                    type="file"
+                                    value="{{item.blog_image}}"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default clear blog-type-post" >
+                <div class="panel-heading brand">
+                    <div class="panel-title">Author</div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="form-group{{#if errors.blog_author_image}} has-error{{/if}}">
+                        <label class="control-label">Avatar</label>
+                        <div>
+                            <div data-do="file-field" data-name="blog_author_image">
+                                <input accept="image/*" class="form-control" type="file" />
+                            </div>
+
+                            {{#if item.blog_author_image}}
+                                <br>
+                                <em>
+                                <a
+                                    href="{{item.blog_author_image}}"
+                                    target="_blank"
+                                >See your current blog author image
+                                </a>
+                                </em>
+                            {{/if}}
+
+                            {{#if errors.blog_author_image}}
+                            <span class="help-text">{{errors.blog_author_image}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="form-group{{#if errors.blog_author}} has-error{{/if}}">
+                        <label class="control-label">Name</label>
+                        <div>
+                            <input
+                                class="form-control"
+                                data-do="blog-author"
+                                data-on="keyup"
+                                name="blog_author"
+                                placeholder="John Doe"
+                                type="text"
+                                value="{{item.blog_author}}"
+                            />
+
+                            {{#if errors.blog_author}}
+                            <span class="help-text">{{errors.blog_author}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="form-group{{#if errors.blog_author_title}} has-error{{/if}}">
+                        <label class="control-label">Title</label>
+                        <div>
+                            <input
+                                            class="form-control"
+                                            data-do="blog-author"
+                                            data-on="keyup"
+                                            name="blog_author_title"
+                                            placeholder="Janitor"
+                                            type="text"
+                                            value="{{item.blog_author_title}}"
+                            />
+                            {{#if errors.blog_author_title}}
+                            <span class="help-text">{{errors.blog_author_title}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default clear blog-type-post" >
+                <div class="panel-heading brand">
+                    <div class="panel-title">Social</div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="form-group{{#if errors.blog_facebook_image}} has-error{{/if}}">
+                        <label class="control-label">Facebook Image</label>
+                        <div>
+                            <input name="blog_facebook_image" value="{{item.blog_facebook_image}}" type="hidden" />
+
+                            <div data-do="file-field" data-name="blog_facebook_image">
+                                <input type="file" accept="image/*" class="form-control" />
+                            </div>
+
+                            {{#if item.blog_facebook_image}}
+                                <em><a href="{{item.blog_facebook_image}}" target="_blank">See your current Facebook image.</a></em>
+                            {{/if}}
+
+                            {{#if errors.blog_facebook_image}}
+                            <span class="help-text">{{errors.blog_facebook_image}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="form-group{{#if errors.blog_facebook_title}} has-error{{/if}}">
+                        <label class="control-label">Facebook Title</label>
+                        <div>
+                            <input data-do="copy-text" data-selector="input[name=blog_title]" name="blog_facebook_title" value="{{item.blog_facebook_title}}" placeholder="Sample Article Title" type="text" class="form-control" />
+
+                            {{#if errors.blog_facebook_title}}
+                            <span class="help-text">{{errors.blog_facebook_title}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="form-group{{#if errors.blog_facebook_description}} has-error{{/if}}">
+                        <label class="control-label">Facebook Description</label>
+                        <div>
+                            <input data-do="copy-text" data-selector="input[name=blog_description]" name="blog_facebook_description" value="{{item.blog_facebook_description}}" placeholder="160 Characters Max" type="text" class="form-control" />
+                            {{#if errors.blog_facebook_description}}
+                            <span class="help-text">{{errors.blog_facebook_description}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="form-group{{#if errors.blog_twitter_image}} has-error{{/if}}">
+                        <label class="control-label">Twitter Image</label>
+                        <div>
+                            <input name="blog_twitter_image" value="{{item.blog_twitter_image}}" type="hidden" />
+
+                            <div data-do="file-field" data-name="blog_twitter_image">
+                                <input type="file" accept="image/*" class="form-control" />
+                            </div>
+
+                            {{#if item.blog_twitter_image}}
+                                <em><a href="{{item.blog_twitter_image}}" target="_blank">See your current twitter image.</a></em>
+                            {{/if}}
+
+                            {{#if errors.blog_twitter_image}}
+                            <span class="help-text">{{errors.blog_twitter_image}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="form-group{{#if errors.blog_twitter_title}} has-error{{/if}}">
+                        <label class="control-label">Twitter Title</label>
+                        <div>
+                            <input data-do="copy-text" data-selector="input[name=blog_title]" name="blog_twitter_title" value="{{item.blog_twitter_title}}" placeholder="Sample Article Title" type="text" class="form-control" />
+
+                            {{#if errors.blog_twitter_title}}
+                            <span class="help-text">{{errors.blog_twitter_title}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="form-group{{#if errors.blog_twitter_description}} has-error{{/if}}">
+                        <label class="control-label">Twitter Description</label>
+                        <div>
+                            <input data-do="copy-text" data-selector="input[name=blog_description]" name="blog_twitter_description" value="{{item.blog_twitter_description}}" placeholder="160 Characters Max" type="text" class="form-control" />
+                            {{#if errors.blog_twitter_description}}
+                            <span class="help-text">{{errors.blog_twitter_description}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="{{config 'cdn'}}/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.css" />
+<script src="{{config 'cdn'}}/bower_components/wysihtml5x/dist/wysihtml5x-toolbar.min.js"></script>
+<script src="{{config 'cdn'}}/bower_components/handlebars/handlebars.runtime.min.js"></script>
+<script src="{{config 'cdn'}}/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.js"></script>
+
+<script>
+    (function() {
+        $(window).on('blog-type-init', function(e, target) {
+            if($(target).val() == 'keyword') {
+                $('.blog-type-post').hide();
+            } else if($(target).val() == 'post') {
+                $('.blog-type-post').show();
+            }
+        });
+
+        $(window).on('blog-type-change', function(e, target) {
+            if($(target).val() == 'keyword') {
+                $('.blog-type-post').hide();
+            } else if($(target).val() == 'post') {
+                $('.blog-type-post').show();
+            }
+        });
+
+        $(window).on('copy-text-init', function(e, target) {
+            var selector = $(target).attr('data-selector');
+            $(selector).change(function() {
+                $(target).val($(this).val());
+            });
+        });
+    })();
+</script>

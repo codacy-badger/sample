@@ -1,0 +1,617 @@
+<!-- START: Crumbs -->
+<div class="crumbs">
+    <a href="/control/marketing/dashboard">
+        <i class="fa fa-home"></i> {{_ 'Dashboard'}}</a>
+    <span class="separator">
+        <i class="fa fa-angle-right"></i>
+    </span>
+    <a href="/control/marketing/profile/search" class="active">
+        <i class="fa fa-user"></i> {{_ 'Users'}}</a>
+</div>
+<!-- END: Crumbs -->
+<!-- START: Scroll -->
+<div class="scroll">
+    <h3 class="template-blue">
+        <i class="fa fa-user"></i> {{_ 'Users'}}
+        <span class="badge badge-info">{{total}}</span>
+    </h3>
+    <!-- START: Search Actions -->
+    <div class="search-actions">
+        <div class="pull-right">
+            <a
+                class="btn btn-export"
+                href="/control/marketing/profile/search?export=true&
+                {{~querystring}}"
+            >
+                <i class="fa fa-download"></i> {{_ 'Export'}}
+            </a>
+        </div>
+        <div class="btn-group" role="group">
+            <a
+                class="btn
+                    {{#when filter.type '===' 'poster'}}
+                        btn-active active
+                    {{else}}
+                        btn-default
+                    {{/when}}
+                "
+                href="?{{~querystring}}&filter[type]=poster"
+            >
+                {{_ 'Company'}}
+            </a>
+            <a
+                class="btn
+                    {{#when filter.type '===' 'seeker'}}
+                        btn-active active
+                    {{else}}
+                        btn-default
+                    {{/when}}
+                "
+                href="?{{~querystring}}&filter[type]=seeker"
+            >
+                {{_ 'Seeker'}}
+            </a>
+        </div>
+        <div class="btn-group" role="group">
+            <a
+                class="btn
+                    {{#when filter.profile_active '===' '0'}}
+                        btn-default
+                    {{else}}
+                        btn-active active
+                    {{/when}}
+                "
+                href="?{{~querystring}}&filter[profile_active]=1"
+            >
+                {{_ 'Active'}}
+            </a>
+            <a
+                class="btn
+                    {{#when filter.profile_active '===' '0'}}
+                        btn-active active
+                    {{else}}
+                        btn-default
+                    {{/when}}
+                "
+                href="?{{~querystring}}&filter[profile_active]=0"
+            >
+                {{_ 'Inactive'}}
+            </a>
+        </div>
+    </div>
+    <!-- END: Search Actions -->
+    <!-- START: Search Filters -->
+    <div class="panel panel-default search-filters">
+        <div class="panel-heading">{{_ 'Filters'}}</div>
+        <div class="panel-body">
+            <form>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div
+                            class="form-group{{#if errors.q}} has-error{{/if}}"
+                        >
+                            <label>{{_ 'Search'}}</label>
+                            <div class="texts-field">
+                                <input
+                                    class="form-control"
+                                    name="q"
+                                    placeholder="{{_ 'Enter Keyword'}}"
+                                    type="text"
+                                    value="{{q}}"
+                                />
+                            </div>
+                        </div>
+                        <div class="form-group
+                                {{~#if errors.date_start}} has-error{{/if~}}
+                                {{~#if errors.date_end}} has-error{{/if~}}
+                            "
+                        >
+                            <label>{{_ 'Date Range'}}</label>
+                            <div class="input-range date-range">
+                                <div class="input-from">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input
+                                            class="form-control"
+                                            name="date_start"
+                                            onfocus="(this.type='date')"
+                                            placeholder="{{_ '2017-01-01'}}"
+                                            type="text"
+                                            value="{{date_start}}"
+                                        />
+                                    </div>
+                                </div>
+                                <span class="input-separator">
+                                    <i class="fa fa-minus"></i>
+                                </span>
+                                <div class="input-to">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input
+                                            class="form-control"
+                                            name="date_end"
+                                            onfocus="(this.type='date')"
+                                            placeholder="{{_ '2017-01-01'}}"
+                                            type="text"
+                                            value="{{date_end}}"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{#if errors.date_start}}
+                                <span class="help-text">
+                                    {{errors.date_start}}
+                                </span>
+                            {{/if}}
+
+                            {{#if errors.date_end}}
+                                <span class="help-text">
+                                    {{errors.date_end}}
+                                </span>
+                            {{/if}}
+                        </div>
+                        <div class="form-group">
+                            <label>Date Type</label>
+                            <div class="select-field">
+                                <select class="form-control" name="date_type">
+                                    <option value="created"
+                                        {{#when date_type '==' 'created'}}
+                                            selected
+                                        {{/when}}
+                                    >
+                                        {{_ 'Created'}}
+                                    </option>
+                                    <option value="updated"
+                                        {{#when date_type '==' 'updated'}}
+                                            selected
+                                        {{/when}}
+                                    >
+                                        {{_ 'Updated'}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group
+                                {{~#if errors.profile_tags}} has-error{{/if}}
+                            "
+                        >
+                            <label>{{_ 'Tags'}}</label>
+                            <div
+                                class="tag-field"
+                                data-do="tag-field"
+                                data-name="profile_tags"
+                            >
+                                {{#each profile_tags}}
+                                    <div class="tag">
+                                        <input
+                                            class="tag-input tag-field"
+                                            name="profile_tags[]"
+                                            placeholder="Tag"
+                                            type="text"
+                                            value="{{this}}"
+                                        />
+                                        <a
+                                            class="remove"
+                                            href="javascript:void(0)"
+                                        >
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                {{/each}}
+                            </div>
+                            {{#if errors.profile_tags}}
+                                <span class="help-text">
+                                    {{errors.profile_tags}}
+                                </span>
+                            {{/if}}
+                        </div>
+
+                        <div class="form-group
+                                {{~#if errors.profile_statuses}} has-error{{/if}}
+                            "
+                        >
+                            <label>{{_ 'Story'}}</label>
+                            <div
+                                class="tag-field"
+                                data-do="tag-field"
+                                data-name="profile_story"
+                            >
+                                {{#each profile_story}}
+                                    <div class="tag">
+                                        <input
+                                            class="tag-input tag-field"
+                                            name="profile_story[]"
+                                            placeholder="Tag"
+                                            type="text"
+                                            value="{{this}}"
+                                        />
+                                        <a
+                                            class="remove"
+                                            href="javascript:void(0)"
+                                        >
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                {{/each}}
+                            </div>
+                            {{#if errors.profile_statuses}}
+                                <span class="help-text">
+                                    {{errors.profile_statuses}}
+                                </span>
+                            {{/if}}
+                        </div>
+
+                        <div class="form-group
+                            {{~#if errors.profile_campaigns}} has-error{{/if}}"
+                        >
+                            <label>{{_ 'Campaigns'}}</label>
+                            <div
+                                class="tag-field"
+                                data-do="tag-field"
+                                data-name="profile_campaigns"
+                            >
+                                {{#each profile_campaigns}}
+                                    <div class="tag">
+                                        <input
+                                            class="tag-input tag-field"
+                                            name="profile_campaigns[]"
+                                            placeholder="Tag"
+                                            type="text"
+                                            value="{{this}}"
+                                        />
+                                        <a
+                                            class="remove"
+                                            href="javascript:void(0)"
+                                        >
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                {{/each}}
+                            </div>
+                             {{#if errors.profile_campaigns}}
+                                <span class="help-text">
+                                    {errors.profile_campaigns}}
+                                </span>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group filter-button-only">
+                    {{#when filter.profile_active '==' '0'}}
+                        <input
+                            name="filter[profile_active]"
+                            type="hidden"
+                            value="0"
+                        />
+                    {{/when}}
+                    <button class="btn btn-primary">{{_ 'Filter'}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- END: Search Filters -->
+    <!-- START: Search Table Actions -->
+    <div class="search-table-actions">
+        <form class="form-inline">
+            <div class="pull-right">
+                <div class="btn-group">
+                <button
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    class="btn btn-default dropdown-toggle"
+                    data-toggle="dropdown"
+                    type="button"
+                >
+                    {{_ 'Show %s' range}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="/control/marketing/profile/search?
+                            {{~querystring}}&range=10"
+                        >
+                            {{_ 'Show 10'}}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/control/marketing/profile/search?
+                            {{~querystring}}&range=25"
+                        >
+                            {{_ 'Show 25'}}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/control/marketing/profile/search?
+                            {{~querystring}}&range=50"
+                        >
+                            {{_ 'Show 50'}}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/control/marketing/profile/search?
+                            {{~querystring}}&range=100"
+                        >
+                            {{_ 'Show 100'}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            </div>
+            <div class="form-group">
+                <select name="bulk" class="form-control">
+                    <option value="add-tag">{{_ 'Add Tag'}}</option>
+                    <option value="remove-tag">{{_ 'Remove Tag'}}</option>
+                    <option value="add-story">{{_ 'Add Story'}}</option>
+                    <option value="remove-story">{{_ 'Remove Story'}}</option>
+                    <option value="add-campaign">{{_ 'Add Campaign'}}</option>
+                    <option value="remove-campaign">{{_ 'Remove Campaign'}}</option>
+                    <option value="restore">{{_ 'Make Active'}}</option>
+                    <option value="remove">{{_ 'Make Inactive'}}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <div class="tag-field" data-do="tag-field"></div>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary">{{_ 'Apply'}}</button>
+            </div>
+            <!-- START: Search Table -->
+            <div class="table-overflow">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                <input
+                                    class="checkall"
+                                    id="checkAll"
+                                    type="checkbox"
+                                />
+                            </th>
+                            <th>{{_ 'Actions'}}</th>
+                            <th>{{_ 'ID'}}
+                                <a href="?q={{q}}&
+                                    {{~#sort 'profile_id'}}
+                                        {{~#unless value~}}
+                                            order[profile_id]=ASC
+                                        {{~/unless}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[profile_id]=DESC
+                                        {{~/when}}
+                                    {{~/sort}}"
+                                >
+                                    <i class="fa fa-sort"></i>
+                                </a>
+                            </th>
+                            <th>{{_ 'Image'}}</th>
+                            <th>{{_ 'Name'}}
+                                <a href="?q={{q}}&
+                                    {{~#sort 'profile_name'}}
+                                        {{~#unless value~}}
+                                            order[profile_name]=ASC
+                                        {{~/unless}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[profile_name]=DESC
+                                        {{~/when}}
+                                    {{~/sort}}"
+                                >
+                                    <i class="fa fa-sort"></i>
+                                </a>
+                            </th>
+                            <th>{{_ 'Email'}}
+                                <a href="?q={{q}}&
+                                    {{~#sort 'profile_email'}}
+                                        {{~#unless value~}}
+                                            order[profile_email]=ASC
+                                        {{~/unless}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[profile_email]=DESC
+                                        {{~/when}}
+                                    {{~/sort}}"
+                                >
+                                    <i class="fa fa-sort"></i>
+                                </a>
+                            </th>
+                            <th>{{_ 'Phone'}}</th>
+                            <th>{{_ 'Social'}}</th>
+                            <th>{{_ 'Tags'}}</th>
+                            <th>{{_ 'Story'}}</th>
+                            <th>{{_ 'Campaigns'}}</th>
+                            <th>{{_ 'Type'}}</th>
+                            <th>{{_ 'Created'}}
+                                <a href="?q={{q}}&
+                                    {{~#sort 'profile_created'}}
+                                        {{~#unless value~}}
+                                            order[profile_created]=ASC
+                                        {{~/unless}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[profile_created]=DESC
+                                        {{~/when}}
+                                    {{~/sort}}"
+                                >
+                                    <i class="fa fa-sort"></i>
+                                </a>
+                            </th>
+                            <th>{{_ 'Updated'}}
+                                <a href="?q={{q}}&
+                                    {{~#sort 'profile_updated'}}
+                                        {{~#unless value~}}
+                                            order[profile_updated]=ASC
+                                        {{~/unless}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[profile_updated]=DESC
+                                        {{~/when}}
+                                    {{~/sort}}"
+                                >
+                                    <i class="fa fa-sort"></i>
+                                </a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each rows}}
+                            <tr>
+                                <td>
+                                    <input
+                                        name="bulk-rows[]"
+                                        type="checkbox"
+                                        value="{{profile_id}}"
+                                    />
+                                </td>
+                                <td>
+                                    <a href="update/{{profile_id}}" title="Edit">
+                                        <i class="fa fa-edit"></i>
+                                    </a>&nbsp;
+                                    {{#if profile_active}}
+                                        <a href="remove/{{profile_id}}" title="Remove">
+                                            <i class="fa fa-remove text-danger"></i>
+                                        </a>
+                                    {{else}}
+                                        <a href="restore/{{profile_id}}" title="Restore">
+                                            <i class="fa fa-repeat text-success"></i>
+                                        </a>
+                                    {{/if}}
+                                </td>
+                                <td>{{profile_id}}</td>
+                                <td>
+                                    {{#if profile_image}}
+                                        <img
+                                            alt="{{profile_name}}"
+                                            src="{{profile_image}}"
+                                            width="40"
+                                        />
+                                    {{else}}
+                                        <img
+                                            alt="{{profile_name}}"
+                                            src="/images/default-avatar.png"
+                                            width="40"
+                                        />
+                                    {{/if}}
+                                </td>
+                                <td>{{profile_name}}</td>
+                                <td>
+                                    <a href="mailto:{{profile_email}}">
+                                        {{profile_email}}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="tel:{{profile_phone}}">
+                                        {{profile_phone}}
+                                    </a>
+                                </td>
+                                <td>
+                                    {{#if profile_facebook}}
+                                        <a
+                                            href="{{profile_facebook}}"
+                                            target="_blank"
+                                        >
+                                            <i class="fa fa-facebook-square"></i>
+                                        </a>
+                                    {{/if}} {{#if profile_linkedin}}
+                                        <a
+                                            href="{{profile_linkedin}}"
+                                            target="_blank"
+                                        >
+                                            <i class="fa fa-linkedin-square"></i>
+                                        </a>
+                                    {{/if}} {{#if profile_twitter}}
+                                        <a
+                                            href="{{profile_twitter}}"
+                                            target="_blank"
+                                        >
+                                            <i class="fa fa-twitter-square"></i>
+                                        </a>
+                                    {{/if}} {{#if profile_google}}
+                                        <a
+                                            href="{{profile_google}}"
+                                            target="_blank"
+                                        >
+                                            <i class="fa fa-google-plus-square"></i>
+                                        </a>
+                                    {{/if}}
+                                </td>
+                                <td>
+                                    {{#each profile_tags}}
+                                        <a
+                                            class="pull-left"
+                                            href="?profile_tags={{@key}}"
+                                        >
+                                            <span class="label label-default">
+                                                {{this}}
+                                            </span>
+                                        </a>
+                                    {{/each}}
+                                </td>
+                                <td>
+                                    {{#each profile_story}}
+                                        <a
+                                            class="pull-left"
+                                            href="?profile_story={{this}}"
+                                        >
+                                            <span class="label
+                                                label-{{lower_dasherize this}}"
+                                            >
+                                                {{this}}
+                                            </span>
+                                        </a>
+                                    {{/each}}
+                                </td>
+                                <td>
+                                    {{#each profile_campaigns}}
+                                        <a href="?profile_campaigns={{@key}}">
+                                            <span class="label label-default">
+                                                {{this}}
+                                            </span>
+                                        </a>
+                                    {{/each}}
+                                </td>
+                                <td>
+                                    {{#if profile_company}}
+                                        <a href="?filter[type]=poster">
+                                            {{~_ 'poster'~}}
+                                        </a>
+                                    {{else}}
+                                        <a href="?filter[type]=seeker">
+                                            {{~_ 'seeker'~}}
+                                        </a>
+                                    {{/if}}
+                                </td>
+                                <td>{{profile_created}}</td>
+                                <td>{{profile_updated}}</td>
+                            </tr>
+                        {{/each}}
+                        {{#unless rows}}
+                            <tr>
+                                <td  class="text-center" colspan="12">
+                                    {{_ 'No results found.'}}
+                                </td>
+                            </tr>
+                        {{/unless}}
+                    </tbody>
+                </table>
+            </div>
+            <!-- END: Search Table -->
+        </form>
+    </div>
+    <!-- END: Search Table Actions -->
+    <!-- START: Pagination -->
+    <nav>
+        <ul class="pagination">
+            {{#pager total range}}
+                <li{{#if active}} class="active"{{/if}}>
+                    <a href="?{{href}}">{{page}}</a>
+                </li>
+            {{/pager}}
+        </ul>
+    </nav>
+    <!-- END: Pagination -->
+</div>
+<!-- END: Scroll -->
+ 

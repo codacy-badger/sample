@@ -1,0 +1,303 @@
+{{#unless ../post_tips_flag}}
+    <!-- START: Show Tips -->
+    {{#unless ../post_tips}}
+        <!-- START: Jobayan Post Tips -->
+        <div class="tips post-tips text-center">
+            <div class="tips-head">{{_ 'Jobayan Tips'}}</div>
+            <div class="tips-body">
+                <p class="pre-message">
+                    {{_ 'Companies are having a hard time finding your profile.'}}
+                </p>
+                <!-- START: Industry Tip -->
+                {{#unless ../post_industry}}
+                    <div class="industry">
+                        <div>
+                            <span class="pre-message">{{_ "Your post doesn't have an industry."}}</span>
+                            <i
+                                aria-hidden="true"
+                                class="fa fa-question-circle"
+                                data-do="tooltip"
+                                title="{{_ 'Connect with companies effectively by
+                                    providing an industry to your job post
+                                    (e.g. Technology, Manufacturing, IT services)'}}"
+                            >
+                            </i>
+                        </div>
+                        <a
+                            class="btn btn-primary"
+                            data-backdrop="static"
+                            data-container="industry"
+                            data-do="poster-modal"
+                            data-id="{{../post_id}}"
+                            data-keyboard="false"
+                            data-on="click"
+                            data-target="#industry"
+                            data-toggle="modal"
+                            title="{{_ 'Choose an industry'}}"
+                        >
+                            {{_ 'Choose an industry'}}
+                        </a>
+                    </div>
+                {{/unless}}
+                <!-- END: Industry Tip -->
+                <!-- START: Location Tip -->
+                {{#unless ../post_location_flag}}
+                    <div class="location">
+                        <div>
+                            <span class="pre-message">{{_ 'Your Location is unknown.'}}</span>
+                            <i
+                                aria-hidden="true"
+                                class="fa fa-question-circle"
+                                data-do="tooltip"
+                                title="{{_ 'Increase the visibility of your job
+                                    post and match with the right companies
+                                    by providing a location to your job post'}}"
+                            >
+                            </i>
+                        </div>
+                        <a
+                            class="btn btn-primary"
+                            data-backdrop="static"
+                            data-container="location"
+                            data-do="poster-modal"
+                            data-id="{{../post_id}}"
+                            data-keyboard="false"
+                            data-on="click"
+                            data-target="#location"
+                            data-toggle="modal"
+                            title="{{_ 'Change my location'}}"
+                        >
+                            {{_ 'Change my location'}}
+                        </a>
+                    </div>
+                {{/unless}}
+                <!-- END: Location Tip -->
+                <!-- START: School Tip -->
+                {{#unless ../post_school_flag}}
+                    <div class="School">
+                        <div>
+                            <span class="pre-message">{{_ "Indicate the institution where you received your training from."}}</span>
+                            <i
+                                aria-hidden="true"
+                                class="fa fa-question-circle"
+                                data-do="tooltip"
+                                title="{{_ 'Let companies/recruiters know where you received your training for a specific field from. This will help them assess your profile better.'}}"
+                            >
+                            </i>
+                        </div>
+                        <a
+                            class="btn btn-primary"
+                            data-backdrop="static"
+                            data-container="school"
+                            data-do="poster-modal"
+                            data-id="{{../post_id}}"
+                            data-keyboard="false"
+                            data-on="click"
+                            data-target="#school"
+                            data-toggle="modal"
+                            title="{{_ 'Choose a School'}}"
+                        >
+                            {{_ 'Education'}}
+                        </a>
+                    </div>
+                {{/unless}}
+                <!-- END: School Tip -->
+                <!-- START: Arrangement Tip -->
+                {{#unless ../post_arrangement}}
+                    <div class="arrangement">
+                        <div>
+                            <span class="pre-message">{{_ 'Is this a full time job?'}}</span>
+                            <i
+                                aria-hidden="true"
+                                class="fa fa-question-circle"
+                                data-do="tooltip"
+                                title="{{_ 'Please indicate the type of working
+                                    schedule of the job. Part-time is work
+                                    rendered that is less than 40 hours per
+                                    week. Remote is work rendered in a remote
+                                    location or from home. Freelance is work
+                                    rendered by the hour, day, or by contract
+                                    basis not bound to a single company.'}}"
+                            ></i>
+                        </div>
+                        <a
+                            class="btn btn-primary"
+                            data-do="arrangement-full"
+                            data-id="{{../post_id}}"
+                            data-on="click"
+                            href="javascript:void(0)"
+                            title="{{_ 'Yes'}}"
+                        >
+                            {{_ 'Yes'}}
+                        </a>
+
+                        <a
+                            class="btn btn-primary"
+                            data-backdrop="static"
+                            data-container="arrangement"
+                            data-do="poster-modal"
+                            data-id="{{../post_id}}"
+                            data-keyboard="false"
+                            data-on="click"
+                            data-target="#arrangement"
+                            data-toggle="modal"
+                            title="{{_ 'No'}}"
+                        >
+                            {{_ 'No'}}
+                        </a>
+                    </div>
+                {{/unless}}
+                <!-- END: Arrangement Tip -->
+            </div>
+        </div>
+        <!-- END: Jobayan Post Tips -->
+    {{/unless}}
+    <!-- END: Show Tips -->
+    <!-- START: Hired Tip -->
+    {{#if ../post_hired_flag}}
+        <div class="tips hired-tips text-center">
+            <div class="tips-head">{{_ 'Have you already found a job?'}}</div>
+            <div class="tips-body">
+                <div class="hired">
+                    <p class="pre-message">
+                        {{{_ 'By clicking yes, this post will be removed from<br/>
+                        searches and your profile.'}}}
+                    </p>
+                    <a
+                        class="btn btn-primary"
+                        data-do="post-hire"
+                        data-id="{{../post_id}}"
+                        data-on="click"
+                        href="javascript:void(0)"
+                        title="{{_ 'Hired'}}"
+                    >
+                        {{_ 'Yes'}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    {{/if}}
+    <!-- END: Hired Tip -->
+{{/unless}}
+<!-- START: Seeker Tips -->
+{{#when ../profile_information.information_progress '!=' '100'}}
+    <div class="post-tips-seeker">
+    <!-- START: Completeness -->
+    <div class="completeness">
+        <div class="completeness-head">
+            <div class="completeness-name">
+                {{_ 'Profile Completeness'}}
+            </div>
+            <div class="completeness-status">
+                {{~#if ../profile_information~}}
+                    {{../profile_information.information_progress}}%
+                {{~else~}}
+                    0%
+                {{~/if}}
+                Complete
+            </div>
+        </div>
+        <!-- START: Progress -->
+        <div class="progress-wrapper">
+            <ul class="progress-custom">
+                <li data-step="1" class="
+                    {{~#if ../post_resume~}}
+                        is-complete
+                    {{~else~}}
+                        {{~#unless ../profile_information~}}
+                            is-active
+                        {{~else~}}
+                            {{~#when ../profile_information.information_progress '==' '0'~}}
+                                is-active
+                            {{~/when~}}
+                            {{~#when ../profile_information.information_progress '>' '0'~}}
+                                is-complete
+                            {{~/when~}}
+                        {{~/unless~}}
+                    {{~/if~}}
+                ">
+                </li>
+                <li data-step="2" class="
+                    {{~#if ../post_resume~}}
+                        is-active
+                    {{~else~}}
+                        {{~#when ../profile_information.information_progress '==' '20'~}}
+                            is-active
+                        {{~/when~}}
+                        {{~#when ../profile_information.information_progress '>' '20'~}}
+                            is-complete
+                        {{~/when~}}
+                    {{~/if~}}
+                ">
+                </li>
+                <li data-step="3" class="
+                    {{~#when ../profile_information.information_progress '==' '40'~}}
+                        is-active
+                    {{~/when~}}
+                    {{~#when ../profile_information.information_progress '>' '40'~}}
+                        is-complete
+                    {{~/when~}}
+                ">
+                </li>
+                <li data-step="4" class="
+                    {{~#when ../profile_information.information_progress '==' '60'~}}
+                        is-active
+                    {{~/when~}}
+                    {{~#when ../profile_information.information_progress '>' '60'~}}
+                        is-complete
+                    {{~/when~}}
+                ">
+                </li>
+                <li data-step="5" class="
+                    {{~#when ../profile_information.information_progress '==' '80'~}}
+                        is-active
+                    {{~/when~}}
+                    {{~#when ../profile_information.information_progress '>' '80'~}}
+                        is-complete
+                    {{~/when~}}
+                ">
+                </li>
+                <li data-step="6" class="
+                    {{~#when ../profile_information.information_progress '==' '100'~}}
+                        is-active
+                    {{~/when}}
+                    progress-last
+                ">
+                </li>
+            </ul>
+        </div>
+        <!-- END: Progress -->
+    </div>
+    <!-- END: Completeness -->
+    <!-- START: Tips Head -->
+    <div class="tips-head">
+        {{_ 'Let the companies get to know you better'}}
+    </div>
+    <!-- END: Tips Head -->
+    <!-- START: Tips Body -->
+    <div class="tips-body">
+        <p class="pre-message">
+            {{_ "Don't have resume yet?"}}
+        </p>
+        <div>
+            <span>{{_ 'Create one without a hassle!'}}</span>
+            <i
+                aria-hidden="true"
+                class="fa fa-question-circle"
+                data-do="tooltip"
+                title="{{_ 'Let companies/recruiters get to know your skills, work experience and background in one look.'}}"
+            >
+            </i>
+        </div>
+            <a
+                class="btn btn-primary"
+                href="/profile/information"
+                title="{{_ 'Complete Your Profile'}}"
+            >
+                {{_ 'Complete Your Profile'}}
+            </a>
+    </div>
+    <!-- END: Tips Body -->
+</div>
+{{/when}}
+<!-- END: Seeker Tips -->

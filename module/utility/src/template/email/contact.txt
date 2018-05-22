@@ -1,0 +1,8 @@
+{{_ 'Someone made a'}} {{subject}}
+
+Someone just contacted us {{action}}, please get back to his/her concern immediately. Below are the details we have collected:
+Name: {{item.contact_name}}
+Email: {{item.contact_email}}
+Number: {{item.contact_number}}
+Message:
+{{item.contact_message}}

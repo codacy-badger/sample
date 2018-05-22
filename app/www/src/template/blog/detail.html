@@ -1,0 +1,186 @@
+<!-- START: Blog Breacrumbs-->
+<div class="container">
+    <div class="row-fluid header">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/Articles">Articles</a></li>
+            <li class="breadcrumb-item active">{{blog_title}}</li>
+        </ol>
+    </div>
+</div>
+<!-- END: Blog Breacrumbs-->
+<!-- START: Blog Body -->
+<article class="container blog-detail-body">
+    <!-- START: Blog Image -->
+    <div class="top-photo center">
+        <img
+            alt="{{blog_title}} Image"
+            src="{{blog_image}}"
+        />
+    </div>
+    <div class="blog-header center">
+        <h1>{{blog_title}}</h1>
+    </div>
+    <!-- END: Blog Image -->
+    <div class="blog-created italic">
+        {{#_ 'Published %s'}}
+            <em>{{date blog_published 'M d, Y'}}</em>
+        {{/_}}
+    </div>
+    <!-- START: Blog Keywords -->
+    {{#if blog_keywords}}
+    <div class="blog-keywords">
+        <i class="fa fa-tags"></i>
+        {{#each blog_keywords}}
+            <a
+                class="blog-keyword label label-warning"
+                href="/Articles?blog_keywords={{this}}"
+                title="Filter by {{this}}"
+            >
+                {{this}}
+            </a>
+        {{/each}}
+    </div>
+    {{/if}}
+    <!-- END: Blog Keywords -->
+    <hr />
+    <!-- START: Blog Article -->
+    <div class="blog-article">
+        <p>{{{blog_article}}}</p>
+    </div>
+    <!-- END: Blog Article -->
+    <!-- START: Blog Author -->
+    <div class="blog-author">
+        <div class="blog-author-image float">
+            <img src="{{blog_author_image}}" alt="Blog Author Image" />
+        </div>
+        <div class="blog-author-details float">
+            {{_ 'Written By:'}}
+            <span class="blog-author-name">
+                {{blog_author}}
+            </span>
+            <span class="blog-author-title">
+                {{blog_author_title}}
+            </span>
+        </div>
+    </div>
+    <!-- END: Blog Author -->
+    <hr />
+    <!-- START: Blog Comments -->
+    <div class="blog-comments">
+        <h3>COMMENTS</h3>
+        <div
+            class="fb-comments"
+            data-href="{{page.meta.url}}"
+            data-numposts="20"
+        >
+        </div>
+    </div>
+    <!-- END: Blog Comments -->
+    <hr />
+    <!-- START: Popular Articles -->
+    {{#if popular}}
+    <div class="popular-blogs ">
+        <h3>POPULAR ARTICLES</h3>
+        <div class="row">
+            {{#each popular}}
+                <div class="blog-other col-md-4">
+                    <a
+                        href="/Article/{{blog_slug}}"
+                        title="{{blog_title}}"
+                    >
+                        <img
+                            alt="{{blog_title}} Image"
+                            class="blog-image"
+                            src="{{blog_image}}"
+                        />
+                    </a>
+                    <a
+                        href="/Article/{{blog_slug}}"
+                        title="{{blog_title}}"
+                    >
+                        <span class="title">
+                            <strong>{{blog_title}}</strong>
+                        </span>
+                    </a>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+    {{/if}}
+    <!-- END: Popular Articles -->
+    <!-- START: Social Share-->
+    <div class="container-blog-social-share" data-do="social-overlap">
+        <ul class="blog-social-share">
+            <!-- START: Facebook Social Share-->
+            <li class="blog-share-icon">
+                <img
+                    alt="Facebook Share Icon"
+                    class="blog-fb-share"
+                    src="{{config 'cdn'}}/images/social-share-button-icon/fb.png"
+                >
+            </li>
+            <!-- END: Facebook Social Share-->
+            <!-- START: Twitter Social Share-->
+            <li class="blog-share-icon">
+                <img
+                    alt="Twitter Share Icon"
+                    class="blog-tw-share"
+                    src="{{config 'cdn'}}/images/social-share-button-icon/tw.png"
+                >
+            </li>
+            <!-- END: Twitter Social Share-->
+            <!-- START: Linkedin Social Share-->
+            <li class="blog-share-icon">
+                <img
+                    alt="LinkedIn Share Icon"
+                    class="blog-in-share"
+                    src="{{config 'cdn'}}/images/social-share-button-icon/in.png"
+                >
+            </li>
+            <!-- END: Linkedin Social Share-->
+        </ul>
+    </div>
+    <!-- END: Social Share-->
+</article>
+<!-- END: Blog Body -->
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "headline": "{{blog_title}}",
+    "image": "{{blog_image}}",
+    "author": "{{blog_author}}",
+    "editor": "Christan Blanquera",
+    "genre": "recruiment",
+    "keywords": "{{array_to_str blog_keywords}}",
+    "wordcount": "{{word_count blog_article}}",
+    "publisher": "Jobayan",
+    "url": "https://www.jobayan.com/Article/{{blog_slug}}",
+    "datePublished": "{{date_format blog_published 'Y-m-d'}}",
+    "dateCreated": "{{date_format blog_created 'Y-m-d'}}",
+    "dateModified": "{{date_format blog_updated 'Y-m-d'}}",
+    "description": "{{blog_description}}",
+    "articleBody": "{{escape_quotes blog_article}}"
+ }
+</script>
+
+<!-- Scripts -->
+<script type="text/javascript">
+    $(document).ready(function(){
+        var url= window.location.href;
+        url_fb = 'https://www.facebook.com/sharer/sharer.php?u=' + url + '%2F&amp;src=sdkpreparse';
+        url_in = 'https://www.linkedin.com/cws/share?url=' + window.location.href;
+
+        $('.blog-fb-share').click(function(){
+        window.open(url_fb, 'myWindow', 'width=600,height=300,top=250,left=350');
+        });
+        $('.blog-tw-share').click(function(){
+        window.open('https://twitter.com/share?ref_src=twsrc%5Etfw','MyWindow','width=600,height=300,top=250,left=350');
+        });
+        $('.blog-in-share').click(function(){
+        window.open(url_in,'MyWindow','width=600,height=300,top=250,left=350');
+        });
+    });
+</script>

@@ -1,0 +1,1728 @@
+{{> partial_introbanner}}
+
+{{#when post_type '===' 'poster'}}
+    <!-- START: Post Detail Poster -->
+    <article
+        class="clearfix post-detail detail-poster"
+        data-do="fix-height"
+        id="post-{{post_id}}"
+    >
+        <!-- START: Post Container -->
+        <div class="clearfix post-container">
+            <!-- START: Breadcrumbs -->
+            <div class="breadcrumbs">
+                <ul>
+                    <li><a href="/">Home</a> /</li>
+                    <li>
+                        <a href="/companies/{{profile_slug}}">
+                            {{post_name}}
+                        </a> /
+                    </li>
+                </ul>
+                <h1>{{wall_title}}</h1>
+            </div>
+            <!-- END: Breadcrumbs -->
+            <!-- START: Post Body -->
+            <div class="post-body">
+                <div class="clearfix post-info">
+                    {{#if profile_image}}
+                        {{#when profile_image '!=' '/images/default-avatar.png'}}
+                            <div class="post-image">
+                                    <div class="image-wrapper">
+                                    <img
+                                        alt="{{post_name}} {{_ 'logo'}}"
+                                        data-do="image-lazy"
+                                        class="image-lazy"
+                                        data-src="{{profile_image}}"
+                                        onerror="this.parentNode.parentNode.removeChild(this.parentNode)"
+                                    />
+                                    <span class="level-badge">
+                                        {{level profile_experience}}
+                                    </span>
+                                </div>
+                            </div>
+                        {{else}}
+                            {{#if post_image}}
+                                <div class="post-image">
+                                    <div class="image-wrapper">
+                                        <img
+                                            alt="{{post_name}} {{_ 'logo'}}"
+                                            data-do="image-lazy"
+                                            class="image-lazy"
+                                            data-src="{{post_image}}"
+                                            onerror="this.parentNode.parentNode.removeChild(this.parentNode)"
+                                        />
+                                        <span class="level-badge">
+                                            {{level profile_experience}}
+                                        </span>
+                                    </div>
+                                </div>
+                            {{else}}
+                                <div class="post-image">
+                                    <div class="image-wrapper">
+                                        <img
+                                            alt="{{post_name}} {{_ 'logo'}}"
+                                            data-do="image-lazy"
+                                            class="image-lazy"
+                                            data-src="{{default_avatar profile_id}}"
+                                            onerror="this.parentNode.parentNode.removeChild(this.parentNode)"
+                                        />
+                                        <span class="level-badge">
+                                            {{level profile_experience}}
+                                        </span>
+                                    </div>
+                                </div>
+                            {{/if}}
+                        {{/when}}
+                    {{/if}}
+                    <!-- START: Post Information -->
+                    <div class="post-information{{#unless profile_image}} no-image{{/unless}}">
+                        {{#unless post_flag}}
+                            <!-- START: Post Expiraton -->
+                            <div class="post-created pull-right">
+                                {{highlight post_created post_updated post_expires}}
+                            </div>
+                            <!-- END: Post Expiration -->
+                        {{/unless}}
+
+                        <!-- START: Post Position -->
+                        <h2 class="post-position">{{post_position}}</h2>
+                        <!-- END: Post Postion -->
+
+                        <!-- START: Post Name -->
+                        <span class="post-name">
+                            <a
+                                href="/Companies/{{profile_slug}}"
+                                target="_blank"
+                                title="{{_ 'See more jobs from %s' post_name}}"
+                            >
+                                {{post_name}}
+                            </a>
+                            {{#when profile_verified '===' '1'}}
+                            <img
+                                alt="{{_ 'Verified Company'}}"
+                                class="verified"
+                                data-do="tooltip"
+                                src="{{config 'cdn'}}/images/badge/badge-verified-direct.png"
+                                title="{{_ 'Jobayan confirmed this as an authentic
+                                    direct hiring company'}}"
+                            />
+                            {{/when}}
+                            {{#when profile_verified '===' '2'}}
+                                <img
+                                    alt="{{_ 'Verified Recruiter'}}"
+                                    class="verified"
+                                    data-do="tooltip"
+                                    src="/images/badge/badge-verified-recruit.png"
+                                    title="{{_ 'Jobayan confirmed this as an authentic
+                                        recruitment company'}}"
+                                />
+                            {{/when}}
+                        </span>
+
+                        <!-- END: Post Name -->
+
+                        <!-- START: Profile Rank -->
+                        <div class="profile-rank">
+                            {{rank profile_experience}}
+                            <i
+                                aria-hidden="true"
+                                class="fa fa-question-circle"
+                                data-do="tooltip"
+                                title="{{_ 'This the current rank of %s' post_name}}"
+                            >
+                            </i>
+                        </div>
+                        <!-- END: Profile Rank -->
+
+                        <!-- START: Post Bullets -->
+                        <ul class="post-bullets">
+                            <!-- START: Post Location -->
+                            <li class="bullet-location">
+                                <h3>
+                                    <i class="fa fa-map-marker"></i>
+                                    {{post_location}}
+                                </h3>
+                            </li>
+                            <!-- END: Post Location -->
+
+                            <!-- START: Post Salary -->
+                            <li class="bullet-salary">
+                                {{#if post_salary_max}}
+                                    <!-- START: RANGE -->
+                                    <h3>
+                                        <span class="post-salary">
+                                            {{#when post_salary_min '==' post_salary_max}}
+                                                {{#if post_currency}}
+                                                    {{post_currency}}
+                                                {{else}}
+                                                    &#8369;
+                                                {{/if}}
+                                                {{~number post_salary_max~}}
+                                            {{~else~}}
+                                                {{#if post_currency}}
+                                                    {{post_currency}}
+                                                {{else}}
+                                                    &#8369;
+                                                {{~/if~}}
+                                                {{number post_salary_min}} -
+                                                {{number post_salary_max}}
+                                            {{~/when~}}
+                                        </span>
+                                    </h3>
+                                    <!-- END: RANGE -->
+                                {{else}}
+                                    {{#if post_salary_min}}
+                                        <!-- START: FIXED -->
+                                        <h3>
+                                            <span class="post-salary">
+                                                {{~#if post_currency~}}
+                                                    {{post_currency}}
+                                                {{else}}
+                                                    &#8369;
+                                                {{~/if~}}
+                                                {{number post_salary_min}}
+                                            </span>
+                                        </h3>
+                                        <!-- END: FIXED -->
+                                    {{/if}}
+                                {{/if}}
+                            </li>
+                            <!-- END: Post Salary -->
+
+                            <!-- START: Post Arrangement -->
+                            {{#if post_arrangement}}
+                                <li class="bullet-tags">
+                                    <span>
+                                        <i class="fa fa-clock-o"></i>
+                                         {{ucwords post_arrangement}}
+                                    </span>
+                                </li>
+                            {{/if}}
+                            <!-- END: Post Arrangement -->
+
+                            <!-- START: Post Tags -->
+                            <li class="bullet-tags">
+                                {{#each post_tags}}
+                                    {{#when @index '<=' 4}}
+                                        <span>
+                                            <a
+                                                href="/post/search?tag={{this}}"
+                                                target="_blank"
+                                                title="{{_ 'Search jobs with %s' this}}"
+                                            >
+                                                {{this}}
+                                            </a>
+                                        </span>
+                                    {{/when}}
+                                {{/each}}
+                            </li>
+                            <!-- END: Post Tags -->
+                        </ul>
+                        {{#session 'me'}}
+                            {{#when profile_id '==' ../profile_id}}
+                                <!-- START: My Post Actions -->
+                                <div class="my-post-actions">
+                                    <a
+                                        class="btn btn-info"
+                                        href="/post/update/poster/{{../post_id}}?redirect_uri=
+                                            {{~server 'REQUEST_URI'}}"
+                                        title="{{_ 'Edit post'}}"
+                                    >
+                                        {{_ 'Edit post'}}
+                                    </a>
+                                    <a
+                                        class="btn btn-danger"
+                                        href="/post/remove/{{../post_id}}?redirect_uri=
+                                            {{~server 'REQUEST_URI'}}"
+                                        title="{{_ 'Remove post'}}"
+                                    >
+                                        {{_ 'Remove post'}}
+                                    </a>
+                                </div>
+                                <!-- END: My Post Actions -->
+                            {{/when}}
+                        {{/session}}
+                        <!-- END: Post Bullets -->
+                        <!-- START: Post Actions -->
+                        <div class="clearfix post-actions">
+                            {{#session 'me'}}
+                                <!-- START: I am logged in -->
+                                {{#when profile_id '!==' ../profile_id}}
+                                    <!-- START: Interested Button -->
+                                    <div class="post-short-description">
+                                    {{#_ 'Hello! We are %s from %s and we are looking for %s %s %s %s'}}
+                                        <a
+                                            {{#when profile_name '!=' 'Anonymous'}}
+                                                href="/Companies/{{../profile_slug}}"
+                                            {{/when}}
+                                            title="{{_ 'See more jobs from %s' post_name}}"
+                                        >
+                                            <strong class="text-capitalize">{{../post_name}}</strong>
+                                        </a>
+                                        __
+                                        <span class="post-heading">
+                                            <a
+                                                class="text-info"
+                                                href="/post/search?q={{../post_location}}"
+                                                title="{{_ 'See more jobs from %s' ../post_location}}"
+                                            >
+                                                <strong class="text-capitalize">{{../post_location}}</strong>
+                                            </a>
+                                        </span>
+                                        __
+                                        {{a_an_article ../post_position}}
+                                        __
+                                        <span class="post-heading">
+                                            <a
+                                                class="text-info"
+                                                href="/post/search?q={{../post_position}}"
+                                                title="{{_ 'See more %s jobs' ../post_position}}"
+                                            >
+                                                <strong class="text-capitalize">{{../post_position}}</strong>
+                                            {{~#unless ../post_experience~}}
+                                                </a>.
+                                            {{~else}}
+                                                </a>
+                                            {{~/unless}}
+                                        </span>
+                                        __
+                                        {{#if ../post_experience}}
+                                            {{#_ 'with %s of experience.'}}
+                                                <strong>
+                                                    {{../post_experience}} {{append_s 'year' ../post_experience~}}
+                                                </strong>
+                                            {{/_~}}
+                                        {{/if}}
+                                        __
+                                    {{/_}}
+                                </div>
+                                       <a
+                                           class="interested
+                                               {{#is_array_key profile_id ../likers~}}
+                                                   liked
+                                               {{~/is_array_key~}}"
+                                           {{#is_array_key profile_id ../likers}}
+                                           {{else}}
+                                               data-do="post-like"
+                                               data-on="click"
+                                           {{/is_array_key}}
+                                           data-id="{{../post_id}}"
+                                           data-type="
+                                               {{~#if profile_company~}}
+                                                   poster
+                                               {{~else~}}
+                                                   seeker
+                                               {{/if~}}"
+                                           data-enabled="1"
+                                           href="javascript:void(0)"
+                                           title="{{_ 'This will send your information to the Job Seeker'}}"
+                                       >
+                                           <span class="like-count">
+                                           {{#if ../post_like_count}}
+                                               {{../post_like_count}}
+                                           {{/if}}
+                                           </span>
+                                           {{#is_array_key profile_id ../likers}}
+                                               <i aria-hidden="true" class="fa fa-heart fa-fw">
+                                               </i>
+                                           {{else}}
+                                               <i aria-hidden="true" class="fa fa-heart-o fa-fw">
+                                               </i>
+                                           {{/is_array_key}}
+                                           {{_ 'Interested'}}
+                                      </a>
+                                  <!-- END: if logged in user is a poster -->
+                                {{/when}}
+                                <!-- END: I am logged in -->
+                            {{else}}
+                                <!-- START: I am not logged in -->
+                                <!-- START: Interested Button -->
+                                <div class="post-short-description">
+                                    {{#_ 'Hello! We are %s from %s and we are looking for %s %s %s %s'}}
+                                        <a
+                                            {{#when profile_name '!=' 'Anonymous'}}
+                                                href="/Companies/{{profile_slug}}"
+                                            {{/when}}
+                                            title="{{_ 'See more jobs from %s' post_name}}"
+                                        >
+                                            <strong class="text-capitalize">{{post_name}}</strong>
+                                        </a>
+                                        __
+                                        <span class="post-heading">
+                                            <a
+                                                class="text-info"
+                                                href="/post/search?q={{post_location}}"
+                                                title="{{_ 'See more jobs from %s' post_location}}"
+                                            >
+                                                <strong class="text-capitalize">{{post_location}}</strong>
+                                            </a>
+                                        </span>
+                                        __
+                                        {{a_an_article post_position}}
+                                        __
+                                        <span class="post-heading">
+                                            <a
+                                                class="text-info"
+                                                href="/post/search?q={{post_position}}"
+                                                title="{{_ 'See more %s jobs' post_position}}"
+                                            >
+                                                <strong class="text-capitalize">{{post_position}}</strong>
+                                            {{~#unless post_experience~}}
+                                                </a>.
+                                            {{~else}}
+                                                </a>
+                                            {{~/unless}}
+                                        </span>
+                                        __
+                                        {{#if post_experience}}
+                                            {{#_ 'with %s of experience.'}}
+                                                <strong>
+                                                    {{post_experience}} {{append_s 'year' post_experience~}}
+                                                </strong>
+                                            {{/_~}}
+                                        {{/if}}
+                                        __
+                                    {{/_}}
+                                </div>
+                                <div class="post-links clearfix">
+                                    <a
+                                        class="interested pull-left"
+                                        href="/login?redirect_uri={{~server 'REQUEST_URI'}}"
+                                        title="{{_ 'This will send your information to the Job Seeker'}}"
+                                    >
+                                        {{#if post_like_count}}
+                                            {{post_like_count}}
+                                        {{/if}}
+                                        <i
+                                            aria-hidden="true"
+                                            class="fa fa-heart-o fa-fw">
+                                        </i>
+                                        {{_ 'Interested'}}
+                                   </a>
+                                   <!-- END: Interested Button -->
+                                    <!-- END: I am not logged in -->
+                                    <a
+                                        class="view-active pull-right {{#is_expired post_expires}}hide{{/is_expired}}"
+                                        href="/post/search"
+                                        title="View Active Job Posts">
+                                        View Active Job Posts
+                                    </a>
+                                </div>
+                            {{/session}}
+                        </div>
+                        <!-- END: Post Actions -->
+                    </div>
+                    <!-- END: Post Information -->
+                </div>
+
+                <!-- START: Post Tips -->
+                {{#session 'me'}}
+                    {{#when profile_id '==' ../profile_id}}
+                        {{#unless ../post_tips_flag}}
+                            <div class="post-tips-wrapper row">
+                                <!-- START: Show Tips -->
+                                {{#unless ../post_tips}}
+                                    <!-- START: Jobayan Post Tips -->
+                                    <div class="
+                                        {{~#if ../post_notify_flag}}
+                                            col-md-12
+                                        {{~else}}
+                                            col-md-6
+                                        {{/if}}
+                                            tips post-tips text-center"
+                                    >
+                                        <h3>{{_ 'Jobayan Tips'}}</h3>
+                                        <div class="tips-body">
+                                            <p class="pre-message">
+                                                {{_ 'Candidates are having a tough time finding your job.'}}
+                                            </p>
+                                            <!-- START: Industry Tip -->
+                                            {{#unless ../post_industry}}
+                                                <div class="industry">
+                                                    <div>
+                                                        <span class="pre-message">{{_ "Your post doesn't have an industry."}}</span>
+                                                        <i
+                                                            aria-hidden="true"
+                                                            class="fa fa-question-circle"
+                                                            data-do="tooltip"
+                                                            title="{{_ 'Connect with applicants effectively by
+                                                                providing an industry to your job post
+                                                                (e.g. Technology, Manufacturing, IT services)'}}"
+                                                        >
+                                                        </i>
+                                                    </div>
+                                                    <a
+                                                        class="btn btn-primary"
+                                                        data-backdrop="static"
+                                                        data-container="industry"
+                                                        data-do="poster-modal"
+                                                        data-id="{{../post_id}}"
+                                                        data-keyboard="false"
+                                                        data-on="click"
+                                                        data-target="#industry"
+                                                        data-toggle="modal"
+                                                        href="javascript:void(0)"
+                                                        title="{{_ 'Choose an industry'}}"
+                                                    >
+                                                        {{_ 'Choose an industry'}}
+                                                    </a>
+                                                </div>
+                                            {{/unless}}
+                                            <!-- END: Industry Tip -->
+                                            <!-- START: Location Tip -->
+                                            {{#unless ../post_location_flag}}
+                                                <div class="location">
+                                                    <div>
+                                                        <span class="pre-message">{{_ 'Your Location is unknown.'}}</span>
+                                                        <i
+                                                            aria-hidden="true"
+                                                            class="fa fa-question-circle"
+                                                            data-do="tooltip"
+                                                            title="{{_ 'Increase the visibility of your job
+                                                                post and match with the right applicants
+                                                                by providing a location to your job post'}}"
+                                                        >
+                                                        </i>
+                                                    </div>
+                                                    <a
+                                                        class="btn btn-primary"
+                                                        data-backdrop="static"
+                                                        data-container="location"
+                                                        data-do="poster-modal"
+                                                        data-id="{{../post_id}}"
+                                                        data-keyboard="false"
+                                                        data-on="click"
+                                                        data-target="#location"
+                                                        data-toggle="modal"
+                                                        href="javascript:void(0)"
+                                                        title="{{_ 'Change my location'}}"
+                                                    >
+                                                        {{_ 'Change my location'}}
+                                                    </a>
+                                                </div>
+                                            {{/unless}}
+                                            <!-- END: Location Tip -->
+                                            <!-- START: Arrangement Tip -->
+                                            {{#unless ../post_arrangement}}
+                                                <div class="arrangement">
+                                                    <div>
+                                                        <span class="pre-message">{{_ 'Is this a full time job?'}}</span>
+                                                        <i
+                                                            aria-hidden="true"
+                                                            class="fa fa-question-circle"
+                                                            data-do="tooltip"
+                                                            title="{{_ 'Please indicate the type of working
+                                                                schedule of the job. Part-time is work
+                                                                rendered that is less than 40 hours per
+                                                                week. Remote is work rendered in a remote
+                                                                location or from home. Freelance is work
+                                                                rendered by the hour, day, or by contract
+                                                                basis not bound to a single company.'}}"
+                                                        ></i>
+                                                    </div>
+                                                    <a
+                                                        class="btn btn-primary"
+                                                        data-do="arrangement-full"
+                                                        data-id="{{../post_id}}"
+                                                        data-on="click"
+                                                        href="javascript:void(0)"
+                                                        title="{{_ 'Yes'}}"
+                                                    >
+                                                        {{_ 'Yes'}}
+                                                    </a>
+
+                                                    <a
+                                                        class="btn btn-primary"
+                                                        data-backdrop="static"
+                                                        data-container="arrangement"
+                                                        data-do="poster-modal"
+                                                        data-id="{{../post_id}}"
+                                                        data-keyboard="false"
+                                                        data-on="click"
+                                                        data-target="#arrangement"
+                                                        data-toggle="modal"
+                                                        href="javascript:void(0)"
+                                                        title="{{_ 'No'}}"
+                                                    >
+                                                        {{_ 'No'}}
+                                                    </a>
+                                                </div>
+                                            {{/unless}}
+                                            <!-- END: Arrangement Tip -->
+                                            <!-- START: Experience Tip -->
+                                            {{#unless ../post_experience}}
+                                                <div class="experience">
+                                                    <div>
+                                                        <span class="pre-message">{{_ 'No experience specified.'}}</span>
+                                                        <i
+                                                            aria-hidden="true"
+                                                            class="fa fa-question-circle"
+                                                            data-do="tooltip"
+                                                            title="{{_ 'Connect with applicants that match
+                                                                your needs by providing the number of
+                                                                years of experience needed for the job post.'}}"
+                                                        >
+                                                        </i>
+                                                    </div>
+                                                    <a
+                                                        class="btn btn-primary"
+                                                        data-backdrop="static"
+                                                        data-container="experience"
+                                                        data-do="poster-modal"
+                                                        data-id="{{../post_id}}"
+                                                        data-keyboard="false"
+                                                        data-on="click"
+                                                        data-target="#experience"
+                                                        data-toggle="modal"
+                                                        href="javascript:void(0)"
+                                                        title="{{_ 'Change years of experience'}}"
+                                                    >
+                                                        {{_ 'Choose years of experience'}}
+                                                    </a>
+                                                </div>
+                                            {{/unless}}
+                                            <!-- END: Experience Tip -->
+                                        </div>
+                                    </div>
+                                    <!-- END: Jobayan Post Tips -->
+                                {{/unless}}
+                                {{#unless ../post_notify_flag}}
+                                    <!-- START: Jobayan Credit Tips -->
+                                {{#if profile_company}}
+                                    {{#when post_type '===' 'poster'}}
+                                    {{else}}
+                                        {{#when ../post_expires '>=' ../today}}
+                                            <div class="
+                                                {{~#if ../post_tips}}
+                                                    col-md-12
+                                                {{~else}}
+                                                    col-md-6
+                                                {{/if}}
+                                                    tips credit-tips text-center"
+                                            >
+                                                <h3>{{_ 'Get ahead of your competitors'}}</h3>
+                                                <div class="tips-body">
+                                                     <!-- START: Sponsor Tip -->
+                                                    {{#unless ../post_flag}}
+                                                    <p class="pre-message">
+                                                        {{{_ 'Promote posts are strategically placed and stand out when applicants search for jobs.'}}}
+                                                        <i
+                                                            aria-hidden="true"
+                                                            class="fa fa-question-circle"
+                                                            data-do="tooltip"
+                                                            title="{{_ 'Need more exposure for your job post? Promoting a post in a cost-effective way to reach talents, making you more visible on Jobayan search engine and platform.'}}"
+                                                        ></i>
+                                                    </p>
+                                                        <div class="promote-post">
+                                                            <div>
+                                                                <a
+                                                                    class="btn btn-default"
+                                                                    data-do="promote-post"
+                                                                    data-id="{{../post_id}}"
+                                                                    data-on="click"
+                                                                    data-toggle="tooltip"
+                                                                    title="{{_ 'Promote this post'}}"
+                                                                >
+                                                                    {{_ 'Promote this post'}}
+                                                                </a>
+                                                            </div>
+                                                            <span class="cost">{{_ '500 credits'}}</span>
+                                                        </div>
+                                                    {{/unless}}
+                                                    <!-- END: Sponsor Tip -->
+
+                                                    {{#session 'me'}}
+                                                    <!-- START: Application Tracking System -->
+                                                        {{#in 'ats' profile_package}}
+                                                        {{else}}
+                                                            {{#unless ../../post_form}}
+                                                                <p class="pre-message">
+                                                                    {{{_ 'Enable Application Tracking System'}}}
+                                                                    <i
+                                                                        aria-hidden="true"
+                                                                        class="fa fa-question-circle"
+                                                                        data-do="tooltip"
+                                                                        title="{{_ 'For only 500 credits per post, we can direct applicants to your company easier by enabling an application section.'}}"
+                                                                    ></i>
+                                                                </p>
+                                                                <div class="attach-ats">
+                                                                    <div>
+                                                                        <a
+                                                                            class="btn btn-default"
+                                                                            href="/profile/tracking/post/search"
+                                                                            title="{{_ 'Attach Application Form.'}}"
+                                                                        >
+                                                                            {{_ 'Attach Application Form'}}
+                                                                        </a>
+                                                                    </div>
+                                                                    <span class="cost">{{_ '500 credits'}}</span>
+                                                                </div>
+                                                            {{/unless}}
+                                                        {{/in}}
+                                                        <!-- END: Application Tracking System -->
+                                                    {{/session}}
+
+                                                    {{#session 'me'}}
+                                                        {{#in 'interview-scheduler' profile_package}}
+                                                        {{else}}
+                                                            {{#in 'interview-post' ../../post_package}}
+                                                            {{else}}
+                                                                <!-- START : Schedule Interview Button -->
+                                                                    <p class="pre-message">
+                                                                        {{{_ ' Enable Interview Scheduler!'}}}
+                                                                        <i
+                                                                            aria-hidden="true"
+                                                                            class="fa fa-question-circle"
+                                                                            data-do="tooltip"
+                                                                            title="{{_ 'Enable Interview Scheduler to help you manage screening the candidate and progress stages accordingly.'}}"
+                                                                        ></i>
+                                                                    </p>
+                                                                <div class="interview-schedule">
+                                                                    <div>
+                                                                        <a
+                                                                            class="btn btn-default"
+                                                                            data-do="interview-post"
+                                                                            data-id="{{../../post_id}}"
+                                                                            data-on="click"
+                                                                            data-package="interview-post"
+                                                                            href="javascript:void(0)"
+                                                                        >
+                                                                            {{_ 'Schedule Interviews for this Post'}}
+                                                                        </a>
+                                                                    </div>
+
+                                                                    <span class="cost">{{_ '500 credits'}}</span>
+                                                                </div>
+                                                                <!-- END : Schedule Interview Button -->
+                                                            {{/in}}
+                                                        {{/in}}
+                                                    {{/session}}
+
+                                                    {{#session 'me'}}
+                                                        {{#in 'sms-match' profile_package}}
+                                                        {{else}}
+                                                            {{#in 'sms-match' ../../post_notify}}
+                                                            {{else}}
+                                                                <!-- START: SMS Tip -->
+                                                                <p class="pre-message">
+                                                                    {{{_ 'Get immediate updates on potential talent!'}}}
+                                                                    <i
+                                                                        aria-hidden="true"
+                                                                        class="fa fa-question-circle"
+                                                                        data-do="tooltip"
+                                                                        title="{{_ 'Get immediate updates on potential talent! Tooltip: For only 300 credits per post, you can now receive match notifications via SMS for a month anytime, anywhere without the need to click interested button on job seekers.'}}"
+                                                                    ></i>
+                                                                </p>
+                                                                <div class="sms-match">
+                                                                    <div>
+                                                                        <a
+                                                                            class="btn btn-default"
+                                                                            data-do="sms-notification"
+                                                                            data-id="{{../../post_id}}"
+                                                                            data-on="click"
+                                                                            data-toggle="tooltip"
+                                                                            title="{{_ 'Get SMS Match Notification'}}"
+                                                                        >
+                                                                            {{_ 'Get SMS Match Notification'}}
+                                                                        </a>
+                                                                    </div>
+                                                                    <span class="cost">{{_ '300 credits'}}</span>
+                                                                </div>
+                                                                <!-- END: SMS Tip -->
+                                                            {{/in}}
+                                                        {{/in}}
+                                                    {{/session}}
+
+                                                    {{#session 'me'}}
+                                                    <!-- START: SMS Intersted -->
+                                                    {{#in 'sms-interest' profile_package}}
+                                                    {{else}}
+                                                        {{#in 'sms-interest' ../../post_notify}}
+                                                        {{else}}
+                                                            <p class="pre-message">
+                                                                {{_ "It's nice to know there are new applicants on the way!"}}
+                                                                 <i
+                                                                    aria-hidden="true"
+                                                                    class="fa fa-question-circle"
+                                                                    data-do="tooltip"
+                                                                    title="{{_ 'For only 500 credits per post, you don’t need to go online to check interested candidates. You can now receive notifications via SMS for a month from each job seekers that are interested on your job post.'}}"
+                                                                ></i>
+                                                            </p>
+                                                            <div class="sms-interest">
+                                                                <div>
+                                                                    <a
+                                                                        class="btn btn-default"
+                                                                        data-do="sms-interest"
+                                                                        data-id="{{../../post_id}}"
+                                                                        data-on="click"
+                                                                        data-toggle="tooltip"
+                                                                        title="{{_ 'SMS Interested Notification'}}"
+                                                                    >
+                                                                        {{_ 'SMS Interested Notification'}}
+                                                                    </a>
+                                                                </div>
+                                                                <span class="cost">{{_ '500 credits'}}</span>
+                                                            </div>
+                                                        {{/in}}
+                                                    {{/in}}
+                                                    <!-- END: SMS Interested -->
+                                                    {{/session}}
+                                                </div>
+                                            </div>
+                                        {{/when}}
+                                    {{/when}}
+                                {{/if}}
+                                    <!-- END: Jobayan Credit Tips -->
+                                {{/unless}}
+                                <!-- END: Show Tips -->
+                            </div>
+                        {{/unless}}
+                         <!-- START: Hired Tip -->
+                        {{#if ../post_hired_flag}}
+                            <div class="tips hired-tips text-center">
+                                <div class="tips-head">{{_ 'Have you already filled this position?'}}</div>
+                                <div class="tips-body">
+                                    <div class="hired">
+                                        <p class="pre-message">
+                                            {{{_ 'By clicking yes, this post will be removed from<br/>
+                                            searches and your profile'}}}
+                                        </p>
+                                        <a
+                                            class="btn btn-primary"
+                                            data-do="post-hire"
+                                            data-id="{{../post_id}}"
+                                            data-on="click"
+                                            href="javascript:void(0)"
+                                            title="{{_ 'Hired'}}"
+                                        >
+                                            {{_ 'Yes'}}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {{/if}}
+                        <!-- END: Hired Tip -->
+                    {{/when}}
+                {{/session}}
+                <!-- END: Post Tips -->
+
+                {{#if post_detail}}
+                    <!-- START: Post Description -->
+                    <div class="post-description">
+                        <h4>{{_ 'Job Description'}}</h4>
+                        {{{strip post_detail '<p><b><em><i><strong><b><br><u><ul><li><ol><blockquote><h1><h2><h3><h4><h5><h6>'}}}
+                    </div>
+                    <!-- END: Post Description -->
+                {{/if}}
+
+                {{#if post_banner}}
+                    <!-- START: Post Banner Image -->
+                    <div class="post-banner-image">
+                        <img
+                            alt="{{_ '%s from %s' post_position post_name}}"
+                            src="{{post_banner}}"
+                        />
+                    </div>
+                    <!-- END: Post Banner Image -->
+                {{/if}}
+
+                {{#when view_interested '==' '1'}}
+                    <!-- START: Post Interested -->
+                    <div class="post-interested interested-seeker">
+                        <p>{{post_like_count}} {{_ 'Interested'}}</p>
+
+                        <!-- START: Post Interested List -->
+                        <table class="post-interested-list">
+                            <tbody>
+                                {{#each likers}}
+                                    <!-- START: Post Interested Item -->
+                                    <tr class="post-interested-item">
+                                        <!-- START: Profile Image -->
+                                        <td class="interested-item-image">
+                                            <div class='image-wrapper'>
+                                                <img
+                                                    class="profile-image"
+                                                    alt="{{_ '%s logo' profile_name}}"
+                                                    src="{{profile_image}}"
+                                                    onerror="this.src='{{default_avatar profile_id}}'"
+                                                />
+                                            </div>
+                                        </td>
+                                        <!-- END: Profile Image -->
+
+                                        <!-- START: Profile Name -->
+                                        <td class="interested-item-name">
+                                            <a
+                                                href="/Job-Seekers/{{profile_slug}}"
+                                                title="{{profile_name}}"
+                                            >
+                                                <span>{{profile_name}}</span>
+                                            </a>
+                                        </td>
+                                        <!-- END: Profile Name -->
+
+                                        <!-- START: Profile Details -->
+                                        <td class="interested-item-details">
+                                            {{#if profile_email}}
+                                                <a
+                                                    class="item-details-email"
+                                                    data-profile-id="{{profile_id}}"
+                                                    data-do="message-jobseeker-modal"
+                                                    data-on="click"
+                                                >
+                                                    {{profile_email}}
+                                                </a>
+                                            {{/if}}
+
+                                            {{#if profile_phone}}
+                                                <a
+                                                    class="item-detials-phone"
+                                                    href="tel:{{profile_phone}}"
+                                                >
+                                                    {{profile_phone}}
+                                                </a>
+                                            {{/if}}
+                                        </td>
+                                        <!-- START: Profile Details -->
+
+                                        <!-- START: Profile Resume -->
+                                        <td class="interested-item-resume">
+                                            {{#if profile_resume}}
+                                                <a
+                                                    class="resume-download"
+                                                    data-do="post-download"
+                                                    data-on="click"
+                                                    data-type="resume"
+                                                    data-id="{{profile_resume.resume_id}}"
+                                                    href="javascript:void(0)"
+                                                >
+                                                    <span
+                                                        data-do="tooltip"
+                                                        class="resume"
+                                                        title="{{_ 'This represents the number of times this resume has been downloaded'}}"
+                                                    >
+                                                        {{#if profile_resume.resume_download_count}}
+                                                            {{profile_resume.resume_download_count}}
+                                                        {{/if}}
+                                                    </span>
+                                                    <span
+                                                        data-do="tooltip"
+                                                        data-html="true"
+                                                        title="
+                                                        {{_ 'Downloading a resume costs 10 credits' ~}}
+                                                        <hr style='background-color: black;
+                                                        height: 1px;
+                                                        border: 0;
+                                                        margin: 10px 0px 10px 0px;
+                                                        width: 100%;'>
+                                                        {{_ 'Resume - Last Updated' ~}}
+                                                        <br>
+                                                        <i>{{date_format profile_information.information_updated 'M d, Y' ~}}<i>
+                                                        ">
+                                                        <i class="fa fa-download" aria-hidden="true">
+                                                        </i> {{_ 'Resume'}}
+                                                    </span>
+                                                </a>
+
+                                                <a
+                                                    class="label-cost"
+                                                >
+                                                    <span class="label">{{_ '10 Credits'}}</span>
+                                                </a>
+                                            {{else}}
+                                                {{#when profile_information.information_progress '>=' '40'}}
+                                                    <a
+                                                        class="resume-download"
+                                                        data-do="information-resume"
+                                                        data-information-id="{{profile_information.information_id}}"
+                                                        data-profile-id="{{profile_information.profile_id}}"
+                                                        data-on="click"
+                                                        href="javascript:void(0)"
+                                                    >
+                                                        <span
+                                                            data-do="tooltip"
+                                                            class="resume"
+                                                            title="{{_ 'This represents the number of times this resume has been downloaded'}}"
+                                                        >
+                                                            {{#if profile_information.information_download_count}}
+                                                                {{profile_information.information_download_count}}
+                                                            {{/if}}
+                                                        </span>
+                                                        <span
+                                                            data-do="tooltip"
+                                                            data-html="true"
+                                                            title="
+                                                            {{_ 'Downloading a resume costs 10 credits' ~}}
+                                                            <hr style='background-color: black;
+                                                            height: 1px;
+                                                            border: 0;
+                                                            margin: 10px 0px 10px 0px;
+                                                            width: 100%;'>
+                                                            {{_ 'Resume - Last Updated' ~}}
+                                                            <br>
+                                                            <i>{{date_format profile_information.information_updated 'M d, Y' ~}}<i>
+                                                            ">
+                                                            <i class="fa fa-download" aria-hidden="true">
+                                                            </i> {{_ 'Resume'}}
+                                                        </span>
+                                                    </a>
+
+                                                    <a
+                                                        class="label-cost"
+                                                    >
+                                                        <span class="label">{{_ '10 Credits'}}</span>
+                                                    </a>
+                                                {{/when}}
+                                            {{/if}}
+                                        </div>
+                                        <!-- END: Profile Resume -->
+                                    </tr>
+                                    <!-- END: Post Interested Item -->
+                                {{/each}}
+                            </tbody>
+                        </table>
+                        <!-- END: Post Interested List -->
+                    </div>
+                    <!-- END: Post Interested -->
+                {{/when}}
+
+                <!-- START: Post Profile -->
+                <div class="post-profile">
+                    <!-- START: Profile Image and Infromation -->
+                    <div class="clearfix">
+                        {{#if profile_image}}
+                            {{#when profile_image '!=' '/images/default-avatar.png'}}
+                                <div class="profile-image">
+                                        <div class="image-wrapper">
+                                        <img
+                                            alt="{{post_name}} {{_ 'logo'}}"
+                                            data-do="image-lazy"
+                                            class="image-lazy"
+                                            data-src="{{profile_image}}"
+                                            onerror="this.parentNode.parentNode.removeChild(this.parentNode)"
+                                        />
+                                        <span class="level-badge">
+                                            {{level profile_experience}}
+                                        </span>
+                                    </div>
+                                </div>
+                            {{else}}
+                                {{#if post_image}}
+                                    <div class="profile-image">
+                                        <div class="image-wrapper">
+                                            <img
+                                                alt="{{post_name}} {{_ 'logo'}}"
+                                                data-do="image-lazy"
+                                                class="image-lazy"
+                                                data-src="{{post_image}}"
+                                                onerror="this.parentNode.parentNode.removeChild(this.parentNode)"
+                                            />
+                                            <span class="level-badge">
+                                                {{level profile_experience}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                {{else}}
+                                    <div class="profile-image">
+                                        <div class="image-wrapper">
+                                            <img
+                                                alt="{{post_name}} {{_ 'logo'}}"
+                                                data-do="image-lazy"
+                                                class="image-lazy"
+                                                data-src="{{default_avatar profile_id}}"
+                                                onerror="this.parentNode.parentNode.removeChild(this.parentNode)"
+                                            />
+                                            <span class="level-badge">
+                                                {{level profile_experience}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                {{/if}}
+                            {{/when}}
+                        {{/if}}
+
+                        <!-- START: Profile Information -->
+                        <div class="profile-information {{#unless profile_image}} no-image{{/unless}}">
+                            <p class="get-to-know">{{_ 'Get to Know'}}</p>
+
+                            <!-- START: Post Name -->
+                            <span class="post-name">
+                                <a
+                                    href="/Companies/{{profile_slug}}"
+                                    target="_blank"
+                                    title="{{_ 'See more jobs from %s' post_name}}"
+                                >
+                                    {{post_name}}
+                                </a>
+                            </span>
+                            {{#when profile_verified '===' '1'}}
+                                <img
+                                    alt="{{_ 'Verified Company'}}"
+                                    class="verified"
+                                    data-do="tooltip"
+                                    src="{{config 'cdn'}}/images/badge/badge-verified-direct.png"
+                                    title="{{_ 'Jobayan confirmed this as an authentic
+                                        direct hiring company'}}"
+                                />
+                            {{/when}}
+                            {{#when profile_verified '===' '2'}}
+                                <img
+                                    alt="{{_ 'Verified Recruiter'}}"
+                                    class="verified"
+                                    data-do="tooltip"
+                                    src="/images/badge/badge-verified-recruit.png"
+                                    title="{{_ 'Jobayan confirmed this as an authentic
+                                        recruitment company'}}"
+                                />
+                            {{/when}}
+                            <!-- END: Post Name -->
+
+                            <!-- START: Profile Rank -->
+                            <div class="profile-rank">
+                                {{rank profile_experience}}
+                                <i
+                                    aria-hidden="true"
+                                    class="fa fa-question-circle"
+                                    data-do="tooltip"
+                                    title="{{_ 'This the current rank of %s' post_name}}"
+                                >
+                                </i>
+                            </div>
+                            <!-- END: Profile Rank -->
+
+                            <!-- START: Post Location -->
+                            <p class="post-location">
+                                <i class="fa fa-map-marker"></i>
+                                 {{{post_location}}}
+                            </p>
+                            <!-- END: Post Location -->
+                        </div>
+                        <!-- END: Profile Information -->
+                    </div>
+                    <!-- END: Profile Image and Infromation -->
+
+                    {{#if profile_detail}}
+                        <!-- START: Profile Detail collapsible  -->
+                        <div
+                            class="panel-collapse collapse"
+                            id="collapseTwo"
+                            role="tabpanel"
+                        >
+                            <!-- START: Profile Detail -->
+                            <div class="profile-detail">
+                                {{{profile_detail}}}
+                            </div>
+                            <!-- END: Profile Detail -->
+                        </div>
+                        <!-- END: Profile Detail collapsible  -->
+                        <!-- START: Profile Detail arrow -->
+                        <div class="post-arrow text-center"
+                             data-do="read-more"
+                             data-on="click"
+                        >
+                            <a
+                                aria-expanded="false"
+                                class="collapsed"
+                                data-do="show-collapse"
+                                data-on="click"
+                                data-parent="#accordion"
+                                data-toggle="collapse"
+                                href="#collapseTwo"
+                                role="button"
+                            >
+                                <div class="read-more">
+                                    read more
+                                </div>
+                                <div class="arrow">
+                                    <i
+                                        class="fa fa-caret-down"
+                                        aria-hidden="true"
+                                    >
+                                    </i>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- END: Profile Detail arrow -->
+                    {{/if}}
+                </div>
+                <!-- END: Post Profile -->
+            </div>
+            <!-- END: Post Body -->
+
+            <!-- START: Sponsored Posts -->
+            <div class="sponsored-posts">
+                {{#if sponsored}}
+                    <h4 class="section-title">{{_ 'Sponsored Jobs'}}</h4>
+                    {{#each sponsored}}
+                        {{> post_poster
+                            heading_name='h5'
+                            heading_position='h5'
+                            heading_salary='h5'
+                            heading_location='h5'
+                            notify_flag='0'}}
+                    {{/each}}
+                {{/if}}
+            </div>
+            <!-- END: Sponsored Posts -->
+        </div>
+        <!-- END: Post Container -->
+
+        {{#if related}}
+            <!-- START: Similar Posts -->
+            <div class="similar-posts-container">
+                <div class="row similar-posts">
+                    <h4 class="section-title">{{_ 'Similar Jobs'}}</h4>
+                    {{#each related}}
+                        <div class="col-md-4">
+                            {{> post_poster
+                                heading_name='h5'
+                                heading_position='h5'
+                                heading_salary='h5'
+                                heading_location='h5'
+                                notify_flag='0'}}
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+            <!-- END: Similar Posts -->
+        {{/if}}
+
+        <div class="how-it-works-container">
+            {{> partial_howitworks head='div' heading='div'}}
+        </div>
+
+        <div class="match-me-container">
+            {{> partial_seekersearch}}
+            {{> partial_postersearch}}
+        </div>
+
+    </article>
+    <!-- END: Post Detail Poster -->
+
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "JobPosting",
+        {{#if post_salary_max}}
+                {{#when post_salary_min '==' post_salary_max}}
+                "baseSalary" : {
+                    "@type": "MonetaryAmount",
+                    "currency": "PHP",
+                    "value": {
+                        "@type": "QuantitativeValue",
+                        "value": {{number post_salary_max}},
+                        "unitText": "MONTH"
+                    }
+                },
+                {{else}}
+                    "baseSalary" : {
+                        "@type": "MonetaryAmount",
+                        "currency": "PHP",
+                        "value": {
+                            "@type": "QuantitativeValue",
+                            "minValue": {{number post_salary_min}},
+                            "maxValue": {{number post_salary_max}},
+                            "value": {{number post_salary_max}},
+                            "unitText": "MONTH"
+                        }
+                    },
+                {{/when}}
+            {{else}}
+                {{#if post_salary_min}}
+                    "baseSalary" : {
+                        "@type": "MonetaryAmount",
+                        "currency": "PHP",
+                        "value": {
+                            "@type": "QuantitativeValue",
+                            "value": {{number post_salary_min}},
+                            "unitText": "MONTH"
+                        }
+                    },
+                {{/if}}
+        {{/if}}
+        "datePosted": "{{post_created}}",
+        {{#if post_detail}}
+            "description": "{{{strip post_detail '<p><b><em><i><strong><b><br><u><ul><li><ol><blockquote><h1><h2><h3><h4><h5><h6>'}}}",
+        {{else}}
+            "description": "Hello, we are {{post_name}}, from {{post_location}} and we are looking for a {{post_position}} {{~#if post_experience~}} with at least {{~#when post_experience '==' 1~}} 1 year of experience {{~else~}} with {{post_experience}} years of experience{{~/when~}}{{~/if~}}",
+        {{/if}}
+        {{#if post_arrangement}}
+        "employmentType": "{{post_arrangement}}",
+        {{/if}}
+        {{#if post_experience}}
+            "experienceRequirements" : {{post_experience}},
+        {{/if}}
+        "hiringOrganization": {
+            "@type": "Organization",
+            {{#if profile_website}}
+                "sameAs": "{{profile_website}}",
+            {{/if}}
+            "name":  "{{post_name}}"
+        },
+        "jobLocation" : {
+            "@type": "Place",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "{{post_location}}",
+                "addressLocality": "{{post_province}}",
+                "addressRegion": "{{post_region}}",
+                "addressCountry":  "{{#session 'country'}}{{/session}}"
+            }
+        },
+        "salaryCurrency": "PHP",
+        "title": "{{post_position}}",
+        "validThrough": "{{post_expires}}"
+    }
+    </script>
+{{/when}}
+
+{{#when post_type '===' 'seeker'}}
+    <!-- START: Post Detail Seeker -->
+    <article class="clearfix post-detail detail-seeker" id="post-{{post_id}}">
+        <!-- START: Post Container -->
+        <div class="clearfix post-container">
+            <!-- START: Breadcrumbs -->
+            <div class="breadcrumbs">
+                <ul>
+                    <li><a href="/">Home</a> /</li>
+                    <li><a href="/Job-Seekers/{{profile_slug}}">{{post_name}}</a> /</li>
+                </ul>
+                <h1>{{wall_title}}</h1>
+            </div>
+            <!-- END: Breadcrumbs -->
+            <!-- START: Post Body -->
+            <div class="post-body">
+                <div class="post-body-container">
+                    <div class="clearfix post-info">
+                        <!-- START: Post Image -->
+                        <div class="post-image">
+                            <div class="image-wrapper">
+                                 {{#if profile_image}}
+                                    {{#when profile_image '!=' '/images/default-avatar.png'}}
+                                        <img
+                                            alt="{{post_name}} {{_ 'logo'}}"
+                                            class="image-lazy"
+                                            data-do="image-lazy"
+                                            data-src="{{profile_image}}"
+                                            onerror="this.parentNode.parentNode.removeChild(this.parentNode)"
+                                        />
+                                    {{else}}
+                                        {{#if post_image}}
+                                            <img
+                                                alt="{{post_name}} {{_ 'logo'}}"
+                                                class="image-lazy"
+                                                data-do="image-lazy"
+                                                data-src="{{post_image}}"
+                                                onerror="this.parentNode.parentNode.removeChild(this.parentNode)"
+                                            />
+                                        {{else}}
+                                            <img
+                                                alt="{{post_name}}"
+                                                class="image-lazy"
+                                                data-do="image-lazy"
+                                                data-src="{{default_avatar profile_id}}"
+                                                onerror="this.parentNode.parentNode.removeChild(this.parentNode)"
+                                            />
+                                        {{/if}}
+                                    {{/when}}
+                                {{else}}
+                                    {{#if post_image}}
+                                        <img
+                                            alt="{{post_name}} {{_ 'logo'}}"
+                                            class="image-lazy"
+                                            data-do="image-lazy"
+                                            data-src="{{post_image}}"
+                                            onerror="this.parentNode.parentNode.removeChild(this.parentNode)"
+                                        />
+                                    {{else}}
+                                        <img
+                                            alt="{{post_name}}"
+                                            class="image-lazy"
+                                            data-do="image-lazy"
+                                            data-src="{{default_avatar profile_id}}"
+                                            onerror="this.parentNode.parentNode.removeChild(this.parentNode)"
+                                        />
+                                    {{/if}}
+                                {{/if}}
+                            </div>
+                        </div>
+                        <!-- END: Post Image -->
+
+                        <!-- START: Post Information -->
+                        <div class="clearfix post-information">
+                            <!-- START: Post Name and Post Expiration -->
+                            <div class="clearfix">
+                                <!-- START: Post Name -->
+                                <div class="post-name pull-left">
+                                    <a
+                                        href="/Job-Seekers/{{profile_slug}}"
+                                        title="{{post_name}}"
+                                    >
+                                        {{post_name}}
+                                    </a>
+                                </div>
+                                <!-- END: Post Name -->
+
+                                <!-- START: Post Expiraton -->
+                                <div class="post-created pull-right">
+                                    {{highlight post_created post_updated post_expires}}
+                                </div>
+                                <!-- END: Post Expiration -->
+                            </div>
+                            <!-- END: Post Name and Post Expiration -->
+
+                            <!-- START: Post Intro -->
+                            <div class="post-intro">
+                                {{#_ 'Hello, my name is %s'}}
+                                    <span>
+                                        <a
+                                            class="post-intro-name"
+                                            href="/Job-Seekers/{{profile_slug}}"
+                                            title="{{post_name}}"
+                                        >
+                                            <strong class="text-capitalize">
+                                                {{post_name}}
+                                            </strong>
+                                        </a>
+                                    </span>
+                                {{/_~}}
+                                {{#_ 'and I am %s'}}
+                                    {{a_an_article post_position}}
+                                    <h2>
+                                        <a
+                                            class="text-info"
+                                            href="/post/search?position={{post_position}}"
+                                            title="{{post_position}}"
+                                        >
+                                            <strong class="text-capitalize">
+                                                {{post_position}}
+                                            </strong>
+                                        </a>
+                                    </h2>
+                                    {{#if post_experience}}
+                                        {{#_ 'with %s of experience'}}
+                                                {{post_experience}} {{append_s 'year' post_experience~}}
+                                        {{/_~}}
+                                    {{/if}}
+                                {{/_~}}
+                                {{~#_ 'looking for a job in %s.'~}}
+                                    <h2>
+                                        <a
+                                            class="text-info"
+                                            href="/post/search?location={{post_location}}"
+                                            title="{{post_location}}"
+                                        >
+                                            <strong class="text-capitalize">
+                                                {{~post_location~}}
+                                            </strong>
+                                        </a>
+                                    </h2>
+                                {{~/_~}}
+                            </div>
+                            <!-- END: Post Intro -->
+
+                            <!-- START: Post Description -->
+                            {{#if post_detail}}
+                                <div class="post-description">
+                                    {{{post_detail}}}
+                                </div>
+                            {{/if}}
+                            <!-- END: Post Description -->
+
+                            <!-- START: Short Profile -->
+                            <!-- END: Short Profile -->
+
+                            <!-- START: Interested Poster -->
+                            <div class="pull-right post-seeker-actions">
+                                {{> post_actions show_resume="1"}}
+                            </div>
+                            <!-- END: Interested Poster -->
+                        </div>
+                        <!-- END: Post Information -->
+                    </div>
+                    <!-- START: Short Profile -->
+                    {{#when profile_information.information_progress '>=' '40'}}
+                        <div class="post-seeker-profile-detail text-center">
+                            <div class="post-profile-job-position">
+                                {{profile_information.information_heading}}
+                            </div>
+                            {{#if profile_information.information_education}}
+                                {{#education profile_information.information_education}}
+                                    <div class="post-profile-school">
+                                        {{education_school}}
+                                    </div>
+                                {{/education}}
+                            {{/if}}
+                            <div class="post-profile-address">
+                                {{profile_information.profile_address_city}},
+                                {{profile_information.profile_address_state}}
+                            </div>
+                            {{#session 'me'}}
+                                {{#if profile_company}}
+                                    <div class="post-profile-contact">
+                                        {{#if ../profile_information.profile_downloaded}}
+                                            <a
+                                                class="contact"
+                                                href="tel://{{../profile_information.profile_phone}}"
+                                            >
+                                                {{../profile_information.profile_phone}}
+                                            </a>
+                                        {{else}}
+                                            <a
+                                                class="contact"
+                                                href="tel://{{phone_mask ../profile_information.profile_phone}}"
+                                            >
+                                                {{phone_mask ../profile_information.profile_phone}}
+                                            </a>
+                                        {{/if}}
+                                    </div>
+                                {{/if}}
+                                {{#when profile_id '===' ../profile_id}}
+                                    <div class="post-profile-contact">
+                                        {{../profile_information.profile_phone}}
+                                    </div>
+                                {{/when}}
+                            {{/session}}
+                        </div>
+                    {{/when}}
+                    <!-- END: Short Profile -->
+                </div>
+
+                {{#when view_interested '==' '1'}}
+                    <!-- START: Post Interested -->
+                    <div class="post-interested interested-poster">
+                        <p>{{post_like_count}} {{_ 'Interested'}}</p>
+
+                        <table class="post-interested-list">
+                            <tbody>
+                                {{#each likers}}
+                                    <!-- START: Post Interested Item -->
+                                    <tr class="post-interested-item">
+                                        <!-- START: Profile Detail -->
+                                        <td
+                                            class="
+                                                interested-item-image
+                                                interested-item-info
+                                            "
+                                        >
+                                            <div class="image-wrapper">
+                                                <img
+                                                    class="profile-image"
+                                                    alt="{{_ '%s logo' profile_company}}"
+                                                    src="{{profile_image}}"
+                                                    onerror="this.src='{{default_avatar profile_id}}'"
+                                                />
+                                            </div>
+                                        </td>
+                                        <td class="interested-item-info">
+                                            <a
+                                                class="text-info"
+                                                href="/Companies/{{profile_slug}}"
+                                                title="{{profile_company}}"
+                                            >
+                                                <span class="profile-name">
+                                                    {{profile_company}}
+                                                </span>
+                                            </a>
+                                        </td>
+                                        <!-- END: Profile Detail -->
+
+                                        <!-- START: Profile Email -->
+                                        <td class="interested-item-email">
+                                            {{#if profile_email}}
+                                                <a
+                                                    class="item-details-email"
+                                                    data-profile-id="{{profile_id}}"
+                                                    data-do="message-jobseeker-modal"
+                                                    data-on="click"
+                                                >
+                                                    {{profile_email}}
+                                                </a>
+                                            {{/if}}
+                                        </td>
+                                        <!-- END: Profile Email -->
+
+                                        <!-- START: Profile Phone -->
+                                        <td class="interested-item-phone">
+                                            {{#if profile_phone}}
+                                                <a href="tel:{{profile_phone}}">
+                                                    {{profile_phone}}
+                                                </a>
+                                            {{/if}}
+                                        </td>
+                                        <!-- END: Profile Phone -->
+                                    </tr>
+                                    <!-- END: Post Interested Item -->
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- END: Post Interested -->
+                {{/when}}
+
+                <div class="how-it-works-container">
+                    {{> partial_howitworks head='div' heading='div'}}
+                </div>
+            </div>
+            <!-- END: Post Body -->
+        </div>
+        <!-- END: Post Container -->
+
+        <!-- START: Match Me Container -->
+        <div class="match-me-container">
+            {{> partial_seekersearch}}
+            {{> partial_postersearch}}
+            <!-- END: Match Me Poster -->
+        </div>
+        <!-- END: Match Me Container -->
+    </article>
+    <!-- END: Post Detail Seeker -->
+
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "JobPosting",
+      "datePosted": "{{post_created}}",
+      {{#if post_detail}}
+          "description": "{{{strip post_detail '<p><b><em><i><strong><b><br><u><ul><li><ol><blockquote><h1><h2><h3><h4><h5><h6>'}}}",
+      {{else}}
+          "description": "Hi, my name is {{post_name}}, and I am a {{post_position}} looking for a job in {{post_location}}",
+      {{/if}}
+      {{#if post_experience}}
+          "experienceRequirements" : {{post_experience}},
+      {{/if}}
+      "hiringOrganization": {
+          "@type": "Organization",
+          "name":  "Jobayan",
+          "sameAs": "https://www.jobayan.com/"
+      },
+      "jobLocation" : {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+                "streetAddress": "{{post_location}}",
+                "addressLocality": "{{post_province}}",
+                "addressRegion": "{{post_region}}",
+                "addressCountry":  "{{#session 'country'}}{{/session}}"
+          }
+      },
+      "salaryCurrency": "PHP",
+      "title": "{{post_position}}",
+      "validThrough": "{{post_expires}}"
+    }
+    </script>
+{{/when}}
+
+{{#session 'me'}}
+    {{> post/modal_arrangement}}
+    {{> post/modal_experience}}
+    {{> post/modal_industry}}
+    {{> post/modal_location}}
+    {{> post/modal_school}}
+
+    {{#unless profile_company}}
+        {{> post/modal_completeness}}
+        {{> post/modal_popup}}
+    {{/unless}}
+{{/session}}
+{{> post/modal_question}}
+
+{{#when view_interested '==' '1'}}
+    <!-- Script for wysihtml5  -->
+    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.css"></link>
+    <script src="/bower_components/wysihtml5x/dist/wysihtml5x-toolbar.min.js"></script>
+    <script src="/bower_components/handlebars/handlebars.runtime.min.js"></script>
+    <script src="/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.js"></script>
+    <!-- START: Message Jobseeker Modal -->
+    {{#each likers}}
+        <div
+            class="message-jobseeker-modal modal fade"
+            data-profile-id="{{profile_id}}"
+            role="dialog"
+        >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="modal-title text-uppercase">
+                            {{#when ../post_type '===' 'seeker'}}
+                                message this job poster
+                            {{/when}}
+                            {{#when ../post_type '===' 'poster'}}
+                                message this job seeker
+                            {{/when}}
+                        </div>
+                        <div class="modal-image-container">
+                            <div class="modal-image">
+                                <div class="modal-image-circle">
+                                    <img
+                                        src="{{profile_image}}"
+                                        onerror="this.src='{{default_avatar profile_id}}'"
+                                    >
+
+                                </div>
+                                <span>{{profile_name}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <form
+                        id="conpany-form"
+                        method="post"
+                        data-do="textarea-data-upload"
+                        data-profile-id="{{profile_id}}"
+                        data-on="submit"
+                    >
+                        <div class="modal-body">
+                            <div class="form-group{{#if errors.blog_article}} has-error{{/if}}">
+                                <label class="control-label">Message</label>
+                                <input
+                                    name="post_slug"
+                                    value="{{../post_slug}}"
+                                    type="hidden"
+                                >
+                                <input
+                                    name="post_type"
+                                    value="{{../post_type}}"
+                                    type="hidden"
+                                >
+                                <div>
+                                    <textarea
+                                        class="form-control text-value"
+                                        data-do="wysiwyg"
+                                        data-profile-id="{{profile_id}}"
+                                        name="post_detail"
+                                        placeholder="Type your message"
+                                    >
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div>
+                                <button
+                                    class="btn btn-primary"
+
+                                    data-profile-id="{{profile_id}}"
+                                >
+                                    Send
+                                </button>
+                            </div>
+                            <div>
+                                <button
+                                    aria-label="Close"
+                                    class="close"
+                                    data-dismiss="modal"
+                                    type="button">
+                                    <span aria-hidden="true">Cancel</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    {{/each}}
+    <!-- END: Message Jobseeker Modal -->
+{{/when}}
+<div data-do="resume-download" data-on="init" data-logged-in="{{#session 'me'}}true{{else}}false{{/session}}"></div>

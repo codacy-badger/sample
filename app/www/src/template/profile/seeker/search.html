@@ -1,0 +1,215 @@
+<div class="container">
+    {{> profile_alert}}
+    <!-- START: Profile Panel -->
+    <div class="row profile-panel">
+        <!-- START: Sidebar Left -->
+        <aside class="col-md-3 left">
+            {{> profile_menu active="seekers"}}
+        </aside>
+        <!-- END: Sidebar Left -->
+        <!-- START: Content Right -->
+        <div class="col-md-9 right">
+            <!-- START: Head -->
+            <div class="head row">
+                <div class="text-left col-md-6">
+                    {{#if has_resume}}
+                        <h1>{{_ 'Job Seeker Search'}}
+                            {{#when total '>' '1000'}}- {{_ 'Resume'}} ({{number total}}){{/when}}
+                        </h1>
+                    {{else}}
+                        <h1>{{_ 'Job Seeker Search'}}
+                            {{#when total '>' '1000'}}({{number total}}){{/when}}
+                        </h1>
+                    {{/if}}
+                    <!-- START: Filter -->
+                    <div class="btn-group" role="group">
+                        <a
+                            class="btn text-uppercase
+                                {{#if has_resume}} btn-default{{else}} btn-primary{{/if}}"
+                            href="?"
+                            title="All"
+                        >
+                            {{_ 'All'}}
+                        </a>
+                        <a class="btn text-uppercase
+                            {{#if has_resume}} btn-primary{{else}} btn-default{{/if}}"
+                            href="?has_resume=1"
+                        > {{_ 'With Resume'}}
+                        </a>
+                    </div>
+                    <!-- END: Filter -->
+                </div>
+                <!-- START: Search -->
+                <div class="text-right col-md-6">
+                    <form class="form-inline" method="get" onsubmit="filterResume()" action="search">
+                        <input id="expired_resume" type="hidden">
+                        <div class="input-group">
+                            <input
+                                class="form-control"
+                                name="q"
+                                placeholder="{{_ 'Search'}}"
+                                type="text"
+                                value="{{q}}"
+                            />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+                <!-- END: Search -->
+            </div>
+            <!-- END: Head -->
+            <!-- START: Main Content -->
+            <div class="content">
+                {{#if rows}}
+                    {{#each rows}}
+                    <div class="detail clearfix">
+                        <div class="col-md-3">
+                            <a href="/{{post_slug}}/post-detail"
+                                class="post text-capitalize">{{post_position}}</a>
+                            <span class="location text-capitalize">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                {{post_location}}
+                            </span>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="name text-capitalize">
+                                {{post_name}}
+                            </div>
+                            {{#if post_experience}}
+                                {{#_ '%s of exp'}}
+                                    <span class="experience">
+                                        {{post_experience}} {{append_s 'year' post_experience~}}
+                                    </span>
+                                {{/_~}}
+                            {{/if}}
+                        </div>
+                        <div class="col-md-3">
+                            {{#if profile_resume}}
+                                <!-- START: This seeker has resume -->
+                                <!-- START: Download Resume Button -->
+                                <a class="download"
+                                    data-do="post-download"
+                                    data-id="{{profile_resume.resume_id}}"
+                                    data-on="click"
+                                    data-type="resume"
+                                    href="javascript:void(0)"
+                                    title="{{_ 'Download resume'}}"
+                                    {{#unless profile_resume.resume_download_count}}
+                                        style="margin-left: 10px;"
+                                    {{/unless}}
+                                >
+                                    <span
+                                        data-do="tooltip"
+                                        class="resume"
+                                        title="{{_ 'This represents the number of times this resume has been downloaded'}}"
+                                    >
+                                        {{#if profile_resume.resume_download_count}}
+                                            {{profile_resume.resume_download_count}}
+                                        {{/if}}
+                                    </span>
+                                    <span
+                                        data-do="tooltip"
+                                        data-html="true"
+                                        title="
+                                        {{_ 'Downloading a resume costs 10 credits' ~}}
+                                        <hr style='background-color: black;
+                                        height: 1px;
+                                        border: 0;
+                                        margin: 10px 0px 10px 0px;
+                                        width: 100%;'>
+                                        {{_ 'Resume - Last Updated' ~}}
+                                        <br>
+                                        <i>{{date_format profile_information.information_updated 'M d, Y' ~}}<i>
+                                        ">
+                                        <i class="fa fa-download" aria-hidden="true">
+                                        </i> {{_ 'Resume'}}
+                                    </span>
+                                </a>
+                                <!-- END: Download Resume Button -->
+                                <!-- END: This seeker has resume -->
+                            {{else}}
+                                {{#when profile_information.information_progress '>=' '40'}}
+                                    <!-- START: Download Resume Button -->
+                                    <a class="download"
+                                        data-do="information-resume"
+                                        data-information-id="{{profile_information.information_id}}"
+                                        data-profile-id="{{profile_information.profile_id}}"
+                                        data-on="click"
+                                        href="javascript:void(0)"
+                                        title="{{_ 'Download resume'}}"
+                                    >
+                                        <span
+                                            data-do="tooltip"
+                                            class="resume"
+                                            title="{{_ 'This represents the number of times this resume has been downloaded'}}"
+                                        >
+                                            {{#if profile_information.information_download_count}}
+                                                {{profile_information.information_download_count}}
+                                            {{/if}}
+                                        </span>
+                                        <span
+                                            data-do="tooltip"
+                                            data-html="true"
+                                            class="resume"
+                                            {{#unless profile_information.information_download_count}}
+                                                style="margin-left: 10px;"
+                                            {{/unless}}
+                                            title="
+                                            {{_ 'Downloading a resume costs 10 credits' ~}}
+                                            <hr style='background-color: black;
+                                            height: 1px;
+                                            border: 0;
+                                            margin: 10px 0px 10px 0px;
+                                            width: 100%;'>
+                                            {{_ 'Resume - Last Updated' ~}}
+                                            <br>
+                                            <i>{{date_format profile_information.information_updated 'M d, Y' ~}}<i>
+                                            ">
+                                            <i class="fa fa-download" aria-hidden="true">
+                                            </i> {{_ 'Resume'}}
+                                        </span>
+                                    </a>
+                                    <!-- END: Download Resume Button -->
+                                {{/when}}
+                            {{/if}}
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <span class="ago">{{relative post_created}}</span>
+                        </div>
+                    </div>
+                    {{/each}}
+                    <!-- START: Pagination -->
+                    <ul class="pagination">
+                        {{#pager total range}}
+                            <li class="{{#if active}}active{{/if}}">
+                                <a href="?{{href}}">{{page}}</a>
+                            </li>
+                        {{/pager}}
+                    </ul>
+                    <!-- END: Pagination -->
+                {{else}}
+                    <!-- START: No Results -->
+                    <div class="no-results">
+                        {{_ 'No Results Found'}}
+                    </div>
+                    <!-- END: No Results -->
+                {{/if}}
+            </div>
+            <!-- END: Main Content -->
+        </div>
+        <!-- END: Content Right -->
+    </div>
+    <!-- END: Profile Panel -->
+</div>
+<script>
+function filterResume() {
+    if (window.location.href.indexOf('has_resume') >= 1) {
+       document.getElementById('expired_resume').setAttribute('name','has_resume');
+       document.getElementById('expired_resume').setAttribute('value','1');
+   }
+}
+ </script>

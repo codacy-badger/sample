@@ -1,0 +1,73 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button
+            class="navbar-toggle collapsed"
+            data-target="#main-nav"
+            data-toggle="collapse"
+            type="button"
+            >
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/control/transaction/search">
+                <img height="50" src="/images/logo.png" />
+            </a>
+        </div>
+
+        <div
+            class="collapse navbar-collapse{{#session 'me'}} loggedin{{/session}}"
+            id="main-nav"
+        >
+            {{#session 'me'}}
+            <ul class="nav navbar-nav">
+                <!-- START: GENERATED MENU -->
+                <!-- <li><a href="/control/currency/search">Currencies</a></li> -->
+                <li><a href="/control/position/search">Positions</a></li>
+                <li><a href="/control/utm/search">UTMs</a></li>
+                <li><a href="/control/transaction/search">Transactions</a></li>
+                <li><a href="/control/service/search">Services</a></li>
+                <li><a href="/control/term/search">Terms</a></li>
+                <li><a href="/control/post/search">Posts</a></li>
+                <li><a href="/control/profile/search">Profiles</a></li>
+                <li><a href="/control/auth/search">Auth</a></li>
+                <li><a href="/control/blog/search">Articles</a></li>
+                <li><a href="/control/research/search">Research</a></li>
+                <li><a href="/control/feature/search">Features</a></li>
+                <li><a href="/control/role/search">Roles</a></li>
+                <!-- END: GENERATED MENU -->
+            </ul>
+            {{/session}}
+            <ul class="nav navbar-nav navbar-right">
+                {{#session 'me'}}
+                    <li>
+                          <a href="#" data-toggle="dropdown" class="dropdown-toggle">Settings
+                              <b class="caret"> </b>
+                          </a>
+                          <ul class="dropdown-menu">
+                              <li><a href="#">Generate URL</a></li>
+                              <li><a href="#">Industries</a></li>
+                              <li><a href="/control/history/search">Logs</a></li>
+                              <li><a href="/control/arrangement/search">Job Arrangement</a></li>
+                              <li><a href="/control/currency/search">World currency</a></li>
+                          </ul>
+                    </li>
+
+                    <li>
+                        <a
+                            class="btn text-danger"
+                            href="/logout?redirect_uri={{server 'REQUEST_URI'}}"
+                        >
+                            {{_ 'Logout'}}
+                        </a>
+                    </li>
+                {{else}}
+                    <li><a href="/login?redirect_uri={{server 'REQUEST_URI'}}">Login</a></li>
+                    <li><a href="/signup?redirect_uri={{server 'REQUEST_URI'}}">Signup</a></li>
+                {{/session}}
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>

@@ -1,0 +1,555 @@
+<!-- START: Crumbs -->
+<div class="crumbs">
+    <a href="/control/marketing/dashboard">
+        <i class="fa fa-home"></i> {{_ 'Dashboard'}}</a>
+    <span class="separator">
+        <i class="fa fa-angle-right"></i>
+    </span>
+    <a class="active" href="/control/marketing/campaign/search">
+        <i class="fa fa-calendar"></i> {{_ 'Campaigns'}}</a>
+</div>
+<!-- END: Crumbs -->
+<!-- START: Scroll -->
+<div class="scroll">
+
+    <h3 class="template-blue">
+        <i class="fa fa-calendar"></i> {{_ 'Campaigns'}}
+        <span class="badge badge-info">{{total}}</span>
+    </h3>
+    <!-- START: Search Actions -->
+    <div class="search-actions">
+        <div class="pull-right">
+            <a href="create" class="btn btn-success">
+                <i class="fa fa-plus"></i> {{_ 'Create Campaign'}}
+            </a>
+            <a
+                class="btn btn-export"
+                href="/control/marketing/campaign/search?export=true&
+                {{~querystring}}"
+            >
+                <i class="fa fa-download"></i> {{_ 'Export'}}
+            </a>
+        </div>
+
+        <div class="btn-group" role="group">
+            <a
+                class="btn
+                    {{#when filter.campaign_audience '==' 'poster'}}
+                        btn-active active
+                    {{else}}
+                        btn-default
+                    {{/when}}
+                "
+                href="?{{~querystring}}&filter[campaign_audience]=poster"
+            >
+                {{_ 'Company'}}
+            </a>
+            <a
+                class="btn
+                    {{#when filter.campaign_audience '==' 'seeker'}}
+                        btn-active active
+                    {{else}}
+                        btn-default
+                    {{/when}}
+                "
+                href="?{{~querystring}}&filter[campaign_audience]=seeker"
+            >
+                {{_ 'Seeker'}}
+            </a>
+        </div>
+
+        <div class="btn-group" role="group">
+            <a
+                class="btn
+                    {{#when filter.campaign_source '==' 'lead'}}
+                        btn-active active
+                    {{else}}
+                        btn-default
+                    {{/when}}
+                "
+                href="?{{~querystring}}&filter[campaign_source]=lead"
+            >
+                {{_ 'Leads'}}
+            </a>
+            <a
+                class="btn
+                    {{#when filter.campaign_source '==' 'profile'}}
+                        btn-active active
+                    {{else}}
+                        btn-default
+                    {{/when}}
+                "
+                href="?{{~querystring}}&filter[campaign_source]=profile"
+
+            >
+                {{_ 'Users'}}
+            </a>
+        </div>
+
+        <div class="btn-group" role="group">
+            <a
+                class="btn
+                    {{#when filter.campaign_queue '==' '1'}}
+                        btn-active active
+                    {{else}}
+                        btn-default
+                    {{/when}}
+                "
+                href="?{{~querystring}}&filter[campaign_queue]=1"
+            >
+                {{_ 'Queue'}}
+            </a>
+            <a
+                class="btn
+                    {{#when filter.campaign_queue '==' '0'}}
+                        btn-active active
+                    {{else}}
+                        btn-default
+                    {{/when}}
+                "
+                href="?{{~querystring}}&filter[campaign_queue]=0"
+            >
+                {{_ 'Sent'}}
+            </a>
+        </div>
+
+        <div class="btn-group" role="group">
+            <a
+                class="btn
+                    {{#when filter.campaign_active '==' '0'}}
+                        btn-default
+                    {{else}}
+                        btn-active active
+                    {{/when}}
+                "
+                href="?{{~querystring}}&filter[campaign_active]=1"
+            >
+                {{_ 'Active'}}
+            </a>
+            <a
+                class="btn
+                    {{#when filter.campaign_active '==' '0'}}
+                        btn-active active
+                    {{else}}
+                        btn-default
+                    {{/when}}
+                "
+                href="?{{~querystring}}&filter[campaign_active]=0"
+            >
+                {{_ 'Inactive'}}
+            </a>
+        </div>
+    </div>
+    <!-- END: Search Actions -->
+    <!-- START: Search Filters -->
+    <div class="panel panel-default search-filters">
+        <div class="panel-heading">{{_ 'Filters'}}</div>
+        <div class="panel-body">
+            <form>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group{{#if errors.q}} has-error{{/if}}">
+                            <label>{{_ 'Search'}}</label>
+                            <div class="texts-field">
+                                <input
+                                    class="form-control"
+                                    name="q"
+                                    placeholder="{{_ 'Enter Keyword'}}"
+                                    type="text"
+                                    value="{{q}}"
+                                />
+                            </div>
+                            {{#if errors.q}}
+                                <span class="help-text">{{errors.q}}</span>
+                            {{/if}}
+                        </div>
+
+                        <div
+                            class="form-group
+                                {{~#if errors.campaign_labels}}
+                                    has-error
+                                {{/if~}}
+                            "
+                        >
+                            <label>{{_ 'Tags'}}</label>
+                            <div
+                                class="tag-field"
+                                data-do="tag-field"
+                                data-name="campaign_tags"
+                            >
+                                {{#each campaign_tags}}
+                                    <div class="tag">
+                                        <input
+                                            class="tag-input tag-field"
+                                            name="campaign_tags[]"
+                                            placeholder="Tag"
+                                            type="text"
+                                            value="{{this}}"
+                                        />
+                                        <a
+                                            class="remove"
+                                            href="javascript:void(0)"
+                                        >
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                {{/each}}
+                            </div>
+                            {{#if errors.campaign_tags}}
+                                <span class="help-text">
+                                    {{errors.campaign_tags}}
+                                </span>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div
+                            class="form-group
+                                {{~#if errors.range_start}} has-error{{/if~}}
+                                {{~#if errors.range_end}} has-error{{/if~}}
+                            "
+                        >
+                            <label>{{_ 'Date Range'}}</label>
+                            <div class="input-range date-range">
+                                <div class="input-from">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input
+                                            class="form-control"
+                                            name="date_start"
+                                            onfocus="(this.type='date')"
+                                            placeholder="2017-01-01"
+                                            type="text"
+                                            value="{{date_start}}"
+                                        />
+                                    </div>
+                                </div>
+
+                                <span class="input-separator">
+                                    <i class="fa fa-minus"></i>
+                                </span>
+
+                                <div class="input-to">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input
+                                            class="form-control"
+                                            name="date_end"
+                                            onfocus="(this.type='date')"
+                                            placeholder="2017-01-01"
+                                            type="text"
+                                            value="{{date_end}}"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{#if errors.range_start}}
+                                <span class="help-text">
+                                    {{errors.range_start}}
+                                </span>
+                            {{/if}}
+                            {{#if errors.range_end}}
+                                <span class="help-text">
+                                    {{errors.range_end}}
+                                </span>
+                            {{/if}}
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>{{_ 'Date Type'}}</label>
+                            <div class="select-field">
+                                <select name="date_type" class="form-control">
+                                    <option
+                                        {{#when date_type '==' 'created'}}
+                                            selected
+                                        {{/when}}
+                                        value="created"
+                                    >
+                                        {{_ 'Created'}}
+                                    </option>
+                                    <option
+                                        {{#when date_type '==' 'updated'}}
+                                            selected
+                                        {{/when}}
+                                        value="updated"
+                                    >
+                                        {{_ 'Updated'}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-group filter-button-only">
+                            {{#when filter.campaign_active '==' '0'}}
+                                <input
+                                    name="filter[campaign_active]"
+                                    type="hidden"
+                                    value="0"
+                                />
+                            {{/when}}
+                            <button class="btn btn-primary">
+                                {{_ 'Filter'}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- END: Search Filters -->
+    <!-- START: Search Table Actions -->
+    <div class="search-table-actions">
+        <div class="pull-right">
+            <div class="btn-group">
+                <button
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    class="btn btn-default dropdown-toggle"
+                    data-toggle="dropdown"
+                    type="button"
+                >
+                    {{_ 'Show %s' range}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a
+                            href="/control/marketing/campaign/search?
+                            {{~querystring}}&range=10"
+                        >
+                            {{_ 'Show 10'}}
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="/control/marketing/campaign/search?
+                            {{~querystring}}&range=25"
+                        >
+                            {{_ 'Show 25'}}
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="/control/marketing/campaign/search?
+                            {{~querystring}}&range=50"
+                        >
+                            {{_ 'Show 50'}}
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="/control/marketing/campaign/search?
+                            {{~querystring}}&range=100"
+                        >
+                            {{_ 'Show 100'}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <form
+            class="form-inline"
+            method="post"
+            action="/control/marketing/campaign/bulk"
+        >
+            <div class="form-group">
+                <select class="form-control" name="bulk_action">
+                    <option value="restore">{{_ 'Make Active'}}</option>
+                    <option value="remove">{{_ 'Make Inactive'}}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary">{{_ 'Apply'}}</button>
+            </div>
+            <!-- START: Search Table -->
+            <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                <input
+                                    class="checkall"
+                                    id="checkAll"
+                                    type="checkbox"
+                                />
+                            </th>
+                            <th>{{_ 'Actions'}}</th>
+                            <th>{{_ 'ID'}}
+                                <a href="?q={{q}}&
+                                    {{~#sort 'campaign_id'}}
+                                        {{~#unless value~}}
+                                            order[campaign_id]=ASC
+                                        {{~/unless}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[campaign_id]=DESC
+                                        {{~/when}}
+                                    {{~/sort}}"
+                                >
+                                    <i class="fa fa-sort"></i>
+                            </th>
+                            <th>{{_ 'Title'}}
+                                <a href="?q={{q}}&
+                                    {{~#sort 'campaign_title'}}
+                                        {{~#unless value~}}
+                                            order[campaign_title]=ASC
+                                        {{~/unless}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[campaign_title]=DESC
+                                        {{~/when}}
+                                    {{~/sort}}"
+                                >
+                                    <i class="fa fa-sort"></i>
+                            </th>
+                            <th>{{_ 'Template'}}
+                                <a href="?q={{q}}&
+                                    {{~#sort 'template_title'}}
+                                        {{~#unless value~}}
+                                            order[template_title]=ASC
+                                        {{~/unless}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[template_title]=DESC
+                                        {{~/when}}
+                                    {{~/sort}}"
+                                >
+                                    <i class="fa fa-sort"></i>
+                            </th>
+                            <!-- <th>{{_ 'Labels'}}</th> -->
+                            <th>{{_ 'Medium'}}</th>
+                            <th>{{_ 'Sent'}}</th>
+                            <th>{{_ 'Target'}}</th>
+                            <th>{{_ 'Unopened'}}</th>
+                            <th>{{_ 'Opened'}}</th>
+                            <th>{{_ 'Clicked'}}</th>
+                            <th>{{_ 'Bounced'}}</th>
+                            <th>{{_ 'Spam'}}</th>
+                            <th>{{_ 'Unsubscribed'}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each rows}}
+                        <tr>
+                            <!-- START: Checkbox -->
+                            <td>
+                                <input
+                                    name="bulk_ids[]"
+                                    value="{{campaign_id}}"
+                                    type="checkbox"
+                                />
+                            </td>
+                            <!-- END: Checkbox -->
+                            <!-- START: Actions -->
+                            <td>
+                                <a href="results/{{campaign_id}}" title="View">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <a href="copy/{{campaign_id}}" title="Copy">
+                                    <i class="fa fa-copy"></i>
+                                </a>
+                                {{#if campaign_active}}
+                                <a href="remove/{{campaign_id}}" title="Remove">
+                                    <i class="fa fa-remove text-danger"></i>
+                                </a>
+                                {{else}}
+                                <a href="restore/{{campaign_id}}" title="Restore">
+                                    <i class="fa fa-repeat text-success"></i>
+                                </a>
+                                {{/if}}
+                            </td>
+                            <!-- END: Actions -->
+                            <!-- START: Campaign ID -->
+                            <td>{{campaign_id}}</td>
+                            <!-- END: Campaign ID -->
+                            <!-- START: Campaign Title -->
+                            <td>
+                                <a href="results/{{campaign_id}}">
+                                    {{campaign_title}}
+                                </a>
+                            </td>
+                            <!-- END: Campaign Title -->
+                            <!-- START: Template Title -->
+                            <td>
+                                {{#if template_id}}
+                                     <a href="../template/update/{{template_id}}">
+                                        {{template_title}}
+                                    </a>
+                                {{else}}
+                                    {{_ 'No Sending Action'}}
+                                {{/if}}
+                            </td>
+                            <!-- END: Template Title -->
+                            <td>{{campaign_medium}}</td>
+                            <!-- END: Campaign Medium -->
+                            <!-- START: Campaign Date Sent -->
+                            <td>{{relative campaign_created}}</td>
+                            <!-- END: Campaign Date Sent -->
+                            <!-- START: Campaign Total Target -->
+                            <td class="text-center">
+                                {{add campaign_queue campaign_sent}}
+                            </td>
+                            <!-- END: Campaign Total Target -->
+                            <!-- START: Campaign Total Unopened -->
+                            <td class="text-center">
+                                {{number campaign_unopened}}
+                            </td>
+                            <!-- END: Campaign Total Unopened -->
+                            <!-- START: Campaign Total Opened -->
+                            <td class="text-center">
+                                {{number campaign_opened}}
+                            </td> 
+                            <!-- END: Campaign Total Opened -->
+                            <!-- START: Campaign Total Clicked -->
+                            <td class="text-center">
+                                {{number campaign_clicked}}
+                            </td>
+                            <!-- END: Campaign Total Clicked -->
+                            <!-- START: Campaign Total Bounced -->
+                            <td class="text-center">
+                                {{number campaign_bounced}}
+                            </td>
+                            <!-- END: Campaign Total Bounced -->
+                            <!-- START: Campaign Total Spam -->
+                            <td class="text-center">
+                                {{number campaign_spam}}
+                            </td>
+                            <!-- END: Campaign Total Spam -->
+                            <!-- START: Campaign Total Unsubscribed -->
+                            <td class="text-center">
+                                {{number campaign_unsubscribed}}
+                            </td>
+                            <!-- END: Campaign Total Unsubscribed -->
+                            <!-- <td>{{campaign_created}}</td>
+                            <td>{{campaign_updated}}</td> -->
+                        </tr>
+                        {{/each}}
+                        {{#unless rows}}
+                            <tr>
+                                <td class="text-center" colspan="14">
+                                     {{_ 'No results found.'}}
+                                </td>
+                            </tr>
+                        {{/unless}}
+                    </tbody>
+                </table>
+            <!-- END: Search Table -->
+        </form>
+    </div>
+    <!-- END: Search Table Actions -->
+    <!-- START: Pagination -->
+    <nav>
+        <ul class="pagination">
+            {{#pager total range}}
+                <li{{#if active}} class="active"{{/if}}>
+                    <a href="?{{href}}">{{page}}</a>
+                </li>
+            {{/pager}}
+        </ul>
+    </nav>
+    <!-- END: Pagination -->
+</div>
+<!-- END: Scroll -->

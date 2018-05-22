@@ -1,0 +1,171 @@
+
+{{#when filter.feature_active '===' '0'}}
+    <h3>
+        {{number total}} Inactive {{title}}
+        {{#if q.0}}
+            matching {{q.0}}
+        {{/if}}
+    </h3>
+{{else}}
+    <h3>
+        {{number total}} {{title}}
+        {{#if q.0}}
+            matching {{q.0}}
+        {{/if}}
+    </h3>
+{{/when}}
+
+<div class="clearfix">
+    <!-- START: SEARCH FORM -->
+    <form class="pull-right search form-inline" method="get">
+            {{#when filter.feature_active '===' '0'}}
+                <input type="hidden" 
+                name="filter[feature_active]" 
+                value = "0"
+                />
+            {{/when}}
+        <div class="form-group">
+            <input
+                class="form-control"
+                name="q[]"
+                placeholder="Search"
+                type="text"
+                value="{{q.0}}"
+            />
+        </div>
+        <button class="btn"><i class="fa fa-search"></i></button>
+    </form>
+    <!-- END: SEARCH FORM -->
+
+    <div class="btn-group" role="group" aria-label="...">
+        <a class="btn btn-primary" 
+        href="?{{toquery 'filter[feature_active]' '1'}}">
+            Active
+        </a>
+        <a class="btn btn-danger" 
+        href="?{{toquery 'filter[feature_active]' '0'}}">
+            Inactive
+        </a>
+    </div>
+    <span>
+        <a class="btn btn-success" href="/control/feature/create">
+            <i class="fa fa-plus"></i>
+            Create New Feature
+        </a>
+    </span>
+</div>
+
+<!-- START: BULK FORM -->
+<form method="post" class="form-inline bulk-form pad-vertical">
+            {{#when filter.feature_active '===' '0'}}
+                <input type="hidden" 
+                name="filter[feature_active]" 
+                value = "0"
+                />
+            {{/when}}
+    <div class="panel panel-default clear">
+        <div class="panel-body" >
+            {{#if rows}}
+                <div class="table-overflow">
+                    <!-- START: TABLE -->
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Actions</th>
+                                <th>Title</th>
+                                <th>
+                                    <a href="?q[]={{q.0}}&{{#sort 'feature_type'}}
+                                        {{~#unless value~}}
+                                            order[feature_type]=ASC
+                                        {{~/unless~}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            order[feature_type]=DESC
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            order[feature_type]=ASC
+                                        {{~/when}}
+                                    {{~/sort~}}">
+                                    Type
+                                    {{#sort 'feature_type'}}
+                                        {{~#when value '===' 'ASC'~}}
+                                            <i class="fa fa-caret-up"></i>
+                                        {{~/when~}}
+                                        {{~#when value '===' 'DESC'~}}
+                                            <i class="fa fa-caret-down"></i>
+                                        {{~/when}}
+                                        {{~#unless value~}}
+                                            <i class="fa fa-caret-up"></i>
+                                        {{~/unless~}}
+                                    {{~/sort~}}
+                                </th>
+                                <th>Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each rows}}
+                            <tr data-id="{{feature_id}}">
+                                <td>
+                                    {{#when feature_active '==' 1}}
+                                    <a title="Edit" href="/control/feature/update/{{feature_id}}">
+                                    <i class="fa fa-edit"></i></a>
+                                    &nbsp;
+                                    <a title="Edit" href="/control/feature/detail/{{feature_id}}">
+                                    <i class="fa fa-eye"></i></a>
+                                    &nbsp;
+                                    <a title="Remove" href="/control/feature/remove/{{feature_id}}"
+                                    class="text-danger remove"><i class="fa fa-times"></i></a>
+                                    {{/when}}
+                                    {{#when feature_active '==' 0}}
+                                    <a title="Restore" href="/control/feature/restore/{{feature_id}}" class="text-success restore">
+                                    <i class="fa fa-external-link"></i></a>
+                                    {{/when}}
+                                </td>
+                                <td>
+                                    {{feature_title}}
+                                </td>
+                                <td>
+                                    {{ucwords feature_type}}
+                                </td>
+                                <td>
+                                    {{#when feature_type '==' 'position'}}
+                                        <a href="/Job-Positions/{{feature_slug}}" target="_blank">
+                                            /Job-Positions/{{feature_slug}}
+                                        </a>
+                                    {{/when}}
+                                    {{#when feature_type '==' 'location'}}
+                                        <a href="/Job-Locations/{{feature_slug}}" target="_blank">
+                                            /Job-Locations/{{feature_slug}}
+                                        </a>
+                                    {{/when}}
+                                    {{#when feature_type '==' 'industry'}}
+                                        <a href="/Job-Industries/{{feature_slug}}" target="_blank">
+                                            /Job-Industries/{{feature_slug}}
+                                        </a>
+                                    {{/when}}
+                                    {{#when feature_type '==' 'education'}}
+                                        <a href="/Job-Educations/{{feature_slug}}" target="_blank">
+                                            /Job-Educations/{{feature_slug}}
+                                        </a>
+                                    {{/when}}
+                                    </a>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    <!-- END: TABLE -->
+                </div>
+            {{else}}
+                <!-- START: NO RESULTS -->
+                <div class="well no-results">No Results Found</div>
+                <!-- END: NO RESULTS -->
+            {{/if}}
+        </div>
+    </div>
+
+    <ul class="pagination">
+        {{#pager total range}}
+        <li{{#if active}} class="active"{{/if}}><a href="?{{href}}">{{page}}</a></li>
+        {{/pager}}
+    </ul>
+</form>

@@ -1,0 +1,1146 @@
+<!-- START: Navbar -->
+<nav class="navbar navbar-default">
+    <div class="container">
+        <!-- START: Nav Header -->
+        <div class="navbar-header">
+            <button
+                aria-expanded="false"
+                type="button"
+                class="navbar-toggle collapsed"
+                data-toggle="collapse"
+                data-target="#navbar-collapse-1"
+            >
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <button
+                aria-expanded="false"
+                type="button"
+                class="navbar-toggle collapsed"
+                data-toggle="collapse"
+                data-target="#navbar-collapse-search"
+            >
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+            <a class="navbar-brand" href="/" title="Jobayan">
+                <img
+                    alt="Jobayan Logo"
+                    src="{{config 'cdn'}}/images/logo.png"
+                />
+            </a>
+        </div>
+        <!-- END: Nav Header -->
+        <!-- START: Nav Collapse -->
+        <!-- START: Search Form -->
+        <form
+            action="{{~#if page.search_action~}}
+                {{page.search_action}}
+            {{~else~}}
+                /post/search
+            {{~/if}}?{{toquery}}"
+            class="navbar-form navbar-left post-position"
+        >
+            {{#if location}}
+            <input
+                name="location"
+                type="hidden"
+                value="{{location}}"
+            >
+            {{/if}}
+            <div class="input-group search-group">
+                <input
+                    autocomplete="off"
+                    class="form-control input-position"
+                    name="q"
+                    placeholder="{{_ 'Search for Seeker, Company or Position'}}"
+                    type="text"
+                    value="{{get.q}}"
+                />
+                <input
+                    autocomplete="off"
+                    class="form-control input-location"
+                    data-do="suggestion-field"
+                    data-type="location"
+                    name="location"
+                    placeholder="{{_ 'Search for Location'}}"
+                    type="text"
+                    value="{{get.location}}"
+                />
+                <span class="input-group-btn">
+                    <button class="btn btn-default" id="search-button-header" type="submit">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+        <!-- END: Search Form -->
+        <!-- START: Navigation  -->
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a
+                    class="btn btn-primary"
+                    data-do="match-search"
+                    data-on="click"
+                    href="javascript:void(0);"
+                    title="{{_ 'Create Post'}}"
+                    id="create-post-button-header"
+                >
+                    {{_ 'Create Post'}}
+                </a>
+            </li>
+            {{#session 'me'}}
+                {{#if profile_company}}
+                <li class="poster responsive">
+                    <div>
+                        <a
+                            class="profile-name-link text-capitalize"
+                            href="/profile/post/search"
+                            title="{{profile_name}}"
+                        >
+                            {{ellipsis profile_name 18}}
+                        </a>
+                        <div
+                            class="level-rank level-rank-tooltip"
+                            data-do="profile-name-tooltip"
+                            data-on="hover"
+                        >
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <span class="profile-lvl">
+                                LVL
+                                {{level profile_experience}}
+                            </span>
+                            <span class="profile-rank">
+                                {{rank profile_experience profile_verified}}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div
+                            class="credits"
+                            data-do="tooltip-container"
+                            data-on="hover"
+                        >
+                            {{#when profile_credits '<' 21}}
+                             <!--    <span class="fa-stack fa-lg"> -->
+                                <div class="exclamation-bg">
+                                    <i class="fa fa-exclamation"></i>
+                                </div>
+                            {{/when}}
+                            <span class="crd">
+                            {{number profile_credits}} {{_ 'Credits'}}
+                            </span>
+                        </div>
+                        <div
+                            class="tooltip-credits"
+                            data-do="tooltip-credits"
+                            data-on="hover"
+                        >
+                            {{#if profile_credits}}
+                            <div class="buy-credits-tool">
+                                <label class="tooltip-credits-label">
+                                    Credits give you access to
+                                    promote your posts, download
+                                    resumes, and many more.
+                                </label>
+                                <a
+                                    class="btn btn-default text-capitalize"
+                                    href="/profile/credit/checkout"
+                                >
+                                   <i class="fa fa-shopping-cart"></i> Add Credits
+                                </a>
+                            </div>
+                            {{else}}
+                            <div class="add-credits-tool">
+                                <label class="tooltip-credits-label">
+                                    Not enough credits to access
+                                    our paid services? Add credits here.
+                                </label>
+                                <a
+                                    class="btn btn-default text-capitalize"
+                                    href="/profile/credit/checkout"
+                                >
+                                   <i class="fa fa-shopping-cart"></i> Buy Credits
+                                </a>
+                            </div>
+                            {{/if}}
+                        </div>
+                    </div>
+                </li>
+                {{else}}
+                <li class="seeker responsive">
+                    <a
+                        class="profile-name-link text-capitalize"
+                        href="/profile/post/search"
+                        title="{{profile_name}}"
+                    >
+                        {{ellipsis profile_name 18}}
+                    </a>
+                </li>
+                {{/if}}
+            {{else}}
+            <li>
+                <a
+                    class="btn btn-link-primary"
+                    href="/login?redirect_uri={{page.meta.path}}"
+                    title="{{_ 'Login'}}"
+                    id="login-button-header"
+                >
+                    {{_ 'Login'}}
+                </a>
+            </li>
+            {{/session}}
+            {{#session 'me'}}
+            <!-- START: Dropdown -->
+            <li class="dropdown">
+                <a
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    class="dropdown-toggle"
+                    data-toggle="dropdown"
+                    data-do="dropdown-flyout"
+                    href="javascript:void(0);"
+                    role="button"
+                    title="{{_ 'Profile Image'}}"
+                >
+                <!-- START: Profile Image -->
+                {{#if profile_image}}
+                    <img
+                        alt="{{_ 'Profile Image'}}"
+                        src="{{profile_image}}"
+                    />
+                {{else}}
+                    <img
+                        alt="{{_ 'Profile Image'}}"
+                        src="{{default_avatar profile_id}}"
+                    />
+                {{/if}}
+                <!-- END: Profile Image -->
+                </a>
+
+                <div class="poster m-responsive">
+                    <button
+                        aria-expanded="false"
+                        type="button"
+                        class="navbar-toggle collapsed"
+                        data-toggle="collapse"
+                        data-target="#navbar-collapse-1"
+                    >
+                        <i class="fa">&#xf00d;</i>
+                    </button>
+                    {{#if profile_company}}
+                    <a
+                        class="profile-name-link text-capitalize"
+                        href="/profile/post/search"
+                        title="{{_ 'Profile Name'}}"
+                    >
+                        {{profile_name}}
+                    </a>
+                        <div
+                            class="credits"
+                            data-do="tooltip-container"
+                            data-on="hover"
+                        >
+                            {{#when profile_credits '<' 21}}
+                             <!--    <span class="fa-stack fa-lg"> -->
+                                <div class="exclamation-bg">
+                                    <i class="fa fa-exclamation"></i>
+                                </div>
+                            {{/when}}
+                            <span class="crd">
+                            {{number profile_credits}} {{_ 'Credits'}}
+                            </span>
+                        </div>
+                    <div
+                        class="tooltip-credits"
+                        data-do="tooltip-credits"
+                        data-on="hover"
+                    >
+                        {{#if profile_credits}}
+                        <div class="buy-credits-tool">
+                            <label class="tooltip-credits-label">
+                                Credits give you access to
+                                promote your posts, download
+                                resumes, and many more.
+                            </label>
+                            <a
+                                class="btn btn-default text-capitalize"
+                                href="/profile/credit/checkout"
+                            >
+                               <i class="fa fa-shopping-cart"></i>
+                                Add Credits
+                            </a>
+                        </div>
+                        {{else}}
+                        <div class="add-credits-tool">
+                            <label class="tooltip-credits-label">
+                                Not enough credits to access
+                                our paid services? Add credits here.
+                            </label>
+                            <a
+                                class="btn btn-default text-capitalize"
+                                href="/profile/credit/checkout"
+                            >
+                               <i class="fa fa-shopping-cart"></i>
+                                Buy Credits
+                            </a>
+                        </div>
+                        {{/if}}
+                    </div>
+                    {{else}}
+                    <div class="seeker">
+                        <a
+                            class="profile-name-link text-capitalize"
+                            href="/profile/post/search"
+                            title="{{_ 'Profile Name'}}"
+                        >
+                            {{profile_name}}
+                        </a>
+                    </div>
+                    {{/if}}
+                </div>
+            </li>
+            <!-- END: Dropdown -->
+            {{else}}
+            <li>
+                <a
+                    class="btn btn-default"
+                    href="/signup?redirect_uri={{page.meta.path}}"
+                    title="{{_ 'Sign Up'}}"
+                    id="signup-button-header"
+                >
+                    {{_ 'Sign Up'}}
+                </a>
+            </li>
+            {{/session}}
+            <!-- START: Nav flyout Menu  -->
+            {{#session 'me'}}
+            <li>
+                {{#if profile_company}}
+                    <div class="nav-flyout nav-flyout-poster col-md-12 text-left">
+                        <div class="nav-flyout-head col-md-12">
+                                    <ul class="nav navbar-nav navbar-left">
+                                        <!-- START: Profile Image -->
+                                        <li class="nav-flyout-image">
+                                            {{#if profile_image}}
+                                                <img
+                                                    alt="{{_ 'Profile Image'}}"
+                                                    src="{{profile_image}}"
+                                                />
+                                            {{else}}
+                                                <img
+                                                    alt="{{_ 'Profile Image'}}"
+                                                    src="{{default_avatar profile_id}}"
+                                                />
+                                            {{/if}}
+                                        </li>
+                                        <!-- END: Profile Image -->
+                                        <!-- START: Profile Name and Credits -->
+                                        <li class="nav-flyout-name-credit">
+                                            <ul>
+                                                <li>
+                                                    <!-- START: Profile Name -->
+                                                    <div class="nav-flyout-name">
+                                                        <a
+                                                            class="profile-name-link text-capitalize"
+                                                            href="/profile/post/search"
+                                                            title="{{_ 'Profile Name'}}"
+                                                        >
+                                                            {{profile_name}}
+                                                        </a>
+                                                        <div class="level-rank">
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            <span class="profile-lvl">
+                                                                LVL
+                                                                {{level profile_experience}}
+                                                            </span>
+                                                            <span class="profile-rank">
+                                                                {{rank profile_experience profile_verified}}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END: Profile Name -->
+                                                </li>
+                                                <li>
+                                                    <!-- START: Profile Credits -->
+                                                    <div class="nav-flyout-credits">
+                                                        <div class="credits-flyout">
+                                                            {{#when profile_credits '<' 21}}
+                                                             <!--    <span class="fa-stack fa-lg"> -->
+                                                                <div class="exclamation-bg">
+                                                                    <i class="fa fa-exclamation"></i>
+                                                                </div>
+                                                            {{/when}}
+                                                            <span class="crd">
+                                                            {{number profile_credits}} {{_ 'Credits'}}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END: Profile Credits -->
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <!-- END: Profile Name and Credits -->
+                                    </ul>
+                                    <div class="nav-flyout-right pull-right">
+                                        <div class="dropdown-level-rank">
+                                            <i
+                                                class="fa fa-star"
+                                                aria-hidden="true"
+                                            ></i>
+                                            <span class="profile-lvl">
+                                                LVL
+                                                {{level profile_experience}}
+                                            </span>
+                                            <span class="flyout-profile-rank">
+                                                {{rank profile_experience profile_verified}}
+                                            </span>
+                                       </div>
+                                    </div>
+                        </div>
+                {{else}}
+                    <div class="nav-flyout nav-flyout-seeker col-md-12 text-left">
+                        <div class="nav-flyout-head col-md-12">
+                                    <div class="nav navbar-nav navbar-left">
+                                        <!-- START: Profile Image -->
+                                        <div class="nav-flyout-image">
+                                            {{#if profile_image}}
+                                                <img
+                                                    alt="{{_ 'Profile Image'}}"
+                                                    src="{{profile_image}}"
+                                                />
+                                            {{else}}
+                                                <img
+                                                    alt="{{_ 'Profile Image'}}"
+                                                    src="{{default_avatar profile_id}}"
+                                                />
+                                            {{/if}}
+                                        </div>
+                                        <!-- END: Profile Image -->
+                                        <!-- START: Profile completeness detail -->
+                                        <div class="nav-flyout-profile-completeness pull-right">
+                                            <ul>
+                                                <li class="nav-flyout-profile-name">
+                                                    <a
+                                                        class="profile-name-link text-capitalize"
+                                                        href="/profile/post/search"
+                                                        title="{{_ 'Profile Name'}}"
+                                                    >
+                                                        {{profile_name}}
+                                                    </a>
+                                                </li>
+                                                <li class="nav-flyout-progress">
+                                                    <div class="progress-wrapper">
+                                                        <ul class="progress-custom">
+                                                            <li data-step="1" class="
+                                                                {{~#unless profile_information~}}
+                                                                    is-active
+                                                                {{~else~}}
+                                                                    {{~#when profile_information.information_progress '==' '0'~}}
+                                                                        is-active
+                                                                    {{~/when~}}
+                                                                    {{~#when profile_information.information_progress '>' '0'~}}
+                                                                        is-complete
+                                                                    {{~/when~}}
+                                                                {{~/unless~}}
+                                                            ">
+                                                            </li>
+                                                            <li data-step="2" class="
+                                                                {{~#when profile_information.information_progress '==' '20'~}}
+                                                                    is-active
+                                                                {{~/when~}}
+                                                                {{~#when profile_information.information_progress '>' '20'~}}
+                                                                    is-complete
+                                                                {{~/when~}}
+                                                            ">
+                                                            </li>
+                                                            <li data-step="3" class="
+                                                                {{~#when profile_information.information_progress '==' '40'~}}
+                                                                    is-active
+                                                                {{~/when~}}
+                                                                {{~#when profile_information.information_progress '>' '40'~}}
+                                                                    is-complete
+                                                                {{~/when~}}
+                                                            ">
+                                                            </li>
+                                                            <li data-step="4" class="
+                                                                {{~#when profile_information.information_progress '==' '60'~}}
+                                                                    is-active
+                                                                {{~/when~}}
+                                                                {{~#when profile_information.information_progress '>' '60'~}}
+                                                                    is-complete
+                                                                {{~/when~}}
+                                                            ">
+                                                            </li>
+                                                            <li data-step="5" class="
+                                                                {{~#when profile_information.information_progress '==' '80'~}}
+                                                                    is-active
+                                                                {{~/when~}}
+                                                                {{~#when profile_information.information_progress '>' '80'~}}
+                                                                    is-complete
+                                                                {{~/when~}}
+                                                            ">
+                                                            </li>
+                                                            <li data-step="6" class="
+                                                                {{~#when profile_information.information_progress '==' '100'~}}
+                                                                    is-active
+                                                                {{~/when}}
+                                                                progress-last
+                                                            ">
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                                <li class="nav-flyout-percentage">
+                                                    <div class="nav-flyout-profile-completeness-label">
+                                                        {{_ 'Profile Completeness'}}
+                                                    </div>
+                                                    <div class="nav-flyout-percent pull-right">
+                                                        {{#if profile_information}}
+                                                            {{profile_information.information_progress}}%
+                                                        {{else}}
+                                                            0%
+                                                        {{/if}}
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- END: Profile completeness detail -->
+                                    </div>
+                        </div>
+                {{/if}}
+                    <div class="nav-flyout-body col-md-12">
+                        {{#if profile_company}}
+                            <div class="nav-flyout-body-left col-md-6">
+                                <div class="nav-flyout-dashboard">
+                                    <h3>My Dashboard</h3>
+                                    <div class="nav-flyout-content">
+                                        <a class="my-jobs" href="/profile/post/search">
+                                            My Jobs
+                                        </a>
+                                        <span>
+                                            Check who's interested on your job posts. View your matches.
+                                            Everything you need to see about your job posts is here.
+                                        </span>
+                                    </div>
+                                    <div class="nav-flyout-content">
+                                        <a class="job-seekers" href="/profile/seeker/search">
+                                            Job Seekers
+                                        </a>
+                                        <span>
+                                            Everything you need for talent searching in one view.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="nav-flyout-my-tools">
+                                    <h3>My Tools</h3>
+                                    <div class="nav-flyout-content">
+                                        <a class="positions" href="#">Positions - <i>coming soon!</i></a>
+                                        <span>
+                                            Create your positions and job posts on the fly.  Coming soon!
+                                        </span>
+                                    </div>
+                                    <div class="nav-flyout-content">
+                                        <a class="app-forms" href="/profile/tracking/post/search">Application Forms</a>
+                                        <span>
+                                            Attach application forms to your job post and easily track your applicants.
+                                        </span>
+                                    </div>
+                                    <div class="nav-flyout-content">
+                                        <a class="interview-scheduler" href="/profile/interview/calendar">Interview Scheduler</a>
+                                        <span>
+                                            Your interview calendar management tool: simple, easy and trouble-free.
+                                        </span>
+                                    </div>
+                                    <div class="nav-flyout-content">
+                                        <a class="career-widget" href="/profile/widget/settings">Career Widget</a>
+                                        <span>
+                                            Make your Jobayan job posts visible on your own website for FREE.
+                                        </span>
+                                    </div>
+                                    {{#in 'widget-page' profile_package}}
+                                        <div class="nav-flyout-content">
+                                            <a class="career-page" href="/profile/career/page">Career Page</a>
+                                            <span>
+                                                Create a Jobayan career page in your website.
+                                            </span>
+                                        </div>
+                                    {{/in}}
+                                </div>
+                            </div>
+                            <div class="nav-flyout-body-right col-md-6">
+                                <div class="nav-flyout-my-account">
+                                    <h3>My Account</h3>
+                                    <div class="nav-flyout-content">
+                                        <a class="buy-credits" href="/profile/credit/checkout">Buy Credits</a>
+                                        <span>
+                                            Level up your talent searching.
+                                        </span>
+                                    </div>
+                                    <div class="nav-flyout-content">
+                                        <a class="account-information" href="/profile/account">Account Information</a>
+                                        <span>
+                                            Change password or edit your contact information.
+                                        </span>
+                                    </div>
+                                    <div class="nav-flyout-content">
+                                        <a class="my-transactions" href="/profile/transaction/search">My Transactions</a>
+                                        <span>
+                                            Change your billing information or view your transactions.
+                                        </span>
+                                    </div>
+                                    <div class="nav-flyout-content">
+                                        <a class="public-view" href="/{{profile_slug}}/profile-post">Public View</a>
+                                    </div>
+                                </div>
+                                <div class="nav-flyout-credits text-center">
+                                    <a
+                                        class="btn btn-default"
+                                        href="/profile/credit/checkout"
+                                    >
+                                       <i class="fa fa-shopping-cart"></i>Buy Credits
+                                    </a>
+                                    <a
+                                        class="sign-out"
+                                        href="/logout?redirect_uri={{../page.meta.redirect}}"
+                                        title="{{_ 'Sign Out'}}"
+                                    >
+                                        <span>{{_ 'Sign Out'}}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        {{else}}
+                            <div class="nav-flyout-body-left col-md-12">
+                                <div class="nav-flyout-dashboard">
+                                    <h3>My Dashboard</h3>
+                                    <div class="nav-flyout-content">
+                                        <a class="my-jobs" href="/profile/post/search">
+                                            My Jobs
+                                        </a>
+                                        <span>
+                                            Check who's interested on your job posts. View your matches.
+                                            Everything you need to see about your job posts is here.
+                                        </span>
+                                    </div>
+                                    <div class="nav-flyout-content">
+                                        <a class="my-profile" href="/profile/resume/search">
+                                            My Profile
+                                        </a>
+                                        <span>
+                                            Generate your resume by completing your profile in one go
+                                        </span>
+                                    </div>
+                                    <div class="nav-flyout-content">
+                                        <a class="my-application" href="/profile/tracking/application/seeker/search">
+                                            My Applications
+                                        </a>
+                                        <span>
+                                            Level up your job hunting: let companies get to know you closer by filling out application forms.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="nav-flyout-my-account">
+                                    <h3>My Account</h3>
+                                    <div class="nav-flyout-content">
+                                        <a class="account-information" href="/profile/account">Account Information</a>
+                                        <span>
+                                            Change password or edit your contact information.
+                                        </span>
+                                    </div>
+                                    <div class="nav-flyout-content">
+                                        <a class="public-view" href="/{{profile_slug}}/profile-post">{{_ 'Public View'}}</a>
+                                    </div>
+                                    <div class="nav-flyout-content">
+                                        <a class="sign-out" href="/logout?redirect_uri={{../page.meta.redirect}}">{{_ 'Sign Out'}}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {{/if}}
+                    </div>
+                </div>
+            </li>
+            {{/session}}
+            <!-- END: Nav flyout Menu -->
+        </ul>
+        <!-- </div> -->
+        <!-- END: Nav Collapse -->
+        <!-- START: Nav Collapse search -->
+        <div class="collapse navbar-collapse-menu" id="navbar-collapse-search">
+            <button
+                aria-expanded="false"
+                type="button"
+                class="navbar-toggle collapsed"
+                data-toggle="collapse"
+                data-target="#navbar-collapse-search"
+            >
+                <i class="fa">&#xf00d;</i>
+            </button>
+            <div class="navbar-collapse-menu-wrapper">
+                <div class="navbar-search text-center">
+                    <span class="navbar-search-text">Search</span>
+                    <!-- START: Search Form -->
+                    <form
+                        action="{{~#if page.search_action~}}
+                            {{page.search_action}}
+                        {{~else~}}
+                            /post/search
+                        {{~/if}}?{{toquery}}"
+                        class="responsive-navbar-form"
+                    >
+                        {{#if location}}
+                        <input
+                            name="location"
+                            type="hidden"
+                            value="{{location}}"
+                        >
+                        {{/if}}
+                        <div class="input-group search-group">
+                            <div class="navbar-input-position">
+                                <div class="navbar-input-position-left">
+                                    <input
+                                        autocomplete="off"
+                                        class="form-control input-position"
+                                        name="q"
+                                        placeholder="{{_ 'Search for Seeker, Company or Position'}}"
+                                        type="text"
+                                        value="{{get.q}}"
+                                    />
+                                </div>
+                                <div class="navbar-input-position-right">
+                                    <button type="submit">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="navbar-input-text">
+                                <span>or</span>
+                            </div>
+                            <div class="navbar-input-location">
+                                <div class="navbar-input-location-left">
+                                    <input
+                                        autocomplete="off"
+                                        class="form-control input-location"
+                                        data-do="suggestion-field"
+                                        data-type="location"
+                                        name="location"
+                                        placeholder="{{_ 'Search for Location'}}"
+                                        type="text"
+                                        value="{{get.location}}"
+                                    />
+                                </div>
+                                <div class="navbar-input-location-right">
+                                    <button type="submit">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                    <!-- END: Search Form -->
+                </div>
+                <div class="navbar-jobayan-logo-container">
+                    <div class="navbar-jobayan-logo text-center">
+                        <a class="navbar-brand" href="/" title="Jobayan">
+                            <img alt="Jobayan Logo" src="{{config 'cdn'}}/images/home/jobayan_logo_white_orange.png">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END: Nav Collapse search -->
+        <!-- START: Nav Collapse -->
+        <div class="collapse navbar-collapse-menu" id="navbar-collapse-1">
+            <button
+                aria-expanded="false"
+                type="button"
+                class="navbar-toggle collapsed"
+                data-toggle="collapse"
+                data-target="#navbar-collapse-1"
+            >
+                <i class="fa">&#xf00d;</i>
+            </button>
+            <div class="navbar-menu">
+                {{#session 'me'}}
+                    {{#if profile_company}}
+                        <div class="navbar-menu-poster">
+                            <div class="navbar-menu-header">
+                                <div class="navbar-menu-header-wrapper">
+                                    <!-- START: Navbar menu image -->
+                                    <div class="navbar-menu-header-image">
+                                        {{#if profile_image}}
+                                            <img
+                                                alt="{{_ 'Profile Image'}}"
+                                                src="{{profile_image}}"
+                                            />
+                                        {{else}}
+                                            <img
+                                                alt="{{_ 'Profile Image'}}"
+                                                src="{{default_avatar profile_id}}"
+                                            />
+                                        {{/if}}
+                                    </div>
+                                    <!-- END: Navbar menu image -->
+                                    <!-- START: Profile Name -->
+                                    <div class="navbar-menu-header-details">
+                                        <a
+                                            class="profile-name-link text-capitalize"
+                                            href="/profile/post/search"
+                                            title="{{_ 'Profile Name'}}"
+                                        >
+                                            {{profile_name}}
+                                        </a>
+                                        <!-- START: Profile Credits -->
+                                        <div
+                                            class="credits"
+                                            data-do="tooltip-container"
+                                            data-on="hover"
+                                        >
+                                            {{#when profile_credits '<' 21}}
+                                             <!--    <span class="fa-stack fa-lg"> -->
+                                                <div class="exclamation-bg">
+                                                    <i class="fa fa-exclamation"></i>
+                                                </div>
+                                            {{/when}}
+                                            <span class="crd">
+                                                {{number profile_credits}} {{_ 'Credits'}}
+                                            </span>
+                                             <!-- END: Profile Credits -->
+                                            <div class="level-rank">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <span class="profile-lvl">
+                                                    LVL
+                                                    {{level profile_experience}}
+                                                </span>
+                                                <span class="profile-rank">
+                                                    {{rank profile_experience profile_verified}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <!-- END: Profile Name -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="navbar-menu-body"
+                                data-do="navbar-menu-scroll"
+                            >
+                                <div class="navbar-menu-body-wrapper">
+                                    <div class="nav-menu-dashboard">
+                                        <h3>My Dashboard</h3>
+                                        <div class="nav-menu-content">
+                                            <a class="my-jobs" href="/profile/post/search">
+                                                My Jobs
+                                            </a>
+                                        </div>
+                                        <div class="nav-menu-content">
+                                            <a class="job-seekers" href="/profile/seeker/search">
+                                                Job Seekers
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="nav-menu-my-tools">
+                                        <h3>My Tools</h3>
+                                        <div class="nav-menu-content">
+                                            <a class="positions" href="#">Positions</a>
+                                        </div>
+                                        <div class="nav-menu-content">
+                                            <a class="app-forms" href="/profile/tracking/post/search">Application Forms</a>
+                                        </div>
+                                        <div class="nav-menu-content">
+                                            <a class="interview-scheduler" href="/profile/interview/calendar">Interview Scheduler</a>
+                                        </div>
+                                        <div class="nav-menu-content">
+                                            <a class="career-widget" href="/profile/widget/settings">Career Widget</a>
+                                        </div>
+                                        {{#in 'widget-page' profile_package}}
+                                            <div class="nav-menu-content">
+                                                <a class="career-page" href="/profile/career/page">Career Page</a>
+                                            </div>
+                                        {{/in}}
+                                    </div>
+                                    <div class="nav-menu-my-account">
+                                        <h3>My Account</h3>
+                                        <div class="nav-menu-content">
+                                            <a class="buy-credits" href="/profile/credit/checkout">Buy Credits</a>
+                                        </div>
+                                        <div class="nav-menu-content">
+                                            <a class="account-information" href="/profile/account">Account Information</a>
+                                        </div>
+                                        <div class="nav-menu-content">
+                                            <a class="my-transactions" href="/profile/transaction/search">My Transactions</a>
+                                        </div>
+                                        <div class="nav-menu-content">
+                                            <a class="public-view" href="/{{profile_slug}}/profile-post">Public View</a>
+                                        </div>
+                                    </div>
+                                    <div class="nav-menu-credits text-center">
+                                        <a
+                                            class="btn btn-primary"
+                                            href="/post/create/
+                                                {{~#session 'me'}}
+                                                    {{~#if profile_company~}}
+                                                        poster
+                                                    {{~else~}}
+                                                        seeker
+                                                    {{~/if~}}
+                                                {{/session~}}
+                                            ?clear"
+                                        >
+                                           {{_ 'Create Post'}}
+                                        </a>
+                                        <a
+                                            class="btn btn-default"
+                                            href="/profile/credit/checkout"
+                                        >
+                                           <i class="fa fa-shopping-cart"></i>{{_ 'Buy Credits'}}
+                                        </a>
+                                        <a class="navbar-menu-brand" href="/" title="Jobayan">
+                                            <img alt="Jobayan Logo" src="/images/logo.png">
+                                        </a>
+                                        <a
+                                            class="sign-out"
+                                            href="/logout?redirect_uri={{../page.meta.redirect}}"
+                                            title="{{_ 'Sign Out'}}"
+                                        >
+                                            <span>{{_ 'Sign Out'}}</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {{else}}
+                        <div class="navbar-menu-seeker">
+                            <div class="navbar-menu-header">
+                                <div class="navbar-menu-header-wrapper">
+                                    <!-- START: Navbar menu image -->
+                                    <div class="navbar-menu-header-image">
+                                        {{#if profile_image}}
+                                            <img
+                                                alt="{{_ 'Profile Image'}}"
+                                                src="{{profile_image}}"
+                                            />
+                                        {{else}}
+                                            <img
+                                                alt="{{_ 'Profile Image'}}"
+                                                src="{{default_avatar profile_id}}"
+                                            />
+                                        {{/if}}
+                                    </div>
+                                    <!-- END: Navbar menu image -->
+                                    <!-- START: Profile completeness detail -->
+                                    <div class="navbar-menu-header-details">
+                                        <ul>
+                                            <li class="nav-menu-profile-name">
+                                                <a
+                                                    class="profile-name-link text-capitalize"
+                                                    href="/profile/post/search"
+                                                    title="{{_ 'Profile Name'}}"
+                                                >
+                                                    {{profile_name}}
+                                                </a>
+                                            </li>
+                                            <li class="nav-menu-progress">
+                                                <div class="progress-wrapper">
+                                                    <ul class="progress-custom">
+                                                        <li data-step="1" class="
+                                                            {{~#unless profile_information~}}
+                                                                is-active
+                                                            {{~else~}}
+                                                                {{~#when profile_information.information_progress '==' '0'~}}
+                                                                    is-active
+                                                                {{~/when~}}
+                                                                {{~#when profile_information.information_progress '>' '0'~}}
+                                                                    is-complete
+                                                                {{~/when~}}
+                                                            {{~/unless~}}
+                                                        ">
+                                                        </li>
+                                                        <li data-step="2" class="
+                                                            {{~#when profile_information.information_progress '==' '20'~}}
+                                                                is-active
+                                                            {{~/when~}}
+                                                            {{~#when profile_information.information_progress '>' '20'~}}
+                                                                is-complete
+                                                            {{~/when~}}
+                                                        ">
+                                                        </li>
+                                                        <li data-step="3" class="
+                                                            {{~#when profile_information.information_progress '==' '40'~}}
+                                                                is-active
+                                                            {{~/when~}}
+                                                            {{~#when profile_information.information_progress '>' '40'~}}
+                                                                is-complete
+                                                            {{~/when~}}
+                                                        ">
+                                                        </li>
+                                                        <li data-step="4" class="
+                                                            {{~#when profile_information.information_progress '==' '60'~}}
+                                                                is-active
+                                                            {{~/when~}}
+                                                            {{~#when profile_information.information_progress '>' '60'~}}
+                                                                is-complete
+                                                            {{~/when~}}
+                                                        ">
+                                                        </li>
+                                                        <li data-step="5" class="
+                                                            {{~#when profile_information.information_progress '==' '80'~}}
+                                                                is-active
+                                                            {{~/when~}}
+                                                            {{~#when profile_information.information_progress '>' '80'~}}
+                                                                is-complete
+                                                            {{~/when~}}
+                                                        ">
+                                                        </li>
+                                                        <li data-step="6" class="
+                                                            {{~#when profile_information.information_progress '==' '100'~}}
+                                                                is-active
+                                                            {{~/when}}
+                                                            progress-last
+                                                        ">
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="nav-menu-percentage">
+                                                <div class="nav-menu-profile-completeness-label">
+                                                    {{_ 'Profile Completeness'}}
+                                                </div>
+                                                <div class="nav-menu-percent pull-right">
+                                                    {{#if profile_information}}
+                                                        {{profile_information.information_progress}}%
+                                                    {{else}}
+                                                        0%
+                                                    {{/if}}
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- END: Profile completeness detail -->
+                                </div>
+                            </div>
+                            <div class="navbar-menu-body">
+                                <div class="navbar-menu-body-wrapper">
+                                    <div class="nav-menu-dashboard">
+                                        <h3>My Dashboard</h3>
+                                        <div class="nav-menu-content">
+                                            <a class="my-jobs" href="/profile/post/search">
+                                                My Jobs
+                                            </a>
+                                        </div>
+                                        <div class="nav-menu-content">
+                                            <a class="my-profile" href="/profile/resume/search">
+                                                My Profile
+                                            </a>
+                                        </div>
+                                        <div class="nav-menu-content">
+                                            <a class="my-application" href="/profile/tracking/application/seeker/search">
+                                                My Applications
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="nav-menu-my-account">
+                                        <h3>My Account</h3>
+                                        <div class="nav-menu-content">
+                                            <a class="account-information" href="/profile/account">Account Information</a>
+                                        </div>
+                                        <div class="nav-menu-content">
+                                            <a class="public-view" href="/{{profile_slug}}/profile-post">Public View</a>
+                                        </div>
+                                        <div class="nav-menu-content">
+                                            <a class="sign-out" href="/logout?redirect_uri={{../page.meta.redirect}}">{{_ 'Sign Out'}}</a>
+                                        </div>
+                                    </div>
+                                    <div class="nav-menu-create-post text-center">
+                                        <a
+                                            class="btn btn-primary"
+                                            href="/post/create/
+                                                {{~#session 'me'}}
+                                                    {{~#if profile_company~}}
+                                                        poster
+                                                    {{~else~}}
+                                                        seeker
+                                                    {{~/if~}}
+                                                {{/session~}}
+                                            ?clear"
+                                        >
+                                           {{_ 'Create Post'}}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="navbar-menu-footer text-center">
+                                <div class="nav-menu-credits text-center">
+                                    <a class="navbar-menu-brand" href="/" title="Jobayan">
+                                        <img alt="Jobayan Logo" src="/images/logo.png">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{else}}
+                    <div class="navbar-menu-wrapper text-center">
+                        <ul>
+                            <li class="navbar-menu-logo">
+                                <a class="navbar-brand-logo" href="/" title="Jobayan">
+                                    <img
+                                        alt="Jobayan Logo"
+                                        src="{{config 'cdn'}}/images/logo.png"
+                                    />
+                                </a>
+                            </li>
+                            <li class="navbar-menu-login">
+                                <a
+                                    class="btn btn-link-primary"
+                                    href="/login?redirect_uri={{page.meta.path}}"
+                                    title="{{_ 'Login'}}"
+                                >
+                                    {{_ 'Login'}}
+                                </a>
+                            </li>
+                            <li class="navbar-menu-sign-up">
+                                <a
+                                    class="btn btn-default"
+                                    href="/signup?redirect_uri=/"
+                                    title="Sign Up"
+                                >
+                                    Sign Up
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                {{/session}}
+            </div>
+        <!-- END: Nav Collapse -->
+    </div>
+</nav>
+<!-- START: Header Job Match -->
+<div class="header-job-match">
+    {{#session 'me'}}
+    {{else}}
+    <div class="post-type">
+        <a
+            class="btn madlibs-seeker-trigger btn-seeker"
+            data-do="madlibs-seeker"
+            data-on="click"
+            href="javascript:void(0);"
+            title="{{_ 'Looking for a new job?'}}"
+        >
+                {{_ 'Looking for a new job?'}}
+        </a>
+        <a
+            class="btn madlibs-poster-trigger btn-poster"
+            data-do="madlibs-poster"
+            data-on="click"
+            href="javascript:void(0);"
+            title="{{_ 'Looking for employees?'}}"
+        >{{_ 'Looking for employees?'}}
+        </a>
+    </div>
+    {{/session}}
+    {{> partial_seekersearch}}
+    {{> partial_postersearch}}
+</div>
+<!-- END: Header Job Match -->

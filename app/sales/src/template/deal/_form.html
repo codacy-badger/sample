@@ -1,0 +1,266 @@
+<form method="post">
+    <!-- START: Deal Title -->
+    <div class="form-group{{#if errors.deal_name}} has-error{{/if}}">
+        <label>{{_ 'Deal Title'}}</label>
+        <div class="texts-field">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="fa fa-briefcase"></i>
+                </div>
+                <input
+                    type="text"
+                    name="deal_name"
+                    class="form-control"
+                    placeholder="{{_ 'Deal Name'}}"
+                    value="{{item.deal_name}}"
+                />
+            </div>
+        </div>
+
+        {{#if errors.deal_name}}
+            <span class="help-text">{{errors.deal_name}}</span>
+        {{/if}}
+    </div>
+    <!-- END: Deal Title -->
+    <!-- START: Deal Amount -->
+    <div class="form-group{{#if errors.deal_amount}} has-error{{/if}}">
+        <label>{{_ 'Deal Amount'}}</label>
+        <div class="texts-field">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="fa fa-money" aria-hidden="true"></i>
+                </div>
+                <input
+                    type="text"
+                    name="deal_amount"
+                    class="form-control"
+                    placeholder="{{_ 'Deal Amount'}}"
+                    value="{{item.deal_amount}}"
+                />
+            </div> 
+        </div>
+
+        {{#if errors.deal_amount}}
+            <span class="help-text">{{errors.deal_amount}}</span>
+        {{/if}}
+    </div>
+    <!-- END: Deal Amount -->
+    <!-- START: Deal Close Date -->
+    <div class="form-group{{#if errors.deal_close}} has-error{{/if}}">
+        <label>{{_ 'Deal Close Date'}}</label>
+        <div class="texts-field">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                </div>
+                <input
+                    type="date"
+                    name="deal_close"
+                    class="form-control"
+                    placeholder="{{_ 'Deal Close Date'}}"
+                    value="{{item.deal_close}}"
+                />
+            </div>
+        </div>
+
+        {{#if errors.deal_close}}
+            <span class="help-text">{{errors.deal_close}}</span>
+        {{/if}}
+    </div>
+    <!-- END: Deal Close Date -->
+    <!-- START: Deal Pipeline -->
+    <div class="form-group{{#if errors.pipeline_id}} has-error{{/if}}">
+        <label>{{_ 'Deal Pipeline'}}</label>
+        <div class="texts-field">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                </div>
+                <select
+                    class="form-control"
+                    data-do="pipeline-select"
+                    data-on="change"
+                    name="pipeline_id"
+                >
+                    {{#each pipelines}}
+                        <option
+                            {{#when ../item.pipeline_id '==' pipeline_id}}
+                                selected
+                            {{/when}}
+                            value="{{pipeline_id}}"
+                        >
+                            {{pipeline_name}}
+                        </option>
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+
+        {{#if errors.pipeline_id}}
+            <span class="help-text">{{errors.pipeline_id}}</span>
+        {{/if}}
+    </div>
+    <!-- END: Deal Pipeline -->
+    <!-- START: Deal Status/Stage -->
+    <div class="form-group{{#if errors.deal_status}} has-error{{/if}}">
+        <label>{{_ 'Deal Status/Stage'}}</label>
+        <div class="texts-field">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="fa fa-thumb-tack" aria-hidden="true"></i>
+                </div>
+                {{#each pipelines}}
+                    <select
+                        class="form-control hide select-stage"
+                        id="stage-{{pipeline_id}}"
+                    >
+                        {{#each pipeline_stages}}
+                            <option
+                            {{#when ../../item.deal_status '==' this}}
+                                selected
+                            {{/when}}
+                                value="{{~this~}}"
+                            >
+                                {{~this~}}
+                            </option>
+                        {{/each}}
+                    </select>
+                {{/each}}
+            </div>
+        </div>
+
+        {{#if errors.deal_status}}
+            <span class="help-text">{{errors.deal_status}}</span>
+        {{/if}}
+    </div>
+    <!-- END: Deal Status/Stage -->
+    <!-- START: Deal Type -->
+    <div class="form-group{{#if errors.deal_type}} has-error{{/if}}">
+        <label>{{_ 'Deal Type'}}</label>
+        <div class="texts-field">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="fa fa-archive" aria-hidden="true"></i>
+                </div>
+                <select class="form-control" name="deal_type">
+                    <option
+                        {{#when item.deal_type '==' 'lead'}}
+                            selected
+                        {{/when}}
+                        value="lead"
+                    >
+                        {{~_ 'Lead'~}}
+                    </option>
+                    <option
+                        {{#when item.deal_type '==' 'profile'}}
+                            selected
+                        {{/when}}
+                        value="profile"
+                    >
+                        {{~_ 'Existing'~}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        {{#if errors.deal_type}}
+            <span class="help-text">{{errors.deal_type}}</span>
+        {{/if}}
+    </div>
+    <!-- END: Deal Type -->
+    <!-- START: Deal Agent -->
+    <div class="form-group{{#if errors.deal_agent}} has-error{{/if}}">
+        <label>{{_ 'Deal Agent'}}</label>
+        <div class="texts-field">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="fa fa-user-secret" aria-hidden="true"></i>
+                </div>
+                <input
+                    autocomplete="off"
+                    class="form-control select-keyup"
+                    data-do="select-agent"
+                    data-on="keyup"
+                    id="select-agent"
+                    name="agent_name"
+                    placeholder="{{_ 'Deal Agent'}}"
+                    type="text"
+                    value="{{item.agent_name}}{{item.agent.profile_name}}"
+                />
+                <input
+                    name="deal_agent"
+                    type="hidden"
+                    value="{{item.deal_agent}}{{item.agent.profile_id}}"
+                />
+            </div>
+            <ul class="auto-suggest"></ul>
+        </div>
+
+        {{#if errors.deal_agent}}
+            <span class="help-text">{{errors.deal_agent}}</span>
+        {{/if}}
+    </div>
+    <!-- END: Deal Agent -->
+    <!-- START: Deal Company -->
+    <div class="form-group{{#if errors.deal_company}} has-error{{/if}}">
+        <label>{{_ 'Deal Company'}}</label>
+        <div class="texts-field">
+            <div class="input-group">
+                <div class="input-group-addon">
+                    <i class="fa fa-building" aria-hidden="true"></i>
+                </div>
+                <input
+                    autocomplete="off"
+                    class="form-control select-keyup"
+                    data-do="select-company"
+                    data-on="keyup"
+                    id="select-company"
+                    name="company_name"
+                    placeholder="{{_ 'Deal company'}}"
+                    type="text"
+                    value="
+                    {{~item.company_name~}}
+                    {{~item.company.profile_company~}}
+                    {{~item.company.lead_company~}}"
+                />
+                <input
+                    name="deal_company"
+                    type="hidden"
+                    value="{{~item.deal_company~}}{{~item.company.profile_id~}}"
+                />
+            </div>
+            <ul class="auto-suggest"></ul>
+        </div>
+
+        {{#if errors.deal_company}}
+            <span class="help-text">{{errors.deal_company}}</span>
+        {{/if}}
+    </div>
+    <!-- END: Deal Company -->
+
+    <!-- START: History Table -->
+    <input type="hidden" name="history_action" value="{{~item.history_action~}}" />
+    <input type="hidden" name="history_type" value="{{~item.history_type~}}" />
+    <!-- END: History Table -->
+    <!-- START: Deal Previous Values -->
+    <input type="hidden" name="deal_name_prev" value="{{~item.deal_name_prev~}}" />
+    <input type="hidden" name="deal_amt_prev" value="{{~item.deal_amt_prev~}}" />
+    <input type="hidden" name="deal_close_prev" value="{{~item.deal_close_prev~}}" />
+    <input type="hidden" name="pipeline_id_prev" value="{{~item.pipeline_id_prev~}}" />
+    <input type="hidden" name="deal_status_prev" value="{{~item.deal_status_prev~}}" />
+    <input type="hidden" name="deal_type_prev" value="{{~item.deal_type_prev~}}" />
+    <input type="hidden" name="deal_agent_prev" value="{{~item.deal_agent_prev~}}" />
+    <input type="hidden" name="deal_company_prev" value="{{~item.deal_company_prev~}}" />
+    <!-- END: Deal Previous Values -->
+    <!-- START: Deal Flag (for validator) -->
+    <input 
+        name="deal_status_update_only" 
+        type="hidden" 
+        value="{{~item.deal_status_update_only~}}" 
+    />
+    <!-- END: Deal Flag (for validator) -->
+
+    <div class="form-group">
+        <button class="btn btn-primary">{{_ 'Submit'}}</button>
+    </div>
+</form>

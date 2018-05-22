@@ -1,0 +1,291 @@
+<!-- START: Profile Container -->
+<div class="profile-container">
+    <!-- START: Profile Wrap -->
+    <div class="profile-wrap">
+        <!-- START: Profile Image -->
+        <div class="profile-image">
+            <img
+                height="150"
+                onerror="this.src='{{default_avatar profile_id}}'"
+                src="{{profile_image}}"
+            />
+        </div>
+        <!-- END: Profile Image -->
+        <!-- START: Profile Info -->
+        <div class="profile-info">
+            <div class="profile-name">
+                <h2>
+                    {{#if profile_company}}
+                        {{profile_company}}
+                    {{else}}
+                        {{profile_name}}
+                    {{/if}}
+                </h2>
+            </div>
+            <!-- START: Profile Job Detail -->
+            {{#unless profile_company}}
+                {{#if profile_information}}
+                    <div class="profile-job-detail text-center">
+                        {{profile_information.information_heading}}
+                    </div>
+                {{/if}}
+                <div class="profile-seeker-container">
+                    {{#session 'me'}}
+                        {{#when profile_id '===' ../profile_id}}
+                            <div class="profile-seeker-detail text-center">
+                                {{profile_email}}
+                            </div>
+                            <div class="profile-seeker-detail text-center">
+                                {{profile_phone}}
+                            </div>
+                        {{/when}}
+                    {{/session}}
+                {{#if profile_information}}
+                    <div class="profile-seeker-detail text-center">
+                        {{profile_information.profile_address_state}},
+                        {{profile_information.profile_address_country}}
+                    </div>
+                {{/if}}
+                </div>
+            {{/unless}}
+            <!-- END: Profile Job Detail -->
+
+            {{#if profile_company}}
+                <div class="profile-rank">
+                    <div class="rank-current">
+                        {{_ 'Current Rank'}}
+                    </div>
+                    <div class="rank-head">
+                        {{rank profile_experience profile_verified}}
+                    </div>
+                    <div class="rank-progress">
+                        <div class="level">
+                            {{_ 'LVL'}}
+                        </div>
+                        <span class="level-bookmark">
+                            {{level profile_experience}}
+                        </span>
+                        <div class="progress">
+                            <div
+                                aria-valuemax="100"
+                                aria-valuemin="0"
+                                aria-valuenow="{{experience_percent profile_experience}}"
+                                class="progress-bar"
+                                role="progressbar"
+                                style="width: {{experience_percent profile_experience}}%;"
+                            >
+                                <span class="sr-only">
+                                    {{experience_percent profile_experience}}%
+                                </span>
+                            </div>
+                        </div>
+                        <span class="level-round">
+                            {{next_level profile_experience}}
+                        </span>
+                    </div>
+                    <div class="rank-points">
+                        {{number profile_experience}} {{_ 'pts'}}
+                    </div>
+                    <div class="rank-next">
+                        <span>{{_ 'Next Rank:'}}</span>
+                         {{next_rank profile_experience}}
+                    </div>
+                </div>
+            {{/if}}
+            <!-- START: Profile Detail -->
+            {{#if profile_detail}}
+                <div class="profile-detail">
+                    {{{profile_detail}}}
+                </div>
+            {{/if}}
+            <!-- END: Profile Detail -->
+            <!-- START: Profile Website -->
+            {{#if profile_website}}
+                <div class="profile-website text-center">
+                    <a
+                        href="{{profile_website}}"
+                        rel="nofollow"
+                        target="_blank"
+                        title="{{profile_name}} Website"
+                    >
+                        {{profile_website}}
+                        <i class="fa fa-external-link" aria-hidden="true"></i>
+                    </a>
+                </div>
+            {{/if}}
+            <!-- END: Profile Website -->
+            <!-- START: Profile Joined -->
+            <div class="profile-joined profile-seeker-detail text-center">
+                {{_ 'Joined'}} {{date profile_created 'F Y'}}
+            </div>
+            <!-- END: Profile Joined -->
+
+            <!-- START: Edit Profile -->
+            {{#session 'me'}}
+                {{#when profile_id '===' ../profile_id}}
+                    {{#if profile_company}}
+                    <div class="account-edit text-center">
+                        <a class="edit-profile" href="/profile/account">
+                            <i class="fa fa-pencil-square-o"></i>
+                            {{_ 'Edit Account'}}
+                        </a>
+                    </div>
+                    {{/if}}
+                {{/when}}
+            {{/session}}
+            <!-- END: Edit Profile -->
+        </div>
+        <!-- END: Profile Info -->
+
+        {{#if profile_company}}
+            {{#if profile_achievements}}
+                <!-- START: Profile Ranks and Achievements -->
+                <div class="profile-ranks-achivements">
+                    <!-- START: Achievements -->
+                    <div class="profile-achivements">
+                        <span>{{_ 'Achievements'}}</span>
+                        <div class="achivement-image row clearfix">
+                            {{#each profile_achievements}}
+                                <div class="col-md-6 col-sm-4 col-xs-4">
+                                    <img
+                                        alt="
+                                                {{~#_ '%s %s'~}}
+                                                     {{../profile_company}}
+                                                     __
+                                                     {{achievement this 'title'}}
+                                                {{~/_~}}
+                                            "
+                                        class="img-responsive"
+                                        data-do="tooltip"
+                                        src="{{achievement this 'image'}}"
+                                        title="
+                                                {{~#_ '%s %s'~}}
+                                                     {{../profile_company}}
+                                                     __
+                                                     {{achievement this 'action'}}
+                                                {{~/_~}}
+                                            "
+                                    />
+                                </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                    <!-- END: Achievements -->
+                </div>
+                <!-- END: Profile Ranks and Achievements -->
+            {{/if}}
+        {{/if}}
+    </div>
+    <!-- END: Profile Wrap -->
+    {{#unless profile_company}}
+        {{#if profile_information_flag}}
+            <!-- START: Seeker Profile -->
+            <div class="seeker-profile">
+                <!-- START: Work Experience -->
+                {{#if profile_information.information_experience}}
+                    <div class="seeker-experience">
+                        <div class="seeker-profile-details-header-label">
+                            {{_ 'Work Experience'}}
+                        </div>
+                        {{#work_experience profile_information.information_experience}}
+                            <div class="seeker-profile-detail-work-education-accomplishment">
+                                {{experience_title}}
+                            </div>
+                            <div class="seeker-profile-details-company-school-label">
+                                {{experience_company}}
+                            </div>
+                        {{/work_experience}}
+                    </div>
+                {{/if}}
+                <!-- END: Work Experience -->
+                <!-- START: Education -->
+                {{#if profile_information.information_education}}
+                    <div class="seeker-education">
+                        <div class="seeker-profile-details-header-label">
+                            {{_ 'Education'}}
+                        </div>
+                        {{#education profile_information.information_education}}
+                            <div class="seeker-profile-detail-work-education-accomplishment">
+                                {{education_degree}}
+                            </div>
+                            <div class="seeker-profile-details-company-school-label">
+                                {{education_school}}
+                            </div>
+                        {{/education}}
+                    </div>
+                {{/if}}
+                <!-- END: Education -->
+                <!-- START: Accomplishments -->
+                {{#if profile_information.information_accomplishment}}
+                    <div class="seeker-accomplistments">
+                        <div class="seeker-profile-details-header-label">
+                            {{_ 'Accomplishments'}}
+                        </div>
+                        {{#each profile_information.information_accomplishment}}
+                            <div class="seeker-profile-details-accomplishments-holder">
+                                <div class="seeker-profile-detail-work-education-accomplishment">
+                                    {{accomplishment_name}}
+                                </div>
+                                <div class="seeker-profile-details-company-school-label">
+                                    {{accomplishment_description}}
+                                </div>
+                            </div>
+                        {{/each}}
+                    </div>
+                {{/if}}
+                <!-- END: Accomplishments -->
+                <!-- START: Skills -->
+                {{#if profile_information.information_skills}}
+                    <div class="seeker-skills">
+                        <div class="seeker-profile-details-header-label">
+                            {{_ 'Skills'}}
+                        </div>
+                        <div class="seeker-profile-skills">
+                            {{#if profile_information.information_skills}}
+                                <ul>
+                                {{#each profile_information.information_skills}}
+                                    <li>
+                                        {{this}}
+                                    </lu>
+                                {{/each}}
+                                </ul>
+                            {{/if}}
+                        </div>
+                    </div>
+                {{/if}}
+                <!-- END: Skills -->
+            </div>
+            <!-- END: Seeker Profile -->
+        {{/if}}
+    {{/unless}}
+    {{#session 'me'}}
+        <div class="seeker-profile-edit text-center">
+            {{#when profile_id '===' ../profile_id}}
+                {{#unless profile_company}}
+                    <a
+                        class="btn btn-default text-uppercase"
+                        href="/profile/information"
+                        title="{{_ 'Edit Profile'}}"
+                    >
+                        {{_ 'Edit Profile'}}
+                    </a>
+                {{/unless}}
+            {{else}}
+                {{#when ../profile_information.information_progress '>=' '40'}}
+                    {{#if profile_company}}
+                        <a
+                            class="btn btn-default text-uppercase"
+                            data-target="#resume-download"
+                            data-toggle="modal"
+                            href="javascript:void(0)"
+                            title="{{_ 'Show More'}}"
+                        >
+                            {{_ 'Show More'}}
+                        </a>
+                    {{/if}}
+                {{/when}}
+            {{/when}}
+        </div>
+    {{/session}}
+</div>
+<!-- END: Profile Container -->

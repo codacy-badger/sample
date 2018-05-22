@@ -1,0 +1,1 @@
+ALTER TABLE `profile` ADD `profile_email_flag` INT NOT NULL DEFAULT '0' AFTER `profile_flag`;

@@ -1,0 +1,183 @@
+<!-- START: Confirmation Modal -->
+<div
+    class="modal fade confirmation-form interview-availability availability-add"
+    id="interview-availability-add"
+    role="dialog"
+>
+    <!-- START: Modal Dialog -->
+    <div class="modal-dialog">
+        <!-- START: Modal Content -->
+        <div class="modal-content">
+            <!-- START: Modal Header -->
+            <div class="modal-header">
+                <!-- START: Modal Title -->
+                <div class="modal-title">
+                    {{_ 'Add Availability'}}
+                </div>
+                <!-- END: Modal Title -->
+            </div>
+            <!-- END: Modal Header -->
+            <!-- START: Form -->
+            <form class="add-form form-horizontal modal-form">
+                <!-- START: Modal Body -->
+                <div class="modal-body">
+                    <!-- START : Available Dates -->
+                    <div class="availability-dates">
+                        <span>{{_ 'Available Dates'}}</span>
+                        <div class="clearfix row">
+                            <!-- START : Left Column -->
+                            <div class="col-md-5 col-xs-5 pull-left">
+                                <!-- START: From -->
+                                <div class="clearfix form-group">
+                                    <div>
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input
+                                        class="datepicker form-control"
+                                        data-do="datepicker"
+                                        name="start_date"
+                                        placeholder="January 01, 1990"
+                                        readonly
+                                        type="text"
+                                    />
+                                    <span class="help-text"></span>
+                                </div>
+                                <!-- END: From -->
+                            </div>
+                            <!-- END : Left Column -->
+
+                            <div class="col-md-2 col-xs-2">
+                                <span>-</span>
+                            </div>
+
+                            <!-- START : Right Column -->
+                            <div class="col-md-5 col-xs-5 pull-right">
+                                <!-- START: From -->
+                                <div class="clearfix form-group">
+                                    <div>
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input
+                                        class="datepicker form-control"
+                                        data-do="datepicker"
+                                        name="end_date"
+                                        placeholder="January 01, 1990"
+                                        readonly
+                                        type="text"
+                                    />
+                                    <span class="help-text"></span>
+                                </div>
+                                <!-- END: From -->
+                            </div>
+                            <!-- END : Right Column -->
+                        </div>
+                    </div>
+                    <!-- END : Available Dates -->
+
+                    <!-- START : Available Dates -->
+                    <div class="availability-time">
+                        <span>{{_ 'Available time'}}</span>
+                        <div class="clearfix row">
+                            <!-- START : Left Column -->
+                            <div class="col-md-5 col-xs-5 pull-left">
+                                <!-- START: From -->
+                                <div class="clearfix form-group">
+                                    <div>
+                                        <i class="fa fa-clock-o"></i>
+                                    </div>
+                                    <input
+                                        type="time"
+                                        name="start_time"
+                                        value="12:00"
+                                    >
+                                    <span class="help-text"></span>
+                                </div>
+                                <!-- END: From -->
+                            </div>
+                            <!-- END : Left Column -->
+
+                            <div class="col-md-2 col-xs-2">
+                                <span>-</span>
+                            </div>
+
+                            <!-- START : Right Column -->
+                            <div class="col-md-5 col-xs-5 pull-right">
+                                <!-- START: From -->
+                                <div class="clearfix form-group">
+                                    <div>
+                                        <i class="fa fa-clock-o"></i>
+                                    </div>
+                                    <input
+                                        type="time"
+                                        name="end_time"
+                                        value="13:00"
+                                    >
+                                    <span class="help-text"></span>
+                                </div>
+                                <!-- END: From -->
+                            </div>
+                            <!-- END : Right Column -->
+                        </div>
+                    </div>
+                    <!-- END : Available Dates -->
+
+                    <!-- START : Available Slots -->
+                    <div class="availability-slot">
+                        <span>{{_ 'Max Appointments at the same time'}}</span>
+                        <div class="clearfix row">
+                            <!-- START : Left Column -->
+                            <div class="col-md-5 pull-left">
+                                <!-- START: From -->
+                                <div class="clearfix form-group">
+                                    <div>
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                    <input
+                                        type="number"
+                                        min="1"
+                                        max="999"
+                                        name="slots"
+                                        value="10"
+                                    >
+                                    <span class="help-text"></span>
+                                </div>
+                                <!-- END: From -->
+                            </div>
+                            <!-- END : Left Column -->
+                        </div>
+                    </div>
+                    <!-- END : Available Slots -->
+                </div>
+                <!-- END: Modal Body -->
+
+                <!-- START : Modal Footer -->
+                <div class="modal-footer">
+                    <!-- START : Modal Submit -->
+                    <button
+                        class="btn btn-default"
+                        data-do="availability-add"
+                        data-on="click"
+                    >
+                        Add
+                    </button>
+                    <!-- END : Modal Submit -->
+                    
+                    <!-- START : Modal Dismiss -->
+                    <button
+                        class="btn btn-primary"
+                        data-dismiss="modal"
+                        type="button"
+                    >
+                        {{_ 'Cancel'}}
+                    </button>
+                    <!-- END : Modal Dismiss -->
+                </div>
+                <!-- END : Modal Footer -->
+            </form>
+            <!-- END : Form -->
+        </div>
+        <!-- END: Modal Content -->
+    </div>
+    <!-- END: Modal Dialog -->
+</div>
+<!-- END: Confirmation Modal -->

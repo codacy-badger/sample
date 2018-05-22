@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<trovit>
+    {{#each rows}}
+        <ad>
+            <id><![CDATA[{{post_id}}]]></id>
+            <url><![CDATA[{{../root}}/Company-Hiring/{{post_slug}}]]></url>
+            <title><![CDATA[{{post_position}}]]></title>
+            {{#if post_detail}}
+                <content><![CDATA[{{sanitize_string post_detail}}]]></content>
+            {{else}}
+                <content>
+                    <![CDATA[Hello! We are {{post_name}} from {{post_location}}
+                    and we are looking for a {{post_position}}]]>
+                </content>
+            {{/if}}
+            <city><![CDATA[{{post_location}}]]></city>
+            {{#if post_salary_min}}
+                <salary><![CDATA[
+                    {{~#if post_salary_max~}}
+                        {{~#when post_salary_max '==' post_salary_min~}}
+                            {{post_salary_min}}
+                        {{~else~}}
+                            {{post_salary_min}}-{{post_salary_max}}
+                        {{~/when~}}
+                    {{~else~}}
+                        {{post_salary_min}}
+                    {{~/if~}}]]>
+                </salary>
+            {{/if}}
+            {{#if post_arrangement}}
+                <working_hours><![CDATA[{{post_arrangement}}]]></working_hours>
+            {{/if}}
+            <company><![CDATA[{{post_name}}]]></company>
+            {{#if post_experience}}
+                <experience>
+                    <![CDATA[{{post_experience}} {{append_s 'year' post_experience}}]]>
+                </experience>
+            {{/if}}
+            <date><![CDATA[{{post_updated}}]]></date>
+            <contact_name><![CDATA[{{post_name}}]]></contact_name>
+            {{#if post_email}}
+                <contact_email><![CDATA[{{post_email}}]]></contact_email>
+            {{/if}}
+            {{#if post_phone}}
+                <contact_telephone><![CDATA[{{post_phone}}]]></contact_telephone>
+            {{/if}}
+        </ad>
+    {{/each}}
+</trovit>

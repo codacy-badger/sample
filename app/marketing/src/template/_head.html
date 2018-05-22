@@ -1,0 +1,49 @@
+<nav class="navbar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+        	<a class="navbar-brand" href="/control/marketing/dashboard">
+			    <img 
+			    	height="40" 
+			    	src="/images/logo.png"
+			    />
+			</a>
+        </div>
+		<ul class="nav navbar-nav">
+			<h3>
+				{{_ 'Marketing Dashboard'}}
+			</h3> 
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a 
+                	class="btn" 
+                	href='/logout?redirect_uri=/control/marketing/dashboard'
+                >
+                	<h5>
+                		<strong>
+                    		<i class="fa fa-sign-out"></i>
+                    		{{_ 'Logout'}}
+                		</strong>
+                	</h5>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                {{#session 'app_session'}}
+                    <a 
+                        class="btn" 
+                        href='/control/marketing/agent/update/{{results.profile_id}}'
+                    >
+                        <h5>
+                            <strong>
+                                <i class="fa fa-cog"></i>
+                                {{_ 'Account Settings'}}
+                            </strong>
+                        </h5>
+                    </a>
+                {{/session}}
+            </li>
+        </ul>
+    </div>
+</nav>

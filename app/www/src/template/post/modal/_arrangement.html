@@ -1,0 +1,43 @@
+<!-- START: Arrangement Modal -->
+<div class="modal fade" id="arrangement" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- START: Modal Header -->
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" type="button">
+                    &times;
+                </button>
+                <div class="modal-title">{{_ 'Arrangement'}}</div>
+            </div>
+            <!-- END: Modal Header -->
+            <!-- START: Arrangement Modal Form -->
+            <form
+                class="form-horizontal"
+                data-container="#arrangement"
+                data-do="tips-modal"
+                data-on="submit"
+            >
+                <div class="modal-body">
+                    <div class="form-group">
+                        <select
+                            class="form-control"
+                            name="post_arrangement"
+                        >
+                            <option value="part-time">{{_ 'Part-time'}}</option>
+                            <option value="freelance">{{_ 'Freelance'}}</option>
+                            <option value="remote">{{_ 'Remote'}}</option>
+                            <option value="ojt">{{_ 'OJT'}}</option>
+                            <option value="intern">{{_ 'Intern'}}</option>
+                            <option value="contractual">{{_ 'Contractual'}}</option>
+                        </select>
+                      </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit">{{_ 'Save'}}</button>
+                </div>
+            </form>
+            <!-- END: Arrangement Modal Form -->
+        </div>
+    </div>
+</div>
+<!-- END: Arrangement Modal -->

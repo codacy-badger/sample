@@ -1,0 +1,458 @@
+<div
+    class="modal fade confirmation-form low-credits"
+    data-do="credits-alert"
+    id="credit-notify-modal"
+    role="dialog"
+    >
+        <!-- START: Modal Dialog -->
+        <div class="modal-dialog">
+            <!-- START: Modal Content -->
+            <div class="modal-content">
+                <!-- START: Modal Header -->
+                <div class="modal-header">
+                    <!-- START: Modal Title -->
+                    <div class="modal-title">
+                        {{_ 'Uh-oh! You are running low on credits'}}
+                    </div>
+                    <!-- END: Modal Title -->
+                </div>
+                <!-- END: Modal Header -->
+                <!-- START: Form -->
+                <form class="add-form form-horizontal modal-form">
+                    <!-- START: Modal Body -->
+                    <div class="modal-body" style="margin-top: 0px; padding: 20px;">
+                            <div class="clearfix row" style="padding:10px;">
+                                <div class="col-md-2"></div>
+                                <!-- START : Center Column -->
+                                <div class="col-md-8" style="padding: 15px;">
+                                    <div class="clearfix">
+                                        <div class="text-description low-crd"
+                                        style="
+                                            padding-bottom: 5px; 
+                                            ">
+                                            Credits give you access to many features that can make you
+                                            be the Chuck Norris of all recruiters!
+                                        </div>
+                                        <div class="low-cred">
+                                            <a href="/profile/credit/checkout" class="btn btn-default">
+                                                ADD CREDITS
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END : Center Column -->
+                                <div class="col-md-2"></div>
+                            </div>
+                            <div class="clearfix row low-cred" style="padding:10px;">
+                                <!-- START: resume download -->
+                                <div class="col-md-4">
+                                    <div>
+                                        <img src="{{config 'cdn'}}/images/profile/modal_resume_dl.png" 
+                                        style="width: 120px;" />
+                                    </div>
+                                    <div style="
+                                        color: #00ABC9;
+                                        padding-bottom: 10px;
+                                        padding-top: 10px;
+                                        ">
+                                        <span><strong>Resume <br />Download</strong><br></span>
+                                    </div>
+                                    <div style="
+                                        background-color: #00ABC9;
+                                        color: #FFFFFF;
+                                        padding: 5px 5px;
+                                    ">
+                                        <span>10 credits</span>
+                                    </div>
+                                    <div class="text-description"
+                                        style="
+                                            padding-top: 10px;
+                                            padding-bottom: 30px; 
+                                    ">
+                                        Know your applicants!
+                                    </div>
+                                </div>
+                                <!-- END: resume download -->
+                                <!-- START: sms match notification -->
+                                <div class="col-md-4">
+                                    <div>
+                                        <img src="{{config 'cdn'}}/images/profile/modal_sms_match.png"
+                                            style="width: 120px;" />
+                                    </div>
+                                    <div style="
+                                        color: #00ABC9;
+                                        padding-bottom: 10px;
+                                        padding-top: 10px;
+                                        ">
+                                        <span><strong>SMS Match Notification</strong></span>
+                                    </div>
+                                    <div style="
+                                        background-color: #00ABC9;
+                                        color: #FFFFFF;
+                                        padding: 5px 5px;
+                                    ">
+                                        <span>300 credits</span>
+                                    </div>
+                                    <div class="text-description"
+                                        style="
+                                            padding-top: 10px;
+                                            padding-bottom: 30px; 
+                                    ">
+                                        <span>
+                                            Get immediate updates on potential talent!
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- END: sms match notification -->
+                                <!-- START: sms interested notification -->
+                                <div class="col-md-4">
+                                    <div>
+                                        <img src="{{config 'cdn'}}/images/profile/modal_sms_interested.png" 
+                                        style="width: 120px;" />
+                                    </div>
+                                    <div style="
+                                        color: #00ABC9;
+                                        padding-bottom: 10px;
+                                        padding-top: 10px;
+                                        ">
+                                        <span><strong>SMS Interested Notification</strong></span>
+                                    </div>
+                                    <div style="
+                                        background-color: #00ABC9;
+                                        color: #FFFFFF;
+                                        padding: 5px 5px;
+                                    ">
+                                        <span>500 credits</span>
+                                    </div>
+                                    <div class="text-description"
+                                        style="
+                                            padding-top: 10px;
+                                            padding-bottom: 30px; 
+                                    ">
+                                        <span>
+                                            It&#39;s nice to know there are new applicants on the way!
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- END: sms interested notification -->
+<!--                                     </div>
+                            <div class="clearfix row" style="padding:10px; display: inline-block;"> -->
+                                <!-- START: verified badge -->
+                                <div class="col-md-4" style="width: 50%">
+                                    <div>
+                                        <img src="{{config 'cdn'}}/images/email/credits-notification/email_verified_badge.png" width="120px"/>
+                                    </div>
+                                    <div style="
+                                        color: #00ABC9;
+                                        padding-top: 10px;
+                                        padding-bottom: 30px;
+                                        ">
+                                        <span><strong>Verified Badge</strong></span>
+                                    </div>
+                                    <div style="
+                                        background-color: #00ABC9;
+                                        color: #FFFFFF;
+                                        margin-left: 43px;
+                                        padding: 5px 5px;
+                                        width: 159.33px;
+                                    ">
+                                        <span>500 credits</span>
+                                    </div>
+                                    <div class="text-description" 
+                                        style="
+                                            margin-left: 41px; 
+                                            width: 159.33px;
+                                            padding-top: 10px;
+                                            padding-bottom: 30px; 
+                                            ">
+                                        <span>
+                                            Showcase to everyone that you are indeed 
+                                            an authentic direct hiring company! 
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- END: verified badge -->
+                                <!-- START: featured email campaign -->
+                                <div class="col-md-4" style="width: 50%">
+                                    <div>
+                                        <img src="{{config 'cdn'}}/images/profile/modal_featured_email_campaign.png" 
+                                            width="120px"
+                                        />
+                                    </div>
+                                      <div style="
+                                        color: #00ABC9;
+                                        padding-bottom: 10px;
+                                        padding-top: 10px;
+                                        ">
+                                        <span><strong>Featured Email<br />Campaign</strong></span>
+                                    </div>
+                                    <div style="
+                                        background-color: #00ABC9;
+                                        color: #FFFFFF;
+                                        margin-left: 43px;
+                                        padding: 5px 5px;
+                                        width: 159.33px;
+                                    ">
+                                        <span>500 credits</span>
+                                    </div>
+                                    <div class="text-description" 
+                                        style="
+                                            margin-left: 41px; 
+                                            width: 159.33px;
+                                            padding-top: 10px;
+                                            padding-bottom: 30px; 
+                                            ">
+                                        <span>
+                                            Let us promote your job ad to qualified 
+                                            Job Seekers on Jobayan databank! 
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- END: featured email campaign -->
+                            </div>
+                            <div class="clearfix row low-cred" style="padding:10px;">
+                                <!-- START: promoted post -->
+                                <div class="col-md-6">
+                                    <div>
+                                        <img src="{{config 'cdn'}}/images/profile/modal_promoted.png"
+                                        style="width: 250px;" />
+                                    </div>
+                                    <div style="
+                                        color: #00ABC9;
+                                        padding-bottom: 10px;
+                                        padding-top: 10px;
+                                        ">
+                                        <span><strong>Promoted Post</strong></span>
+                                    </div>
+                                    <div style="
+                                        background-color: #00ABC9;
+                                        color: #FFFFFF;
+                                        margin-left: 43px;
+                                        padding: 5px 5px;
+                                        width: 159.33px;
+                                    ">
+                                        <span>500 credits</span>
+                                    </div>
+                                    <div class="text-description" 
+                                        style="
+                                            padding-top: 10px;
+                                            padding-bottom: 30px; 
+                                            ">
+                                        <span>
+                                            Need more exposure for your job post? 
+                                            Promoting a post is an easy and cost-effective 
+                                            way to reach talents, making you more 
+                                            visible on Jobayan search engine and 
+                                            platform.
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- END: promoted post -->
+                                <!-- START: attach application form -->
+                                <div class="col-md-6">
+                                        <div>
+                                            <img src="{{config 'cdn'}}/images/profile/modal_attach_application.png"
+                                            style="width: 250px;" />
+                                        </div>
+                                        <div style="
+                                        color: #00ABC9;
+                                        padding-bottom: 10px;
+                                        padding-top: 10px;
+                                        ">
+                                            <span><strong>Attach Application Form</strong></span>
+                                        </div>
+                                        <div style="
+                                            background-color: #00ABC9;
+                                            color: #FFFFFF;
+                                            margin-left: 43px;
+                                            padding: 5px 5px;
+                                            width: 159.33px;
+                                        ">
+                                            <span>500 credits</span>
+                                        </div>
+                                    <div class="text-description" 
+                                        style="
+                                            padding-top: 10px;
+                                            padding-bottom: 30px; 
+                                            ">
+                                            <span>
+                                                Let us promote your job ad to qualified 
+                                                job Seekers and Jobayan databank!
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!-- END: attach application form -->
+                            </div>
+                            <div class="clearfix row low-cred" style="padding:10px;">
+                                <!-- START: activate interview -->
+                                <div class="col-md-6">
+                                    <div>
+                                        <img src="{{config 'cdn'}}/images/email/credits-notification/email_interview_scheduler.png" />
+                                    </div>
+                                    <div style="
+                                        color: #00ABC9;
+                                        padding-bottom: 10px;
+                                        padding-top: 10px;
+                                        ">
+                                        <span><strong>Activate Intervew Scheduler</strong></span>
+                                    </div>
+                                        <div style="
+                                            background-color: #00ABC9;
+                                            color: #FFFFFF;
+                                            margin-left: 43px;
+                                            padding: 5px 5px;
+                                            width: 159.33px;
+                                        ">
+                                        <span>500 credits</span>
+                                    </div>
+                                    <div class="text-description" 
+                                        style="
+                                            padding-top: 10px;
+                                            padding-bottom: 30px; 
+                                            ">
+                                        <span>
+                                            Enable Activate Interview Scheduler to help 
+                                            you manage screening the candidate and progress 
+                                            stages accordingly.
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- END: activate interview -->
+                                <!-- START: chatbot usage -->
+                                <!-- <div class="col-sm-6 text-center"> -->
+                                <div class="col-md-6">
+                                    <div>
+                                            <img src="{{config 'cdn'}}/images/email/credits-notification/email_chatbot.png" />
+                                    </div>
+                                    <div style="
+                                        color: #00ABC9;
+                                        padding-bottom: 10px;
+                                        padding-top: 10px;
+                                        ">
+                                        <span><strong>Chatbot Usage</strong></span>
+                                    </div>
+                                        <div style="
+                                            background-color: #00ABC9;
+                                            color: #FFFFFF;
+                                            margin-left: 43px;
+                                            padding: 5px 5px;
+                                            width: 159.33px;
+                                        ">
+                                        <span>200 credits</span>
+                                    </div>
+                                    <div class="text-description" 
+                                        style="
+                                            padding-top: 10px;
+                                            padding-bottom: 30px; 
+                                            ">
+                                        <span>
+                                            Engage with social active Job seekers 
+                                            for only 200 credits per job post! 
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- END: chatbot usage -->
+                            </div>
+                            <div class="clearfix row low-cred" style="padding: 10px;">
+                                <!-- START: featured sms campaign -->
+                                <div class="col-md-6">
+                                    <div>
+                                        <img src="{{config 'cdn'}}/images/email/credits-notification/email_featured_sms.png" />
+                                    </div>
+                                    <div style="
+                                        color: #00ABC9;
+                                        padding-bottom: 10px;
+                                        padding-top: 10px;
+                                        ">
+                                        <span><strong>Featured SMS Campaign</strong></span>
+                                    </div>
+                                        <div style="
+                                            background-color: #00ABC9;
+                                            color: #FFFFFF;
+                                            margin-left: 43px;
+                                            padding: 5px 5px;
+                                            width: 159.33px;
+                                        ">
+                                        <span>500 credits</span>
+                                    </div>
+                                    <div class="text-description" 
+                                        style="
+                                            padding-top: 10px;
+                                            padding-bottom: 30px; 
+                                            ">
+                                        <span>
+                                            The talent you are looking for<br />can be 1 SMS 
+                                            away!
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- END: featrued sms campaign -->
+                                <!-- START: featured facebook campaign -->
+                                <div class="col-md-6">
+                                    <div>
+                                        <img src="{{config 'cdn'}}/images/email/credits-notification/email_featured_facebook.png" />
+                                    </div>
+                                    <div style="
+                                        color: #00ABC9;
+                                        padding-top: 10px;
+                                        ">
+                                        <span><strong>Featured Facebook Campaign</strong></span>
+                                    </div>
+                                        <div style="
+                                            margin-left: 43px;
+                                            padding: 5px 5px;
+                                            width: 159.33px;
+                                        ">
+                                        <a href="/contact-us?request=demo" class="btn btn-default">
+                                            Get a Quotation
+                                        </a>
+                                    </div>
+                                    <div class="text-description" 
+                                        style="
+                                            margin-left: -12px;
+                                            padding-top: 10px;
+                                            padding-bottom: 30px; 
+                                            ">
+                                        <span>
+                                            Does your company's job vacancy need more 
+                                            awareness? Jobayan to the rescue!
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- END: featured facebook campaign -->
+                            </div>
+                    </div>
+                    <!-- END: Modal Body -->
+                    <!-- START : Modal Footer -->
+                    <div class="modal-footer">
+                        <div class="text-description" 
+                        style="
+                        padding-bottom: 5px; 
+                        ">
+                            <span>
+                            Talent Hunting Mode:<strong>ON!</strong>
+                            </span>
+                        </div>
+                        <!-- START : Modal Submit -->
+                        <a href="/profile/credit/checkout" class="btn btn-default">
+                            ADD CREDITS
+                        </a>
+                        <!-- END : Modal Submit -->
+                        <!-- START : Modal Dismiss -->
+                        <button
+                            class="btn btn-primary"
+                            data-dismiss="modal"
+                            type="button"
+                        >
+                            {{_ 'Close'}}
+                        </button>
+                        <!-- END : Modal Dismiss -->
+                    </div>
+                    <!-- END : Modal Footer -->
+                </form>
+                <!-- END : Form -->
+            </div>
+            <!-- END: Modal Content -->
+        </div>
+        <!-- END: Modal Dialog -->
+    </div>    

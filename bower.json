@@ -1,0 +1,23 @@
+{
+  "name": "public",
+  "private": true,
+  "dependencies": {
+    "jquery": "^3.1.0",
+    "bootstrap": "^3.3.7",
+    "font-awesome": "fontawesome#^4.6.3",
+    "bootstrap3-wysihtml5-bower": "0.3.3",
+    "jquery-ui": "1.12.1",
+    "bootstrap-colorpicker": "^2.5.1",
+    "chosen": "^1.8.2",
+    "toastr": "^2.1.3",
+    "flagstrap": "https://github.com/blazeworx/flagstrap.git",
+    "highcharts": "6.0.4",
+    "jquery-lazy": "^1.7.7",
+    "tinymce": "^4.7.4",
+    "chart.js": "^2.7.1",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47"
+  },
+  "resolutions": {
+    "jquery": "^3.1.0"
+  }
+}

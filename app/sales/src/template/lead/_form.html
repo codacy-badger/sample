@@ -1,0 +1,565 @@
+<form
+    method="post"
+    {{#if action}}
+        action="{{action}}"
+    {{/if}}
+    {{#if cdn_config}}
+        data-do="cdn-upload"
+        data-on="submit"
+        data-progress="{{_ 'We are uploading your files.
+            Please do not refresh page.'}}"
+        data-complete="{{_ 'Upload Complete'}}"
+        data-enctype="{{cdn_config.form.enctype}}"
+        data-method="{{cdn_config.form.method}}"
+        data-action="{{cdn_config.form.action}}"
+        data-cdn="{{cdn_config.form.action}}"
+        data-acl="{{cdn_config.inputs.acl}}"
+        data-key="{{cdn_config.inputs.key}}"
+        data-credential="{{cdn_config.inputs.X-Amz-Credential}}"
+        data-algorythm="{{cdn_config.inputs.X-Amz-Algorithm}}"
+        data-date="{{cdn_config.inputs.X-Amz-Date}}"
+        data-policy="{{cdn_config.inputs.Policy}}"
+        data-signature="{{cdn_config.inputs.X-Amz-Signature}}"
+    {{/if}}
+>
+    <div class="row">
+        <div class="col-sm-4">
+            <!-- START: Image -->
+            <div class="form-group{{#if errors.post_detail}} has-error{{/if}}">
+                <center><label>{{_ 'Image'}}</label></center>
+                <div
+                    data-do="image-field"
+                    data-name="lead_image"
+                    data-width="188px"
+                    data-height="188px"
+                    data-alt="Change this Photo"
+                    class="image-field">
+                    <div class="image-wrapper">
+                        {{#if item.lead_image}}
+                            <img
+                                width="188px"
+                                height="188px"
+                                src="{{item.lead_image}}"
+                            />
+                            <input
+                                type="hidden"
+                                name="lead_image"
+                                value="{{item.lead_image}}"
+                            />
+                        {{else}}
+                            <img
+                                width="188px"
+                                height="188px"
+                                src="/images/default-avatar.png"
+                            />
+                        {{/if}}
+
+                        {{#if errors.lead_image}}
+                        <span class="help-text">{{errors.lead_image}}</span>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+            <!-- END: Image -->
+            <!-- START: Company -->
+            <div class="form-group{{#if errors.lead_company}} has-error{{/if}}">
+                <label>{{_ 'Company'}}</label>
+                <div class="texts-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase"></i>
+                        </div>
+                        <input
+                            type="text"
+                            name="lead_company"
+                            class="form-control"
+                            placeholder="{{_ 'Acme Inc.'}}"
+                            value="{{item.lead_company}}"
+                            required
+                        />
+                    </div>
+                </div>
+
+                {{#if errors.lead_company}}
+                    <span class="help-text">{{errors.lead_company}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Company -->
+            <!-- START: Job Title -->
+            <div class="form-group{{#if errors.lead_job_title}} has-error{{/if}}">
+                <label>{{_ 'Job Title'}}</label>
+                <div class="texts-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase"></i>
+                        </div>
+                        <input
+                            type="text"
+                            name="lead_job_title"
+                            class="form-control"
+                            placeholder="{{_ 'Acme Inc.'}}"
+                            value="{{item.lead_job_title}}"
+                        />
+                    </div>
+                </div>
+
+                {{#if errors.lead_job_title}}
+                    <span class="help-text">{{errors.lead_job_title}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Job Title -->
+            <!-- START: Type -->
+            <input type="hidden" name="lead_type" value="poster" />
+            <!-- END: Type -->
+            <!-- START: Value -->
+            <div class="form-group{{#if errors.deal_amount}} has-error{{/if}}">
+                <label>{{_ 'Value'}}</label>
+                <div class="texts-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-money "></i>
+                        </div>
+                        <input
+                            type="text"
+                            name="deal_amount"
+                            class="form-control"
+                            placeholder="{{_ 'Lifetime Value'}}"
+                            value="{{item.deal_amount}}"
+                            required
+                        />
+                    </div>
+                </div>
+
+                <div class="input-suggestion hide">
+                    <ul class="suggestion-list"></ul>
+                </div>
+
+                {{#if errors.deal_amount}}
+                <span class="help-text">{{errors.deal_amount}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Value -->
+            <!-- START: Lead Status/Stage -->
+            <input type="hidden" name="pipeline_id" value="{{pipeline.pipeline_id}}" />
+            {{#if item.deal_id}}
+                <input type="hidden" name="deal_id" value="{{item.deal_id}}" />
+            {{/if}}
+            <div class="form-group{{#if errors.deal_status}} has-error{{/if}}">
+                <label>{{_ 'Lead Status/Stage'}}</label>
+                <div class="texts-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-thumb-tack" aria-hidden="true"></i>
+                        </div>
+                        <select
+                            class="form-control"
+                            id="stage-{{pipeline_id}}"
+                            name="deal_status"
+                        >
+                            {{#each pipeline.pipeline_stages}}
+                                <option
+                                {{#when ../item.deal_status '==' this}}
+                                    selected
+                                {{/when}}
+                                    value="{{~this~}}"
+                                >
+                                    {{~this~}}
+                                </option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+
+                {{#if errors.deal_status}}
+                    <span class="help-text">{{errors.deal_status}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Lead Status/Stage -->
+        </div>
+        <div class="col-sm-4">
+            <!-- START: Name -->
+            <div class="form-group{{#if errors.lead_name}} has-error{{/if}}">
+                <label>{{_ 'Name'}}</label>
+                <div class="texts-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <input
+                            type="text"
+                            name="lead_name"
+                            class="form-control"
+                            placeholder="{{_ 'John Doe'}}"
+                            value="{{item.lead_name}}"
+                            required
+                        />
+                    </div>
+                </div>
+
+                {{#if errors.lead_name}}
+                    <span class="help-text">{{errors.lead_name}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Name -->
+            <!-- START: Email -->
+            <div class="form-group{{#if errors.lead_email}} has-error{{/if}}">
+                <label>{{_ 'Email'}}</label>
+                <div class="texts-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-envelope"></i>
+                        </div>
+                        <input
+                            type="email"
+                            name="lead_email"
+                            class="form-control"
+                            placeholder="{{_ 'john@acme.com'}}"
+                            value="{{item.lead_email}}"
+                            required
+                        />
+                    </div>
+                </div>
+
+                {{#if errors.lead_email}}
+                    <span class="help-text">{{errors.lead_email}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Email -->
+            <!-- START: Phone -->
+            <div class="form-group{{#if errors.lead_phone}} has-error{{/if}}">
+                <label>{{_ 'Phone'}}</label>
+                <div class="texts-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <input
+                            type="text"
+                            name="lead_phone"
+                            class="form-control"
+                            placeholder="{{_ '555-2424'}}"
+                            value="{{item.lead_phone}}"
+                        />
+                    </div>
+                </div>
+
+                {{#if errors.lead_phone}}
+                    <span class="help-text">{{errors.lead_phone}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Phone -->
+            <!-- START: Gender -->
+            <div class="form-group{{#if errors.lead_gender}} has-error{{/if}}">
+                <label>{{_ 'Gender'}}</label>
+                <div class="select-field">
+                    <select name="lead_gender" class="form-control">
+                        <option
+                            value="male"
+                            {{#when item.lead_gender '===' 'male'}}
+                                selected
+                            {{/when}}
+                        >
+                            {{_ 'Male'}}
+                        </option>
+                        <option
+                            value="female"
+                            {{#when item.lead_gender '===' 'female'}}
+                                selected
+                            {{/when}}
+                        >
+                            {{_ 'Female'}}
+                        </option>
+                    </select>
+                </div>
+
+                {{#if errors.lead_gender}}
+                <span class="help-text">{{errors.lead_gender}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Gender -->
+            <!-- START: Facebook -->
+            <div class="form-group{{#if errors.lead_facebook}} has-error{{/if}}">
+                <label>{{_ 'Facebook'}}</label>
+                <div class="texts-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-facebook-square"></i>
+                        </div>
+                        <input
+                            type="text"
+                            name="lead_facebook"
+                            class="form-control"
+                            placeholder="{{_ 'https://www.facebook.com/username''}}"
+                            value="{{item.lead_facebook}}"
+                        />
+                    </div>
+                </div>
+
+                {{#if errors.lead_facebook}}
+                    <span class="help-text">{{errors.lead_facebook}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Facebook -->
+            <!-- START: LinkedIn -->
+            <div class="form-group{{#if errors.lead_linkedin}} has-error{{/if}}">
+                <label>{{_ 'LinkedIn'}}</label>
+                <div class="texts-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-linkedin-square"></i>
+                        </div>
+                        <input
+                            type="text"
+                            name="lead_linkedin"
+                            class="form-control"
+                            placeholder="{{_ 'https://www.linkedin.com/in/username'}}"
+                            value="{{item.lead_linkedin}}"
+                        />
+                    </div>
+                </div>
+
+                {{#if errors.lead_linkedin}}
+                    <span class="help-text">{{errors.lead_linkedin}}</span>
+                {{/if}}
+            </div>
+            <!-- END: LinkedIn -->
+            {{#when form '==' 'update'}}
+                {{#session 'app_session'}}
+                    {{#when results.profile_type '!=' 'agent'}}
+                        <!-- START: Lead Close Date -->
+                        <div class="form-group{{#if errors.deal_close}} has-error{{/if}}">
+                            <label>{{_ 'Lead Close Date'}}</label>
+                            <div class="texts-field">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        name="deal_close"
+                                        class="form-control"
+                                        onfocus="(this.type='date')"
+                                        placeholder="{{_ 'Lead Close Date'}}"
+                                        value="{{../item.deal_close}}"
+                                    />
+                                </div>
+                            </div>
+
+                            {{#if errors.deal_close}}
+                                <span class="help-text">{{errors.deal_close}}</span>
+                            {{/if}}
+                        </div>
+                        <!-- END: Lead Close Date -->
+                    {{/when}}
+                {{/session}}
+            {{/when}}
+        </div>
+        <div class="col-sm-4">
+            <!-- START: Location -->
+            <div class="form-group{{#if errors.lead_location}} has-error{{/if}}">
+                <label>{{_ 'Location'}}</label>
+                <div class="texts-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-map-marker"></i>
+                        </div>
+                        <input
+                            type="text"
+                            name="lead_location"
+                            class="form-control"
+                            placeholder="{{_ 'Sesame Street'}}"
+                            value="{{item.lead_location}}"
+                        />
+                    </div>
+                </div>
+
+                {{#if errors.lead_location}}
+                    <span class="help-text">{{errors.lead_location}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Location -->
+            <!-- START: School -->
+            <div class="form-group{{#if errors.lead_school}} has-error{{/if}}">
+                <label>{{_ 'School'}}</label>
+                <div class="texts-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-graduation-cap "></i>
+                        </div>
+                        <input
+                            type="text"
+                            name="lead_school"
+                            class="form-control"
+                            placeholder="{{_ 'Acme University'}}"
+                            value="{{item.lead_school}}"
+                        />
+                    </div>
+                </div>
+
+                {{#if errors.lead_school}}
+                    <span class="help-text">{{errors.lead_school}}</span>
+                {{/if}}
+            </div>
+            <!-- END: School -->
+            <!-- START: Study -->
+            <div class="form-group{{#if errors.lead_study}} has-error{{/if}}">
+                <label>{{_ 'Study'}}</label>
+                <div class="texts-field">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-graduation-cap "></i>
+                        </div>
+                        <input
+                            type="text"
+                            name="lead_study"
+                            class="form-control"
+                            placeholder="{{_ 'Acme University'}}"
+                            value="{{item.lead_study}}"
+                        />
+                    </div>
+                </div>
+
+                {{#if errors.lead_study}}
+                    <span class="help-text">{{errors.lead_study}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Study -->
+            <!-- START: Birth -->
+            <div class="form-group{{#if errors.lead_birth}} has-error{{/if}}">
+                <label>{{_ 'Birth'}}</label>
+                <div class="date-range">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input
+                            class="form-control"
+                            type="text"
+                            name="lead_birth"
+                            onfocus="(this.type='date')"
+                            placeholder="{{_ '2017-01-01'}}"
+                            type="text"
+                            value="{{item.lead_birth}}"
+                        />
+                    </div>
+                </div>
+
+                {{#if errors.lead_birth}}
+                    <span class="help-text">{{errors.lead_birth}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Birth -->
+            <!-- START: Labels -->
+            <div class="form-group{{#if errors.lead_tags}} has-error{{/if}}">
+                <label>{{_ 'Tags'}}</label>
+                <div
+                    data-do="tag-field"
+                    data-name="lead_tags"
+                    data-placeholder="{{_ 'Label'}}"
+                    class="tag-field"
+                />
+                    {{#each item.lead_tags}}
+                        <div class="tag">
+                            <input
+                                type="text"
+                                class="tag-input text-field"
+                                name="lead_tags[]"
+                                placeholder="{{_ 'Label'}}"
+                                value="{{this}}"
+                            />
+                            <a class="remove" href="javascript:void(0)">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    {{/each}}
+                </div>
+
+                <div class="input-suggestion hide">
+                    <ul class="suggestion-list"></ul>
+                </div>
+
+                {{#if errors.lead_tags}}
+                    <span class="help-text">{{errors.lead_tags}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Labels -->
+            <!-- START: Campaigns -->
+            <div class="form-group{{#if errors.lead_campaigns}} has-error{{/if}}">
+                <label>{{_ 'Campaigns'}}</label>
+                <div
+                    data-do="tag-field"
+                    data-name="lead_campaigns"
+                    data-placeholder="{{_ 'Campaign'}}"
+                    class="tag-field"
+                >
+                    {{#each item.lead_campaigns}}
+                        <div class="tag">
+                            <input type="text"
+                                class="tag-input text-field"
+                                name="lead_campaigns[]"
+                                placeholder="{{_ 'Campaign'}}"
+                                value="{{this}}"
+                            />
+                            <a class="remove" href="javascript:void(0)">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    {{/each}}
+                </div>
+
+                <div class="input-suggestion hide">
+                    <ul class="suggestion-list"></ul>
+                </div>
+
+                {{#if errors.lead_campaigns}}
+                <span class="help-text">{{errors.lead_campaigns}}</span>
+                {{/if}}
+            </div>
+            <!-- END: Campaigns -->
+            {{#when form '==' 'update'}}
+                {{#session 'app_session'}}
+                    {{#when results.profile_type '!=' 'agent'}}
+                        <!-- START: Lead Agent -->
+                        <div class="form-group{{#if errors.deal_agent}} has-error{{/if}}">
+                            <label>{{_ 'Lead Agent'}}</label>
+                            <div class="texts-field">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-user-secret" aria-hidden="true"></i>
+                                    </div>
+                                    <input
+                                        autocomplete="off"
+                                        class="form-control select-keyup"
+                                        data-do="select-agent"
+                                        data-on="keyup"
+                                        data-field="deal_agent"
+                                        id="select-agent"
+                                        name="agent_name"
+                                        placeholder="{{_ 'Lead Agent (optional)'}}"
+                                        type="text"
+                                        value="{{item.agent_name}}{{item.agent.profile_name}}"
+                                    />
+                                    <input
+                                        name="deal_agent"
+                                        type="hidden"
+                                        value="{{item.deal_agent}}{{item.agent.profile_id}}"
+                                    />
+                                </div>
+                                <ul class="auto-suggest"></ul>
+                            </div>
+
+                            {{#if errors.deal_agent}}
+                                <span class="help-text">{{errors.deal_agent}}</span>
+                            {{/if}}
+                        </div>
+                        <!-- END: Lead Agent -->
+                    {{/when}}
+                {{/session}}
+            {{/when}}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-primary">{{_ 'Submit'}}</button>
+    </div>
+</form>

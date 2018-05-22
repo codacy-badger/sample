@@ -1,0 +1,185 @@
+<!-- START: Post Profile Body -->
+<div class="post-profile-body" >
+    <!-- START: Post Profile Wrapper -->
+    <div class="clearfix wrapper">
+        <!-- START: Post Profile Banner -->
+        {{> post_banner}}
+        <!-- END: Post Profile Banner -->
+        <!-- START: Post Profile Container -->
+        <div class="post-profile-container">
+            <!-- START: Latest Post -->
+            <div class="col-md-4"></div>
+            <div class="col-md-8">
+                 <div class="latest-post-from-user">
+                    <h1>
+                       {{#if profile_company}}
+                            {{#_ 'Latest Job Opportunities at %s'}}
+                                {{profile_company}}
+                            {{/_~}}
+                        {{else}}
+                            {{profile_name}} is looking for Job Opportunities
+                        {{/if}}
+                    </h1>
+                </div>
+            </div>
+            <!-- END: Latest Post -->
+            <!-- START: Post Profile Partial-->
+            <div class="col-md-4">
+                {{#session 'me'}}
+                    {{#when profile_id '===' ../profile_id}}
+                        {{#unless profile_company}}
+                            {{#if ../profile_information}}
+                                <a
+                                    href="javascript:void(0)"
+                                    data-toggle="modal"
+                                    data-target="#quick-edit-modal"
+                                >
+                                    <i class="fa fa-pencil pull-right" aria-hidden="true"></i>
+                                </a>
+                            {{/if}}
+                        {{/unless}}
+                    {{/when}}
+                {{/session}}
+                {{> post_profile}}
+            </div>
+            <!-- END: Post Profile Partial-->
+            <!-- START: Post Profile Wall -->
+            <div class="col-md-8">
+                {{#if rows}}
+                    <div class="wall">
+                        <div class="rows" data-do="post-search-ajax">
+                            {{#each rows}}
+                                {{#when post_type '===' 'poster'}}
+                                    {{> post_poster
+                                        heading_name='h3'
+                                        heading_position='h4'
+                                        heading_salary='h4'
+                                        heading_location='h4' }}
+                                {{/when}}
+                                {{#when post_type '===' 'seeker'}}
+                                    {{> post_seeker
+                                        heading_name='h3'
+                                        heading_position='h4'
+                                        heading_salary='h4'
+                                        heading_location='h4' }}
+                                {{/when}}
+                            {{/each}}
+                        </div>
+                        <!-- START: Loading -->
+                        <button
+                            class="btn btn-info loader hide"
+                            disabled="disabled"
+                        >
+                                <i class="fa fa-spinner fa-pulse"></i> {{_ 'Loading'}} ...
+                        </button>
+                        <!-- END: Loading -->
+                        {{#if total}}
+                            {{#when total '>' range}}
+                                <!-- START: Pagination-->
+                                <ul class="loader-pagination pagination">
+                                    {{#pager total range}}
+                                        {{#if active}}
+                                            <li class="active">
+                                                <a
+                                                    title="{{_ 'Next results found for %s' title}}"
+                                                    href="?{{href}}">
+                                                        {{page}}
+                                                </a>
+                                            </li>
+                                        {{else}}
+                                            <li>
+                                                <a
+                                                    title="{{_ 'Previous results
+                                                    found for %s' title}}"
+                                                    href="?{{href}}"
+                                                >
+                                                    {{page}}
+                                                </a>
+                                            </li>
+                                        {{/if}}
+                                    {{/pager}}
+                                </ul>
+                                <!-- END: Pagination-->
+                            {{/when}}
+                        {{/if}}
+                    </div>
+                {{else}}
+                    {{#if profile_banner}}
+                    <div class="wall">
+                        <!-- START: No Results -->
+                        <div class="top no-results">
+                            <div class="summary">
+                                <div class="center-pad">
+                                    <h3>
+                                        {{_ 'No posts to show.'}}
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: No Results -->
+                    </div>
+                    {{else}}
+                    <div class="wall">
+                        <!-- START: No Results -->
+                        <div class="top no-results">
+                            <div class="summary">
+                                <div class="center-pad text-center">
+                                    <p>
+                                        {{_ 'No posts to show'}}
+                                    </p>
+                                    {{#session 'me'}}
+                                        {{#when profile_id '===' ../profile_id}}
+                                            <a
+                                                class="btn btn-default create-post"
+                                                href="/post/create/
+                                                        {{~#if profile_company~}}
+                                                            poster
+                                                        {{~else~}}
+                                                            seeker
+                                                        {{~/if~}}
+                                                ?clear"
+                                            >
+                                                {{_ 'create your first post'}}
+                                            </a>
+                                        {{/when}}
+                                    {{/session}}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: No Results -->
+                    </div>
+                    <div class="clearfix"></div>
+                    {{/if}}
+                {{/if}}
+
+                <!-- START: Post Partials -->
+                {{#if rows}}
+                    {{#session 'me'}}
+                        {{> post/modal_arrangement}}
+                        {{> post/modal_experience}}
+                        {{> post/modal_industry}}
+                        {{> post/modal_location}}
+                        {{> post/modal_school}}
+                        {{> post/modal_remove}}
+
+                        {{#unless profile_company}}
+                            {{> post/modal_completeness}}
+                            {{> post/modal_popup}}
+                        {{/unless}}
+                    {{/session}}
+                {{/if}}
+                {{#session 'me'}}
+                    {{> post/modal_quick-edit}}
+                    {{> post/modal_resume-download}}
+                {{/session}}
+                {{> post/modal_question}}
+                <!-- END: Post Partials -->
+
+            <!-- END: Post Profile Wall -->
+            </div>
+        </div>
+        <!-- END: Post Profile Container -->
+    </div>
+    <!-- END: Post Profile Wrapper -->
+</div>
+<!-- END: Post Profile Body -->

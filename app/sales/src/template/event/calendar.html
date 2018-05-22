@@ -1,0 +1,303 @@
+<script src="/fullcalendar-3.9.0/fullcalendar.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/fullcalendar-3.9.0/fullcalendar.min.css">
+<link rel="stylesheet" type="text/css" media="print" href="/fullcalendar-3.9.0/fullcalendar.print.css">
+
+<!-- START: Crumbs -->
+<div class="crumbs">
+    <a href="/control/business/dashboard">
+        <i class="fa fa-home"></i> {{_ 'Dashboard'}}</a>
+    <span class="separator">
+        <i class="fa fa-angle-right"></i>
+    </span>
+    <a href="/control/business/event/search" class="active">
+        <i class="fa fa-user"></i> {{_ 'Events'}}
+    </a>
+    <span class="separator">
+        <i class="fa fa-angle-right"></i>
+    </span>
+    <a href="/control/business/event/calendar" class="active">
+        <i class="fa fa-calendar"></i> {{_ 'Calendar'}}
+    </a>
+</div>
+<!-- END: Crumbs -->
+<!-- START: Scroll -->
+<div class="scroll">
+    <h3 class="template-blue">
+        <i class="fa fa-user"></i> {{_ 'Events'}}
+        <span class="badge badge-info">{{total}}</span>
+    </h3>
+    <!-- START: Search Actions -->
+    <div class="search-actions">
+        <div class="pull-right">
+            <a href="create" class="btn btn-success">
+                <i class="fa fa-plus"></i> {{_ 'Create Event'}}
+            </a>
+            <a
+                class="btn btn-export"
+                href="/control/business/event/search?export=true&
+                {{~querystring}}"
+            >
+                <i class="fa fa-download"></i> {{_ 'Export'}}
+            </a>
+        </div>
+
+        <div class="btn-group" role="group">
+            <a
+                href="/control/business/event/search?{{~querystring~}}"
+                class="btn btn-default"
+            >
+                {{_ 'Table'}}
+            </a>
+            <a
+                class="btn btn-active active"
+                href="/control/business/event/calendar?{{~querystring~}}"
+            >
+                {{_ 'Calendar'}}
+            </a>
+        </div>
+        <div class="btn-group" role="group">
+            <a
+                class="btn
+                    {{#when filter.event_active '===' '0'}}
+                        btn-default
+                    {{else}}
+                        btn-active active
+                    {{/when}}
+                "
+                href="/control/business/event/calendar?
+                    {{~querystring 'filter[event_active]' '1'}}"
+            >
+                {{_ 'Active'}}
+            </a>
+            <a
+                class="btn
+                    {{#when filter.event_active '===' '0'}}
+                        btn-active active
+                    {{else}}
+                        btn-default
+                    {{/when}}
+                "
+                href="/control/business/event/calendar?
+                    {{~querystring 'filter[event_active]' '0'}}">
+                {{_ 'Inactive'}}
+            </a>
+        </div>
+    </div>
+    <!-- END: Search Actions -->
+    <div class="row">
+        <div class="col-md-2">
+            <!-- START: Search Filters -->
+            <div class="panel panel-default search-filters">
+                <div class="panel-heading">{{_ 'Filters'}}</div>
+                <div class="panel-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group{{#if errors.q}} has-error{{/if}}">
+                                    <label>{{_ 'Search'}}</label>
+                                    <div class="texts-field">
+                                        <input type="text"
+                                            class="form-control"
+                                            name="q"
+                                            placeholder="{{_ 'Enter Keyword'}}"
+                                            type="text"
+                                            value="{{q}}"
+                                        />
+                                    </div>
+                                    {{#if errors.q}}
+                                        <span class="help-text">{{errors.q}}</span>
+                                    {{/if}}
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>{{_ 'Type'}}</label>
+                                    <div class="select-field">
+                                        <select
+                                            class="form-control"
+                                            name="filter[event_type]"
+                                         >
+                                            <option value="">All</option>
+                                            <option
+                                                {{#when filter.event_type '==' 'meeting'}}
+                                                selected
+                                                {{/when}}
+                                                value="meeting"
+
+                                                >
+                                                {{_ 'Meeting'}}
+                                            </option>
+                                            <option
+                                                {{#when filter.event_type '==' 'demo'}}
+                                                selected
+                                                {{/when}}
+                                                value="demo"
+                                            >
+                                                {{_ 'Demo/Presentation'}}
+                                            </option>
+                                            <option
+                                                {{#when filter.event_type '==' 'others'}}
+                                                selected
+                                                {{/when}}
+                                                value="others"
+                                            >
+                                                {{_ 'Others'}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group{{#if errors.q}} has-error{{/if}}">
+                                    <label>{{_ 'Agent'}}</label>
+                                    <div class="texts-field">
+                                        <input
+                                            autocomplete="off"
+                                            class="form-control select-keyup"
+                                            data-do="select-agent"
+                                            data-on="keyup"
+                                            data-field="filter[profile_id]"
+                                            id="select-agent"
+                                            name="agent_name"
+                                            placeholder="{{_ 'Enter Agent Name'}}"
+                                            type="text"
+                                            value="{{agent_name}}"
+                                        />
+                                        <input
+                                            name="filter[profile_id]"
+                                            type="hidden"
+                                            value="{{filter.profile_id}}"
+                                        />
+                                    </div>
+                                    <ul class="auto-suggest"></ul>
+                                    {{#if errors.profile_id}}
+                                        <span class="help-text">{{errors.profile_id}}</span>
+                                    {{/if}}
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="form-group filter-button-only">
+                            {{#when filter.event_active '==' '0'}}
+                                <input
+                                    type="hidden"
+                                    name="filter[event_active]"
+                                    value="0"
+                                />
+                            {{/when}}
+                            <button class="btn btn-primary">{{_ 'Filter'}}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- END: Search Filters -->
+        </div>
+        <div class="col-md-10">
+            <div id="calendar"></div>
+        </div>
+    </div>
+
+    <div class="clearfix">
+
+    </div>
+</div>
+<!-- END: Scroll -->
+
+<script type="text/javascript">
+    $(function() {
+        $('#calendar').fullCalendar({
+            defaultView: 'month',
+            height: 750,
+            header: {
+              left: 'prev,next today',
+              center: 'title',
+              right: 'month,agendaWeek,agendaDay,listWeek'
+            },
+            eventLimit: true, // allow "more" link when too many events
+            navLinks: true,
+            events: function(start, end, timezone, callback) {
+                var data = {
+                    date_type: {
+                        'start' : 'start',
+                        'end': 'end'
+                    },
+                    date_start: start.format(),
+                    date_end: end.format()
+                };
+                {{#if q}}
+                    data.q = '{{q}}';
+                {{/if}}
+
+                {{#if filter.event_type}}
+                    if (!data.filter) {
+                        data.filter = {
+                            'event_type': ''
+                        };
+                    }
+
+                    data.filter['event_type'] = '{{filter.event_type}}';
+                {{/if}}
+
+                {{#when filter.event_active '==' '0'}}
+                    if (!data.filter) {
+                        data.filter = {
+                            'event_active': 1
+                        };
+                    }
+
+                    data.filter['event_active'] = '{{filter.event_active}}';
+                {{/when}}
+
+                {{#if filter.profile_id}}
+                    if (!data.filter) {
+                        data.filter = {
+                            'profile_id': null
+                        };
+                    }
+
+                    data.filter['profile_id'] = '{{filter.profile_id}}';
+                {{/if}}
+
+                console.log(data);
+                jQuery.ajax({
+                    url: '/ajax/sales/event/search',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: data,
+                    success: function(doc) {
+                        var events = [];
+                        if(!!doc.results.rows){
+                            $.map( doc.results.rows, function( r ) {
+                                events.push({
+                                    id: r.event_id,
+                                    title: r.event_title + ' - ' + r.profile_name ,
+                                    start: r.event_start,
+                                    end: r.event_end,
+                                });
+                            });
+                        }
+                        callback(events);
+                    }
+                });
+            }
+            // events: [
+            //     {
+            //       title  : 'event1',
+            //       start  : '2018-03-01'
+            //     },
+            //     {
+            //       title  : 'event2',
+            //       start  : '2018-03-05',
+            //       end    : '2018-03-07'
+            //     },
+            //     {
+            //       title  : 'event3',
+            //       start  : '2018-03-09T12:30:00',
+            //       allDay : false // will make the time show
+            //     }
+            // ]
+        });
+    });
+</script>

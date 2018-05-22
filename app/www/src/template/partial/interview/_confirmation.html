@@ -1,0 +1,59 @@
+<!-- START: Confirmation Modal -->
+<div
+    class="modal fade confirmation-form confirmation-interview"
+    id="confirmation-interview"
+    role="dialog"
+>
+    <!-- START: Modal Dialog -->
+    <div class="modal-dialog">
+        <!-- START: Modal Content -->
+        <div class="modal-content">
+            <!-- START: Modal Header -->
+            <div class="modal-header">
+                <!-- START: Modal Title -->
+                <div class="modal-title"></div>
+                <!-- END: Modal Title -->
+            </div>
+            <!-- END: Modal Header -->
+            <!-- START: Form -->
+            <form
+                class="form-horizontal modal-form"
+                data-do="interview-confirmation"
+                data-on="submit"
+            >
+                <!-- START: Modal Body -->
+                <div class="modal-body">
+                    <!-- START : Sub Title -->
+                    <span class="sub-title hide"></span>
+                    <!-- END : Sub Title -->
+
+                    <!-- START : Message -->
+                    <span class="modal-message"></span>
+                    <!-- END : Message -->
+                </div>
+                <!-- END: Modal Body -->
+
+                <!-- START : Modal Footer -->
+                <div class="modal-footer">
+                    <!-- START : Modal Submit -->
+                    <button class="btn btn-default" type="submit"></button>
+                    <!-- END : Modal Submit -->
+                    <!-- START : Modal Dismiss -->
+                    <button
+                        class="btn btn-primary"
+                        data-dismiss="modal"
+                        type="button"
+                    >
+                        {{_ 'Cancel'}}
+                    </button>
+                    <!-- END : Modal Dismiss -->
+                </div>
+                <!-- END : Modal Footer -->
+            </form>
+            <!-- END : Form -->
+        </div>
+        <!-- END: Modal Content -->
+    </div>
+    <!-- END: Modal Dialog -->
+</div>
+<!-- END: Confirmation Modal -->

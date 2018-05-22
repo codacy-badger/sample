@@ -1,0 +1,18 @@
+<div class="search-list">
+    {{#each rows}}
+        {{#when post_type '===' 'poster'}}
+            {{> post_poster
+                heading_name='h2'
+                heading_position='h3'
+                heading_salary='h3'
+                heading_location='h3' }}
+        {{/when}}
+        {{#when post_type '===' 'seeker'}}
+            {{> post_seeker
+                heading_name='h2'
+                heading_position='h3'
+                heading_salary='h3'
+                heading_location='h3' }}
+        {{/when}}
+    {{/each}}
+</div>

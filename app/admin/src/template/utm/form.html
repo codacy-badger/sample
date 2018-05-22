@@ -1,0 +1,153 @@
+<div class="panel panel-default clear" >
+    <div class="panel-heading brand">
+        <div class="panel-title">{{title}}</div>
+    </div>
+
+    <div class="panel-body" >
+        <form
+            enctype="multipart/form-data"
+            method="post"
+            {{#if cdn_config}}
+                data-do="cdn-upload"
+                data-on="submit"
+                data-progress="We are uploading your files. Please do not refresh page."
+                data-complete="Upload Complete"
+                data-enctype="{{cdn_config.form.enctype}}"
+                data-method="{{cdn_config.form.method}}"
+                data-action="{{cdn_config.form.action}}"
+                data-cdn="{{cdn_config.form.action}}"
+                data-acl="{{cdn_config.inputs.acl}}"
+                data-key="{{cdn_config.inputs.key}}"
+                data-credential="{{cdn_config.inputs.X-Amz-Credential}}"
+                data-algorythm="{{cdn_config.inputs.X-Amz-Algorithm}}"
+                data-date="{{cdn_config.inputs.X-Amz-Date}}"
+                data-policy="{{cdn_config.inputs.Policy}}"
+                data-signature="{{cdn_config.inputs.X-Amz-Signature}}"
+            {{/if}}
+        >
+        <div id="fields-view-init" class="{{#if view}}view{{/if}}">
+            <div class="form-group{{#if errors.utm_title}} has-error{{/if}}">
+                <label class="control-label">Title</label>
+                <div>
+                    <input
+                        class="form-control"
+                        name="utm_title"
+                        placeholder="Title"
+                        type="text"
+                        value="{{item.utm_title}}"
+                    />
+
+                    {{#if errors.utm_title}}
+                    <span class="help-text">{{errors.utm_title}}</span>
+                    {{/if}}
+                </div>
+            </div>
+
+            <div class="form-group{{#if errors.utm_source}} has-error{{/if}}">
+                <label class="control-label">UTM Source</label>
+                <div>
+                    <input
+                        class="form-control"
+                        name="utm_source"
+                        placeholder="UTM Source"
+                        type="text"
+                        value="{{item.utm_source}}"
+                    />
+
+                    {{#if errors.utm_source}}
+                    <span class="help-text">{{errors.utm_source}}</span>
+                    {{/if}}
+                </div>
+            </div>
+
+            <div class="form-group{{#if errors.utm_medium}} has-error{{/if}}">
+                <label class="control-label">UTM Medium</label>
+                <div>
+                    <input
+                        class="form-control"
+                        name="utm_medium"
+                        placeholder="UTM Medium"
+                        type="text"
+                        value="{{item.utm_medium}}"
+                    />
+
+                    {{#if errors.utm_medium}}
+                    <span class="help-text">{{errors.utm_medium}}</span>
+                    {{/if}}
+                </div>
+            </div>
+
+            <div class="form-group{{#if errors.utm_campaign}} has-error{{/if}}">
+                <label class="control-label">UTM Campaign</label>
+                <div>
+                    <input
+                        class="form-control"
+                        name="utm_campaign"
+                        placeholder="UTM Campaign"
+                        type="text"
+                        value="{{item.utm_campaign}}"
+                    />
+
+                    {{#if errors.utm_campaign}}
+                    <span class="help-text">{{errors.utm_campaign}}</span>
+                    {{/if}}
+                </div>
+            </div>
+
+            <div class="form-group{{#if errors.utm_detail}} has-error{{/if}}">
+                <label class="control-label">Detail</label>
+                <div>
+                    <textarea
+                        class="form-control"
+                        name="utm_detail"
+                        placeholder="Write about something"
+                    >{{{item.utm_detail}}}</textarea>
+
+                    {{#if errors.utm_detail}}
+                    <span class="help-text">{{errors.utm_detail}}</span>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="form-group{{#if errors.utm_image}} has-error{{/if}}">
+                <label class="control-label">Image</label>
+                <div>
+                    <div
+                        class="image-field"
+                        data-alt="Change this Photo"
+                        data-do="image-field"
+                        data-name="utm_image"
+                    >
+                            {{#if item.utm_image}}
+                                <input name="utm_image" type="hidden" value="{{item.utm_image}}" />
+                                <img alt="Change this Photo" src="{{item.utm_image}}" width="200"/>
+                            {{else}}
+                                <img
+                                    alt="Upload a Photo"
+                                    class="placeholder"
+                                    src="/images/default-image.png"
+                                    width="200"
+                                />
+                            {{/if}}
+                            <p style="color: #ddd;">please use atleast 600 x 315 pixels</p>
+                    </div>
+
+                    {{#if errors.utm_image}}
+                    <span class="help-text">{{errors.utm_image}}</span>
+                    {{/if}}
+                </div>
+            </div>
+
+
+            <div class="clear form-group">
+                <input name="csrf" type="hidden" value="" />
+                {{#if view}}
+                    <a href="/control/utm/search" class="btn btn-link" type="submit"><i class="fa fa-caret-left"></i> &nbsp;Back</a>
+                {{else}}
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                {{/if}}
+            </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="/scripts/cropper.js" type="text/javascript"></script>

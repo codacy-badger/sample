@@ -1,0 +1,125 @@
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+<div style="background: #f6f6f6; margin: 20px auto; padding: 0; width: 600px;">
+    <!-- Head -->
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="600"
+        style="border-collapse: collapse;
+            background: #7cd4e8;
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;">
+        <tr>
+            <td>
+                <div style="margin: 30px 0; text-align: center;">
+                    <img src="{{host}}/images/email/logo-white.png" />
+                </div>
+                <div>
+                    <h2 style="color: #ffffff;
+                        font-weight: 500;
+                        font-size: 20px;">SOMEONE CONTACTED US!</h2>
+                </div>
+                <div style="background: #ffffff;
+                    margin: auto;
+                    width: 500px;">
+                    <p style="color: #a5a9aa;
+                        font-size: 14px;
+                        padding: 25px 25px 0 25px;
+                        text-align: left;">
+                        Someone just contacted us {{action}}, please get back to his/her concern immediately. Below are the details we have collected:
+                    </p>
+                    <p style="color: #a5a9aa;
+                        font-size: 14px;
+                        margin-bottom: 0;
+                        padding: 0 25px 0 50px;
+                        text-align: left;">
+                        Name: {{item.contact_fname}} {{item.contact_lname}} <br>
+                        Email: {{item.contact_email}} <br>
+                        Number: {{item.contact_phone}} <br>
+                        Message: <br>
+                        {{item.contact_message}}
+                    </p>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <!-- Body -->
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="500"
+        style="background: #ffffff;
+            border-collapse: collapse;
+            color: #b0b3b4;
+            font-family: 'Open Sans', sans-serif;
+            text-align: center;">
+        <tr>
+            <td style="padding: 25px;">
+            </td>
+        </tr>
+    </table>
+    <!-- Footer -->
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="500"
+        style="background: transparent;
+            border-collapse: collapse;
+            color: #b0b3b4;
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;">
+        <tr>
+            <td style="padding: 25px;">
+                <a  href="{{host}}" target="_blank">  
+                    <img src="{{host}}/images/logo-gray.png" />
+                </a>
+                <ul style="list-style-type: none;
+                    margin-bottom: 25px;
+                    margin-top: 20px;
+                    padding: 0;">
+                    <li style="border-radius: 25px;
+                            border: 2px solid #9fa098;
+                            color: #9fa098;
+                            display: inline-block;
+                            width:40px;
+                            height:40px;">
+                        <a href="https://www.facebook.com/jobayancom" target="_blank"
+                            style="display: grid;">
+                            <img src="{{host}}/images/email/fb.png" style="margin: 8px;"/>
+                        </a>
+                    </li>
+                    &nbsp;
+                    <li style="border-radius: 25px;
+                            border: 2px solid #9fa098;
+                            color: #9fa098;
+                            display: inline-block;
+                            width:40px;
+                            height:40px">
+                        <a href="https://twitter.com/jobayancom" target="_blank"
+                            style="display: grid;">
+                            <img src="{{host}}/images/email/twitter.png" style="margin: 8px;"/>
+                        </a>
+                    </li>
+                    &nbsp;
+                    <li style="border-radius: 25px;
+                            border: 2px solid #9fa098;
+                            color: #9fa098;
+                            display: inline-block;
+                            width:40px;
+                            height:40px">
+                        <a href="https://www.linkedin.com/company/13271950" target="_blank"
+                            style="display: grid;">
+                            <img src="{{host}}/images/email/linkedin.png" style="margin: 8px;"/>
+                        </a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td style="border-top: 1px solid #b9bbbc; clear: both; padding: 20px 0 40px 0;">
+                <div style="font-size: 13px; float: left;">
+                    Copyright &copy; 2017 All Rights Reserved
+                </div>
+                <div style="font-size: 13px; float: right;">
+                    Jobayan PH &middot;
+                    <a href="{{host}}/privacy" target="_blank"
+                        style="color: #b0b3b4;
+                        text-decoration: none;">Our Privacy Policy</a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

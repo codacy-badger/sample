@@ -1,0 +1,300 @@
+<style type="text/css">
+    .header {
+        margin-bottom: 20px;
+    }
+    .header .image,
+    .header .name,
+    .header .email,
+    .header .phone {
+        text-align: center;
+        margin-bottom: 5px;
+    }
+    .header .title {
+        background: #03B6D5;
+        color: #FFFFFF;
+        padding: 35px 0;
+    }
+    .header .image {
+        height: 100px;
+        margin: auto;
+        margin-top: -55px;
+        text-align: center;
+        width: 100px;
+    }
+    .header .name {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 5px;
+    }
+    .personal-info,
+    .experience,
+    .education,
+    .accomplishment,
+    .skills {
+        margin-bottom: 25px;
+    }
+    h2 {
+        font-size: 16px;
+        margin: 0;
+    }
+    table {
+        width: 100%;
+    }
+    table.address {
+        margin-bottom: 10px;
+    }
+    table.experience-list .related {
+        margin-top: 10px;
+    }
+    table.experience-list,
+    table.education-list,
+    table.accomplishment-list,
+    table.skills-list {
+        margin-bottom: 20px;
+    }
+    .skills-list ul {
+        margin-top: -15px;
+    }
+    .footer {
+        text-align: center;
+        width: 100%;
+    }
+    .footer p {
+        color: #909090;
+        margin-bottom: 0;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+    .footer .powered {
+        color: #909090;
+        font-size: 8px;
+        margin-bottom: 5px;
+    }
+    .footer .question {
+        margin-top: 20px;
+    }
+    .footer .question a {
+        color: #909090;
+        text-decoration: none;
+    }
+    .footer .image {
+        text-decoration: none;
+    }
+    .footer img {
+        height: 25px;
+    }
+</style>
+<!-- START: Content -->
+<page style="font-size: 12pt">
+    <!-- START: Header -->
+    <div class="header">
+        <div class="title"></div>
+        <div class="image">
+            {{#if information.profile_image}}
+                <img
+                    alt="{{_ 'Profile Image'}}"
+                    src="{{information.profile_image}}"
+                    width="100"
+                />
+            {{else}}
+                <img
+                    alt="{{_ 'Profile Image'}}"
+                    src="{{local_avatar information.profile_id}}"
+                    width="100"
+                />
+            {{/if}}
+        </div>
+        <div class="name">
+            {{information.profile_name}}
+        </div>
+        <div class="email">
+            {{information.profile_email}}
+        </div>
+        <div class="phone">
+            {{information.profile_phone}}
+        </div>
+    </div>
+    <!-- END: Header -->
+    <!-- START: Personal Information -->
+    <h2>{{_ 'Personal Information'}}</h2>
+    <hr />
+    <div class="personal-info">
+        <table class="address">
+            <tr>
+                <td style="width: 20%;">
+                    {{_ 'Address'}}
+                </td>
+                <td style="width: 80%; padding-left: 30px;">
+                    {{information.profile_address_street}}
+                    {{information.profile_address_city}}
+                    {{information.profile_address_state}}
+                    {{information.profile_address_postal}}
+                    {{information.profile_address_country}}
+                </td>
+            </tr>
+       </table>
+       <table class="address">
+            <tr>
+                <td style="width: 20%;">
+                    {{_ 'Personal Info'}}
+                </td>
+                <td style="width: 80%; padding-left: 30px;">
+                    <div>{{date information.profile_birth 'M d, Y'}}</div>
+                    <div>{{capital information.profile_gender}}</div>
+                    <div>{{capital information.information_civil_status}}</div>
+                </td>
+            </tr>
+      </table>
+    </div>
+    <!-- END: Personal Information -->
+    <!-- START: Work Experience -->
+    {{#if information.information_experience}}
+        <div class="experience">
+            <h2>{{_ 'Work Experience'}}</h2>
+            <hr />
+            {{#each information.information_experience}}
+                <table class="experience-list">
+                     <tr>
+                        <td style="width: 20%;">
+                            {{~#if experience_from~}}
+                                {{~date experience_from 'F Y'}} -
+                            {{/if}}
+                            {{date_information experience_to}}
+                        </td>
+                        <td style="width: 80%; padding-left: 30px;">
+                            <div class="position">
+                                {{experience_title}}
+                            </div>
+                            <div class="company">
+                                {{experience_company}}
+                            </div>
+                            <div class="industry">
+                                {{experience_industry}}
+                            </div>
+                            <div class="related">
+                                {{_ 'Related to college degree'}}:
+                                {{capital experience_related}}
+                            </div>
+                        </td>
+                     </tr>
+               </table>
+            {{/each}}
+        </div>
+    {{/if}}
+    <!-- END: Work Experience -->
+    <!-- START: Education -->
+    {{#if information.information_education}}
+        <div class="education">
+            <h2>{{_ 'Education'}}</h2>
+            <hr />
+            {{#each information.information_education}}
+                <table class="education-list">
+                     <tr>
+                        <td style="width: 20%;">
+                            {{~#if education_from~}}
+                                {{~date education_from 'F Y'}} -
+                            {{/if}}
+                            {{date_information education_to}}
+                        </td>
+                        <td style="width: 80%; padding-left: 30px;">
+                            <div class="school">
+                                {{education_school}}
+                            </div>
+                            <div class="degree">
+                                {{education_degree}}
+                            </div>
+                            <div class="activity">
+                                {{education_activity}}
+                            </div>
+                        </td>
+                     </tr>
+               </table>
+           {{/each}}
+       </div>
+    {{/if}}
+    <!-- END: Education -->
+    <!-- START: Accomplishment -->
+    {{#if information.information_accomplishment}}
+        <div class="accomplishment">
+            <h2>{{_ 'Accomplishments'}}</h2>
+            <hr />
+            {{#each information.information_accomplishment}}
+                <table class="accomplishment-list">
+                     <tr>
+                        <td style="width: 20%;">
+                            {{~#if accomplishment_from~}}
+                                {{~date accomplishment_from 'F Y'}} -
+                            {{/if}}
+                            {{#if accomplishment_to~}}
+                                {{~date accomplishment_to 'F Y'}}
+                            {{~/if~}}
+                        </td>
+                        <td style="width: 80%; padding-left: 30px;">
+                            <div class="event">
+                                {{accomplishment_name}}
+                            </div>
+                            <div class="description">
+                                {{accomplishment_description}}
+                            </div>
+                        </td>
+                     </tr>
+               </table>
+            {{/each}}
+        </div>
+    {{/if}}
+    <!-- END: Accomplishment -->
+    <!-- START: Skills -->
+    {{#if information.information_skills}}
+        <div class="skills">
+            <h2>{{_ 'Skills'}}</h2>
+            <hr />
+            <table class="skills-list">
+                 <tr>
+                    <td style="width: 20%;"></td>
+                    <td style="width: 80%; padding-left: 10px">
+                        <ul>
+                            {{#each information.information_skills}}
+                                <li>{{this}}</li>
+                            {{/each}}
+                        </ul>
+                    </td>
+                 </tr>
+           </table>
+        </div>
+    {{/if}}
+    <!-- END: Skills -->
+    <page_footer>
+        <div class="footer">
+            <p class="powered">
+                Powered by:
+            </p>
+            <a
+                href="https://www.jobayan.com/"
+                target="_blank"
+                title="{{_ 'Jobayan'}}"
+                class="image"
+            >
+                <img
+                    alt="{{_ 'Jobayan Logo'}}"
+                    src="{{logo}}"
+                />
+            </a>
+            <p class="question">
+                Questions? Concerns? Email us at
+                <a
+                    href="mailto:hello@jobayan.com"
+                    title="{{_ 'Jobayan'}}"
+                >
+                    hello@jobayan.com
+                </a>
+            </p>
+            <p>
+                Mandala Park, 1552 Shaw Boulevard,
+            </p>
+            <p>
+                Pleasant Hills Mandaluyong
+            </p>
+        </div>
+    </page_footer>
+</page>
+<!-- END: Content -->

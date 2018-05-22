@@ -1,0 +1,291 @@
+/* General Styles
+------------------------------*/
+html, body { background-color: #37474F; font-family: 'Open Sans', Arial; }
+body { height: 100%; width: 100%; }
+body > .wrapper { background: #FFFFFF; }
+input { border-radius: 0 !important; }
+::-webkit-input-placeholder { font-style:italic; }
+::-moz-placeholder { font-style:italic; }
+:-ms-input-placeholder { font-style:italic; }
+input:-moz-placeholder { font-style:italic; }
+
+/* Component - Button
+------------------------------*/
+.btn {
+    border: none;
+    border-radius: 0 !important;
+    color: #FFFFFF !important;
+    font-weight: 200;
+    text-transform: uppercase;
+}
+
+.btn-primary {
+    background-color: #FF9933 !important;
+    border-color: #FF9933 !important;
+}
+
+.btn-info {
+    background-color: #66CCCC !important;
+    border-color: #66CCCC !important;
+}
+
+.btn-facebook {
+    background-color: #3399CC !important;
+    border-color: #3399CC !important;
+}
+
+/* Widget - Notify
+------------------------------*/
+.notify {
+    background-url: url('something')
+    background-color: #232323;
+    bottom: 0;
+    color: #EFEFEF;
+    height: auto !important;
+    left: 0;
+    opacity: .95;
+    padding: 20px;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    z-index: 10000;
+}
+
+.notify-info {
+  color: #FFFFFF;
+  background-color: #5BC0DE;
+}
+
+.notify-success {
+  color: #FFFFFF;
+  background-color: #5CB85C;
+}
+
+.notify-danger {
+  color: #FFFFFF;
+  background-color: #D9534F;
+}
+
+.notify-warning {
+  color: #FFFFFF;
+  background-color: #F0AD4E;
+}
+
+.notify .message {
+    display: block;
+    margin-top: 5px;
+    padding-right: 25px;
+}
+
+.notify > a {
+    float: right;
+    font-size: 20px;
+    color: #EFEFEF;
+}
+
+/* Component - Pagination
+------------------------------*/
+.pagination {
+    text-align: center;
+    width: 100%;
+}
+
+.pagination li {
+    display: inline-block;
+}
+
+.pagination a {
+    color: #F58020;
+}
+
+.pagination .active a {
+    border-color: #F58020;
+    background-color: #F58020;
+    color: #FFFFFF;
+}
+
+.pagination>li:first-child > a,
+.pagination>li:first-child > span,
+.pagination>li:last-child > a,
+.pagination>li:last-child > span {
+    border-radius: 0;
+}
+
+/* Component - Panel
+------------------------------*/
+.panel {
+	border-radius: 0;
+    margin-top: 20px;
+}
+
+.panel-body {
+    overflow: auto;
+}
+
+/* Component - Form
+------------------------------*/
+.split-input input {
+    display: inline-block;
+    width: 35%;
+}
+
+.split-input input:first-child {
+    width: 59%;
+}
+
+.editor {
+    height: 400px;
+}
+
+.hide-groups .form-group {
+    display: none;
+}
+
+.group-toggle {
+    color: #006699;
+    cursor: pointer;
+}
+
+/* Partial - Head
+------------------------------*/
+.head, .head .navbar {
+    background: #FFFFFF;
+    top: 0;
+    width: 100%;
+    z-index: 3;
+}
+
+.head .navbar {
+    margin-bottom: 0;
+}
+
+.head .navbar-brand { padding: 8px; }
+.head .navbar-brand img {
+    display: inline;
+    margin-top: -9px;
+    margin-left: -4px;
+    height: 50px;
+}
+
+.head .navbar-brand span {
+    display: inline-block;
+    font-size: 10px;
+    margin-top: -4px;
+    vertical-align: middle;
+}
+
+.head .product-create {
+    font-size: 12px;
+}
+
+.head .navbar-toggle {
+    background-color: #FFFFFF;
+}
+
+.head .session-dropdown > a {
+    background-color: transparent !important;
+    padding-top: 8px;
+    padding-bottom: 7px;
+}
+
+.head .session-dropdown > ul {
+    min-width: 300px;
+    padding-bottom: 0;
+}
+
+.head .session-dropdown .profile-rank,
+.head .session-dropdown .profile-standing,
+.head .session-dropdown .profile-experience {
+    font-weight: bold;
+    line-height: 20px;
+    padding: 3px 20px;
+    white-space: nowrap;
+}
+
+.head .session-dropdown .progress {
+    margin-bottom: 0;
+}
+
+.head .session-dropdown .profile-standing {
+    margin-bottom: 20px;
+}
+
+.head .session-dropdown .btn {
+    font-size: 13px;
+    font-weight: 200;
+    padding: 10px !important;
+}
+
+.head .session-dropdown .btn:hover {
+    color: #777777 !important;
+}
+
+.head .session-dropdown .text-info {
+    color: #31708F !important;
+}
+
+.head .session-dropdown .text-danger {
+    color: #A94442 !important;
+}
+
+@media (max-width: 767px) {
+    .head .navbar-collapse.in,
+    .head .navbar-collapse.collapsing {
+        background-color: #FFFFFF;
+    }
+
+    .head .session-dropdown .profile-rank,
+    .head .session-dropdown .profile-standing,
+    .head .session-dropdown .profile-experience {
+        padding: 0 15px 5px 55px;
+    }
+}
+
+/* Partial - Foot
+------------------------------*/
+.foot .top {
+    background-color: #e4e4e4;
+    padding:20px;
+    text-align: center;
+}
+
+.foot .social{
+    display: inline;
+    margin-bottom: 0px;
+    padding: 0px;
+    text-align: center;
+    width: 100%;
+}
+
+.foot .social li { display: inline-block; width: 50px; }
+.foot .social li a { text-decoration: none; }
+
+.foot .social img{
+    width:30px;
+    height:30px;
+    border-radius:50px;
+    margin-right:5px;
+    transition: opacity 0.3s ease;
+}
+
+.foot .social img:hover { opacity: .8; }
+.foot .social .social-facebook img { background-color: #3B5998; }
+.foot .social .social-twitter img { background-color: #00ABEB;}
+.foot .social .social-f6s img { background-color: #E4403F;}
+.foot .social .social-angelco img { background-color: #000000;}
+.foot .social .social-crunchbase img { background-color: #333333;}
+.foot .social .social-salap img { background-color: #FFCC00;}
+
+.foot .bottom { background-color: #37474F; }
+.foot .bottom .left { float: left; height: inherit; }
+
+.foot .bottom .right { float: right; }
+.foot .bottom .left a,
+.foot .bottom .right a {
+    color: #FFFFFF;
+    display: inline-block;
+    font-size: 13px;
+    padding: 22px 25px;
+    position: relative;
+    text-decoration: none;
+}

@@ -1,0 +1,241 @@
+<!-- START: Crumbs -->
+    <div class="crumbs">
+    <a href="/control/business/dashboard">
+        <i class="fa fa-home"></i> {{_ 'Dashboard'}}
+    </a>
+    <span class="separator"><i class="fa fa-angle-right"></i></span>
+    {{#when item.deal_type '==' 'profile'}}
+        <a href="/control/business/profile/search">
+            <i class="fa fa-briefcase"></i>
+            {{_ 'Companies'}}
+        </a>
+    {{/when}}
+    {{#when item.deal_type '==' 'lead'}}
+    <a href="/control/business/lead/search">
+        <i class="fa fa-briefcase"></i>
+        {{_ 'Leads'}}
+    </a>
+    {{/when}}
+    <span class="separator"><i class="fa fa-angle-right"></i></span>
+    <a href="/control/business/deal/overview/{{item.deal_id}}">
+        <i class="fa fa-building"></i>
+        {{item.deal_name}}
+    </a>
+    <span class="separator"><i class="fa fa-angle-right"></i></span>
+    <a href="#" class="active">
+        <i class="fa fa-briefcase"></i> {{_ 'Emails'}}
+    </a>
+</div>
+<!-- END: Crumbs -->
+<!-- START: Scroll -->
+<div class="scroll">
+    <h3 class="template-blue">
+        <i class="fa fa-briefcase"></i> {{_ '%s Details' item.deal_name}}
+    </h3>
+    <!--START: Deal Details-->
+    <div class="panel-body">
+	    <div class="row">
+            <div class="m-top-8 align-center UIColumn-wrapper">
+	    		<div class="row">
+	    		<!-- START: Pipeline -->
+                    <div class="container">
+                        <div class="row deal-progress" style="border-bottom:0;">
+                            {{#each item.pipeline_stages}}
+                                <div
+                                    class="pull-left deal-progress-step
+                                        {{#if this}}
+                                            {{#when @key '==' ../item.deal_status}}
+                                                active
+                                            {{else}}
+                                                complete
+                                            {{/when}}
+                                        {{else}}
+                                            disabled
+                                        {{/if}}"
+                                    style="width: {{../pipeline_width}}%;"
+                                >
+                                    <div class="progress">
+                                        <div class="progress-bar"></div>
+                                    </div>
+                                    <a
+                                        class="deal-progress-dot"
+                                        href="#"
+                                    ></a>
+                                    <div
+                                        class="deal-progress-info text-center
+                                        {{#when @key '==' ../item.deal_status}}
+                                            current-stage
+                                        {{/when}}"
+                                    >
+                                        {{@key}}
+                                    </div>
+                                </div>
+                            {{/each}}
+                        </div>
+	                </div>
+                </div>
+                <!-- END: Pipeline -->
+                <div class="row">
+                    <!-- START: Deal Detail -->
+    				<div class="col-xs-12 col-sm-4 deal-detail">
+    					<h4 class="no-underline-h4">{{_ 'Details'}}</h4>
+                		<div class="card">
+                          	<ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <span class="title">{{_ 'Amount'}}</span>
+                                    <br>
+                                     &#8369;
+                                    <input
+                                        class="value editable"
+                                        data-do="deal-amount"
+                                        data-on="change"
+                                        data-id="{{item.deal_id}}"
+                                        type="text"
+                                        value="{{number item.deal_amount}}"
+                                    >
+                                    <!-- <span class='deal-amount-display'>{{number item.deal_amount}}</span> -->
+                                    </p>
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="title">{{_ 'Deal Stage'}}</span>
+                                    <p class="value">
+                                        <select
+                                            class="form-control"
+                                            data-do="deal-status"
+                                            data-on="change"
+                                            data-id="{{item.deal_id}}"
+                                            data-current="{{../item.deal_status}}"
+                                            data-name="{{../item.deal_name}}"
+                                        >
+                                            {{#each item.pipeline_stages}}
+                                                <option
+                                                    value="{{@key}}"
+                                                    {{#when @key '==' ../item.deal_status}}
+                                                        selected
+                                                    {{/when}}
+                                                >
+                                                    {{@key}}
+                                                </option>
+                                            {{/each}}
+                                        </select>
+                                    </p>
+                                    <div class="clearfix"></div>
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="title">
+                                        {{_ 'Target Close Date'}}
+                                    </span>
+                                    <p class="value">
+                                        <input
+                                            class="value editable"
+                                            data-id="{{item.deal_id}}"
+                                            data-do="deal-close"
+                                            data-on="change"
+                                            type="date"
+                                            value="{{date item.deal_close 'Y-m-d'}}"
+                                        >
+                                    </p>
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="title">{{_ 'Deal Type'}}</span>
+                                    <p class="value">
+                                        {{#when item.deal_type '==' 'lead'}}
+                                            {{~_ 'Prospect Company'~}}
+                                        {{else}}
+                                            {{~_ 'Existing Company'}}
+                                        {{/when}}
+                                    </p>
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="title">{{_ 'Company'}}</span>
+                                    <p class="value">
+                                        {{~item.company.lead_company~}}
+                                        {{~item.company.profile_company~}}
+                                    </p>
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="title">
+                                        {{~_ 'Contact Person'~}}
+                                    </span>
+                                    <p class="value">
+                                        <i class="fa fa-user-secret" aria-hidden="true"></i>
+                                        {{item.company.lead_name}}{{item.company.profile_name}} <br />
+                                        <i class="fa fa-envelope-o"></i>
+                                        {{item.company.lead_email}}{{item.company.profile_email}} <br />
+                                        <i class="fa fa-phone" aria-hidden="true"></i>
+                                        {{item.company.lead_phone}}{{item.company.profile_phone}}
+                                    </p>
+                                </li>
+                                <li class="list-group-item">
+                                    <span class="title">
+                                        {{~_ 'Agent Assigned'~}}
+                                    </span>
+                                    <p class="value">
+                                        {{item.agent.profile_name}}
+                                    </p>
+                                </li>
+                          	</ul>
+                		</div>
+    	            </div>
+                    <!-- END: Deal Detail -->
+                    <div class="col-xs-12 col-sm-8">
+                        <h4>
+                            <a
+                                href="/control/business/deal/overview/{{item.deal_id}}"
+                                title="back to timeline"
+                            >
+                                <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                            </a>
+                            {{_ 'Emails'}}
+                        </h4>
+                        <div class="email-container">
+                            {{#each gmail.messages}}
+                                <div class="email">
+                                    <a
+                                        class="btn btn-default snippet-btn clearfix"
+                                        href="/control/business/deal/{{../item.deal_id}}/thread/{{thread_id}}"
+                                        role="button"
+                                    >
+                                        <div class="pull-left">
+                                            <span class="subject">{{subject}}</span>
+                                            <span class="snippet">{{{snippet}}}</span>
+                                        </div>
+                                        <div class="pull-right date">
+                                            {{~msg_date~}}
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="clearfix"></div>
+                            {{/each}}
+                            {{#unless gmail.messages}}
+                                <div class="email">
+                                    No emails for this client.
+                                </div>
+                            {{/unless}}
+                        </div>
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                {{#isset 'session' 'email_page_current' 'previous'}}
+                                    {{#session 'email_page_current'}}
+                                        <a href="/control/business/deal/{{../item.deal_id}}/messages?pageToken={{previous}}">
+                                            {{_ '<< Previous'}}
+                                        </a>
+                                    {{/session}}
+                                {{/isset}}
+                            </div>
+                            <div class="pull-right">
+                                {{#if gmail.nextPageToken}}
+                                    <a href="/control/business/deal/{{item.deal_id}}/messages?pageToken={{gmail.nextPageToken}}">
+                                        {{_ 'Next >>'}}
+                                    </a>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<!-- End of Timeline here -->
+	    </div>
+	</div>
+</div>
+<!-- END: Scroll -->

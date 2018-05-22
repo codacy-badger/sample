@@ -1,0 +1,148 @@
+<div class="panel panel-default clear" >
+    <div class="panel-heading brand">
+        <div class="panel-title">{{title}}</div>
+    </div>
+
+
+    <div class="panel-body" >
+        <form
+                    class="cover-form"
+                    enctype="multipart/form-data"
+                    method="post"
+        >
+            <div id="fields-view-init" class="{{#if view}}view{{/if}}">
+            <a href="javascript:void(0)" class="cancel-update btn btn-danger hide">Cancel</a>
+            <div class="form-group{{#if errors.auth_slug}} has-error{{/if}}">
+                <label class="control-label">Slug</label>
+                <div>
+                    <input
+                                    class="form-control"
+                                    name="auth_slug"
+                                    placeholder="John Doe"
+                                    type="text"
+                                    value="{{item.auth_slug}}"
+                    />
+                    {{#if errors.auth_slug}}
+                    <span class="help-text">{{errors.auth_slug}}</span>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="form-group{{#if errors.auth_password}} has-error{{/if}}">
+                <label class="control-label">Password</label>
+                <div>
+                    <input
+                                    name="auth_password"
+                                    value="" placeholder="*******"
+                                    type="password"
+                                    class="form-control" />
+                    {{#if errors.auth_password}}
+                    <span class="help-text">{{errors.auth_password}}</span>
+                    {{/if}}
+                </div>
+            </div>
+
+            <div class="form-group{{#if errors.confirm}} has-error{{/if}}">
+                <label class="control-label">Confirm Password</label>
+                <div>
+                    <input
+                                    class="form-control"
+                                    name="confirm"
+                                    placeholder="*******"
+                                    type="password"
+                                    value=""
+                    />
+                    {{#if errors.confirm}}
+                    <span class="help-text">{{errors.confirm}}</span>
+                    {{/if}}
+                </div>
+            </div>
+
+            <div class="form-group{{#if errors.auth_token}} has-error{{/if}}">
+                <label class="control-label">Token</label>
+                <div>
+                    <input
+                                    class="form-control"
+                                    name="auth_token"
+                                    readonly
+                                    type="text"
+                                    value="{{item.auth_token}}"
+                    />
+                    {{#if errors.auth_token}}
+                    <span class="help-text">{{errors.auth_token}}</span>
+                    {{/if}}
+                </div>
+            </div>
+
+            <div class="form-group{{#if errors.auth_secret}} has-error{{/if}}">
+                <label class="control-label">Secret</label>
+                <div>
+                    <input
+                                    class="form-control"
+                                    name="auth_secret"
+                                    readonly
+                                    type="text"
+                                    value="{{item.auth_secret}}"
+                    />
+                    {{#if errors.auth_secret}}
+                    <span class="help-text">{{errors.auth_secret}}</span>
+                    {{/if}}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input name="auth_regenerate" id="token-secret" type="checkbox" value="1" />
+                <label for="token-secret">generate new token and secret</label>
+            </div>
+
+            <div class="form-group{{#if errors.auth_type}} has-error{{/if}}">
+                <label class="control-label">Type</label>
+                <div>
+                    <input class="form-control" name="auth_type" type="text" value="{{item.auth_type}}" />
+                    {{#if errors.auth_type}}
+                    <span class="help-text">{{errors.auth_type}}</span>
+                    {{/if}}
+                </div>
+            </div>
+
+            <div class="form-group{{#if errors.auth_permissions}} has-error{{/if}}">
+                <label class="control-label">Permissions</label>
+                <ul class="list-unstyled">
+                    {{#each permissions}}
+                    <li>
+                        <input
+                                        {{#if this}} checked {{/if}}
+                                        id="permission-{{@key}}"
+                                        name="auth_permissions[]"
+                                        type="checkbox"
+                                        value="{{@key}}"
+                        />
+                        <label for="permission-{{@key}}"/>{{@key}}</label>
+                    </li>
+                    {{/each}}
+                    {{#if errors.auth_permissions}}
+                    <span class="help-text">{{errors.auth_permissions}}</span>
+                    {{/if}}
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Role</label>
+                <select class="form-control" name="_role_id">
+                    <option value="">- Select Role -</option>
+                    {{#each roles.rows}}
+                    <option value="{{role_id}}" {{#when ../item.role_id '==' role_id}}selected="selected"{{/when}}>{{role_name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="clear form-group">
+                <input name="csrf" type="hidden" value="" />
+                {{#if view}}
+                    <a href="/control/auth/search" class="btn btn-link" type="submit"><i class="fa fa-caret-left"></i> &nbsp;Back</a>
+                {{else}}
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                {{/if}}
+            </div>
+            </div>
+        </form>
+    </div>
+</div>

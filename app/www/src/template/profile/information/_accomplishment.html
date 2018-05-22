@@ -1,0 +1,96 @@
+<div class="modal fade accomplishment-modal" id="accomplishment-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    {{_ 'Add Accomplishments'}}
+                </div>
+            </div>
+            <!-- START: Form -->
+            <form
+                action="/ajax/accomplishment/create"
+                data-do="information-form"
+                data-on="submit"
+            >
+                <div class="modal-body">
+                    <!-- START: Name / Title -->
+                    <div class="form-group">
+                        <label>{{_ 'Name / Title'}}</label>
+                        <input
+                            class="form-control"
+                            maxlength="50"
+                            name="accomplishment_name"
+                            placeholder="{{_ 'Name / Title'}}"
+                            type="text"
+                            value=""
+                        />
+                        <span class="help-text"></span>
+                    </div>
+                    <!-- END: Name / Title -->
+                    <!-- START: Description -->
+                    <div class="form-group">
+                        <label>{{_ 'Description'}}</label>
+                        <textarea
+                            name="accomplishment_description"
+                            class="form-control"
+                            rows="5"
+                            placeholder="{{_ 'Description'}}"
+                        ></textarea>
+                        <span class="help-text"></span>
+                    </div>
+                    <!-- END: Description -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- START: From -->
+                            <div class="form-group">
+                                <label>{{_ 'From'}}</label>
+                                <input
+                                    class="datepicker form-control"
+                                    data-do="datepicker"
+                                    name="accomplishment_from"
+                                    placeholder="January 01, 1990"
+                                    type="text"
+                                />
+                                <span class="help-text"></span>
+                            </div>
+                            <!-- END: From -->
+                        </div>
+                        <div class="col-md-6">
+                            <!-- START: To -->
+                            <div class="form-group">
+                                <label>{{_ 'To'}}</label>
+                                <input
+                                    class="datepicker form-control"
+                                    data-do="datepicker"
+                                    name="accomplishment_to"
+                                    placeholder="January 01, 1990"
+                                    type="text"
+                                />
+                                <span class="help-text"></span>
+                            </div>
+                            <!-- END: To -->
+                        </div>
+                    </div>
+                </div>
+                <!-- START: Footer -->
+                <div class="modal-footer">
+                    <button
+                        class="btn btn-default"
+                        type="submit"
+                    >
+                        {{_ 'Save for now'}}
+                    </button>
+                    <button
+                        class="btn btn-primary"
+                        data-dismiss="modal"
+                        type="button"
+                    >
+                        {{_ 'Cancel'}}
+                    </button>
+                </div>
+                <!-- END: Footer -->
+            </form>
+            <!-- END: Form -->
+        </div>
+    </div>
+</div>

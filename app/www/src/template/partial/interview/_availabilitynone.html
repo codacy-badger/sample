@@ -1,0 +1,49 @@
+<!-- START: Confirmation Modal -->
+<div
+    class="modal fade confirmation-form interview-availability"
+    id="interview-availability-none"
+    role="dialog"
+>
+    <!-- START: Modal Dialog -->
+    <div class="modal-dialog">
+        <!-- START: Modal Content -->
+        <div class="modal-content">
+            <!-- START: Modal Header -->
+            <div class="modal-header">
+                <!-- START: Modal Title -->
+                <div class="modal-title">
+                    {{_ 'Oops! No more slots available for this day.'}}
+                </div>
+                <!-- END: Modal Title -->
+            </div>
+            <!-- END: Modal Header -->
+            <!-- START: Modal Body -->
+            <div class="modal-body" style="padding: 0px 80px;">
+                <span class="message">
+                    You have scheduled the maxmimum number of slots available for interview on this day.
+                </span>
+                <span class="message">
+                    To edit your slots, got to <a href="#">Schedule Settings</a>.
+                </span>
+            </div>
+            <!-- END: Modal Body -->
+
+            <!-- START : Modal Footer -->
+            <div class="modal-footer">
+                <!-- START : Modal Dismiss -->
+                <button
+                    class="btn btn-default"
+                    data-dismiss="modal"
+                    type="button"
+                >
+                    {{_ 'CLOSE'}}
+                </button>
+                <!-- END : Modal Dismiss -->
+            </div>
+            <!-- END : Modal Footer -->
+        </div>
+        <!-- END: Modal Content -->
+    </div>
+    <!-- END: Modal Dialog -->
+</div>
+<!-- END: Confirmation Modal -->

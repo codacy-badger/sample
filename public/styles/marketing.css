@@ -1,0 +1,626 @@
+body, html{
+    font-family: "Open Sans", Arial;
+    font-weight: 300;
+    height: 100%;
+}
+
+h1, h2, h3, h4, h5 {
+    border-bottom: 1px solid #EEEEEE;
+    font-weight: 300;
+    padding-bottom: 20px;
+}
+
+hr { border-color: #E7E7E7; }
+
+input, select, button, a.btn {
+    border-radius: 0 !important;
+}
+
+.template-blue {
+    color: #0079BA;
+}
+
+/* Change Color of Tags
+------------------------------*/
+.label-signed-up,
+.label-claimed-a-profile,
+.label-verified-email {
+    background-color: #0DB6D5;
+}
+
+.label-buy-credits,
+.label-created-a-post {
+    background-color: #7CD4E8;
+}
+
+.label-downloaded-resume,
+.label-gained-achievement,
+.label-gained-experience {
+    background-color: #80C784;
+}
+
+.label-uploaded-profile,
+.label-update-credentials,
+.label-updated-a-post,
+.label-updated-email-on-post,
+.label-updated-phone-on-post {
+    background-color: #FFB74D;
+}
+
+.label-user-unsubscribed {
+    background-color: #474747;
+}
+
+.label-user-email-bounced,
+.label-forgot-password {
+    background-color: #DC7175;
+}
+
+.label-interested-a-post {
+    background-color: #F16292;
+}
+
+.label-viewed-a-post {
+    background-color: #F48FB1;
+}
+
+.label-notified-for-a-like {
+    background-color: #7986CB;
+}
+
+.label-notified-for-matches {
+    background-color: #BA68C8;
+}
+
+.label-notified-for-matched-via-sms {
+    background-color: #CE93D8;
+}
+
+
+/* Component - Buttons
+------------------------------*/
+.btn-default {
+    background-color: #E7E7E7;
+    border-color: #E7E7E7;
+    color: #8D8D8D;
+}
+
+.btn-active {
+    background-color: #0C6AA5;
+    border-color: #A7BAC3;
+    color: #FFFFFF;
+}
+
+.btn-info {
+    background-color: #51B3DD;
+    border-color: #51B3DD;
+    color: #FFFFFF;
+}
+
+.btn-primary {
+    background-color: #248BCF;
+    border-color: #248BCF;
+    color: #FFFFFF;
+}
+
+.btn-success {
+    background-color: #77B978;
+    border-color: #77B978;
+    color: #FFFFFF;
+}
+
+.btn-warning {
+    background-color: #FFB535;
+    border-color: #FFB535;
+    color: #FFFFFF;
+}
+
+.btn-danger {
+    background-color: #E1503E;
+    border-color: #E1503E;
+    color: #FFFFFF;
+}
+
+.btn-import {
+    background-color: #9A84BF;
+    border-color: #9A84BF;
+    color: #FFFFFF;
+}
+
+.btn-export {
+    background-color: #D12D6D;
+    border-color: #D12D6D;
+    color: #FFFFFF;
+}
+
+.add-condition-button-only {
+    display: block;
+    margin: 12px auto;
+}
+
+.filter-button-only {
+    display: block;
+    margin: 20px auto;
+    width: 100px;
+}
+
+/* Component - Form Fields
+------------------------------*/
+.btn, .form-control {
+    border-radius: 0 !important;
+    float: right;
+}
+
+.input-group .input-group-addon {
+    background-color: transparent;
+    border-radius: 0;
+    border-right: 0;
+    padding-right: 5px;
+}
+
+.input-group .form-control {
+    border-left: 0;
+    box-shadow: none;
+}
+
+.input-group .form-control:focus {
+    border-color: #CCCCCC;
+}
+
+.page-marketing-action-form .input-range-when .input-from,
+.page-marketing-action-form .input-range-when .input-to {
+    display: inline-block;
+    width: 40%;
+}
+
+.page-marketing-action-form .input-range-when .input-separator {
+    display: inline-block;
+    width: 10%;
+}
+
+.page-marketing-action-form .when-wrapper .remove {
+    display: inline-block;
+    float: right;
+    line-height: 34px;
+    text-align: center;
+    width: 8%;
+}
+
+.date-range {
+    margin-bottom: -3px;
+}
+
+.input-range .input-from,
+.input-range .input-to {
+    display: inline-block;
+    width: 48%;
+}
+
+.input-range .input-separator {
+    display: inline-block;
+    margin: 0 -5px;
+    position: relative;
+    text-align: center;
+    top: -10px;
+    width: 4%;
+}
+
+.texts-field, .select-field {
+    margin-bottom: 9px;
+    min-height: 36px;
+}
+
+.tag-field {
+    border: 1px solid #CCCCCC;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    cursor: text;
+    margin-bottom: 0;
+    height: 34px;
+}
+
+.tag-field .tag {
+    background-color: #A7BAC3;
+    cursor: default;
+    display: inline-block;
+    height: 28px;
+    margin: 2px 0 2px 2px;
+    padding: 5px;
+}
+
+.tag-field .tag input[type="text"] {
+    background: none;
+    border: 0;
+    box-shadow: none;
+    color: #FFFFFF;
+    height: 20px;
+    outline: none;
+    padding: 0;
+    width: 24px;
+}
+
+.tag-field .tag input[type="text"]::-webkit-input-placeholder {
+    color: #FFFFFF;
+}
+
+.tag-field .tag input[type="text"]::-moz-placeholder {
+    color: #FFFFFF;
+}
+
+.tag-field .tag input[type="text"]:-ms-input-placeholder {
+    color: #FFFFFF;
+}
+
+.tag-field .tag input[type="text"]input:-moz-placeholder {
+    color: #FFFFFF;
+}
+
+.tag-field .tag .remove {
+    color: #FFFFFF;
+    padding-left: 5px;
+}
+
+.row .form-group .image-field {
+    height: 188px;
+    margin: auto;
+    width: 188px;
+}
+
+.row .form-group .image-field .image-wrapper {
+    position: relative;
+}
+
+.row .form-group .image-field .image-wrapper:hover:before {
+    content: 'Upload Photo';
+    cursor: pointer;
+    height: 26px;
+    left: 50px;
+    position: absolute;
+    top: 85px;
+    width: 116px;
+}
+
+.row .form-group .image-field img {
+    border: 1px solid #CBCBCB;
+}
+
+.row .form-group .image-field img:hover {
+    cursor: pointer;
+    opacity: .6;
+}
+
+.action-add-tag-field-only {
+    margin-top: 55px;
+}
+
+/* Component - Bread Cumbs
+------------------------------*/
+.crumbs {
+    background-color: #EFEFEF;
+    font-size: 13px;
+    padding: 10px;
+}
+
+.crumbs .separator {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.crumbs a.active {
+    color: #222222;
+    font-weight: bold;
+}
+
+btn-primary.active{
+    color: red;
+}
+
+/* Component - Panel
+------------------------------*/
+.panel {
+    border-radius: 0;
+}
+
+.panel .panel-heading {
+    font-weight: bold;
+}
+
+.panel-default .panel-heading {
+    background-color: #E7E7E7;
+    color: #222222;
+}
+
+.panel-info .panel-heading {
+    background-color: #51B3DD;
+    color: #FFFFFF;
+}
+
+.panel-primary .panel-heading {
+    background-color: #248BCF;
+    color: #FFFFFF;
+}
+
+.panel-success .panel-heading {
+    background-color: #77B978;
+    color: #FFFFFF;
+}
+
+.panel-warning .panel-heading {
+    background-color: #FFB535;
+    color: #FFFFFF;
+}
+
+.panel-danger .panel-heading {
+    background-color: #E1503E;
+    color: #FFFFFF;
+}
+
+/* Component - Table
+------------------------------*/
+.table-overflow {
+    margin-left: -20px;
+    margin-right: -20px;
+    overflow: auto;
+    width: 100%;
+}
+
+.table-overflow td,
+.table-overflow th {
+    white-space: nowrap;
+}
+
+.table-overflow .cell-url {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+
+/* Component - Pagination
+------------------------------*/
+.pagination > .active > a {
+    background-color: #A7BAC3;
+    border-color: #A7BAC3;
+}
+
+.pagination > .active > a:hover {
+    background-color: #A0A0A0;
+    border-color: #A0A0A0;
+}
+
+/* Widget - Notify
+------------------------------*/
+.notify {
+    background-color: #232323;
+    bottom: 0;
+    color: #EFEFEF;
+    height: auto !important;
+    left: 0;
+    opacity: .95;
+    padding: 20px;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    z-index: 10000;
+}
+
+.notify-info {
+    color: #FFFFFF;
+    background-color: #5BC0DE;
+}
+
+.notify-success {
+    color: #FFFFFF;
+    background-color: #5CB85C;
+}
+
+.notify-danger {
+    color: #FFFFFF;
+    background-color: #D9534F;
+}
+
+.notify-warning {
+    color: #FFFFFF;
+    background-color: #F0AD4E;
+}
+
+.notify .message {
+    display: block;
+    margin-top: 5px;
+    padding-right: 25px;
+}
+
+.notify > a {
+    color: #EFEFEF;
+    float: right;
+    font-size: 20px;
+}
+
+/* Partial - Search
+------------------------------*/
+.search-actions {
+    margin-bottom: 10px;
+}
+
+.search-filters .btn-primary {
+    width: 100%;
+}
+
+.search-table-actions {
+    margin-bottom: 10px;
+}
+
+.search-table-actions .tag-field {
+    width: 300px;
+}
+
+.search-table-actions .form-group {
+    vertical-align: top;
+}
+
+/* Partial - Header
+------------------------------*/
+header {
+    background-color: #0C6AA5;
+    border-color: #0C6AA5;
+    height: 50px;
+    left: 0;
+    padding: 5px 10px;
+    position: absolute;
+    right: 0;
+}
+
+header h3 {
+    border: 0;
+    color: #FFFFFF;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    left: 70px;
+    margin: 11px 0 0 -11px;
+    padding: 0;
+    position: relative;
+    top: 4px;
+}
+
+.navbar .navbar-header .navbar-brand img {
+    margin-left: -16px;
+    margin-top: -14px;
+}
+
+.navbar .navbar-right li a {
+    color: #FFF;
+    display: inline-block;
+    list-style-type: none;
+    margin-right: 5px;
+    margin-top: -12px;
+    position: relative;
+}
+.navbar .navbar-right li a:hover {
+    background-color: transparent;
+}
+
+/* Partial - Body
+------------------------------*/
+.body .main-section {
+    bottom: 0;
+    left: 200px;
+    position: absolute;
+    right: 0;
+    top: 50px;
+}
+
+.body .main-section > .scroll {
+    bottom: 0;
+    overflow: auto;
+    padding: 0 20px;
+    position: absolute;
+    top: 38px;
+    width: 100%;
+}
+
+.body h3 .label {
+    font-size: 12px;
+}
+
+/* Partial - Main Menu
+------------------------------*/
+.main-menu {
+    background-color: #000000;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    top: 50px;
+    width: 200px;
+}
+
+.main-menu ul > li > a {
+    border-radius: 0;
+    color: #FFFFFF;
+}
+
+.main-menu ul > li > a > i {
+    width: 20px;
+}
+
+.main-menu ul > li > a:hover {
+    color: #222222;
+}
+
+.main-menu ul > li.active > a {
+    border-radius: 0;
+    background-color: transparent;
+    color: #337AB7;
+    font-weight: bold;
+}
+
+/* Page - Marketing Action Create and Update Page
+------------------------------*/
+.page-marketing-action-create .preview {
+    border: 1px solid #ccc;
+    min-height: 280px;
+    overflow: scroll;
+    padding: 10px;
+}
+
+/* Page - Marketing Campaign Create
+------------------------------*/
+.page-marketing-campaign-create .preview {
+    border: 1px solid #ccc;
+    min-height: 400px;
+    overflow: scroll;
+    padding: 10px;
+}
+
+/* Page - Marketing Campaign Result
+------------------------------*/
+.result-box {
+    border: 1px solid #ccc;
+    overflow: auto;
+}
+.no-underline-h4 {
+    border-bottom: 0px hidden;
+    font-weight: bold;
+    padding-bottom: 0;
+}
+.page-marketing-campaign-result-email .preview {
+    border: 1px solid #ccc;
+    min-height: 400px;
+    overflow: scroll;
+    padding: 10px;
+}
+
+/* Campaign - Marketing Campaign Result SMS
+------------------------------*/
+.from-me:before {
+    -webkit-transform:translate(0, -2px);
+    border-bottom-left-radius: 16px 14px;
+    border-right:20px solid #04DE16;
+    bottom:-2px;
+    content:"";
+    height:20px;
+    position:absolute;
+    right:-7px;
+    z-index:-1;
+}
+
+.from-me {
+    background:#04de16;
+    border-radius:25px;
+    color:white;
+    float: right;
+    padding:10px 20px;
+    position:relative;
+}
+
+.from-me:after {
+    -webkit-transform:translate(-30px, -2px);
+    background:white;
+    border-bottom-left-radius: 10px;
+    bottom:-2px;
+    content:"";
+    height:20px;
+    position:absolute;
+    right:-56px;
+    width:26px;
+    z-index:1;
+}

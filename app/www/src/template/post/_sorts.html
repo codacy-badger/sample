@@ -1,0 +1,61 @@
+<!-- START: Sort -->
+<div class="btn-group">
+    <button
+        aria-expanded="false"
+        aria-haspopup="true"
+        class="btn btn-info dropdown-toggle"
+        data-toggle="dropdown"
+        type="button"
+    >
+        {{_ '%s' sorting}} <i aria-hidden="true" class="fa fa-chevron-down"></i>
+    </button>
+    <ul class="dropdown-menu">
+        <li>
+            <a
+                {{#when sort '!==' 'latest'}}
+                    href="?{{toquery 'sort' 'latest'}}"
+                {{else}}
+                    href="javascript:void(0);"
+                {{/when}}
+            >
+                {{_ 'By Latest'}}
+            </a>
+        </li>
+        <li>
+            <a
+                {{#when sort '!==' 'popular'}}
+                    href="?{{toquery 'sort' 'popular'}}"
+                {{else}}
+                    href="javascript:void(0);"
+                {{/when}}
+            >
+                {{_ 'By Popular'}}
+            </a>
+        </li>
+        {{#when page '==' 'featured-page'}}
+        <li>
+            <a
+                {{#when sort '!==' 'seeker'}}
+                    href="?{{toquery 'sort' 'seeker'}}"
+                {{else}}
+                    href="javascript:void(0);"
+                {{/when}}
+            >
+                {{_ 'By Seeker'}}
+            </a>
+        </li>
+        <li>
+            <a
+                {{#when sort '!==' 'company'}}
+                    href="?{{toquery 'sort' 'company'}}"
+                {{else}}
+                    href="javascript:void(0);"
+                {{/when}}
+            >
+                {{_ 'By Company'}}
+            </a>
+        </li>
+        {{/when}}
+    </ul>
+</div>
+<!-- END: Sort -->

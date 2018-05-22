@@ -1,0 +1,59 @@
+<div class="modal fade free-credits-modal" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content"> 
+            <div class="modal-header">
+                <div class="modal-title text-uppercase">
+                    {{_ 'Awesome! You gained a new rank! '}}
+                    <br>
+                    {{_ 'Keep it up!'}}
+                </div>
+            </div> 
+            <div class="modal-body text-center flex-container">
+                <div class="col-xs-6 credits-column">
+                    <img
+                        alt="{{../page.rank.action}}"
+                        class="level-image"
+                        src="{{../page.rank.image}}"
+                    />
+                </div>
+                <div class="col-xs-6 credits-column">
+                    <img
+                        alt="/images/level-modals/three-stars"
+                        class="level-stars stars-top"
+                        src="/images/level-modals/three-stars.png"
+                    />
+                    <div class="level-content">
+                        <span class="level-number">
+                            {{_ 'LVL %s' ../page.rank.level}}
+                        </span>
+                        <span class="level-title">
+                            {{_ '%s' ../page.rank.title}}
+                        </span>
+                    </div>
+                    <img
+                        alt="/images/level-modals/three-stars"
+                        class="level-stars stars-bottom"
+                        src="/images/level-modals/three-stars.png"
+                    />
+                    <div class="credits-gift">
+                        <span class="credits-message">
+                            {{_ 'You have been gifted'}}
+                        </span>
+                        <span class="credits-total">
+                            {{_ '%s bonus credits' ../page.rank.credits}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button
+                    class="btn btn-default"
+                    data-dismiss="modal"
+                    type="button"
+                >
+                    {{_ 'Continue'}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

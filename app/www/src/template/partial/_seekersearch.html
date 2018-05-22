@@ -1,0 +1,75 @@
+<!-- START: Match Me Seeker -->
+<div class="partial-match-me match-seeker
+    {{#session 'me'}}
+        {{#if profile_company}}
+            hide
+        {{/if}}
+    {{/session}}">
+    <p>{{_ "Can't find what you're looking for?"}}</p>
+    <p>{{_ 'Create your own post and let the companies find you.'}}</p>
+
+    <!-- START: Form -->
+    <form
+        action="/"
+        class="row"
+        data-do="madlibs-form"
+        data-on="submit"
+        method="post"
+    >
+        <!-- START: Post Name -->
+        <div class="col-md-4">
+            <span>{{_ 'Hello, my name is'}}</span>
+            <input 
+                maxlength="50"
+                minlength="2"
+                name="post_name"
+                placeholder="{{_ 'ex: John Doe'}}"
+                type="text"
+                value="{{#session 'me'}}{{profile_name}}{{/session}}"
+            />
+        </div>
+        <!-- END: Post Name -->
+
+        <!-- START: Post Position -->
+        <div class="col-md-4">
+            <span>{{_ 'I am a/an'}}</span>
+            <input
+                autocomplete="off"
+                data-do="suggestion-field"
+                data-type="position" 
+                maxlength="50"
+                minlength="2"
+                name="post_position"
+                placeholder="{{_ 'ex: Programmer'}}"
+                type="text"
+                value=""
+            />
+        </div>
+        <!-- START: Post Position -->
+
+        <!-- START: Post Location -->
+        <div class="col-md-4">
+            <span>{{_ 'Looking for a job in'}}</span>
+            <input
+                autocomplete="off"
+                data-do="suggestion-field"
+                data-type="location" 
+                maxlength="50"
+                minlength="2"
+                name="post_location"
+                placeholder="{{_ 'ex: Metro Manila'}}" value=""
+                type="text"
+            />
+        </div>
+        <!-- END: Post Location -->
+
+        <!-- START: Match Me Button -->
+        <div class="submit-button">
+            <input name="post_type" type="hidden" value="seeker">
+            <button class="btn btn-default" type="submit">{{_ 'Match me up'}}</button>
+        </div>
+        <!-- START: Match Me Button -->
+    </form>
+    <!-- END: Form -->
+</div>
+<!-- END: Match Me Seeker -->

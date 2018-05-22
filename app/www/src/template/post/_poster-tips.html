@@ -1,0 +1,363 @@
+{{#unless ../post_tips_flag}}
+    <!-- START: Show Tips -->
+    {{#unless ../post_tips}}
+        <!-- START: Jobayan Post Tips -->
+        <div class="tips post-tips text-center">
+            <div class="tips-head">{{_ 'Jobayan Tips'}}</div>
+            <div class="tips-body">
+                <p class="pre-message">
+                    {{_ 'Candidates are having a tough time finding your job.'}}
+                </p>
+                <!-- START: Industry Tip -->
+                {{#unless ../post_industry}}
+                    <div class="industry">
+                        <div>
+                            <span class="pre-message">{{_ "Your post doesn't have an industry."}}</span>
+                            <i
+                                aria-hidden="true"
+                                class="fa fa-question-circle"
+                                data-do="tooltip"
+                                title="{{_ 'Connect with applicants effectively by
+                                    providing an industry to your job post
+                                    (e.g. Technology, Manufacturing, IT services)'}}"
+                            >
+                            </i>
+                        </div>
+                        <a
+                            class="btn btn-primary"
+                            data-backdrop="static"
+                            data-container="industry"
+                            data-do="poster-modal"
+                            data-id="{{../post_id}}"
+                            data-keyboard="false"
+                            data-on="click"
+                            data-target="#industry"
+                            data-toggle="modal"
+                            title="{{_ 'Choose an industry'}}"
+                        >
+                            {{_ 'Choose an industry'}}
+                        </a>
+                    </div>
+                {{/unless}}
+                <!-- END: Industry Tip -->
+                <!-- START: Location Tip -->
+                {{#unless ../post_location_flag}}
+                    <div class="location">
+                        <div>
+                            <span class="pre-message">{{_ 'Your Location is unknown.'}}</span>
+                            <i
+                                aria-hidden="true"
+                                class="fa fa-question-circle"
+                                data-do="tooltip"
+                                title="{{_ 'Increase the visibility of your job
+                                    post and match with the right applicants
+                                    by providing a location to your job post'}}"
+                            >
+                            </i>
+                        </div>
+                        <a
+                            class="btn btn-primary"
+                            data-backdrop="static"
+                            data-container="location"
+                            data-do="poster-modal"
+                            data-id="{{../post_id}}"
+                            data-keyboard="false"
+                            data-on="click"
+                            data-target="#location"
+                            data-toggle="modal"
+                            title="{{_ 'Change my location'}}"
+                        >
+                            {{_ 'Change my location'}}
+                        </a>
+                    </div>
+                {{/unless}}
+                <!-- END: Location Tip -->
+                <!-- START: Arrangement Tip -->
+                {{#unless ../post_arrangement}}
+                    <div class="arrangement">
+                        <div>
+                            <span class="pre-message">{{_ 'Is this a full time job?'}}</span>
+                            <i
+                                aria-hidden="true"
+                                class="fa fa-question-circle"
+                                data-do="tooltip"
+                                title="{{_ 'Please indicate the type of working
+                                    schedule of the job. Part-time is work
+                                    rendered that is less than 40 hours per
+                                    week. Remote is work rendered in a remote
+                                    location or from home. Freelance is work
+                                    rendered by the hour, day, or by contract
+                                    basis not bound to a single company.'}}"
+                            ></i>
+                        </div>
+                        <a
+                            class="btn btn-primary"
+                            data-do="arrangement-full"
+                            data-id="{{../post_id}}"
+                            data-on="click"
+                            href="javascript:void(0)"
+                            title="{{_ 'Yes'}}"
+                        >
+                            {{_ 'Yes'}}
+                        </a>
+
+                        <a
+                            class="btn btn-primary"
+                            data-backdrop="static"
+                            data-container="arrangement"
+                            data-do="poster-modal"
+                            data-id="{{../post_id}}"
+                            data-keyboard="false"
+                            data-on="click"
+                            data-target="#arrangement"
+                            data-toggle="modal"
+                            title="{{_ 'No'}}"
+                        >
+                            {{_ 'No'}}
+                        </a>
+                    </div>
+                {{/unless}}
+                <!-- END: Arrangement Tip -->
+                <!-- START: Experience Tip -->
+                {{#unless ../post_experience}}
+                    <div class="experience">
+                        <div>
+                            <span class="pre-message">{{_ 'No experience specified.'}}</span>
+                            <i
+                                aria-hidden="true"
+                                class="fa fa-question-circle"
+                                data-do="tooltip"
+                                title="{{_ 'Connect with applicants that match
+                                    your needs by providing the number of
+                                    years of experience needed for the job post.'}}"
+                            >
+                            </i>
+                        </div>
+                        <a
+                            class="btn btn-primary"
+                            data-backdrop="static"
+                            data-container="experience"
+                            data-do="poster-modal"
+                            data-id="{{../post_id}}"
+                            data-keyboard="false"
+                            data-on="click"
+                            data-target="#experience"
+                            data-toggle="modal"
+                            title="{{_ 'Change years of experience'}}"
+                        >
+                            {{_ 'Choose years of experience'}}
+                        </a>
+                    </div>
+                {{/unless}}
+                <!-- END: Experience Tip -->
+            </div>
+        </div>
+        <!-- END: Jobayan Post Tips -->
+    {{/unless}}
+    {{#unless ../post_notify_flag}}
+        <!-- START: Jobayan Credit Tips -->
+    {{#if profile_company}}
+        {{#when post_type '===' 'poster'}}
+        {{else}}
+            <div class="tips credit-tips text-center">
+                <div class="tips-head">{{_ 'Get ahead of your competitors'}}</div>
+                <div class="tips-body">
+                    <!-- START: Sponsor Tip -->
+                    {{#unless ../post_flag}}
+                    <p class="pre-message">
+                        {{{_ 'Promote posts are strategically placed and stand out when applicants search for jobs.'}}}
+                        <i
+                            aria-hidden="true"
+                            class="fa fa-question-circle"
+                            data-do="tooltip"
+                            title="{{_ 'Need more exposure for your job post? Promoting a post in a cost-effective way to reach talents, making you more visible on Jobayan search engine and platform.'}}"
+                        ></i>
+                    </p>
+                        <div class="promote-post">
+                            <div>
+                                <a
+                                    class="btn btn-default"
+                                    data-do="promote-post"
+                                    data-id="{{../post_id}}"
+                                    data-on="click"
+                                    data-toggle="tooltip"
+                                    title="{{_ 'Promote this post'}}"
+                                >
+                                    {{_ 'Promote this post'}}
+                                </a>
+                            </div>
+                            <span class="cost">{{_ '500 credits'}}</span>
+                        </div>
+                    {{/unless}}
+                    <!-- END: Sponsor Tip -->
+
+                    {{#session 'me'}}
+                    <!-- START: Application Tracking System -->
+                        {{#in 'ats' profile_package}}
+                        {{else}}
+                            {{#unless ../../post_form}}
+                                <p class="pre-message">
+                                    {{{_ 'Enable Application Tracking System'}}}
+                                    <i
+                                        aria-hidden="true"
+                                        class="fa fa-question-circle"
+                                        data-do="tooltip"
+                                        title="{{_ 'For only 500 credits per post, we can direct applicants to your company easier by enabling an application section.'}}"
+                                    ></i>
+                                </p>
+                                <div class="attach-ats">
+                                    <div>
+                                        <a
+                                            class="btn btn-default"
+                                            href="/profile/tracking/post/search"
+                                            title="{{_ 'Attach Application Form.'}}"
+                                        >
+                                            {{_ 'Attach Application Form'}}
+                                        </a>
+                                    </div>
+                                    <span class="cost">{{_ '500 credits'}}</span>
+                                </div>
+                            {{/unless}}
+                        {{/in}}
+                        <!-- END: Application Tracking System -->
+                    {{/session}}
+
+                    {{#session 'me'}}
+                        {{#in 'interview-scheduler' profile_package}}
+                        {{else}}
+                            {{#in 'interview-post' ../../post_package}}
+                            {{else}}
+                                <!-- START : Schedule Interview Button -->
+                                    <p class="pre-message">
+                                        {{{_ ' Enable Interview Scheduler!'}}}
+                                        <i
+                                            aria-hidden="true"
+                                            class="fa fa-question-circle"
+                                            data-do="tooltip"
+                                            title="{{_ 'Enable Interview Scheduler to help you manage screening the candidate and progress stages accordingly.'}}"
+                                        ></i>
+                                    </p>
+                                <div class="interview-schedule">
+                                    <div>
+                                        <a
+                                            class="btn btn-default"
+                                            data-do="interview-post"
+                                            data-id="{{../../post_id}}"
+                                            data-on="click"
+                                            data-package="interview-post"
+                                            href="javascript:void(0)"
+                                        >
+                                            {{_ 'Schedule Interviews for this Post'}}
+                                        </a>
+                                    </div>
+
+                                    <span class="cost">{{_ '500 credits'}}</span>
+                                </div>
+                                <!-- END : Schedule Interview Button -->
+                            {{/in}}
+                        {{/in}}
+                    {{/session}}
+
+                    {{#session 'me'}}
+                        {{#in 'sms-match' profile_package}}
+                        {{else}}
+                            {{#in 'sms-match' ../../post_notify}}
+                            {{else}}
+                                <!-- START : SMS Tips -->
+                                <p class="pre-message">
+                                    {{{_ 'Get immediate updates on potential talent!'}}}
+                                    <i
+                                        aria-hidden="true"
+                                        class="fa fa-question-circle"
+                                        data-do="tooltip"
+                                        title="{{_ 'Get immediate updates on potential talent! Tooltip: For only 300 credits per post, you can now receive match notifications via SMS for a month anytime, anywhere without the need to click interested button on job seekers.'}}"
+                                    ></i>
+                                </p>
+                                <div class="sms-match">
+                                    <div>
+                                        <a
+                                            class="btn btn-default"
+                                            data-do="sms-notification"
+                                            data-id="{{../../post_id}}"
+                                            data-on="click"
+                                            data-toggle="tooltip"
+                                            title="{{_ 'Get SMS Match Notification'}}"
+                                        >
+                                            {{_ 'Get SMS Match Notification'}}
+                                        </a>
+                                    </div>
+                                    <span class="cost">{{_ '300 credits'}}</span>
+                                </div>
+                                <!-- END : SMS Tips -->
+                            {{/in}}
+                        {{/in}}
+                    {{/session}}
+
+                    {{#session 'me'}}
+                    <!-- START: SMS Intersted -->
+                    {{#in 'sms-interest' profile_package}}
+                    {{else}}
+                        {{#in 'sms-interest' ../../post_notify}}
+                        {{else}}
+                            <p class="pre-message">
+                                {{_ "It's nice to know there are new applicants on the way!"}}
+                                 <i
+                                    aria-hidden="true"
+                                    class="fa fa-question-circle"
+                                    data-do="tooltip"
+                                    title="{{_ 'For only 500 credits per post, you don’t need to go online to check interested candidates. You can now receive notifications via SMS for a month from each job seekers that are interested on your job post.'}}"
+                                ></i>
+                            </p>
+                            <div class="sms-interest">
+                                <div>
+                                    <a
+                                        class="btn btn-default"
+                                        data-do="sms-interest"
+                                        data-id="{{../../post_id}}"
+                                        data-on="click"
+                                        data-toggle="tooltip"
+                                        title="{{_ 'SMS Interested Notification'}}"
+                                    >
+                                        {{_ 'SMS Interested Notification'}}
+                                    </a>
+                                </div>
+                                <span class="cost">{{_ '500 credits'}}</span>
+                            </div>
+                        {{/in}}
+                    {{/in}}
+                    <!-- END: SMS Interested -->
+                    {{/session}}
+                </div>
+            </div>
+        {{/when}}
+    {{/if}}
+        <!-- END: Jobayan Credit Tips -->
+    {{/unless}}
+    <!-- END: Show Tips -->
+    <!-- START: Hired Tip -->
+    <!-- {{../post_created}} -->
+    {{#if ../post_hired_flag}}
+        <div class="tips hired-tips text-center">
+            <div class="tips-head">{{_ 'Have you already filled this position?'}}</div>
+            <div class="tips-body">
+                <div class="hired">
+                    <p class="pre-message">
+                        {{{_ 'By clicking yes, this post will be removed from<br/>
+                        searches and your profile.'}}}
+                    </p>
+                    <a
+                        class="btn btn-primary"
+                        data-do="post-hire"
+                        data-id="{{../post_id}}"
+                        data-on="click"
+                        href="javascript:void(0)"
+                        title="{{_ 'Hired'}}"
+                    >
+                        {{_ 'Yes'}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    {{/if}}
+    <!-- END: Hired Tip -->
+{{/unless}}

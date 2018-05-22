@@ -1,0 +1,247 @@
+<div class="container">
+    {{> profile_alert}}
+    <!-- START: Profile Panel -->
+    <div class="row profile-panel">
+        <!-- START: Sidebar Left -->
+        <aside class="col-md-3 left">
+            {{> profile_menu active="widget"}}
+        </aside>
+        <!-- END: Sidebar Left -->
+        <!-- START: Content Right -->
+        <div class="col-md-9 right">
+            <div class="row widget-body">
+                <div class="col-md-6">
+                    <!-- START: Widget Settings -->
+                    <h1>{{_ 'Widget Settings'}}</h1>
+                    <!-- START: Widget Interface -->
+                    <form method="post">
+                        <h2>{{_ 'Widget Interface'}}</h2>
+                        <hr />
+                        <!-- START: Button Title -->
+                        <div
+                            class="form-group
+                            {{#if errors.widget_button_title}}
+                                has-error
+                            {{/if}}"
+                        >
+                            <label class="control-label">{{_ 'Button Title'}}</label>
+                            <div>
+                                <input
+                                    class="form-control"
+                                    maxlength="70"
+                                    name="widget_button_title"
+                                    placeholder="We're Hiring!"
+                                    type="text"
+                                    value="{{item.widget_button_title}}"
+                                />
+                            </div>
+                            {{#if errors.widget_button_title}}
+                                <span class="help-text">
+                                    {{errors.widget_button_title}}
+                                </span>
+                            {{/if}}
+                        </div>
+                        <!-- END: Button Title -->
+                        <!-- START: Header Color -->
+                        <div
+                            class="form-group
+                            {{#if errors.widget_header_color}}
+                                has-error
+                            {{/if}}"
+                        >
+                            <label class="control-label">{{_ 'Header Color'}}</label>
+                            <div>
+                                <input
+                                    class="form-control"
+                                    name="widget_header_color"
+                                    placeholder="#000000"
+                                    type="text"
+                                    value="{{item.widget_header_color}}"
+                                />
+                            </div>
+                            {{#if errors.widget_header_color}}
+                                <span class="help-text">
+                                    {{errors.widget_header_color}}
+                                </span>
+                            {{/if}}
+                        </div>
+                        <!-- END: Header Color -->
+                        <!-- START: Button Color -->
+                        <div
+                            class="form-group
+                            {{#if errors.widget_button_color}}
+                                has-error
+                            {{/if}}"
+                        >
+                            <label class="control-label">{{_ 'Button Color'}}</label>
+                            <div>
+                                <input
+                                    class="form-control"
+                                    name="widget_button_color"
+                                    placeholder="#000000"
+                                    type="text"
+                                    value="{{item.widget_button_color}}"
+                                />
+                            </div>
+                            {{#if errors.widget_button_color}}
+                                <span class="help-text">
+                                    {{errors.widget_button_color}}
+                                </span>
+                            {{/if}}
+                        </div>
+                        <!-- END: Button Color -->
+                        <!-- START: Button Position -->
+                        <div
+                            class="form-group
+                            {{#if errors.widget_button_position}}
+                                has-error
+                            {{/if}}">
+                            <label class="control-label">{{_ 'Button Position'}}</label>
+                            <div class="radio-container">
+                                <input
+                                    class="radio"
+                                    id="bottom-left"
+                                    name="widget_button_position"
+                                    type="radio"
+                                    value="bottom-left"
+                                    {{#when item.widget_button_position '==' 'bottom-left'}}
+                                        checked
+                                    {{/when}}
+                                />
+                                <label class="radio-label" for="bottom-left">
+                                    Bottom Left
+                                </label>
+                            </div>
+                            <div class="radio-container">
+                                <input
+                                    checked="checked"
+                                    class="radio"
+                                    id="bottom-right"
+                                    name="widget_button_position"
+                                    type="radio"
+                                    value="bottom-right"
+                                    {{#when item.widget_button_position '==' 'bottom-right'}}
+                                        checked
+                                    {{/when}}
+                                />
+                                <label class="radio-label" for="bottom-right">
+                                    Bottom Right
+                                </label>
+                            </div>
+                            {{#if errors.widget_button_position}}
+                                <span class="help-text">
+                                    {{errors.widget_button_position}}
+                                </span>
+                            {{/if}}
+                        </div>
+                        <!-- END: Button Position -->
+                        <h2>{{_ 'App Information'}}</h2>
+                        <hr />
+                        <div
+                            class="form-group
+                            {{#if errors.widget_domain}}
+                                has-error
+                            {{/if}}"
+                        >
+                            <label class="control-label">
+                                {{_ 'App Domain'}}
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div>
+                                <input
+                                    class="form-control"
+                                    name="widget_domain"
+                                    placeholder="http://www.mysite.com"
+                                    type="text"
+                                    value="{{item.widget_domain}}"
+                                />
+                            </div>
+                            {{#if errors.widget_domain}}
+                                <span class="help-text">
+                                    {{errors.widget_domain}}
+                                </span>
+                            {{/if}}
+                        </div>
+                        <br />
+                        <div class="clear form-group">
+                            <input
+                                name="widget_id"
+                                type="hidden"
+                                value="{{item.widget_id}}"
+                            />
+                            <input
+                                name="widget_key"
+                                type="hidden"
+                                value="{{item.widget_key}}"
+                            />
+                            <input
+                                type="hidden"
+                                name="csrf"
+                                value="{{csrf}}"
+                            />
+                             <input
+                                name="widget_type"
+                                type="hidden"
+                                value="{{item.widget_type}}"
+                            />
+                            <button
+                                class="btn btn-default text-uppercase"
+                                type="submit"
+                                id="save-widget-button"
+                            >
+                                Save
+                            </button>
+                        </div>
+                    </form>
+                    <!-- END: Widget Interface -->
+                    <!-- END: Widget Settings -->
+                </div>
+                <div class="col-md-6">
+                    <!-- START: Widget Sample -->
+                    <h2>{{_ 'Widget Sample'}}</h2>
+                    <!-- START: Widget Preview -->
+                    <div class="preview">
+                        <h3>{{_ 'Widget Preview'}}</h3>
+                        <hr />
+                        {{> profile/widget/partials_widget}}
+                    </div>
+                    <!-- END: Widget Preview -->
+                    <!-- START: Widget Code -->
+                    <div class="code">
+                        <h3>{{_ 'Widget Code'}}</h3>
+                        <hr />
+                        <p>
+                            Paste this before your <code>&lt;/body&gt;</code> tag on your home page. This widget will appear on all of your pages.
+                        </p>
+                        {{#if item.widget_code}}
+                            <pre>
+                                <code class="language-js">{{{item.widget_code}}}</code>
+                            </pre>
+
+                            <textarea
+                                id="widgetSource"
+                                style="bottom: -9999px; height: 0; position: fixed; width: 0;">
+                                {{{item.widget_code}}}
+                            </textarea>
+                        {{else}}
+                            There is no available widget code yet.
+                        {{/if}}
+                    </div>
+
+                    {{#if item.widget_code}}
+                        <button
+                            class="btn btn-default text-uppercase"
+                            data-do="copy-widget-code"
+                            data-on="click"
+                            data-target="widgetSource"
+                        >COPY CODE</button>
+                    {{/if}}
+                    <!-- END: Widget Code -->
+                    <!-- END: Widget Sample -->
+                </div>
+            </div>
+        </div>
+        <!-- END: Content Right -->
+    </div>
+    <!-- END: Profile Panel -->
+</div>

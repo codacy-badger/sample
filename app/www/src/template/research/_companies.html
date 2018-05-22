@@ -1,0 +1,82 @@
+{{#if salary_min}}
+    {{#if top_companies}}
+    <!-- START: Top Paying Companies Container -->
+    <div class="companies-container">
+        <span class="section-title">Top Paying Companies</span>
+        <!-- START: Companies List Container -->
+        <div class="companies-list-container">
+            {{#each top_companies}}
+                {{#if post_salary_max}}
+                    <!-- START: Company Container -->
+                    <div class="clearfix company-container">
+                        <!-- START: Company Image -->
+                        <div class="company-image-container">
+                            <a href="/Company-Hiring/{{post_slug}}">
+                                <img
+                                    class="company-image"
+                                    alt="logo"
+                                    src="{{profile_image}}"
+                                    onerror="this.src='{{default_avatar profile_id}}'"
+                                />
+                            </a>
+                        </div>
+                        <!-- END: Company Image -->
+                        <!-- START: Company Detail -->
+                        <div class="company-detail-container">
+                            <a href="/Company-Hiring/{{post_slug}}">
+                                <span class="company-name">{{post_name}}</span>
+                            </a>
+                            <span class="company-salary">
+                                P {{post_salary_max}} / month
+                            </span>
+                        </div>
+                        <!-- END: Company Detail -->
+                    </div>
+                {{/if}}
+                <!-- END: Company Container -->
+            {{/each}}
+        </div>
+        <!-- END: Companies List Container -->
+    </div>
+    <!-- END: Top Paying Companies Container -->
+    {{/if}}
+{{else}}
+    <!-- START: Top Companies Container -->
+    <div class="companies-container">
+        <span class="section-title">Top Companies</span>
+        <!-- START: Companies List Container -->
+        <div class="companies-list-container">
+            {{#each top_companies}}
+                <!-- START: Company Container -->
+                <div class="clearfix company-container">
+                    <!-- START: Company Image -->
+                    <div class="company-image-container">
+                        <a href="/Companies/{{profile_slug}}" title="{{profile_company}}">
+                            <img
+                                class="company-image"
+                                alt="logo"
+                                src="{{profile_image}}"
+                                onerror="this.src='{{default_avatar profile_id}}'"
+                            />
+                        </a>
+                    </div>
+                    <!-- END: Company Image -->
+
+                    <!-- START: Company Detail -->
+                    <div class="company-detail-container">
+                        <a href="/Companies/{{profile_slug}}" title="{{profile_company}}">
+                            <span class="company-name">{{profile_company}}</span>
+                        </a>
+                        <span class="company-salary">
+                            {{postings}} new job postings
+                        </span>
+                    </div>
+                    <!-- END: Company Detail -->
+                </div>
+                <!-- END: Company Container -->
+            {{/each}}
+        </div>
+        <!-- END: Companies List Container -->
+    </div>
+    <!-- END: Top Companies Container -->
+{{/if}}

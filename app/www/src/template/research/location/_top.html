@@ -1,0 +1,19 @@
+{{#if topLocation}}
+    <div class="section-title">
+        {{#when topLocationCounter '>' '1'}}
+            {{_ 'Top Locations for'}}
+        {{else}}
+            {{_ 'Top Location for'}}
+        {{/when}}
+        {{position}}
+    </div>
+    <p>{{location}}</p>
+    <div class="location-wrapper">
+        {{#each topLocation}}
+        <div class="location-item location-{{feature_id}}">
+            <span><strong>{{@key}}</strong><br/><small>{{total}} openings</small></span>
+            <img src="{{feature_map}}">
+        </div>
+        {{/each}}
+    </div>
+{{/if}}

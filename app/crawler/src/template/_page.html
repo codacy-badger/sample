@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" class="{{page.class}}">
+    <head>
+        <meta charset="utf-8" />
+        <title>{{page.title}}</title>
+
+        <!-- MOBILE TAGS -->
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, height=device-height, width=device-width, user-scalable=0" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+        <link rel="shortcut icon" href="{{settings 'cdn'}}/favicon.ico" type="image/x-icon">
+
+        <link rel="icon" type="image/png" href="{{settings 'cdn'}}/favicon.png" />
+		<link rel="icon" type="image/gif" href="{{settings 'cdn'}}/favicon.gif" />
+        <link rel="icon" type="image/x-icon" href="{{settings 'cdn'}}/favicon.ico" />
+
+        <link rel="stylesheet" type="text/css" href="{{settings 'cdn'}}/bower_components/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="{{settings 'cdn'}}/bower_components/opensans-webfont-latin/css/opensans-latin.css" />
+        <link rel="stylesheet" type="text/css" href="{{settings 'cdn'}}/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="{{settings 'cdn'}}/styles/crawler.css" />
+
+        <script type="text/javascript" src="{{settings 'cdn'}}/bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="{{settings 'cdn'}}/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="{{settings 'cdn'}}/scripts/doon.js"></script>
+        <script type="text/javascript" src="{{settings 'cdn'}}/scripts/crawler.js"></script>
+    </head>
+
+    <body>
+        <header class="head">{{> head}}</header>
+        <div class="wrapper">
+            {{#if page.flash}}
+                <div data-do="notify" class="notify notify-{{page.flash.type}}">
+                    <span class="message">{{page.flash.message}}</span>
+                </div>
+            {{/if}}
+            <section class="body container">
+                {{{content}}}
+            </section>
+        </div>
+        <footer class="foot">{{> foot}}</footer>
+    </body>
+</html>

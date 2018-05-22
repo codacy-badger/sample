@@ -1,0 +1,85 @@
+<!-- START: Page Main Wrapper -->
+<div class="container">
+    <h1>{{page_title}}</h1>
+    <div class="clearfix"></div>
+    <!-- START: Page Main Container -->
+    <div class="main-container">
+        <form method="post">
+            <div id="fields-view-init" class="{{#if view}}view{{/if}}">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group {{#if errors.role_name}}has-error{{/if}}">
+                        <label class="control-label">Role Name</label>
+                        <div>
+                            <input
+                                class="form-control"
+                                placeholder="Super Admin"
+                                name="role_name"
+                                value="{{item.role_name}}"
+                                type="text">
+                        </div>
+                        {{#if errors.role_name}}
+                        <small class="form-text text-danger">
+                            {{errors.role_name}}
+                        </small>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                {{#if errors.role_permissions}}
+                <div class="col-md-12">
+                    <small class="text-danger">{{errors.role_permissions}}</small>
+                </div>
+                {{/if}}
+                <div class="roles-wrapper clearfix">
+                    {{#each roles}}
+                    <div class="card">
+                        <div class="card-header">
+                            {{toucfirst @key}}
+                        </div>
+                        <div class="card-body">
+                            <ul class="page">
+                                <li>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" data-do="role-check-all" data-on="change" data-target="{{@key}}">
+                                        <label class="form-check-label">All</label>
+                                    </div>
+                                    <ul class="actions" data-id="{{@key}}">
+                                        {{#each actions}}
+                                        <li>
+                                            <div class="form-check">
+                                                <input
+                                                    type="checkbox"
+                                                    class="form-check-input"
+                                                    data-do="role-check-item"
+                                                    data-on="change"
+                                                    name="role_permissions[{{role}}]"
+                                                    {{#if checked}}
+                                                    checked="checked"
+                                                    {{/if}}>
+                                                <label class="form-check-label">{{toucfirst action}}</label>
+                                            </div>
+                                        </li>
+                                        {{/each}}
+                                    </ul>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+            {{#if view}}
+                <a href="/control/role/search" class="btn btn-link" type="submit"><i class="fa fa-caret-left"></i> &nbsp;Back</a>
+            {{else}}
+                <hr/>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            {{/if}}
+            </div>
+        </form>
+    </div>
+    <!-- END: Page Main Container -->
+</div>

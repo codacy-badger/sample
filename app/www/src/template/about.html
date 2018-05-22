@@ -1,0 +1,97 @@
+<article class="container about-body">
+    <section class="about-us-intro">
+        <div class="section-wrapper">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="intro-text">
+                        <h1>{{_ 'Hello! We are Jobayan!'}}</h1>
+                        <p>
+                            {{_ 'A simple way to connect to job seekers and job
+                            posters'}}
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="intro-post">
+                        <img
+                            alt="Jobayan post image"
+                            class="img-responsive"
+                            src="{{config 'cdn'}}/images/about/about_image.png"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="who-we-are">
+        <div class="section-wrapper">
+            <h2>{{_ 'Who We Are'}}</h2>
+            <p>
+                {{#_ '%s'}}
+                    <strong>Jobayan.com</strong> is a product of
+                    <a
+                        href="http://openovate.com/"
+                        target="_blank"
+                        title="Sterling Openovate Corp"
+                    >
+                        Sterling Openovate Corp</a>, a full stack technology company that
+                    develops apps, companies, and game changers. It is made 
+                    initially as an alternative channel for technology-based 
+                    companies, startups, and non-corporate companies like ours 
+                    to quickly find fresh and savvy talent easily. 
+                {{/_}}
+            </p>
+            <p>
+                {{#_ '%s'}}
+                    As <strong>Jobayan.com</strong> grew in its users, we molded
+                     its identity to address companies’ immediate job hiring 
+                     needs by providing low-cost services and solutions. By 
+                     allowing job seekers to promote their preferred job roles 
+                     in the platform, we aim to shape 
+                     <strong>Jobayan.com</strong> not just as another job search
+                      engine but a job community where getting hired and finding
+                       candidates are easy. Recruiters and job seekers match and
+                        connect with each other to make job hunting more social.
+                    
+                {{/_}}
+            </p>
+            <p>
+                {{#_ '%s'}}
+                    To our brothers and sisters at
+                    <a
+                        href="https://www.facebook.com/groups/startupph/"
+                        target="_blank"
+                    >
+                        Startup PH (Philippines)
+                    </a>
+                    community and the
+                    <a href="https://phackers.slack.com/" target="_blank">
+                        PHackers (Philippines)
+                    </a>
+                    community, this one is for you.
+                {{/_}}
+            </p>
+        </div>
+    </section>
+    <section class="mission">
+        <div class="section-wrapper">
+            <h2>{{_ "Jobayan's Mission"}}</h2>
+            <p>
+                {{#_ '%s'}}
+                    As a Job and Talent matching platform without the hassle, 
+                    <strong>Jobayan.com</strong> aims to make job hunting 
+                    more social by reducing complexities of forms and processes 
+                    in the recruitment experience, making it simple for 
+                    job seekers and companies to connect.
+                {{/_}}
+            </p>
+        </div>
+    </section>
+    <section class="post-and-connect">
+        <div class="section-wrapper">
+            <h2>{{_ 'Post and connect in just a single click'}}</h2>
+        </div>
+    </section>
+    {{> partial_howitworks head='div' heading='h3'}}
+    {{> partial_createpost head='div' heading='div'}}
+</article>

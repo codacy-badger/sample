@@ -1,0 +1,222 @@
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+<div style="background: #f6f6f6; margin: 20px auto; padding: 0; width: 600px;">
+    <!-- Head -->
+    <table
+            align="center"
+            border="0"
+            cellpadding="0"
+            cellspacing="0"
+            width="600"
+            style="border-collapse: collapse;
+                background: #7cd4e8;
+                font-family: 'Montserrat', sans-serif;
+                text-align: center;">
+        <tr>
+            <td>
+                <div style="margin: 30px 0; text-align: center;">
+                    <a href="{{host}}" target="_blank">
+                        <img src="{{host}}/images/logo-white-orange.png" />
+                    </a>
+                </div>
+                <div>
+                    <h2 style="color: #ffffff;
+                        font-weight: 500;
+                        font-size: 20px;">Someone Is Interested!</h2>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <!-- Body -->
+
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="500"
+        style="background: #ffffff;
+            border-collapse: collapse;
+            font-family: 'Open Sans', sans-serif;
+            text-align: center;
+            color: #696969;">
+        <tr>
+            <td style="padding: 30px 25px 50px 25px;">
+                <div style="clear: both">
+                    <div style="font-size: 14px;
+                                float: left;
+                                padding-right: 3%;
+                                text-align: left;
+                                width: 52%;"
+                    >
+                        <div style="margin-bottom: 20px;">
+                            Hello, <strong style="color: #494949;">{{post_name}}!</strong>
+                        </div>
+                        <div style="line-height: 20px; margin-bottom: 20px;">
+                            I'm Interested in your job post about
+                            <strong style="color: #494949;">{{post_position}}</strong>
+                            located in <strong style="color: #494949;">{{post_location}}</strong>.
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            Should you wish to know me better, you may reach out through the contact details provided <br /> below:
+                        </div>
+                        {{#if profile_email}}
+                        <div style="line-height: 20px;">
+                            <strong style="color: #494949;">EMAIL:</strong> {{seeker_email}}
+                        </div>
+                        {{/if}}
+                        {{#if profile_phone}}
+                        <div style="line-height: 20px;">
+                            <strong style="color: #494949;">PHONE:</strong> {{profile_phone}}
+                        </div>
+                        {{/if}}
+                        {{#if resume_link}}
+                        <div style="line-height: 20px; margin-bottom: 20px;">
+                            <strong style="color: #494949;">Resume: (10 Credits):</strong>
+                            <a href="{{post_link}}" target="_blank"
+                                style="color: #0A8033;
+                                display: block;
+                                text-decoration: none;"> <i class="fa fa-download"></i> Resume</a>
+                        </div>
+                        {{/if}}
+                        <p style="padding-top: 10px;">
+                            Hope to hear from you soon!
+                        </p>
+                        <div style="line-height: 20px; margin-top: 50px; font-size: 14px;">
+                            <strong style="color: #a0a3a4;">Best Regards,</strong>
+                            <div>{{seeker_name}}</div>
+                        </div>
+                    </div>
+                    <div style="float: right; width: 45%;">
+                        <div style="border: 2px solid #ececec;">
+                            <div style="background: #ececec;
+                                height: 95px;
+                                position: relative;">
+                                <img src="{{#if seeker_image}}
+                                    {{seeker_image}}
+                                    {{else}}
+                                        {{default_seeker_avatar}}
+                                    {{/if}}"
+                                    style="border: 3px solid #18bbd7;
+                                        border-radius: 60px;
+                                        height: 100px;
+                                        left: 49px;
+                                        position: absolute;
+                                        top: 15px;
+                                        width: 100px;">
+                            </div>
+                            <div style="background: #ffffff;
+                                color: #494949;
+                                font-size: 13px;
+                                margin-top: 25px;
+                                margin-bottom: 10px;">
+                                <div>{{seeker_name}}</div>
+                            </div>
+                        </div>
+                        <div style="padding-top: 15px;">
+                            <a
+
+                                href="{{host}}/{{post_slug}}/post-message-seeker?seeker_profile_slug={{seeker_slug}}"
+                                target="_blank"
+                                style="background: #f99462;
+                                    border-radius: 5px;
+                                    color: #ffffff;
+                                    display: inline-block;
+                                    font-size: 14px;
+                                    padding: 10px 13px;
+                                    text-decoration: none;
+                            ">
+                                MESSAGE THIS JOBSEEKER 
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <!-- Footer -->
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="500" 
+        style="background: transparent; 
+            border-collapse: collapse; 
+            color: #b0b3b4; 
+            font-family: 'Montserrat', sans-serif; 
+            text-align: center;">
+        <tr>
+            <td style="padding: 25px;">
+                <a  href="{{host}}" target="_blank">  
+                    <img src="{{host}}/images/logo-gray.png" />
+                </a> 
+               <ul style="list-style-type: none;
+                    margin-bottom: 25px;
+                    margin-top: 20px;
+                    padding: 0;">
+                   <li style="border-radius: 25px;
+                            border: 2px solid #9fa098;
+                            color: #9fa098;
+                            display: inline-block;
+                            width:40px;
+                            height:40px;">
+                        <a href="https://www.facebook.com/jobayancom" target="_blank"
+                            style="display: grid;">
+                            <img src="{{host}}/images/email/fb.png" style="margin: 8px;"/>
+                        </a>
+                    </li>
+                    &nbsp;
+                    <li style="border-radius: 25px;
+                            border: 2px solid #9fa098;
+                            color: #9fa098;
+                            display: inline-block;
+                            width:40px;
+                            height:40px">
+                        <a href="https://twitter.com/jobayancom" target="_blank"
+                            style="display: grid;">
+                            <img src="{{host}}/images/email/twitter.png" style="margin: 8px;"/>
+                        </a>
+                    </li>
+                    &nbsp;
+                    <li style="border-radius: 25px;
+                            border: 2px solid #9fa098;
+                            color: #9fa098;
+                            display: inline-block;
+                            width:40px;
+                            height:40px">
+                        <a href="https://www.linkedin.com/company/13271950" target="_blank"
+                            style="display: grid;">
+                            <img src="{{host}}/images/email/linkedin.png" style="margin: 8px;"/>
+                        </a>
+                    </li>
+               </ul>
+               <p style="color: #b0b3b4;
+                        font-size: 14px;
+                        margin-bottom: 5px;
+                        margin-top: 5px;">
+                    Questions? Concerns? Email us at 
+                    <a href="mailto:info@jobayan.com" 
+                        style="color: #b0b3b4; 
+                            text-decoration:none">info@jobayan.com</a>
+                </p>
+                <p style="color: #b0b3b4;
+                        font-size: 14px;
+                        margin-bottom: 5px;
+                        margin-top: 5px;">
+                    Mandala Park, 1552 Shaw Blvd,
+                </p>
+                <p style="color: #b0b3b4;
+                        font-size: 14px;
+                        margin-bottom: 5px;
+                        margin-top: 5px;">
+                    Pleasant Hills Mandaluyong
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="border-top: 1px solid #b9bbbc; clear: both; padding: 20px 0 40px 0;">
+                <div style="font-size: 13px; float: left;">
+                    Copyright &copy; 2017 All Rights Reserved
+                </div>
+                <div style="font-size: 13px; float: right;">
+                    Jobayan PH &middot; 
+                    <a href="{{host}}/privacy" target="_blank" 
+                        style="color: #b0b3b4;
+                        text-decoration: none;">Our Privacy Policy</a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

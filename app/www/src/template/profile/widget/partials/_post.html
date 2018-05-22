@@ -1,0 +1,80 @@
+
+{{#each item.rows}}
+    <div class="widget-post">
+        <div class="title">
+            <a 
+                href="#"
+                data-do="widget-job-title"
+                data-on="click"
+                data-post="{{post_id}}"
+                {{#if ../item.widget_header_color}}
+                    style="color: {{../item.widget_header_color}}"
+                {{/if}}
+            >{{post_position}}</a>
+        </div>
+        <div class="company">
+            {{post_name}}
+        </div>
+        <div class="details">
+            <span class="arrangement">
+                <i class="fa fa-clock-o"></i>
+                {{#if post_arrangement}}
+                    {{toucfirst post_arrangement}}
+                {{else}}
+                    N/A
+                {{/if}}
+            </span>
+            <span class="location">
+                <i class="fa fa-map-marker"></i>
+                {{#if post_location}}
+                    {{post_location}}
+                {{else}}
+                    N/A
+                {{/if}}
+            </span>
+            <span class="experience">
+                <i class="fa fa-certificate"></i>
+                {{#if post_experience}}
+                    {{post_experience}} Yrs Exp.
+                {{else}}
+                    N/A
+                {{/if}}
+            </span>
+            {{#when ../item.widget_type '==' 'career_page'}}
+                <span class="salary">
+                    {{#if post_salary_max}}
+                        {{#if post_currency}}
+                            {{post_currency}}
+                        {{else}}
+                            &#8369; 
+                        {{/if}}
+                        {{number post_salary_min}} - 
+                        {{#if post_currency}}
+                            {{post_currency}}
+                        {{else}}
+                            &#8369; 
+                        {{/if}}
+                        {{number post_salary_max}}
+                    {{else}}
+                        {{#if post_salary_min}}
+                            {{#if post_currency}}
+                                {{post_currency}}
+                            {{else}}
+                                &#8369; 
+                            {{/if}} 
+                            {{number post_salary_min}}
+                        {{/if}}
+                    {{/if}}
+                </span>
+            {{/when}}
+        </div>
+        <div class="tags">
+            {{#when ../item.widget_type '==' 'career_page'}}
+                {{#each post_tags}}
+                    <span class="tag-label">{{this}}</span>
+                {{/each}}
+            {{/when}}
+        </div>
+        <div class="created"><em>{{relative post_created}}</em></div>
+    </div>
+{{/each}}

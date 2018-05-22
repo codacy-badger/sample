@@ -1,0 +1,52 @@
+<!-- START: Credit Modal -->
+<div class="modal fade" id="credit_modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" type="button">
+                    &times;
+                </button>
+                <div class="modal-title text-uppercase">
+                    {{#_ '%s'}}
+                        You already have reached the <br />
+                        maximum post limit per day
+                    {{/_}}
+                </div>
+            </div>
+            <div class="modal-body clearfix">
+                {{#session 'me'}}
+                    {{#when profile_credits '>=' ../cost}}
+                        <p>
+                            {{#_ '%s'}}
+                                However, you can use your
+                                <strong>credits ({{profile_credits}})</strong>
+                                <br /> to proceed with this posting.
+                            {{/_}}
+                        </p>
+                        <button
+                            class="btn btn-primary"
+                            data-do="credit-pay"
+                            data-on="click">
+                            {{_ 'Use credits'}} ({{../cost}})
+                        </button>
+                    {{/when}}
+                    {{#when profile_credits '<' ../cost}}
+                        <p>
+                            {{#_ '%s'}}
+                                And you don't have enough credits. <br />
+                                Please top up your account first to proceed.
+                            {{/_}}
+                        </p>
+                        <a class="btn btn-default" href="/profile/credit/checkout">
+                            {{_ 'Add Credits'}}
+                        </a>
+                    {{/when}}
+                {{/session}}
+            </div>
+            <div class="modal-footer">
+                <a class="modal-credit" href="/services">{{_ 'Learn more about credits'}}</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Credit Modal -->

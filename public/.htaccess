@@ -1,0 +1,82 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+RewriteCond %{HTTP_HOST} !jobayan.local
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteCond %{HTTP_HOST} !^stage\. [NC]
+RewriteCond %{HTTP_HOST} !^stage2\. [NC]
+RewriteCond %{HTTP_HOST} !^stage3\. [NC]
+RewriteCond %{HTTP_HOST} !^app1\. [NC]
+RewriteCond %{HTTP_HOST} !^app2\. [NC]
+RewriteCond %{HTTP_HOST} !^app3\. [NC]
+RewriteCond %{HTTP_HOST} "jobayan.com"
+RewriteRule ^(.*)$ https://www.jobayan.com/$1 [L,R=301]
+
+RewriteCond %{HTTP:CF-Visitor} '"scheme":"http"'
+RewriteCond %{HTTP_HOST} !jobayan.local
+RewriteCond %{HTTP_HOST} !^stage\. [NC]
+RewriteCond %{HTTP_HOST} !^stage2\. [NC]
+RewriteCond %{HTTP_HOST} !^stage3\. [NC]
+RewriteCond %{HTTP_HOST} !^app1\. [NC]
+RewriteCond %{HTTP_HOST} !^app2\. [NC]
+RewriteCond %{HTTP_HOST} !^app3\. [NC]
+RewriteRule ^(.*)$ https://www.jobayan.com/$1 [L,R=301]
+
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+
+</IfModule>
+
+#REDIRECT PERMANENT
+Redirect 301 /about /About-Jobayan
+Redirect 301 /services /Affordable-Pricing
+Redirect 301 /terms /Terms-And-Conditions
+Redirect 301 /privacy /Privacy-Policy
+
+# BEGIN DEFLATE
+<IfModule mod_deflate.c>
+#The following line is enough for .js and .css
+AddOutputFilter DEFLATE js css
+AddOutputFilterByType DEFLATE text/plain text/xml application/xhtml+xml text/css application/xml application/rss+xml application/atom_xml application/x-javascript application/x-httpd-php application/x-httpd-fastphp text/html
+
+# Browser specific settings
+BrowserMatch ^Mozilla/4 gzip-only-text/html
+BrowserMatch ^Mozilla/4\.0[678] no-gzip
+BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+</IfModule>
+
+SetOutputFilter DEFLATE
+<IfModule mod_setenvif.c>
+SetEnvIfNoCase Request_URI \.(?:rar|zip)$ no-gzip dont-vary
+SetEnvIfNoCase Request_URI \.(?:gif|jpg|png)$ no-gzip dont-vary
+SetEnvIfNoCase Request_URI \.(?:avi|mov|mp4)$ no-gzip dont-vary
+SetEnvIfNoCase Request_URI \.mp3$ no-gzip dont-vary
+</IfModule>
+# END DEFLATE
+
+# BEGIN EXPIRES
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresDefault "access plus 10 days"
+
+# your document html
+ExpiresByType text/html "access plus 0 seconds"
+
+# media: images
+ExpiresByType image/gif "access plus 1 month"
+ExpiresByType image/png "access plus 1 month"
+ExpiresByType image/jpeg "access plus 1 month"
+ExpiresByType image/jpg "access plus 1 month"
+
+# css and javascripts
+ExpiresByType text/css "access plus 1 day"
+ExpiresByType text/plain "access plus 1 month"
+ExpiresByType application/x-javascript "access plus 1 day"
+ExpiresByType application/javascript "access plus 1 day"
+ExpiresByType application/x-icon "access plus 1 year"
+</IfModule>
+# END EXPIRES

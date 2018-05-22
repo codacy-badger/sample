@@ -1,0 +1,1 @@
+ALTER TABLE `action` CHANGE `action_event`  `action_event` varchar(255) DEFAULT NULL;
